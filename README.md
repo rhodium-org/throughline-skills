@@ -3,8 +3,10 @@
 Claude Code skills for working in [throughline](https://github.com/rhodium-org/throughline)
 IDD requirements repositories.
 
-Install once, and it applies in **your own repositories** — nothing needs to be
-committed into them, and nothing needs installing on your laptop.
+Install once, and it applies in **your own repositories**. Your graph is
+committed there, as it must be — throughline is git-native and the items are the
+product. It is the *skill* that stays out: no copy of it is vendored into your
+repo, and nothing is installed on your laptop.
 
 ## What's in it
 
@@ -29,7 +31,7 @@ Two routes — both work in the terminal and at [claude.ai/code](https://claude.
 **From the hosted catalogue** (same thing, no GitHub account needed to browse):
 
 ```
-/plugin marketplace add https://throughline-skill.iddn.uk/marketplace.json
+/plugin marketplace add https://iddn.uk/throughline-skill/marketplace.json
 /plugin install throughline-multigraph@throughline-skills
 ```
 
