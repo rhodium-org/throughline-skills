@@ -1,0 +1,25 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "throughline-skills",
+  "description": "Claude Code skills for working in throughline IDD requirements repositories.",
+  "owner": {
+    "name": "Dr Henry J Grech-Cini",
+    "url": "https://github.com/rhodium-org"
+  },
+  "plugins": [
+    {
+      "name": "throughline-multigraph",
+      "description": "Work correctly in a repository holding more than one throughline IDD requirements graph, composed with tl-compose.",
+      "version": "0.1.0",
+      "author": {
+        "name": "Dr Henry J Grech-Cini"
+      },
+      "license": "Apache-2.0",
+      "homepage": "https://throughline-skill.iddn.uk",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/rhodium-org/throughline-skills.git"
+      }
+    }
+  ]
+}
