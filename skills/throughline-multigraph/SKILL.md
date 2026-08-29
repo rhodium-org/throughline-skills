@@ -180,7 +180,8 @@ three things:
   hunting for a graph defect — it is an environment failure, not a finding.
 - **The source cache starts empty.** The first `check` re-fetches every remote
   source, so it is slow but always current — the moved-tag staleness trap below
-  cannot fire in a fresh session, only on a warm machine.
+  cannot fire in a fresh session, only on a warm machine running compose below
+  0.16.1.
 
 To spare every user the install step, a repo can bootstrap the CLI itself with a
 `SessionStart` hook in `.claude/settings.json` running `pip install
@@ -188,10 +189,13 @@ throughline-compose`. Keep this skill's own check anyway; a hook may be absent.
 
 ## Traps
 
-- **A moved git tag is not refetched** (warm machines only). The cache is keyed by
-  ref. Bump the `ref` or `rm -rf ~/.cache/throughline-compose/sources/…@<ref>`, or
-  you get a silent stale-content pass. `path` sources are read live and are not
-  affected.
+- **A moved git tag is only picked up from compose 0.16.1.** From that release a
+  cached source whose `ref` is a tag or branch is checked against its origin before
+  reuse and refetched if it moved; a commit-id ref costs no network call. **Below
+  0.16.1 a moved tag is never refetched and you get a silent stale-content pass** —
+  bump the `ref` or `rm -rf ~/.cache/throughline-compose/sources/…@<ref>`. Check
+  with `tl-compose --version` before trusting either behaviour. `path` sources are
+  read live and are not affected.
 - **`query`/`ls` only became union-aware in compose 0.12.0.** On 0.11.0 and
   earlier they answer over local items only, while `check` composes — so a listing
   can disagree with a check in the same graph. Confirm with `tl-compose --version`
