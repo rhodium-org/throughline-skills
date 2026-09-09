@@ -1,0 +1,15 @@
+uid: TEST-0002
+type: test
+status: proposed
+title: The siblings command prints every parent and every other child, and the skill
+  states the three questions
+text: Run siblings on an item with three parents of different link types and confirm
+  each parent, its text, and every other child under it appear. Read the skill and
+  confirm it puts the strength, naming and rationale questions and the collision
+  sweep in terms a reader can apply without the tool.
+normative: true
+links:
+- target: REQ-0002
+  type: verifies
+attrs:
+  origin: ai

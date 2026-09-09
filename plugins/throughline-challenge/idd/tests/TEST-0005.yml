@@ -1,0 +1,15 @@
+uid: TEST-0005
+type: test
+status: proposed
+title: The skill tells the reader that borrowed ratified-stale findings are the source's
+  to fix
+text: Read the skill and confirm it says a consumer's check prints the specification's
+  own ratified-stale and unratified findings, that they are fixed in the specification
+  repository, and that a branch is not pinned to hide them. Confirm on a scratch
+  consumer pinned to a moved ref that such findings do appear.
+normative: true
+links:
+- target: REQ-0005
+  type: verifies
+attrs:
+  origin: ai

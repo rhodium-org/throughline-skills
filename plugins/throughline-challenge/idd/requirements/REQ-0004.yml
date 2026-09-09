@@ -1,0 +1,21 @@
+uid: REQ-0004
+type: requirement
+status: proposed
+title: An implementation graph detects and triages a moved specification through
+  stamped links
+text: Every link from a local item into the specification namespace carries a stamp
+  of the target's fingerprint. The script lists unstamped links. When the specification
+  is repinned, each suspect-link finding is one local item whose target changed;
+  the skill says to read the target as it now stands and either refresh the stamp
+  with a note of what moved, or move the item to suspect, amend it, change the code
+  and run the tests its verifies links name, then refresh. A stamp is refreshed by
+  unlink then link with stamp, because linking again adds a second edge and leaves
+  the stale one. The script also lists specification items of given types that no
+  local item links to, each of which needs an implementer or a recorded non-goal.
+normative: true
+links:
+- target: INT-0001
+  type: derives_from
+attrs:
+  priority: must
+  origin: ai

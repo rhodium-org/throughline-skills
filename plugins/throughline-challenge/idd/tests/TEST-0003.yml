@@ -1,0 +1,14 @@
+uid: TEST-0003
+type: test
+status: proposed
+title: The skill's fix and hand-off rules match the tool's behaviour
+text: Amend a ratified item in a scratch copy and confirm it stays ratified with
+  a ratified-stale finding, which is what the skill says. Confirm the skill forbids
+  editing ratification attributes and checking out an item, requires the composing
+  binary for docs, and ends with a ratify command that names the graph root.
+normative: true
+links:
+- target: REQ-0003
+  type: verifies
+attrs:
+  origin: ai

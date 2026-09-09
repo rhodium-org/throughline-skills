@@ -1,0 +1,17 @@
+uid: TEST-0004
+type: test
+status: proposed
+title: A stamped link goes suspect when the source moves and is clean after unlink
+  and relink
+text: In a scratch consumer graph pinned to an older tag of a source, link a local
+  item to a source item with stamp, repin to a ref where that item changed, and confirm
+  check reports suspect-link on the local item. Run link with stamp again and confirm
+  a second edge appears and the finding stays. Unlink and relink with stamp and confirm
+  the finding is gone. Run unstamped and uncovered and confirm each lists what it
+  should.
+normative: true
+links:
+- target: REQ-0004
+  type: verifies
+attrs:
+  origin: ai

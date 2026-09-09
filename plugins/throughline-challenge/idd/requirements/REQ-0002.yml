@@ -1,0 +1,18 @@
+uid: REQ-0002
+type: requirement
+status: proposed
+title: The semantic challenges are a reading procedure over the item's family
+text: Link strength in both directions, siblings that name the same things differently,
+  and a rationale narrower than its family cannot be settled by a script. The skill
+  gives a siblings command that prints every parent of an item and the other children
+  under each, and states the three questions to put while holding them together,
+  plus a collision sweep over the siblings' absolute clauses. A satisfies link into
+  a standard is treated as a claim the clause was read; a knowing deviation is relates
+  with the reason.
+normative: true
+links:
+- target: INT-0001
+  type: derives_from
+attrs:
+  priority: must
+  origin: ai

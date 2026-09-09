@@ -1,0 +1,19 @@
+uid: TEST-0001
+type: test
+status: proposed
+title: Each deterministic check finds a planted defect and nothing else on a clean
+  fixture
+text: 'Build a small dump with one planted defect per check: a rationale naming a
+  UID with no link, a parent saying every with one non-test child, a branch whose
+  only test is manual, a normative item with no negative clause, a sentence with
+  a vague predicate, and a link type named superseded_by on a live item. Run each
+  command and confirm one finding each; run them on the fixture with the defects
+  removed and confirm none. Add a borrowed item whose text names a bare UID that
+  exists in both its namespace and locally, and confirm the mention resolves to its
+  own namespace. Confirm the all command skips borrowed items.'
+normative: true
+links:
+- target: REQ-0001
+  type: verifies
+attrs:
+  origin: ai

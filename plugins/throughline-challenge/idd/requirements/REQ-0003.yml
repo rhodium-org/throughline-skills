@@ -1,0 +1,19 @@
+uid: REQ-0003
+type: requirement
+status: proposed
+title: Fixes go through the CLI and the hand-off names what became stale
+text: An AI-origin item still proposed is fixed directly with amend, link and unlink.
+  A ratified item that must change is amended and left ratified-stale for its human
+  to accept or revert; its ratification attributes are never touched and it is never
+  checked out to escape the finding. Every prose mention reported gets a link or
+  a reword. The pass ends by re-running the script, the strict composed check and
+  the docs check with the composing binary, committing explicit paths, and handing
+  off with the count of new and stale items and the exact ratify command for that
+  graph root.
+normative: true
+links:
+- target: INT-0001
+  type: derives_from
+attrs:
+  priority: must
+  origin: ai

@@ -1,0 +1,15 @@
+uid: INT-0001
+type: intent
+status: proposed
+title: A graph is challenged for what tl check cannot see before a human is asked
+  to ratify it, and an implementation is re-checked when its specification moves
+text: Structural validation proves that every item reaches a root. It cannot see
+  a child that claims more than its parent grants, siblings that name one thing two
+  ways, prose that cites an item the links never record, a branch no machine verifies,
+  or a new item that contradicts a ratified one. This skill runs that pass by hand,
+  with a script for the checks that need no judgement, before proposed items are
+  handed to a human, and again for an implementation graph whenever the specification
+  it composes has moved.
+normative: true
+attrs:
+  origin: ai

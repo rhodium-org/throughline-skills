@@ -1,0 +1,20 @@
+uid: REQ-0001
+type: requirement
+status: proposed
+title: The deterministic challenges run from a dump with no dependency beyond the
+  standard library
+text: A script reads the JSON that tl-compose dump or tl dump emits and reports prose
+  mentions without an edge, universal language realised by exactly one non-test child,
+  verification tallied per branch with the members no test verifies, normative items
+  with no failure clause, sentences with a vague predicate, and live items carrying
+  a link whose name reads as replacement. It runs the tool itself when given a graph
+  root, or reads a saved dump. Every command exits 0; the output is a review list
+  and never a gate. A finding on a borrowed item resolves a bare UID inside that
+  item's own namespace, and a local-only mode skips borrowed items.
+normative: true
+links:
+- target: INT-0001
+  type: derives_from
+attrs:
+  priority: must
+  origin: ai
