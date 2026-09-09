@@ -81,3 +81,10 @@ rejected    = ["draft", "deleted"]
 filter = "type == 'requirement' and status != 'deleted'"
 needs = "incoming:verifies"
 severity = "warning"
+
+# The default registers create TEST items but declare no type table; declaring
+# it lets the type carry a method attribute
+[types.test]
+# The skill's own verification check tallies tests per branch by method;
+# without it the graph reads as having no automated check
+attrs.method = { type = "enum", values = ["automated", "manual", "document"] }
