@@ -1,6 +1,6 @@
 uid: REQ-0003
 type: requirement
-status: proposed
+status: ratified
 title: Fixes go through the CLI and the hand-off names what became stale
 text: An AI-origin item still proposed is fixed directly with amend, link and unlink.
   A ratified item that must change is amended and left ratified-stale for its human
@@ -17,3 +17,5 @@ links:
 attrs:
   priority: must
   origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:75547fa20ce757d78b3451e616ca60772e9ff27a3180347fe89fc45e32434c69

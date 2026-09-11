@@ -1,6 +1,6 @@
 uid: TEST-0002
 type: test
-status: proposed
+status: ratified
 title: The siblings command prints every parent and every other child, and the skill
   states the three questions
 text: Run siblings on an item with three parents of different link types and confirm
@@ -16,3 +16,5 @@ links:
 attrs:
   origin: ai
   method: document
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:b228c8a8c22e3b75f44d2bf081762366d90f235786b15574aee13018931254e9

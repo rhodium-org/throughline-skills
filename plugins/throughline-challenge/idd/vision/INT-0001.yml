@@ -1,6 +1,6 @@
 uid: INT-0001
 type: intent
-status: proposed
+status: ratified
 title: A graph is challenged for what tl check cannot see before a human is asked
   to ratify it, and an implementation is re-checked when its specification moves
 text: Structural validation proves that every item reaches a root. It cannot see
@@ -13,3 +13,5 @@ text: Structural validation proves that every item reaches a root. It cannot see
 normative: true
 attrs:
   origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:9d186622863ad0ec377f86629b4d86c7121b3c5e8579fcb9f95e5c7f0842189b

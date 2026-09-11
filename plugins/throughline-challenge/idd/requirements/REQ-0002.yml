@@ -1,6 +1,6 @@
 uid: REQ-0002
 type: requirement
-status: proposed
+status: ratified
 title: The semantic challenges are a reading procedure over the item's family
 text: 'Link strength in both directions, siblings that name the same things differently,
   and a rationale narrower than its family cannot be settled by a script. The skill
@@ -30,3 +30,5 @@ links:
 attrs:
   priority: must
   origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:3488aa525204fe661bd186f2e1b7c6d7464bb4534cc775431002010b23ad0738

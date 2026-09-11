@@ -1,6 +1,6 @@
 uid: TEST-0005
 type: test
-status: proposed
+status: ratified
 title: The skill tells the reader that borrowed ratified-stale findings are the source's
   to fix
 text: Read the skill and confirm it says a consumer's check prints the specification's
@@ -14,3 +14,5 @@ links:
 attrs:
   origin: ai
   method: document
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:13de7d178d040345cbffabbc99779d06e4263d61fb7d0d94b35cbcc6e6833103

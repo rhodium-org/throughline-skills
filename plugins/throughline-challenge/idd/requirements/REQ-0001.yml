@@ -1,6 +1,6 @@
 uid: REQ-0001
 type: requirement
-status: proposed
+status: ratified
 title: The deterministic challenges run in the sandbox from a dump with nothing to
   install
 text: The skill ships a script that reads the JSON that tl-compose dump, or bare
@@ -41,3 +41,5 @@ links:
 attrs:
   priority: must
   origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:693bdfd8971882d58eb665fecf79fabb81b40d4fa586ebf4f8b8e3f953457452

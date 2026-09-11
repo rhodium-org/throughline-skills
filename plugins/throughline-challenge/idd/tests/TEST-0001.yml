@@ -1,6 +1,6 @@
 uid: TEST-0001
 type: test
-status: proposed
+status: ratified
 title: The script runs from a dump in a clean interpreter and performs every deterministic
   challenger requirement
 text: In a Python interpreter with no third-party packages, run the script on a saved
@@ -16,3 +16,5 @@ links:
 attrs:
   origin: ai
   method: automated
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:1691c476d4fec8e502e80b98a81e2d85477b2d51cd2f33c8f0beb3c7b6801cf5
