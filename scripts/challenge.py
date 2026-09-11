@@ -111,7 +111,10 @@ def in_path(sent: str, m: "re.Match") -> bool:
     """A UID-shaped token that is part of a file path: preceded by a path
     separator, or followed by a file extension (REQ-0002)."""
     before = sent[m.start() - 1] if m.start() > 0 else ""
-    return before in "/\\" or re.match(r"\.\w", sent[m.end():m.end() + 2]) is not None
+    # Tuple membership: an empty `before` (token starts the sentence) is a
+    # substring of every string, so a plain `in "/\\"` test would call every
+    # sentence-initial UID a path.
+    return before in ("/", "\\") or re.match(r"\.\w", sent[m.end():m.end() + 2]) is not None
 
 
 def cmd_mentions(g: Graph, args) -> None:
