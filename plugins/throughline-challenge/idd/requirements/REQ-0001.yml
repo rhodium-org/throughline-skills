@@ -1,23 +1,19 @@
 uid: REQ-0001
 type: requirement
 status: proposed
-title: The deterministic challenges run from a dump with no dependency beyond the
-  standard library
-text: A script reads the JSON that tl-compose dump or tl dump emits and reports prose
-  mentions without an edge, universal language realised by exactly one non-test child,
-  verification tallied per branch with the members no test verifies, normative items
-  with no failure clause, sentences with a vague predicate, and live items carrying
-  a link whose name reads as replacement. It runs the tool itself when given a graph
-  root, or reads a saved dump. Every command exits 0; the output is a review list
-  and never a gate. A finding on a borrowed item resolves a bare UID inside that
-  item's own namespace, and a local-only mode skips borrowed items.
+title: The deterministic challenges run in the sandbox from a dump with nothing to
+  install
+text: The skill ships a script that reads the JSON that tl-compose dump, or bare
+  tl dump, emits and performs every challenger requirement that needs no judgement.
+  It depends on nothing beyond the Python standard library, so it runs in a Claude
+  sandbox where nothing can be installed on the user's machine. Given a graph root
+  it runs the tool itself; given a saved dump it reads that. Which checks it performs,
+  and what each reports, is specified by the challenger requirements this item implements
+  and is not restated here.
 normative: true
 links:
 - target: INT-0001
   type: derives_from
-- target: challenger:REQ-0002
-  type: implements
-  stamp: sha256:bd611dd68f00cd14a6b9413e8a0f2fff756ec6271405723685bea16fc7f765c0
 - target: challenger:REQ-0004
   type: implements
   stamp: sha256:a84576c0b29ffb8374755bed9d8523524f6562dcfc7f757ac05f0bf80343f339
@@ -30,9 +26,18 @@ links:
 - target: challenger:REQ-0008
   type: implements
   stamp: sha256:a2e18725e8661d234f39e290cfafaf372ce65b2bd3adcdfcf0f3f283cc5b12cf
+- target: challenger:REQ-0002
+  type: implements
+  stamp: sha256:5d9fc5dd345cb6c06b5bae6a735ba02691743d8b396edb7681a6066ceb1576e6
 - target: challenger:REQ-0009
   type: implements
-  stamp: sha256:1c26d4cac5eaabcd66ce5c771def234f292e5f769d2aa3b00f67b5b4849bef5f
+  stamp: sha256:f6e92127d3a2be4f3b73df9d628f8451cb76218abcf11245e6dfbf90d351b4ab
+- target: challenger:REQ-0010
+  type: implements
+  stamp: sha256:c69fb8f08d4c41fd4b3f6945843f454bbf8575b2895ddd47ef93e639329892d4
+- target: challenger:REQ-0011
+  type: implements
+  stamp: sha256:ad8632cd982da08b3f54a11ff71e1491846bd9555a8c87ee69420957344932dc
 attrs:
   priority: must
   origin: ai

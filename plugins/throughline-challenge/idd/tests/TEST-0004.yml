@@ -1,6 +1,6 @@
 uid: TEST-0004
 type: test
-status: proposed
+status: deleted
 title: A stamped link goes suspect when the source moves and is clean after unlink
   and relink
 text: In a scratch consumer graph pinned to an older tag of a source, link a local
@@ -16,3 +16,6 @@ links:
 attrs:
   origin: ai
   method: automated
+deleted:
+  reason: Verified requirement REQ-0004 moved upstream to throughline-challenger
+    REQ-0010..0012, whose tests TEST-0010..0012 replace this one.

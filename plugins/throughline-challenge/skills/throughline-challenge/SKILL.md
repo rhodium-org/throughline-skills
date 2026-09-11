@@ -14,9 +14,12 @@ whether a new item quietly contradicts a ratified one. Those are the defects a
 human ratifier is asked to catch, and ratifiers miss them.
 
 This skill is the hand-run form of the challenge pass that the throughline
-family's `throughline-challenger` tool is designed to automate. The nine
-challenges below are its; the script here does the deterministic ones, and the
-rest are questions you put to the graph by reading items held together.
+family's `throughline-challenger` tool is designed to automate. The twelve
+challenges below are its, each cited by its UID in that graph
+([rhodium-org/throughline-challenger](https://github.com/rhodium-org/throughline-challenger),
+which this skill's own graph composes at `v0.2.0`); the script here does the
+deterministic ones, and the rest are questions you put to the graph by reading
+items held together.
 
 It has two parts. **Part A** challenges a graph you have just changed, before
 hand-off. **Part B** re-checks an implementation graph against the specification
@@ -37,19 +40,24 @@ command exits 0: the output is a review list, never a gate. If the plugin root
 variable is unset, the script sits at `scripts/challenge.py` beside this file's
 plugin.
 
-## The nine challenges
+## The twelve challenges
 
-| # | Challenge | Who does it |
-|---|---|---|
-| 1 | **Link strength.** Does the parent entail the child at the stated modal strength, in both directions, and does a `satisfies` link to a standard claim no more than the clause grants? | you, from `siblings` |
-| 2 | **Prose mention without an edge.** Text or rationale names an item by UID and the links block has no edge to it. | `mentions` |
-| 3 | **Same things, different names.** Siblings under one parent enumerate a set and quantify over a narrower or differently named class of it. | you, from `siblings` |
-| 4 | **Verification per branch.** How each branch is verified; a branch with no automated check, or whose automated checks all sit on one kind of item. | `verification` |
-| 5 | **Untestable as written.** A predicate no observation of the running system could settle. | `untestable` (word list) + you |
-| 6 | **Rationale narrower than the family.** Would an implementation satisfying this item and its stated reason break a sibling? | you, from `siblings` |
-| 7 | **No failure case.** The item says what is wanted and never what a violation looks like. Weak signal; review order, not a gate. | `failure-case` |
-| 8 | **Points at its own replacement.** A live item carrying a link whose meaning is that the target replaces it. | `replacement` by name; you classify the vocabulary by meaning |
-| 9 | **Universal force, one mechanism.** "always/every/never" on a parent that exactly one non-test child realises. | `universal` |
+| # | Challenger | Challenge | Who does it |
+|---|---|---|---|
+| 1 | REQ-0001 | **Link strength.** Does the parent entail the child at the stated modal strength, in both directions, and does a `satisfies` link to a standard claim no more than the clause grants? | you, from `siblings` |
+| 2 | REQ-0002 | **Prose mention without an edge.** Text or rationale names an item by UID and the links block has no edge to it. | `mentions` |
+| 3 | REQ-0003 | **Same things, different names.** Siblings under one parent enumerate a set and quantify over a narrower or differently named class of it. | you, from `siblings` |
+| 4 | REQ-0004 | **Verification per branch.** How each branch is verified; a branch with no automated check, or whose automated checks all sit on one kind of item. | `verification` |
+| 5 | REQ-0005 | **Untestable as written.** A predicate no observation of the running system could settle. | `untestable` (word list) + you |
+| 6 | REQ-0006 | **Rationale narrower than the family.** Would an implementation satisfying this item and its stated reason break a sibling? | you, from `siblings` |
+| 7 | REQ-0007 | **No failure case.** The item says what is wanted and never what a violation looks like. Weak signal; review order, not a gate. | `failure-case` |
+| 8 | REQ-0008 | **Points at its own replacement.** A live item carrying a link whose meaning is that the target replaces it. | `replacement` by name; you classify the vocabulary by meaning |
+| 9 | REQ-0009 | **Universal force, one mechanism.** "always/every/never" on a parent that exactly one non-test child realises. | `universal` |
+| 10 | REQ-0010 | **Unstamped link into a source.** A link into a composed specification with no stamp cannot tell when its target moves. | `unstamped` |
+| 11 | REQ-0011 | **Spec item nothing implements.** A borrowed item of an implementable type with no incoming local link. | `uncovered` |
+| 12 | REQ-0012 | **Stamped target moved.** The target as stamped beside the target as it stands; does the item still hold? | you, from `check` and the source cache |
+
+Challenges 1 to 9 are Part A; 10 to 12 are Part B.
 
 ## Part A: challenge a graph before hand-off
 
@@ -145,6 +153,8 @@ settle are questions for the ratifier, stated as questions.
 This applies when a graph composes another graph as its specification, for
 example an implementation graph whose `[[sources]]` block names the spec under a
 namespace such as `spec`, and the spec has since been re-ratified or re-tagged.
+It performs challenger REQ-0010 (unstamped links), REQ-0011 (spec items nothing
+implements) and REQ-0012 (the question when a stamped target moved).
 
 ### 1. Stamp every link into the spec
 

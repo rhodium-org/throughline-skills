@@ -2,13 +2,15 @@ uid: REQ-0002
 type: requirement
 status: proposed
 title: The semantic challenges are a reading procedure over the item's family
-text: Link strength in both directions, siblings that name the same things differently,
+text: 'Link strength in both directions, siblings that name the same things differently,
   and a rationale narrower than its family cannot be settled by a script. The skill
   gives a siblings command that prints every parent of an item and the other children
   under each, and states the three questions to put while holding them together,
-  plus a collision sweep over the siblings' absolute clauses. A satisfies link into
+  plus a collision sweep over the siblings'' absolute clauses. A satisfies link into
   a standard is treated as a claim the clause was read; a knowing deviation is relates
-  with the reason.
+  with the reason. A stamped link whose target has changed is read the same way:
+  the target as it was stamped beside the target as it now stands, and the question
+  whether the item still holds is put to the reader rather than decided.'
 normative: true
 links:
 - target: INT-0001
@@ -22,6 +24,9 @@ links:
 - target: challenger:REQ-0006
   type: implements
   stamp: sha256:02f5946b163f85797c35f5904856f31f1d89738f4d6d1e8dfa2857a233c79a23
+- target: challenger:REQ-0012
+  type: implements
+  stamp: sha256:65c17544a205b4275650d6e902d991d28518cb16ff779031a3607ae19f895a0b
 attrs:
   priority: must
   origin: ai

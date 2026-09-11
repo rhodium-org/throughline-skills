@@ -1,16 +1,14 @@
 uid: TEST-0001
 type: test
 status: proposed
-title: Each deterministic check finds a planted defect and nothing else on a clean
-  fixture
-text: 'Build a small dump with one planted defect per check: a rationale naming a
-  UID with no link, a parent saying every with one non-test child, a branch whose
-  only test is manual, a normative item with no negative clause, a sentence with
-  a vague predicate, and a link type named superseded_by on a live item. Run each
-  command and confirm one finding each; run them on the fixture with the defects
-  removed and confirm none. Add a borrowed item whose text names a bare UID that
-  exists in both its namespace and locally, and confirm the mention resolves to its
-  own namespace. Confirm the all command skips borrowed items.'
+title: The script runs from a dump in a clean interpreter and performs every deterministic
+  challenger requirement
+text: In a Python interpreter with no third-party packages, run the script on a saved
+  dump and confirm it runs. Run it on a graph root with tl-compose installed and
+  confirm it runs the tool itself. For each challenger requirement that this skill's
+  REQ-0001 implements, confirm the script has a command whose output is that requirement's
+  finding; the fixtures and expected findings are the ones the challenger's own tests
+  describe.
 normative: true
 links:
 - target: REQ-0001

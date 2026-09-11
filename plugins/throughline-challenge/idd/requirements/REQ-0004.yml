@@ -1,6 +1,6 @@
 uid: REQ-0004
 type: requirement
-status: proposed
+status: deleted
 title: An implementation graph detects and triages a moved specification through
   stamped links
 text: Every link from a local item into the specification namespace carries a stamp
@@ -19,3 +19,7 @@ links:
 attrs:
   priority: must
   origin: ai
+deleted:
+  reason: 'Moved upstream: throughline-challenger REQ-0010, REQ-0011 and REQ-0012
+    own this behaviour from v0.2.0; the skill''s procedure for it now sits in REQ-0002
+    and REQ-0003.'

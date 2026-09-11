@@ -1,7 +1,7 @@
 {
   "name": "throughline-challenge",
   "description": "Challenge a throughline IDD graph for what tl check cannot see before hand-off, and re-check an implementation graph against a specification it composes once that specification moved.",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "author": {
     "name": "Dr Henry J Grech-Cini"
   },
