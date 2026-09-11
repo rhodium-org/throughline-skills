@@ -1,5 +1,5 @@
 [project]
-name = "throughline-challenge"
+name = "tl-challenge"
 format_version = 3
 
 # Root item types may exist ungrounded; everything else must reach a root

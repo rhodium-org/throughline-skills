@@ -1,5 +1,5 @@
 ---
-name: throughline-multigraph
+name: multigraph
 description: Manage a repository that holds MORE THAN ONE throughline IDD graph — several `throughline.toml` files composed together with `tl-compose` (e.g. an anchor graph describing the shared subject, plus one graph per role, discipline, brand or rendering). Use when a repo has multiple `throughline.toml` files, when adding a new graph to such a repo, when wiring one in-repo graph to borrow from another via a `path` source, when a check passes in one graph but the seam to a sibling is broken, or when ratifying items whose grounding chain crosses graphs. For a single-graph repo, follow the graph's own `tl-compose context` brief instead.
 user-invocable: true
 ---

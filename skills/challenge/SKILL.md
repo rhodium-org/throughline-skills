@@ -1,5 +1,5 @@
 ---
-name: throughline-challenge
+name: challenge
 description: Run a challenge pass over a throughline IDD graph before handing proposed items to a human to ratify, and re-check an implementation graph against a specification it composes once that specification has been re-ratified or re-tagged. Use when asked to "run the challenger" or "challenge the graph", before any hand-off of proposed or amended items, after amending ratified items, or when a composed source moved and you need to know which local items are now suspect, which links into it are unstamped, and which of its items nothing local implements. `tl check` proves structure; this pass asks whether the graph is also true.
 user-invocable: true
 ---
@@ -17,7 +17,7 @@ This skill is the hand-run form of the challenge pass that the throughline
 family's `throughline-challenger` tool is designed to automate. The twelve
 challenges below are its, each cited by its UID in that graph
 ([rhodium-org/throughline-challenger](https://github.com/rhodium-org/throughline-challenger),
-which this skill's own graph composes at `v0.2.0`); the script here does the
+which this skill's own graph composes at the tag its `throughline.toml` names); the script here does the
 deterministic ones, and the rest are questions you put to the graph by reading
 items held together.
 

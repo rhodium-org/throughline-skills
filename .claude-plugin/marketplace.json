@@ -8,9 +8,9 @@
   },
   "plugins": [
     {
-      "name": "throughline-multigraph",
-      "description": "Work correctly in a repository holding more than one throughline IDD requirements graph, composed with tl-compose.",
-      "version": "0.1.0",
+      "name": "tl",
+      "description": "Skills for working in throughline IDD requirements repositories: /tl:challenge runs the challenge pass tl check cannot, and /tl:multigraph manages a repository holding more than one graph.",
+      "version": "1.0.0",
       "author": {
         "name": "Dr Henry J Grech-Cini"
       },
@@ -19,21 +19,6 @@
       "source": {
         "source": "url",
         "url": "https://github.com/rhodium-org/throughline-skills.git"
-      }
-    },
-    {
-      "name": "throughline-challenge",
-      "description": "Challenge a throughline IDD graph for what tl check cannot see before hand-off, and re-check an implementation graph against a specification it composes once that specification moved.",
-      "version": "0.2.1",
-      "author": {
-        "name": "Dr Henry J Grech-Cini"
-      },
-      "license": "Apache-2.0",
-      "homepage": "https://iddn.uk/throughline-skill/",
-      "source": {
-        "source": "git-subdir",
-        "url": "https://github.com/rhodium-org/throughline-skills.git",
-        "path": "plugins/throughline-challenge"
       }
     }
   ]
