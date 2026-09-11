@@ -4,118 +4,221 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>throughline skills for Claude Code — IDDⁿ</title>
-<meta name="description" content="A Claude Code plugin marketplace for working in throughline IDD requirements repositories.">
+<meta name="description" content="A Claude Code plugin marketplace for working in throughline IDD requirements repositories: /tl:challenge and /tl:multigraph.">
 <link rel="canonical" href="https://skills.iddn.uk/">
-<meta name="theme-color" content="#0E1014">
+<meta name="theme-color" content="#0E1014" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#F2F4F7" media="(prefers-color-scheme: light)">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600&family=JetBrains+Mono:wght@400;500;700&family=Source+Serif+4:opsz,ital,wght@8..60,0,300;8..60,1,300&display=swap" rel="stylesheet">
 <style>
 /* This page is served at skills.iddn.uk by an image that iddn.uk builds from
-   this repository at a named ref (iddn.uk REQ-0044). The colour tokens are the
-   iddn.uk splash's, copied so the page is one file with no third-party origin. */
+   this repository at a named ref (iddn.uk REQ-0044). The tokens, ratios and
+   type are the iddn.uk splash's (REQ-0002 here): every colour resolves through
+   a token declared in both palettes, and the measured ratio sits beside each
+   value — page ground first, raised panel second. */
 :root{
-  --ink:#0E1014; --raised:#161A20;
-  --rhodium:#DDE2E7;      /* 14.60 on ink */
-  --rhodium-dim:#A8B1B9;  /*  8.75 */
-  --intent:#E8A33D;       /*  8.83 */
-  --hairline:#242A32;
+  --ink:#0E1014;
+  --ink-raised:#161A20;
+  --rhodium:#DDE2E7;      /* 14.60 · 13.39 */
+  --rhodium-dim:#A8B1B9;  /*  8.75 ·  8.03 */
+  --patina:#7B858E;       /*  5.07 ·  4.65 */
+  --intent:#E8A33D;       /*  8.83 ·  8.10 */
+  --hairline:#242A32;     /* dividers only, never a control boundary */
+  --edge:#5E6773;         /* control boundaries: 3.32 · 3.05 */
+  --glow:#1B2129;
+  --display:'Archivo',system-ui,sans-serif;
+  --body:'Source Serif 4',Georgia,'Times New Roman',serif;
+  --mono:'JetBrains Mono',ui-monospace,Menlo,Consolas,monospace;
+  --gutter:clamp(1.25rem,5vw,4rem);
   color-scheme:dark;
 }
 @media (prefers-color-scheme:light){
   :root{
-    --ink:#F2F4F7; --raised:#FFFFFF;
-    --rhodium:#11151A;      /* 16.63 on ink */
-    --rhodium-dim:#39424C;  /*  9.26 */
-    --intent:#7A4A00;       /*  6.79 */
-    --hairline:#D3D8DE;
+    --ink:#F2F4F7;
+    --ink-raised:#FFFFFF;
+    --rhodium:#11151A;      /* 16.63 · 18.32 */
+    --rhodium-dim:#39424C;  /*  9.26 · 10.21 */
+    --patina:#5B646E;       /*  5.46 ·  6.01 */
+    --intent:#8A5A00;       /*  5.38 ·  5.93 */
+    --hairline:#DFE3E8;
+    --edge:#7C858E;         /* control boundaries: 3.40 · 3.75 */
+    --glow:#FFFFFF;
     color-scheme:light;
   }
 }
-*{box-sizing:border-box}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
 body{
-  margin:0; padding:clamp(2rem,7vw,5rem) clamp(1.25rem,5vw,4rem);
   background:var(--ink); color:var(--rhodium);
-  font:400 1.0625rem/1.65 Georgia,'Times New Roman',serif;
-  max-width:44rem;
+  font-family:var(--body); font-size:1.0625rem; line-height:1.65;
+  min-height:100svh; padding:var(--gutter);
 }
-h1{font:600 clamp(1.5rem,4vw,2rem)/1.2 system-ui,sans-serif; margin:0 0 .25rem}
-h2{font:600 1.0625rem/1.3 system-ui,sans-serif; margin:2.5rem 0 .5rem}
-p{margin:0 0 1rem}
-.lede{color:var(--rhodium-dim); margin-bottom:2rem}
-code,pre{font-family:ui-monospace,'JetBrains Mono',Menlo,Consolas,monospace; font-size:.9375rem}
+body::before{
+  content:''; position:fixed; inset:0; z-index:0; pointer-events:none;
+  background:radial-gradient(115% 75% at 50% -8%,var(--glow) 0%,transparent 60%);
+}
+.page{position:relative; z-index:1; max-width:72rem; margin:0 auto; display:flex; flex-direction:column; gap:clamp(2rem,5vh,3.5rem)}
+
+/* masthead rule, as on the splash */
+.rule{
+  display:flex; justify-content:space-between; align-items:baseline; gap:1rem; flex-wrap:wrap;
+  font-family:var(--mono); font-size:.7rem; letter-spacing:.16em; text-transform:uppercase;
+  color:var(--patina); border-bottom:1px solid var(--hairline); padding-bottom:.7rem;
+}
+.rule .mark{color:var(--rhodium-dim); font-weight:700; letter-spacing:.05em; text-transform:none}
+.rule a{color:inherit; text-decoration:none; min-height:24px; display:inline-block}
+.rule a:hover,.rule a:focus-visible{color:var(--intent)}
+
+/* hero */
+.hero{display:flex; flex-direction:column; gap:.9rem; max-width:70ch}
+.eyebrow{font-family:var(--display); font-size:.68rem; font-weight:600; letter-spacing:.28em; text-transform:uppercase; color:var(--patina)}
+h1{font-family:var(--display); font-weight:600; font-size:clamp(1.75rem,4.5vw,2.75rem); line-height:1.15; letter-spacing:-.01em}
+.lede{font-size:clamp(1.0625rem,1.6vw,1.2rem); color:var(--rhodium-dim); max-width:62ch}
+h2{font-family:var(--display); font-weight:600; font-size:1.1rem; letter-spacing:.02em; margin-bottom:.75rem}
+p{max-width:70ch}
+p+p{margin-top:.9rem}
+
+/* prose links: underlined, intent, sized by the sentence (2.5.8 inline exception) */
+main a{color:var(--intent); text-decoration:underline; text-underline-offset:.18em; text-decoration-thickness:1px}
+main a:hover{text-decoration-thickness:2px}
+a:focus-visible{outline:2px solid var(--intent); outline-offset:3px; border-radius:2px}
+
+/* two-up grids that collapse below 48rem */
+.grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,22rem),1fr)); gap:clamp(1rem,3vw,2rem)}
+
+/* panels: raised surface, hairline border */
+.panel{background:var(--ink-raised); border:1px solid var(--hairline); border-radius:6px; padding:clamp(1rem,2.5vw,1.5rem); display:flex; flex-direction:column; gap:.6rem}
+.panel h3{font-family:var(--mono); font-weight:500; font-size:1rem; color:var(--rhodium)}
+.panel p{color:var(--rhodium-dim); font-size:1rem}
+.panel .when{font-family:var(--display); font-size:.68rem; font-weight:600; letter-spacing:.2em; text-transform:uppercase; color:var(--patina)}
+
+code{font-family:var(--mono); font-size:.92em}
 pre{
-  background:var(--raised); border:1px solid var(--hairline); border-radius:4px;
-  padding:.875rem 1rem; margin:0 0 1rem;
-  white-space:pre-wrap; overflow-wrap:anywhere;   /* a command you copy is better wrapped than clipped (WCAG 1.4.10) */
+  font-family:var(--mono); font-size:.9375rem; line-height:1.6;
+  background:var(--ink-raised); border:1px solid var(--hairline); border-radius:6px;
+  padding:.9rem 1.1rem;
+  white-space:pre-wrap; overflow-wrap:anywhere;   /* wrapped, never clipped (1.4.10) */
 }
-a{color:var(--intent)}
-a:focus-visible{outline:2px solid var(--intent); outline-offset:3px}
-dt{font-family:ui-monospace,monospace; font-size:.9375rem; margin-top:1rem}
-dd{margin:.25rem 0 0; color:var(--rhodium-dim)}
-footer{
-  margin-top:3.5rem; padding-top:1.25rem; border-top:1px solid var(--hairline);
-  color:var(--rhodium-dim); font-size:.9375rem;
+.install .grid>div{display:flex; flex-direction:column; gap:.5rem}
+.install .grid .when{font-family:var(--display); font-size:.68rem; font-weight:600; letter-spacing:.2em; text-transform:uppercase; color:var(--patina)}
+
+/* footer signposts, as on the splash */
+footer{border-top:1px solid var(--hairline); padding-top:1.25rem}
+.posts{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:clamp(1rem,3vw,2rem)}
+.post{display:flex; flex-direction:column; gap:.4rem}
+.post a{
+  font-family:var(--mono); font-size:.85rem; font-weight:500;
+  color:var(--rhodium); text-decoration:none;
+  border-bottom:1px solid var(--edge); padding-bottom:.3rem; width:fit-content;
+  min-height:24px;                        /* 2.5.8 Target Size (Minimum) */
+  transition:color .18s ease,border-color .18s ease;
 }
+.post a:hover,.post a:focus-visible{color:var(--intent); border-color:var(--intent)}
+.post span{font-size:.9rem; color:var(--patina); line-height:1.45}
+.colophon{margin-top:1.25rem; font-family:var(--mono); font-size:.7rem; letter-spacing:.12em; text-transform:uppercase; color:var(--patina)}
+@media (prefers-reduced-motion:reduce){ *{transition:none !important} }
 </style>
 </head>
 <body>
+<div class="page">
+
+<div class="rule">
+  <span class="mark">IDDⁿ</span>
+  <span><a href="https://iddn.uk/">iddn.uk</a> · skills</span>
+</div>
+
 <main>
+<section class="hero">
+  <p class="eyebrow">Claude Code plugin marketplace</p>
+  <h1>throughline skills for Claude Code</h1>
+  <p class="lede">Two skills for working in
+  <a href="https://github.com/rhodium-org/throughline">throughline</a> IDD
+  requirements repositories. Install once and they apply in your own repos.
+  Your graph stays committed there, as it must be — throughline is git-native
+  and the items are the product. The skill is what stays out: nothing is
+  vendored into your repo, and nothing is installed on your laptop.</p>
+</section>
 
-<h1>throughline skills for Claude Code</h1>
-<p class="lede">A plugin marketplace for working in
-<a href="https://github.com/rhodium-org/throughline">throughline</a> IDD
-requirements repositories. Install once and it applies in your own repos. Your
-graph is committed there, as it must be — throughline is git-native and the
-items are the product. It is the skill that stays out: no copy of it is vendored
-into your repo, and nothing is installed on your laptop.</p>
-
-<h2>Install</h2>
-<p>In Claude Code, in the terminal or at
-<a href="https://claude.ai/code">claude.ai/code</a>:</p>
+<section class="install" aria-labelledby="install">
+  <h2 id="install">Install</h2>
+  <div class="grid">
+    <div>
+      <span class="when">Hosted, no GitHub account needed</span>
 <pre><code>/plugin marketplace add https://skills.iddn.uk/marketplace.json
 /plugin install tl@throughline-skills</code></pre>
-<p>If github.com is reachable, adding the repository directly does the same
-thing: <code>/plugin marketplace add rhodium-org/throughline-skills</code>.
-In the browser you can also use <b>Manage plugins → Marketplaces → Add
-marketplace</b> and paste either source.</p>
+    </div>
+    <div>
+      <span class="when">From GitHub, when github.com is reachable</span>
+<pre><code>/plugin marketplace add rhodium-org/throughline-skills
+/plugin install tl@throughline-skills</code></pre>
+    </div>
+  </div>
+  <p>Works in the terminal and at <a href="https://claude.ai/code">claude.ai/code</a>.
+  In the browser you can also use <b>Manage plugins → Marketplaces → Add
+  marketplace</b> and paste either source. To pick up a new version:
+  <code>/plugin marketplace update throughline-skills</code>.</p>
+</section>
 
-<h2>What's in it</h2>
-<dl>
-  <dt>/tl:multigraph</dt>
-  <dd>Repositories holding more than one throughline graph, composed with
-  <code>tl-compose</code>: picking the right binary per graph, wiring sibling
-  graphs by <code>path</code>, gating them all, and ratifying items whose
-  grounding chain crosses graphs.</dd>
-  <dt>/tl:challenge</dt>
-  <dd>A challenge pass before hand-off: the twelve questions <code>tl check</code>
-  cannot ask, with a script for the deterministic ones. Also re-checks an
-  implementation graph against a specification it composes once that
-  specification moved: stamped links, suspect-link triage, and spec items
-  nothing implements.</dd>
-</dl>
-<p>Each skill activates on its own when Claude notices the situation it covers,
-or you can invoke one as
-<code>/tl:multigraph</code> or <code>/tl:challenge</code>.</p>
+<section aria-labelledby="whats-in-it">
+  <h2 id="whats-in-it">What's in it</h2>
+  <div class="grid">
+    <article class="panel">
+      <span class="when">Before every hand-off</span>
+      <h3>/tl:challenge</h3>
+      <p>A challenge pass over a graph before a human is asked to ratify it: the
+      twelve questions <code>tl check</code> cannot ask, with a script for the
+      deterministic ones — link strength, prose that cites an item the links
+      never record, siblings naming one thing two ways, branches no machine
+      verifies, universal claims one child realises, and more.</p>
+      <p>Also re-checks an implementation graph against a specification it
+      composes once that specification moved: stamped links, suspect-link
+      triage, and spec items nothing implements.</p>
+    </article>
+    <article class="panel">
+      <span class="when">More than one graph in a repository</span>
+      <h3>/tl:multigraph</h3>
+      <p>Repositories holding several throughline graphs composed with
+      <code>tl-compose</code>: picking the right binary per graph, wiring sibling
+      graphs by <code>path</code>, gating them all, and ratifying items whose
+      grounding chain crosses graphs.</p>
+    </article>
+  </div>
+  <p>Each skill activates on its own when Claude notices the situation it
+  covers, or you invoke one by name.</p>
+</section>
 
-<h2>On a locked-down laptop</h2>
-<p>This is designed for it. Everything runs in the Claude sandbox: the skill
-installs the CLI it needs itself with <code>pip install
-throughline-compose</code>, which needs Python 3.11 or later — cloud sessions
-have it. Graphs wired to each other by <code>path</code> need no network at
-all. Graphs adopting an external standard by <code>url</code> need the sandbox
-to reach that host, so use <code>https://</code> URLs and never an SSH host
-alias, which will not resolve there.</p>
-
-<h2>Updating</h2>
-<p>Bump-driven, not automatic:
-<code>/plugin marketplace update throughline-skills</code>.</p>
-
+<section aria-labelledby="laptop">
+  <h2 id="laptop">On a locked-down laptop</h2>
+  <p>This is designed for it. Everything runs in the Claude sandbox: the skill
+  installs the CLI it needs itself with <code>pip install throughline-compose</code>,
+  which needs Python 3.11 or later — cloud sessions have it. Graphs wired to
+  each other by <code>path</code> need no network at all. Graphs adopting an
+  external standard by <code>url</code> need the sandbox to reach that host, so
+  use <code>https://</code> URLs and never an SSH host alias, which will not
+  resolve there.</p>
+</section>
 </main>
 
 <footer>
-<p>Source: <a href="https://github.com/rhodium-org/throughline-skills">rhodium-org/throughline-skills</a>.
-Apache-2.0. © Dr Henry J Grech-Cini.
-<a href="https://iddn.uk/">iddn.uk</a></p>
+  <div class="posts">
+    <div class="post">
+      <a href="https://github.com/rhodium-org/throughline-skills">rhodium-org/throughline-skills</a>
+      <span>The source of this marketplace and both skills. Apache-2.0.</span>
+    </div>
+    <div class="post">
+      <a href="https://github.com/rhodium-org/throughline">rhodium-org/throughline</a>
+      <span>The <code>tl</code> command-line tool the skills drive.</span>
+    </div>
+    <div class="post">
+      <a href="https://iddn.uk/">iddn.uk</a>
+      <span>The method, the catalogue of ratified throughlines, and sign-in.</span>
+    </div>
+  </div>
+  <p class="colophon">© Dr Henry J Grech-Cini · built from this repository at the ref in <a href="/ref.txt" style="color:inherit">/ref.txt</a></p>
 </footer>
 
+</div>
 </body>
 </html>

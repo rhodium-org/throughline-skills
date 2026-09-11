@@ -1,0 +1,17 @@
+uid: TEST-0002
+type: test
+status: proposed
+title: Every token pair clears its ratio in both palettes
+text: For each text token, measure its contrast against the page ground and against
+  the raised panel in the dark palette and again in the light palette, and pass if
+  every reading is at least 4.5 to 1. Measure each control boundary the same way
+  and pass at 3 to 1. Compare the token values with the iddn.uk splash's and pass
+  if they match. Load the page with fonts blocked and pass if it renders in the system
+  fallbacks.
+normative: true
+links:
+- target: REQ-0002
+  type: verifies
+attrs:
+  method: manual
+  origin: ai

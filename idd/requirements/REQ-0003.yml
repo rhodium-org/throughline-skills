@@ -1,0 +1,27 @@
+uid: REQ-0003
+type: requirement
+status: proposed
+title: Every link is reachable by keyboard, shows its focus, and is big enough to
+  hit
+text: Each link and control shows a visible focus ring when reached by keyboard.
+  Standalone links are at least 24 CSS pixels tall; links inside a sentence rely
+  on the sentence for their size. The page has a title that says what it is, its
+  language is declared as British English, and every heading describes the section
+  under it. There is one main landmark and one footer.
+normative: true
+links:
+- target: INT-0001
+  type: derives_from
+- target: wcag:SR-0049
+  type: satisfies
+- target: wcag:SR-0063
+  type: satisfies
+- target: wcag:SR-0044
+  type: satisfies
+- target: wcag:SR-0064
+  type: satisfies
+- target: wcag:SR-0048
+  type: satisfies
+attrs:
+  priority: must
+  origin: ai

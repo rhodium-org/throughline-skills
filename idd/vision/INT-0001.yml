@@ -1,0 +1,13 @@
+uid: INT-0001
+type: intent
+status: proposed
+title: A person on a managed laptop can find, understand and install the throughline
+  skills from one page
+text: The marketplace has one public page, skills.iddn.uk. A practitioner who may
+  add a marketplace URL but may not install software reads it to learn what the skills
+  do, copies the two commands, and is done. The page is part of the iddn.uk estate
+  and looks like it. It is usable by keyboard, by screen reader, at high zoom and
+  on a phone, because the people it is for include those who work that way.
+normative: true
+attrs:
+  origin: ai

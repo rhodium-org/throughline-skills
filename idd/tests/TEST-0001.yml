@@ -1,0 +1,18 @@
+uid: TEST-0001
+type: test
+status: proposed
+title: The page reflows at 320 pixels, at 400 percent zoom, and under text-spacing
+  overrides
+text: Open the page at a 320 CSS pixel viewport and pass if nothing scrolls sideways
+  and every command is readable. Open it at a 1280 pixel viewport at 400 percent
+  zoom and pass if all content and links remain reachable. Apply line height 1.5,
+  paragraph spacing 2, letter spacing 0.12 and word spacing 0.16 times the font size
+  and pass if nothing is clipped or overlaps. At a wide viewport pass if the install
+  commands and the skill entries sit side by side and the column is centred.
+normative: true
+links:
+- target: REQ-0001
+  type: verifies
+attrs:
+  method: manual
+  origin: ai

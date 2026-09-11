@@ -1,0 +1,16 @@
+uid: REQ-0004
+type: requirement
+status: proposed
+title: The page is one file, runs no script, sets no cookie, and fetches only fonts
+  from outside its origin
+text: The page is a single HTML file with its styles inline. It runs no script and
+  sets no cookie. The only requests to another origin are for the estate's fonts,
+  from the origins the host's content security policy names. Everything else it needs
+  it carries.
+normative: true
+links:
+- target: INT-0001
+  type: derives_from
+attrs:
+  priority: must
+  origin: ai

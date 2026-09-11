@@ -1,0 +1,16 @@
+uid: TEST-0003
+type: test
+status: proposed
+title: Keyboard, focus, target size, title, language and headings
+text: Tab through the page and pass if every link receives a visible focus ring in
+  order. Measure each standalone link and pass if its target is at least 24 by 24
+  CSS pixels. Pass if the document title names the page, the html element declares
+  en-GB, each heading describes its section, and a screen reader reports one main
+  landmark and one footer.
+normative: true
+links:
+- target: REQ-0003
+  type: verifies
+attrs:
+  method: manual
+  origin: ai

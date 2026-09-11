@@ -1,0 +1,24 @@
+uid: REQ-0001
+type: requirement
+status: proposed
+title: The page is one centred column that reads at any width
+text: 'The content sits in a centred column no wider than 72rem, with prose no longer
+  than about 70 characters a line, and uses the width it has: the install commands
+  and the skill entries sit side by side when the viewport allows and stack when
+  it does not. Nothing scrolls sideways at a viewport 320 CSS pixels wide, and nothing
+  is lost at 400 percent zoom or with text at 200 percent. Commands wrap rather than
+  clip. Line height is at least 1.5 and the layout survives the text-spacing overrides
+  WCAG names.'
+normative: true
+links:
+- target: INT-0001
+  type: derives_from
+- target: wcag:SR-0026
+  type: satisfies
+- target: wcag:SR-0020
+  type: satisfies
+- target: wcag:SR-0028
+  type: satisfies
+attrs:
+  priority: must
+  origin: ai

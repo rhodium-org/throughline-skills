@@ -1,0 +1,15 @@
+uid: TEST-0004
+type: test
+status: proposed
+title: No script, no cookie, and no origin other than the fonts
+text: Fetch the page and pass if the response carries no Set-Cookie header, the body
+  contains no script element, and every absolute URL it references is either its
+  own origin, github.com or claude.ai in link text, or one of the two font origins.
+  Pass if the host's content security policy would refuse anything else.
+normative: true
+links:
+- target: REQ-0004
+  type: verifies
+attrs:
+  method: automated
+  origin: ai
