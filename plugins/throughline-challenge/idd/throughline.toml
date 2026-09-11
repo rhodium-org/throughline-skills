@@ -96,5 +96,5 @@ attrs.method = { type = "enum", values = ["automated", "manual", "document"] }
 [[sources]]
 namespace = "challenger"
 url = "https://github.com/rhodium-org/throughline-challenger"
-ref = "v0.2.0"
+ref = "v0.3.0"
 subdir = "idd"

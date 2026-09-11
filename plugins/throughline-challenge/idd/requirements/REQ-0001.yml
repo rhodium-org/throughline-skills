@@ -26,9 +26,6 @@ links:
 - target: challenger:REQ-0008
   type: implements
   stamp: sha256:a2e18725e8661d234f39e290cfafaf372ce65b2bd3adcdfcf0f3f283cc5b12cf
-- target: challenger:REQ-0002
-  type: implements
-  stamp: sha256:5d9fc5dd345cb6c06b5bae6a735ba02691743d8b396edb7681a6066ceb1576e6
 - target: challenger:REQ-0009
   type: implements
   stamp: sha256:f6e92127d3a2be4f3b73df9d628f8451cb76218abcf11245e6dfbf90d351b4ab
@@ -38,6 +35,9 @@ links:
 - target: challenger:REQ-0011
   type: implements
   stamp: sha256:ad8632cd982da08b3f54a11ff71e1491846bd9555a8c87ee69420957344932dc
+- target: challenger:REQ-0002
+  type: implements
+  stamp: sha256:2949cd2ab6ef78c018e5eb1ee0752e0a822bf39bf1cdfaaa11eb02f64f7b8421
 attrs:
   priority: must
   origin: ai
