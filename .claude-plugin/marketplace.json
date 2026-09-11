@@ -30,7 +30,11 @@
       },
       "license": "Apache-2.0",
       "homepage": "https://iddn.uk/throughline-skill/",
-      "source": "./plugins/throughline-challenge"
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/rhodium-org/throughline-skills.git",
+        "path": "plugins/throughline-challenge"
+      }
     }
   ]
 }
