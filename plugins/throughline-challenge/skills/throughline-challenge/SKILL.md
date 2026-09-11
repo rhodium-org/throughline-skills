@@ -45,7 +45,7 @@ plugin.
 | # | Challenger | Challenge | Who does it |
 |---|---|---|---|
 | 1 | REQ-0001 | **Link strength.** Does the parent entail the child at the stated modal strength, in both directions, and does a `satisfies` link to a standard claim no more than the clause grants? | you, from `siblings` |
-| 2 | REQ-0002 | **Prose mention without an edge.** Text or rationale names an item by UID and the links block has no edge to it. | `mentions` |
+| 2 | REQ-0002 | **Prose mention without an edge.** Text or rationale names an item by UID and the links block has no edge to it. A UID inside a file path is listed apart as a path mention, not counted. | `mentions` |
 | 3 | REQ-0003 | **Same things, different names.** Siblings under one parent enumerate a set and quantify over a narrower or differently named class of it. | you, from `siblings` |
 | 4 | REQ-0004 | **Verification per branch.** How each branch is verified; a branch with no automated check, or whose automated checks all sit on one kind of item. | `verification` |
 | 5 | REQ-0005 | **Untestable as written.** A predicate no observation of the running system could settle. | `untestable` (word list) + you |

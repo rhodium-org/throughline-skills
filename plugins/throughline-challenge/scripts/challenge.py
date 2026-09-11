@@ -107,9 +107,18 @@ def sentences(text: str) -> list[str]:
 
 # ── commands ────────────────────────────────────────────────────────────────
 
+def in_path(sent: str, m: "re.Match") -> bool:
+    """A UID-shaped token that is part of a file path: preceded by a path
+    separator, or followed by a file extension (REQ-0002)."""
+    before = sent[m.start() - 1] if m.start() > 0 else ""
+    return before in "/\\" or re.match(r"\.\w", sent[m.end():m.end() + 2]) is not None
+
+
 def cmd_mentions(g: Graph, args) -> None:
-    """REQ-0002: a UID in prose with no matching link edge."""
+    """REQ-0002: a UID in prose with no matching link edge. A token inside a
+    file path is a path mention, listed apart and not counted as a citation."""
     n = 0
+    paths = 0
     for uid, item in g.items.items():
         if args.local_only and not g.is_local(uid):
             continue
@@ -129,9 +138,14 @@ def cmd_mentions(g: Graph, args) -> None:
                     if (cited, sent) in reported:
                         continue
                     reported.add((cited, sent))
+                    if in_path(sent, m):
+                        paths += 1
+                        print(f"path      {uid} -> {cited}  [{field}]  {sent[:140]}")
+                        continue
                     n += 1
                     print(f"mentions  {uid} -> {cited}  [{field}]  {sent[:140]}")
-    print(f"# mentions: {n} finding(s)")
+    print(f"# mentions: {n} citation(s) with no edge; {paths} path mention(s) "
+          "(a file named after an item — an edge is the human's call)")
 
 
 def cmd_universal(g: Graph, args) -> None:
