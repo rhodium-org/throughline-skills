@@ -1,0 +1,33 @@
+name: Signal iddn.uk
+
+# skills.iddn.uk is built by rhodium-org/iddn.uk from this repository at a named
+# ref (iddn.uk REQ-0044). A push here that changes what that image carries sends
+# a repository_dispatch so the host rebuilds without a person copying anything.
+# The dispatch needs a token with repo scope on iddn.uk in the secret
+# IDDN_DISPATCH_TOKEN; without it this job says so and exits green, and the
+# daily schedule on the iddn.uk side picks the change up instead.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'site/**'
+      - '.claude-plugin/**'
+
+jobs:
+  dispatch:
+    runs-on: [self-hosted, org, linux, docker]
+    steps:
+      - name: Ask iddn.uk to rebuild skills.iddn.uk
+        env:
+          TOKEN: ${{ secrets.IDDN_DISPATCH_TOKEN }}
+        run: |
+          if [ -z "$TOKEN" ]; then
+            echo "IDDN_DISPATCH_TOKEN is not set; skipping the signal (the schedule will catch this change)."
+            exit 0
+          fi
+          curl --fail --silent --show-error -X POST \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer $TOKEN" \
+            https://api.github.com/repos/rhodium-org/iddn.uk/dispatches \
+            -d '{"event_type":"throughline-skills-changed","client_payload":{"sha":"${{ github.sha }}"}}'

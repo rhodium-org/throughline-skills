@@ -32,7 +32,7 @@ Two routes — both work in the terminal and at [claude.ai/code](https://claude.
 **From the hosted catalogue** (same thing, no GitHub account needed to browse):
 
 ```
-/plugin marketplace add https://iddn.uk/throughline-skill/marketplace.json
+/plugin marketplace add https://skills.iddn.uk/marketplace.json
 /plugin install tl@throughline-skills
 ```
 

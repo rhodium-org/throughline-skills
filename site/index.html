@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>throughline skills for Claude Code — IDDⁿ</title>
+<meta name="description" content="A Claude Code plugin marketplace for working in throughline IDD requirements repositories.">
+<link rel="canonical" href="https://skills.iddn.uk/">
+<meta name="theme-color" content="#0E1014">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<style>
+/* This page is served at skills.iddn.uk by an image that iddn.uk builds from
+   this repository at a named ref (iddn.uk REQ-0044). The colour tokens are the
+   iddn.uk splash's, copied so the page is one file with no third-party origin. */
+:root{
+  --ink:#0E1014; --raised:#161A20;
+  --rhodium:#DDE2E7;      /* 14.60 on ink */
+  --rhodium-dim:#A8B1B9;  /*  8.75 */
+  --intent:#E8A33D;       /*  8.83 */
+  --hairline:#242A32;
+  color-scheme:dark;
+}
+@media (prefers-color-scheme:light){
+  :root{
+    --ink:#F2F4F7; --raised:#FFFFFF;
+    --rhodium:#11151A;      /* 16.63 on ink */
+    --rhodium-dim:#39424C;  /*  9.26 */
+    --intent:#7A4A00;       /*  6.79 */
+    --hairline:#D3D8DE;
+    color-scheme:light;
+  }
+}
+*{box-sizing:border-box}
+body{
+  margin:0; padding:clamp(2rem,7vw,5rem) clamp(1.25rem,5vw,4rem);
+  background:var(--ink); color:var(--rhodium);
+  font:400 1.0625rem/1.65 Georgia,'Times New Roman',serif;
+  max-width:44rem;
+}
+h1{font:600 clamp(1.5rem,4vw,2rem)/1.2 system-ui,sans-serif; margin:0 0 .25rem}
+h2{font:600 1.0625rem/1.3 system-ui,sans-serif; margin:2.5rem 0 .5rem}
+p{margin:0 0 1rem}
+.lede{color:var(--rhodium-dim); margin-bottom:2rem}
+code,pre{font-family:ui-monospace,'JetBrains Mono',Menlo,Consolas,monospace; font-size:.9375rem}
+pre{
+  background:var(--raised); border:1px solid var(--hairline); border-radius:4px;
+  padding:.875rem 1rem; margin:0 0 1rem;
+  white-space:pre-wrap; overflow-wrap:anywhere;   /* a command you copy is better wrapped than clipped (WCAG 1.4.10) */
+}
+a{color:var(--intent)}
+a:focus-visible{outline:2px solid var(--intent); outline-offset:3px}
+dt{font-family:ui-monospace,monospace; font-size:.9375rem; margin-top:1rem}
+dd{margin:.25rem 0 0; color:var(--rhodium-dim)}
+footer{
+  margin-top:3.5rem; padding-top:1.25rem; border-top:1px solid var(--hairline);
+  color:var(--rhodium-dim); font-size:.9375rem;
+}
+</style>
+</head>
+<body>
+<main>
+
+<h1>throughline skills for Claude Code</h1>
+<p class="lede">A plugin marketplace for working in
+<a href="https://github.com/rhodium-org/throughline">throughline</a> IDD
+requirements repositories. Install once and it applies in your own repos. Your
+graph is committed there, as it must be — throughline is git-native and the
+items are the product. It is the skill that stays out: no copy of it is vendored
+into your repo, and nothing is installed on your laptop.</p>
+
+<h2>Install</h2>
+<p>In Claude Code, in the terminal or at
+<a href="https://claude.ai/code">claude.ai/code</a>:</p>
+<pre><code>/plugin marketplace add https://skills.iddn.uk/marketplace.json
+/plugin install tl@throughline-skills</code></pre>
+<p>If github.com is reachable, adding the repository directly does the same
+thing: <code>/plugin marketplace add rhodium-org/throughline-skills</code>.
+In the browser you can also use <b>Manage plugins → Marketplaces → Add
+marketplace</b> and paste either source.</p>
+
+<h2>What's in it</h2>
+<dl>
+  <dt>/tl:multigraph</dt>
+  <dd>Repositories holding more than one throughline graph, composed with
+  <code>tl-compose</code>: picking the right binary per graph, wiring sibling
+  graphs by <code>path</code>, gating them all, and ratifying items whose
+  grounding chain crosses graphs.</dd>
+  <dt>/tl:challenge</dt>
+  <dd>A challenge pass before hand-off: the twelve questions <code>tl check</code>
+  cannot ask, with a script for the deterministic ones. Also re-checks an
+  implementation graph against a specification it composes once that
+  specification moved: stamped links, suspect-link triage, and spec items
+  nothing implements.</dd>
+</dl>
+<p>Each skill activates on its own when Claude notices the situation it covers,
+or you can invoke one as
+<code>/tl:multigraph</code> or <code>/tl:challenge</code>.</p>
+
+<h2>On a locked-down laptop</h2>
+<p>This is designed for it. Everything runs in the Claude sandbox: the skill
+installs the CLI it needs itself with <code>pip install
+throughline-compose</code>, which needs Python 3.11 or later — cloud sessions
+have it. Graphs wired to each other by <code>path</code> need no network at
+all. Graphs adopting an external standard by <code>url</code> need the sandbox
+to reach that host, so use <code>https://</code> URLs and never an SSH host
+alias, which will not resolve there.</p>
+
+<h2>Updating</h2>
+<p>Bump-driven, not automatic:
+<code>/plugin marketplace update throughline-skills</code>.</p>
+
+</main>
+
+<footer>
+<p>Source: <a href="https://github.com/rhodium-org/throughline-skills">rhodium-org/throughline-skills</a>.
+Apache-2.0. © Dr Henry J Grech-Cini.
+<a href="https://iddn.uk/">iddn.uk</a></p>
+</footer>
+
+</body>
+</html>
