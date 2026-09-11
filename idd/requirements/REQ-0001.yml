@@ -15,10 +15,13 @@ links:
   type: derives_from
 - target: wcag:SR-0026
   type: satisfies
+  stamp: sha256:6061f8951d958316e01ea53180524fea5a97db2e556da5d2f4230af89f895263
 - target: wcag:SR-0020
   type: satisfies
+  stamp: sha256:4edce636bae71cde1b4eb7417ad4a7ba0939966d2e42f4cf9e1eb5859a326677
 - target: wcag:SR-0028
   type: satisfies
+  stamp: sha256:d50619a4f0f849f9e511eaf5b9c0b5c7098655455f196ba3c7bbced94fc17850
 attrs:
   priority: must
   origin: ai

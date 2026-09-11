@@ -14,14 +14,19 @@ links:
   type: derives_from
 - target: wcag:SR-0049
   type: satisfies
+  stamp: sha256:f164efa6038ad22df602726ec743c8a7e666e513e896f32f5fe36df2e6153864
 - target: wcag:SR-0063
   type: satisfies
+  stamp: sha256:0c2c5478adf4f60372ca3ea3606c47a8e549e1735a911c536ddce6c957f19a17
 - target: wcag:SR-0044
   type: satisfies
+  stamp: sha256:9c863a07ddc14ec66457dd0779ca7bfe13f57a6a5c4a2f7edd4dc97bfbc66caf
 - target: wcag:SR-0064
   type: satisfies
+  stamp: sha256:a8ccd2bc7f924c47dbd511501e436004c43f1c456e6025cac77606fca64834e0
 - target: wcag:SR-0048
   type: satisfies
+  stamp: sha256:a68b1ef752b52673a97a15a4be901079abdab46fa47bbd20520299a42a99a77b
 attrs:
   priority: must
   origin: ai

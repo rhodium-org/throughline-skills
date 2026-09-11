@@ -16,8 +16,10 @@ links:
   type: derives_from
 - target: wcag:SR-0019
   type: satisfies
+  stamp: sha256:3a9246548c56ca3d666d9b69f30a4233c24a58d7a8332f3f82b9bdd1a7b6fbbb
 - target: wcag:SR-0027
   type: satisfies
+  stamp: sha256:a89b784202bf0ae99f79f978adea330c578da830a38141b9ecccbd5c69b7556d
 attrs:
   priority: must
   origin: ai
