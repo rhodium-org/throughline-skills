@@ -1,7 +1,7 @@
 {
   "name": "tl",
   "description": "Skills for working in throughline IDD requirements repositories: /tl:challenge runs the challenge pass tl check cannot, and /tl:multigraph manages a repository holding more than one graph.",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "author": {
     "name": "Dr Henry J Grech-Cini"
   },

@@ -1,0 +1,28 @@
+uid: REQ-0006
+type: requirement
+status: proposed
+title: The pass runs only on a graph on disk
+text: Before anything else the skill looks for a throughline.toml at the graph root
+  it was given, or below the working tree. If there is none, the skill says that
+  there is nothing to challenge, names the command that creates a graph, and stops.
+  It does not put the challenges to a proposal, a schema, a document or the conversation,
+  and it does not present a review of such prose in the challenge report shape or
+  under the challenge numbers, because every challenge is defined over items, links
+  and stamps, and none of those exist until a graph does. A design opinion offered
+  in that situation is given as a design opinion, labelled as one, outside the report
+  shape.
+rationale: 'Seen on 11 September 2026: invoked in a session that had no graph, the
+  skill said there was nothing to run and then filed a review of a proposed register
+  set under challenge numbers 1 to 9. Findings such as ''challenge 9: the grounding
+  link types are consistent'' bore no relation to challenge 9, which asks about a
+  parent''s universal claim realised by one child. The numbers lent the opinions
+  an authority they had not earned, and a reader trusting the report shape would
+  have taken them for the challenger''s findings on a graph. SKILL.md had said nothing
+  about the case, so the model filled the silence.'
+normative: true
+links:
+- target: INT-0001
+  type: derives_from
+attrs:
+  priority: must
+  origin: ai

@@ -25,7 +25,21 @@ It has two parts. **Part A** challenges a graph you have just changed, before
 hand-off. **Part B** re-checks an implementation graph against the specification
 it composes, after that specification moved.
 
-## First: tools and the script
+## First: is there a graph?
+
+```sh
+find . -name throughline.toml -not -path '*/.venv/*' -not -path '*/.git/*'
+```
+
+If that finds nothing, there is nothing to challenge. Say so, point at
+`tl init --no-demo` (or `tl-compose init`) to create one, and stop. Do not put
+the challenges to a proposal, a schema, a document or the conversation, and do
+not present a review of such prose under the challenge numbers or in the report
+shape below: every challenge is defined over items, links and stamps, and none
+of those exist until a graph does. If a design opinion would help, give it as
+one, labelled as one, outside this skill's report.
+
+## Next: tools and the script
 
 ```sh
 tl-compose --version || pip install throughline-compose   # brings tl with it
