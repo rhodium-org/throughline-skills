@@ -1,6 +1,6 @@
 uid: TEST-0002
 type: test
-status: proposed
+status: ratified
 title: Every token pair clears its ratio in both palettes
 text: For each text token, measure its contrast against the page ground and against
   the raised panel in the dark palette and again in the light palette, and pass if
@@ -15,3 +15,5 @@ links:
 attrs:
   method: manual
   origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:0b15d0f33ef84e41fef21ab33804904873597add5cfd6726fbffe5ccc6a2e97c

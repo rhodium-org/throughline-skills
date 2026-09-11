@@ -1,6 +1,6 @@
 uid: TEST-0004
 type: test
-status: proposed
+status: ratified
 title: No script, no cookie, and no origin other than the fonts
 text: Fetch the page and pass if the response carries no Set-Cookie header, the body
   contains no script element, and every absolute URL it references is either its
@@ -13,3 +13,5 @@ links:
 attrs:
   method: automated
   origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:d60cf4ee31bf7f9c9f4e866533e92cbb3b208ab1d7d11e4580eafb33c84866b6

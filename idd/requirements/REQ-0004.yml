@@ -1,6 +1,6 @@
 uid: REQ-0004
 type: requirement
-status: proposed
+status: ratified
 title: The page is one file, runs no script, sets no cookie, and fetches only fonts
   from outside its origin
 text: The page is a single HTML file with its styles inline. It runs no script and
@@ -14,3 +14,5 @@ links:
 attrs:
   priority: must
   origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:50896936af5369521d8eb673c203feb8a8a57e5e9ac2e101d26db7d4e685b547

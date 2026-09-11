@@ -1,6 +1,6 @@
 uid: REQ-0002
 type: requirement
-status: proposed
+status: ratified
 title: The page uses the iddn.uk estate's palette and type, measured for AA contrast
 text: 'Colours resolve through the same tokens the iddn.uk splash declares, in both
   the dark and the light palette, chosen by the visitor''s system preference. Every
@@ -23,3 +23,5 @@ links:
 attrs:
   priority: must
   origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:5b6447e9b12b3847ff8cd54ddaf01f99ec31efb2fb21b3f311ccae843a6da364

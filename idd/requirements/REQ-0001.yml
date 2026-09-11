@@ -1,6 +1,6 @@
 uid: REQ-0001
 type: requirement
-status: proposed
+status: ratified
 title: The page is one centred column that reads at any width
 text: 'The content sits in a centred column no wider than 72rem, with prose no longer
   than about 70 characters a line, and uses the width it has: the install commands
@@ -25,3 +25,5 @@ links:
 attrs:
   priority: must
   origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:ed135fe0f33074ae2648ab81ba02fd9b28adb87cbb997dd1e53df77dbd783558

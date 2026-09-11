@@ -1,6 +1,6 @@
 uid: TEST-0001
 type: test
-status: proposed
+status: ratified
 title: The page reflows at 320 pixels, at 400 percent zoom, and under text-spacing
   overrides
 text: Open the page at a 320 CSS pixel viewport and pass if nothing scrolls sideways
@@ -16,3 +16,5 @@ links:
 attrs:
   method: manual
   origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:6fc9e49cae9cc0fff277db33b6a23de9c219b4f7c0dab41ea96578c0b0be2a6a

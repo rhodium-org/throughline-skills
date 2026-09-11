@@ -1,6 +1,6 @@
 uid: INT-0001
 type: intent
-status: proposed
+status: ratified
 title: A person on a managed laptop can find, understand and install the throughline
   skills from one page
 text: The marketplace has one public page, skills.iddn.uk. A practitioner who may
@@ -11,3 +11,5 @@ text: The marketplace has one public page, skills.iddn.uk. A practitioner who ma
 normative: true
 attrs:
   origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:11375d11b680431fc8755d243389006af07bad45bdde24135a28233ff7d85ad8

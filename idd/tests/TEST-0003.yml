@@ -1,6 +1,6 @@
 uid: TEST-0003
 type: test
-status: proposed
+status: ratified
 title: Keyboard, focus, target size, title, language and headings
 text: Tab through the page and pass if every link receives a visible focus ring in
   order. Measure each standalone link and pass if its target is at least 24 by 24
@@ -14,3 +14,5 @@ links:
 attrs:
   method: manual
   origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:ff684dd9d5ab8550ffc01ce062f964423f5f10477603eff0f3435c40c8c11ba9
