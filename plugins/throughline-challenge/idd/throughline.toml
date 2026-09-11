@@ -88,3 +88,13 @@ severity = "warning"
 # The skill's own verification check tallies tests per branch by method;
 # without it the graph reads as having no automated check
 attrs.method = { type = "enum", values = ["automated", "manual", "document"] }
+
+# The specification this skill hand-runs: the throughline-challenger graph, one
+# ratified requirement per challenge. Each local requirement that performs a
+# challenge carries a stamped implements link into it, so a re-tagged
+# specification surfaces here as suspect-link findings (this skill's own Part B).
+[[sources]]
+namespace = "challenger"
+url = "https://github.com/rhodium-org/throughline-challenger"
+ref = "v0.1.0"
+subdir = "idd"

@@ -15,6 +15,24 @@ normative: true
 links:
 - target: INT-0001
   type: derives_from
+- target: challenger:REQ-0002
+  type: implements
+  stamp: sha256:bd611dd68f00cd14a6b9413e8a0f2fff756ec6271405723685bea16fc7f765c0
+- target: challenger:REQ-0004
+  type: implements
+  stamp: sha256:a84576c0b29ffb8374755bed9d8523524f6562dcfc7f757ac05f0bf80343f339
+- target: challenger:REQ-0005
+  type: implements
+  stamp: sha256:2c0215b9f6bfab829baf1661c77956adc631a01209b403c777d7c6c2e11cb2ff
+- target: challenger:REQ-0007
+  type: implements
+  stamp: sha256:3d9d7eea1395790978ad515a744b68a1dd95b1705de265f8bee5a1c2079155f7
+- target: challenger:REQ-0008
+  type: implements
+  stamp: sha256:a2e18725e8661d234f39e290cfafaf372ce65b2bd3adcdfcf0f3f283cc5b12cf
+- target: challenger:REQ-0009
+  type: implements
+  stamp: sha256:1c26d4cac5eaabcd66ce5c771def234f292e5f769d2aa3b00f67b5b4849bef5f
 attrs:
   priority: must
   origin: ai

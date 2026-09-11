@@ -13,6 +13,15 @@ normative: true
 links:
 - target: INT-0001
   type: derives_from
+- target: challenger:REQ-0001
+  type: implements
+  stamp: sha256:1656612b30e1be1dbb1579130bfb00035dd4098cb38aa289ef89fef5b4368c6a
+- target: challenger:REQ-0003
+  type: implements
+  stamp: sha256:980a8dda08038470701495dce08c1e22e1ce617ca497b514f3225ebd6418087c
+- target: challenger:REQ-0006
+  type: implements
+  stamp: sha256:02f5946b163f85797c35f5904856f31f1d89738f4d6d1e8dfa2857a233c79a23
 attrs:
   priority: must
   origin: ai
