@@ -1,6 +1,6 @@
 uid: REQ-0006
 type: requirement
-status: proposed
+status: ratified
 title: The pass runs only on a graph on disk
 text: Before anything else the skill looks for a throughline.toml at the graph root
   it was given, or below the working tree. If there is none, the skill says that
@@ -26,3 +26,5 @@ links:
 attrs:
   priority: must
   origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:e28c7b9e600c7cfc169b41d28bbac8418396a46f08a99c201df7a24bc62bfdad
