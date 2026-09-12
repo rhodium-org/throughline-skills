@@ -1,0 +1,20 @@
+uid: DEC-0002
+type: decision
+status: proposed
+title: Vision register (INT, intent, delivery root)
+text: 'Holds the one intent the skill is grounded in: initialising a graph is a judgement
+  that belongs to intelligence, not to a scaffold. An intent is a delivery root,
+  so every requirement must derive from it.'
+normative: true
+links:
+- target: NEED-0001
+  type: derives_from
+- target: CON-0001
+  type: derives_from
+attrs:
+  kind: register
+  prefix: INT
+  dir: vision
+  item_type: intent
+  grounding: delivery-root
+  origin: ai

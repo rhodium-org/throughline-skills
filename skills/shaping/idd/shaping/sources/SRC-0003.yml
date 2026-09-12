@@ -1,0 +1,11 @@
+uid: SRC-0003
+type: source
+status: proposed
+title: The marketplace's two existing skills and their graphs
+text: 'skills/challenge and skills/multigraph: the SKILL.md shape, the script reached
+  through the plugin root, a graph per skill at skills/<skill>/idd/, the binary rule,
+  and the rule never to hand-edit an item file.'
+normative: true
+attrs:
+  path: skills/challenge/SKILL.md; skills/multigraph/SKILL.md
+  origin: ai

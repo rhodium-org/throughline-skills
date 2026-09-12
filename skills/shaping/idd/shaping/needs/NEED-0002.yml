@@ -1,0 +1,16 @@
+uid: NEED-0002
+type: need
+status: proposed
+title: Every requirement can be verified by a recorded acceptance test
+text: 'The brief names six acceptance checks: fresh repo with no sources, with sources,
+  a rejection, a re-run, the ordering, and the repo''s own gates. Each must be recordable
+  against the requirement it verifies, once the requirements are ratified; the brief
+  says to stop before writing them.'
+rationale: A requirement nothing verifies is a claim; the coverage rule will name
+  each one until its test exists.
+normative: true
+links:
+- target: DOM-0001
+  type: derives_from
+attrs:
+  origin: ai

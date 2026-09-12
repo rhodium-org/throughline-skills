@@ -1,0 +1,8 @@
+uid: NG-0003
+type: non_goal
+status: proposed
+title: No opinion about which model or editor does the second graph's work
+text: Once the second graph exists, what runs its work is not the skill's concern.
+normative: true
+attrs:
+  origin: ai

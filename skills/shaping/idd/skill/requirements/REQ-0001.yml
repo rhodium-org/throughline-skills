@@ -1,0 +1,17 @@
+uid: REQ-0001
+type: requirement
+status: proposed
+title: The layout comes from the discovery, not from tl init's register set
+text: The skill lays the layout down under idd/ itself, from tl init --bare, tl register
+  new and tl schema, and never depends on the register set that tl init creates by
+  default. tl init and every other tl command are unchanged.
+rationale: The brief's R1 said without calling tl init at all; --bare writes only
+  the schema and carries none of the register guess, and keeping a copy of that schema
+  in the script would drift from the tool.
+normative: true
+links:
+- target: INT-0001
+  type: derives_from
+attrs:
+  priority: must
+  origin: ai

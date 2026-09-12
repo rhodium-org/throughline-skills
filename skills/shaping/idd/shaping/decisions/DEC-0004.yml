@@ -1,0 +1,21 @@
+uid: DEC-0004
+type: decision
+status: proposed
+title: Tests register (TEST, test)
+text: One acceptance test per requirement, each verifying the requirement it is written
+  against, with a method attribute saying how it is run. Created now so the coverage
+  rule names every requirement still awaiting its test; filled after ratification,
+  as the brief directs.
+normative: true
+links:
+- target: NEED-0002
+  type: derives_from
+- target: CON-0001
+  type: derives_from
+attrs:
+  kind: register
+  prefix: TEST
+  dir: tests
+  item_type: test
+  grounding: grounded
+  origin: ai

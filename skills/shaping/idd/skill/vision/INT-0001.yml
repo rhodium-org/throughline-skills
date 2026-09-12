@@ -1,0 +1,14 @@
+uid: INT-0001
+type: intent
+status: proposed
+title: Initialising a graph is a judgement that belongs to intelligence, not to a
+  scaffold
+text: tl init lays down one fixed register set because that was the first idea, and
+  a scaffold cannot know whether a piece of work needs a risk register, a constraints
+  register, or something the tool has never seen. This skill replaces that guess
+  with a structured discovery conversation, run in a fixed order, that records its
+  own reasoning in a graph beside the one it produces, so the register set is as
+  ratifiable as anything in it. tl init is untouched and stays the command-line route.
+normative: true
+attrs:
+  origin: ai

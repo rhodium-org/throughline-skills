@@ -1,0 +1,15 @@
+uid: NG-0002
+type: non_goal
+status: proposed
+title: No risk register in the skill graph
+text: A skill in a marketplace carries no operational risk a register would track.
+  What can go wrong is a wrong graph, and that is what the requirements and their
+  tests cover.
+rationale: Considered because a risk register is the usual first addition to the
+  default set.
+normative: true
+links:
+- target: DOM-0001
+  type: derives_from
+attrs:
+  origin: ai

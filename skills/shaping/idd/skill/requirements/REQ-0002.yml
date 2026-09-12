@@ -1,0 +1,14 @@
+uid: REQ-0002
+type: requirement
+status: proposed
+title: idd/shaping/ is always created, with exactly that name
+text: The reasoning graph is created at idd/shaping/ every time, with that name and
+  no other, holding sources, domain reading, needs, decisions, rejected registers
+  and inherited standards.
+normative: true
+links:
+- target: INT-0001
+  type: derives_from
+attrs:
+  priority: must
+  origin: ai

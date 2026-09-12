@@ -1,0 +1,15 @@
+uid: NG-0004
+type: non_goal
+status: proposed
+title: No sources register in the skill graph
+text: Provenance is shaping's job. The skill graph reaches the brief through the
+  shaping graph that cites it; copying the sources across would give the same document
+  two identities.
+rationale: Considered because the second graph might otherwise seem to have no record
+  of where it came from.
+normative: true
+links:
+- target: DOM-0001
+  type: derives_from
+attrs:
+  origin: ai

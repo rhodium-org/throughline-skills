@@ -1,0 +1,17 @@
+uid: DEC-0005
+type: decision
+status: proposed
+title: Non-goals register (NG, non_goal, root)
+text: 'The brief''s three non-goals as items: negative space a proposal can be pointed
+  at. A non_goal is a root and never flagged unserved.'
+normative: true
+links:
+- target: NEED-0003
+  type: derives_from
+attrs:
+  kind: register
+  prefix: NG
+  dir: non-goals
+  item_type: non_goal
+  grounding: root
+  origin: ai

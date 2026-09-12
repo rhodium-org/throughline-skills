@@ -1,0 +1,13 @@
+uid: SRC-0002
+type: source
+status: proposed
+title: 'The installed tool: tl 2.2.1 and tl-compose 0.16.4'
+text: tl --help, tl init --help and a scratch tl init in each of its three forms;
+  tl register new, tl schema, tl new and tl check --help; probes of nesting, graph
+  location, unknown config keys, a zero-item path source, an empty graph, a lone
+  intent, and strict on a proposed item. Recorded in references/layout.md with the
+  date.
+normative: true
+attrs:
+  path: tl --help; skills/shaping/references/layout.md
+  origin: ai

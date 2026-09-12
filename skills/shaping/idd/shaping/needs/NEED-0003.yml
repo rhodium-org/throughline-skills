@@ -1,0 +1,14 @@
+uid: NEED-0003
+type: need
+status: proposed
+title: What the skill deliberately does not do is recorded where a reader will find
+  it
+text: No change to tl init, no two-way sync between the graphs, no opinion on which
+  model or editor does the second graph's work. A proposal to extend the skill must
+  be able to be pointed at the non-goal it crosses.
+normative: true
+links:
+- target: DOM-0001
+  type: derives_from
+attrs:
+  origin: ai

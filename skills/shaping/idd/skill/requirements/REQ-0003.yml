@@ -1,0 +1,15 @@
+uid: REQ-0003
+type: requirement
+status: proposed
+title: The second directory is named during discovery and recorded, never defaulted
+text: 'The second graph''s directory name is chosen once the domain is known and
+  recorded twice: as a decision item in shaping and as a path source in shaping''s
+  throughline.toml. No default name is hard-coded in the skill or its script; a run
+  that cannot name the work stops and asks.'
+normative: true
+links:
+- target: INT-0001
+  type: derives_from
+attrs:
+  priority: must
+  origin: ai

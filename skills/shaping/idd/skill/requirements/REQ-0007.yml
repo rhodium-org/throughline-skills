@@ -1,0 +1,18 @@
+uid: REQ-0007
+type: requirement
+status: proposed
+title: The skill hands back on a sound shaping graph and a seeded second graph
+text: The skill hands back only when the shaping graph reports zero errors under
+  tl check and the second graph reports no error other than unserved-root on the
+  intent it seeded, which the hand-off names as the next step. --strict is the gate
+  after a human has ratified; the skill never makes it pass.
+rationale: The brief's R7 asked for both graphs green under --strict. Strict turns
+  the unratified warning on every proposed item into an error, and a lone intent
+  is an unserved delivery root, so the wording is what the tool can actually grant.
+normative: true
+links:
+- target: INT-0001
+  type: derives_from
+attrs:
+  priority: must
+  origin: ai

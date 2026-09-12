@@ -1,0 +1,12 @@
+uid: SRC-0001
+type: source
+status: proposed
+title: The project brief for the shaping skill
+text: Sets the mission (initialising a graph is a judgement, so it belongs to intelligence,
+  not to a scaffold), six settled design decisions, the five-stage discovery flow,
+  eight requirements R1 to R8, three open questions, six acceptance checks and three
+  non-goals.
+normative: true
+attrs:
+  path: skills/shaping/references/brief.md
+  origin: ai

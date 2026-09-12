@@ -1,0 +1,15 @@
+uid: NG-0001
+type: non_goal
+status: proposed
+title: No non-functional register in the skill graph
+text: tl init would have created one. The limits the brief sets, SKILL.md under 500
+  lines and a script that needs nothing beyond the standard library, are requirements
+  of the skill with a test each, not a separate class of item; a second register
+  would split one list in two.
+rationale: Considered because tl init creates it by default.
+normative: true
+links:
+- target: NEED-0001
+  type: derives_from
+attrs:
+  origin: ai

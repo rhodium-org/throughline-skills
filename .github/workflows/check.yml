@@ -1,0 +1,42 @@
+name: check
+
+# Every throughline graph in this repository is gated. The binary is chosen
+# per graph (a graph with [[sources]] takes tl-compose), as the multigraph
+# skill prescribes. Graphs whose every item a human has ratified take
+# --strict; a graph deliberately left proposed for ratification cannot pass
+# strict (unratified is an error there), so it is gated on zero errors.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    - cron: "0 6 * * 1"
+  workflow_dispatch:
+
+jobs:
+  gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Install throughline-compose (brings tl with it)
+        run: pip install throughline-compose
+
+      - name: Gate every graph
+        run: |
+          STRICT=" idd skills/challenge/idd "
+          rc=0
+          for cfg in $(find . -name throughline.toml -not -path '*/.git/*' | sort); do
+            graph="${cfg#./}"; graph="${graph%/throughline.toml}"
+            grep -q '^\[\[sources\]\]' "$cfg" && bin=tl-compose || bin=tl
+            case "$STRICT" in *" $graph "*) flag=--strict ;; *) flag= ;; esac
+            echo "::group::$bin -C $graph check $flag"
+            "$bin" -C "$graph" check $flag || rc=1
+            echo "::endgroup::"
+          done
+          exit $rc

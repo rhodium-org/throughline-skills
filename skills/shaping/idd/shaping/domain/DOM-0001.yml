@@ -1,0 +1,19 @@
+uid: DOM-0001
+type: domain
+status: proposed
+title: A Claude Code skill in the tl plugin marketplace
+text: 'The thing being built is an Agent Skill: a SKILL.md holding the judgement
+  and a standard-library script holding the mechanics, shipped as the third skill
+  of the tl plugin beside challenge and multigraph. It drives throughline to lay
+  down two graphs under idd/ for a new piece of work. It is not a Python package
+  and not a change to tl.'
+normative: true
+links:
+- target: SRC-0001
+  type: derives_from
+- target: SRC-0002
+  type: derives_from
+- target: SRC-0003
+  type: derives_from
+attrs:
+  origin: ai

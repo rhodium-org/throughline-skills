@@ -1,7 +1,7 @@
 {
   "name": "tl",
-  "description": "Skills for working in throughline IDD requirements repositories: /tl:challenge runs the challenge pass tl check cannot, and /tl:multigraph manages a repository holding more than one graph.",
-  "version": "1.0.2",
+  "description": "Skills for working in throughline IDD requirements repositories: /tl:shaping initialises a graph by a structured discovery conversation instead of tl init's register guess, /tl:challenge runs the challenge pass tl check cannot, and /tl:multigraph manages a repository holding more than one graph.",
+  "version": "1.1.0",
   "author": {
     "name": "Dr Henry J Grech-Cini"
   },
@@ -13,6 +13,8 @@
     "idd",
     "requirements",
     "tl-compose",
+    "init",
+    "shaping",
     "review",
     "traceability"
   ]

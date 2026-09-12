@@ -1,0 +1,16 @@
+uid: NEED-0001
+type: need
+status: proposed
+title: Every behaviour the brief fixes is an item a human can ratify, reject or amend
+text: The brief's eight requirements, its rewording where the installed tool disagreed,
+  and its settled decisions must each be one requirement grounded in one intent,
+  so that a change to SKILL.md or the script can cite the item it serves and a reviewer
+  can reject one behaviour without rejecting the skill.
+rationale: 'The workspace rule and the brief both say the skill is built the way
+  the rest of the throughline family is: as proposed items a human ratifies.'
+normative: true
+links:
+- target: DOM-0001
+  type: derives_from
+attrs:
+  origin: ai

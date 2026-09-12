@@ -1,0 +1,19 @@
+uid: DEC-0003
+type: decision
+status: proposed
+title: Requirements register (REQ, requirement)
+text: 'One requirement per changeable behaviour: the brief''s R1 to R8, reworded
+  where the tool disagreed. Each derives from the intent and carries a priority.'
+normative: true
+links:
+- target: NEED-0001
+  type: derives_from
+- target: CON-0001
+  type: derives_from
+attrs:
+  kind: register
+  prefix: REQ
+  dir: requirements
+  item_type: requirement
+  grounding: grounded
+  origin: ai

@@ -1,0 +1,12 @@
+uid: CON-0001
+type: constraint
+status: proposed
+title: 'Workspace standard: every tool ships its own IDD graph'
+text: Every script, skill, hook or generator made in this workspace carries a graph
+  with one intent root, one requirement per changeable behaviour and one test per
+  requirement, all origin ai and left proposed for the operator to ratify. A change
+  to the tool changes the graph in the same commit, citing the UID.
+rationale: The operator's standing rule, inherited rather than rediscovered.
+normative: true
+attrs:
+  origin: ai
