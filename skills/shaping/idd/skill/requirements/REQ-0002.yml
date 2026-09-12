@@ -1,6 +1,6 @@
 uid: REQ-0002
 type: requirement
-status: proposed
+status: ratified
 title: idd/shaping/ is always created, with exactly that name
 text: The reasoning graph is created at idd/shaping/ every time, with that name and
   no other, holding sources, domain reading, needs, decisions, rejected registers
@@ -12,3 +12,5 @@ links:
 attrs:
   priority: must
   origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:bfb4359a6c3b8c509479e417d83a4bb9b9ff8053ce4d9ad16e068f6d0910a469

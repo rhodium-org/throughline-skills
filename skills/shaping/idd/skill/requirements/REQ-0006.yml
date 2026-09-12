@@ -1,6 +1,6 @@
 uid: REQ-0006
 type: requirement
-status: proposed
+status: ratified
 title: A register considered and not created is recorded with its rationale
 text: Every register considered and rejected is a non_goal or constraint item in
   shaping with a rationale and a link to the need or domain reading that ruled it
@@ -13,3 +13,5 @@ links:
 attrs:
   priority: must
   origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:a54acd5000bc90791bb0cac38c93132f95bd7d2f24d92e66fc7e9e10ff53a4d5

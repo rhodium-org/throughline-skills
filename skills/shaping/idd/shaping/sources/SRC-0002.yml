@@ -1,6 +1,6 @@
 uid: SRC-0002
 type: source
-status: proposed
+status: ratified
 title: 'The installed tool as read on 2026-09-12: tl 2.2.1 and tl-compose 0.16.4'
 text: 'The versions on the workstation that day. Read: tl --help, tl init --help
   and a scratch tl init in each of its three forms; tl register new, tl schema, tl
@@ -13,3 +13,5 @@ attrs:
   path: tl --help; skills/shaping/references/layout.md
   origin: ai
   read: '2026-09-12'
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:94cd9ded58b61059d5b2d348b71b278870d563d0cacfde8b0f26bb4572863696

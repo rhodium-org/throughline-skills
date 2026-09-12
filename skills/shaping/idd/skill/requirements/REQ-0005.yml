@@ -1,6 +1,6 @@
 uid: REQ-0005
 type: requirement
-status: proposed
+status: ratified
 title: Every item the skill writes is origin ai and status proposed, and the skill
   never ratifies
 text: Every item authored in either graph carries origin ai and enters as proposed.
@@ -13,3 +13,5 @@ links:
 attrs:
   priority: must
   origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:2733b556d7a49dfbfc6374f5e38b882e4bb1751b4cbbbbccc98ae42dd8371f86

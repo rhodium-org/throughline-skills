@@ -1,7 +1,7 @@
 # How two graphs share one repository
 
-Verified on 2026-09-12 against `tl 2.2.1` and `tl-compose 0.16.4 (throughline
-2.2.1)`. Re-verify against the installed tool before trusting any line here;
+Verified on 2026-09-12 against `tl 2.2.1` and `tl-compose 0.16.4`, and again the
+same day against `tl 3.0.0` after the `empty-registers` change was released. Re-verify against the installed tool before trusting any line here;
 `tl --help` and `tl-compose --version` are authoritative over this file.
 
 ## How the tool locates a graph
@@ -58,19 +58,22 @@ graph is written. The script picks the binary per graph by looking for
 
 ## Facts the check gate enforces that shape the design
 
-- **An empty graph is an error.** A graph with registers but no items fails
-  `tl check` with `empty-graph`. So a second graph cannot be handed back with
-  registers alone: the skill seeds its root intent there before checking.
+- **Registers with no items are a warning from throughline 2.3.0.** Before
+  2.3.0 every empty graph was the error `empty-graph`; from 2.3.0 that error
+  is kept for a project with no register manifest at all, and registers that
+  hold no items report the warning `empty-registers` (SR-0194 in throughline's
+  own graph, made for this skill). So a second graph handed back with its
+  registers and nothing in them reports zero errors, and the skill need not
+  author anything into it. `--strict` still raises the warning to an error.
 - **Strict fails on any proposed AI item.** `unratified` is a warning under
   `tl check` and an error under `--strict`. A graph the skill has only ever
   proposed into therefore cannot pass strict until a human ratifies; the gate
   the skill hands back on is zero errors under `tl check`, and `--strict` is
   the gate *after* ratification.
-- **A second graph holding only its intent reports `unserved-root`.** An
-  intent is a delivery root, and a delivery root nothing derives from is an
-  error. So a graph the skill has seeded with its intent and stopped at
-  registers cannot report zero errors; it reports exactly that one finding,
-  and the hand-off names it as the next step rather than silencing it.
+- **A lone intent reports `unserved-root`.** An intent is a delivery root, and
+  a delivery root nothing derives from is an error, so seeding an intent and
+  stopping would be worse than leaving the graph empty. The intent is the
+  first item of the first layer, not of the layout.
 - **A delivery root that nothing derives from is an error.** `intent`,
   `business_need`, `risk` and `constraint` are delivery roots by default. An
   inherited team standard recorded as a `constraint` must therefore have the

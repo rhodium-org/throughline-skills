@@ -1,9 +1,11 @@
 uid: NG-0001
 type: non_goal
-status: proposed
+status: ratified
 title: No change to tl init or any tl command
 text: tl init keeps its flags and its output; it is the command-line route for someone
   building a graph by hand. The skill is the other route and starts from nothing.
 normative: true
 attrs:
   origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:0d3919d0b3050e631f94300459b390290ea714222e2467f4eabd725a7774b863

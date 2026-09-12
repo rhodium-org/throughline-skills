@@ -1,6 +1,6 @@
 uid: INT-0001
 type: intent
-status: proposed
+status: ratified
 title: Initialising a graph is a judgement that belongs to intelligence, not to a
   scaffold
 text: tl init lays down one fixed register set because that was the first idea, and
@@ -12,3 +12,5 @@ text: tl init lays down one fixed register set because that was the first idea, 
 normative: true
 attrs:
   origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:30238aeb08bbd0cfccdce30ea072c0c1b525a70b3f678835b5a1c11833d7604b

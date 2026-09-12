@@ -1,6 +1,6 @@
 uid: REQ-0004
 type: requirement
-status: proposed
+status: ratified
 title: Discovery runs sources, then domain, then needs, then registers
 text: The stages run in that order and each is confirmed with the person before the
   next begins. No register is proposed, named or written before the needs are confirmed.
@@ -11,3 +11,5 @@ links:
 attrs:
   priority: must
   origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:a8eb459a52e894884671ffed8eb8d6e78fb6c92ff487b1c7dfa55a20a53cebc1

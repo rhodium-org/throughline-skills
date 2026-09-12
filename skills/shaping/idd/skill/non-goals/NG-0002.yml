@@ -1,6 +1,6 @@
 uid: NG-0002
 type: non_goal
-status: proposed
+status: ratified
 title: No two-way sync between the two graphs
 text: Shaping records what produced the second graph; it does not watch the second
   graph afterwards, and the second graph does not write back. A new register later
@@ -8,3 +8,5 @@ text: Shaping records what produced the second graph; it does not watch the seco
 normative: true
 attrs:
   origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:0023fdb74e0a0661091d204e9e6d34701e5825252f01b384232ecbc056a99489

@@ -1,14 +1,18 @@
 uid: REQ-0007
 type: requirement
-status: proposed
-title: The skill hands back on a sound shaping graph and a seeded second graph
-text: The skill hands back only when the shaping graph reports zero errors under
-  tl check and the second graph reports no error other than unserved-root on the
-  intent it seeded, which the hand-off names as the next step. --strict is the gate
-  after a human has ratified; the skill never makes it pass.
+status: ratified
+title: The skill hands back on zero errors in both graphs
+text: The skill hands back only when both the shaping graph and the second graph
+  report zero errors under tl check. The second graph holds registers and no items
+  at that point; throughline from 2.3.0 reports that as the warning empty-registers,
+  and the skill does not author an item to silence it. --strict is the gate after
+  a human has ratified; the skill never makes it pass.
 rationale: The brief's R7 asked for both graphs green under --strict. Strict turns
-  the unratified warning on every proposed item into an error, and a lone intent
-  is an unserved delivery root, so the wording is what the tool can actually grant.
+  the unratified warning on every proposed item into an error, so the gate the skill
+  can meet is zero errors under tl check. An empty second graph was itself an error
+  before throughline 2.3.0; rather than seed an intent, which is an unserved delivery
+  root and a worse error, the tool was changed (throughline SR-0194) so registers
+  without items warn.
 normative: true
 links:
 - target: INT-0001
@@ -16,3 +20,5 @@ links:
 attrs:
   priority: must
   origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:233345e374a2dedbb323a8cd306c830eab67b7c4700d5375d9a1827b4e77429c

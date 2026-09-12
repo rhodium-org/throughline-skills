@@ -36,9 +36,9 @@ Rules that hold throughout:
   you did create. There is no decisions register; the graph is the decision log.
 - **Never hand-edit a `<UID>.yml` or `.register.yml`.** Every structural change
   goes through `tl`/`tl-compose`; the script wraps the calls that matter.
-- **Stop at registers.** Seed the root intent the second graph is grounded in,
-  gate both graphs, hand back for ratification, and *offer* to go on to the
-  first layer of items, which is what serves that intent. Do not go on unasked.
+- **Stop at registers.** Gate both graphs, hand back for ratification, and
+  *offer* to go on to the first layer of items, starting with the intent the
+  second graph is grounded in. Do not go on unasked.
 
 ## First: tools and the script
 
@@ -48,7 +48,8 @@ S="${CLAUDE_PLUGIN_ROOT}/scripts/shaping.py"
 python3 "$S" --help
 ```
 
-Needs Python ≥ 3.11. If the plugin root variable is unset, the script sits at
+Needs Python ≥ 3.11 and throughline ≥ 2.3.0 (a fresh install brings the
+latest). If the plugin root variable is unset, the script sits at
 `scripts/shaping.py` beside this file's plugin. `references/layout.md` records
 what was verified about the tool on the date it names; `tl --help` beats both.
 
@@ -194,9 +195,9 @@ own, or must it reach a root? A `root` may exist ungrounded; a `delivery-root`
 additionally must have something deriving from or mitigating it; everything
 else must trace to a root. `intent`, `business_need`, `risk` and `constraint`
 are delivery roots already; `assumption` and `non_goal` are roots. **At least
-one register must hold a delivery root**, because the second graph is seeded
-with an intent and has to have somewhere to put it; the script refuses to
-write otherwise.
+one register must hold a delivery root**, or the graph has nowhere to put the
+intent its first layer will be grounded in; the script refuses to write
+otherwise.
 
 Each register you considered and rejected is a `non_goal` with its rationale,
 linked (`derives_from`) to the need that made it unnecessary or the domain
@@ -214,7 +215,7 @@ vision, requirements, non-functional, non-goals and tests, whether it is in
 and why, or out and why. Their absence from the set is a decision, not an
 oversight.
 
-### 5. Write, seed, gate, hand off
+### 5. Write, gate, hand off
 
 ```sh
 python3 "$S" -C <repo> write
@@ -226,32 +227,28 @@ naming the decision), creates the registers, and records the pointer: a
 `path` source in `idd/shaping/throughline.toml` naming the second graph. From
 here shaping is driven with `tl-compose`, never bare `tl`; the script chooses.
 
-An empty graph fails the check, so seed the one item the graph is grounded in
-— its intent, in the register that holds delivery roots — and gate both:
+Gate both graphs:
 
 ```sh
-python3 "$S" new INT --graph <name> --type intent --title "..." --text "..."
 python3 "$S" -C <repo> check
 ```
 
-Hand back when the shaping graph reports **zero errors** and the second graph
-reports **no error other than `unserved-root` on the intent you seeded**. That
-one finding is the tool's own rule — an intent nothing derives from is not yet
-served — and it is exactly the offer you are about to make: the first layer of
-items is what serves it. Name it as such; do not add an item to silence it
-unasked. Warnings will remain in both graphs: every item is AI-origin and
-unratified, and that is the point. `--strict` is the gate *after*
-ratification; a graph the skill has only proposed into cannot pass it, and you
-must not make it pass by ratifying.
+Hand back on **zero errors in both graphs**. The second graph holds registers
+and no items yet, which throughline from 2.3.0 reports as the warning
+`empty-registers`, not an error; on an older tool it is the error `empty-graph`,
+so upgrade rather than author an item to silence it. Other warnings will remain:
+every item in shaping is AI-origin and unratified, and that is the point.
+`--strict` is the gate *after* ratification; a graph the skill has only
+proposed into cannot pass it, and you must not make it pass by ratifying.
 
 Then stop and present, naming the absolute path and the command to run:
 
 > Shaped. `idd/shaping/` holds N items across sources, domain, needs, decisions,
-> non-goals and constraints, zero errors; `idd/<name>/` has these registers and
-> its intent, which reports unserved until a first item derives from it.
+> non-goals and constraints; `idd/<name>/` has these registers and no items yet.
+> Both report zero errors.
 > To ratify: `cd <absolute repo path> && tl-compose -C idd/shaping ratify` for
-> each of <UIDs>, then `tl -C idd/<name> ratify INT-0001`. I can go on to a
-> first layer of items in `idd/<name>/` if you want; I have stopped at registers.
+> each of <UIDs>. I can go on to the first layer of items in `idd/<name>/`,
+> starting with its intent, if you want; I have stopped at registers.
 
 Ratification is a human act. If asked to do it, decline and say why: a
 fabricated `ratified_by` is the one thing this toolchain exists to prevent.

@@ -316,8 +316,8 @@ def cmd_write(repo: Path, _a) -> None:
                 f'namespace = "{name}"\n'
                 f'path = "../{name}"\n')
     print(f"wrote {target} with {len(regs)} register(s) and recorded the pointer in "
-          f"{cfg}\nnext: seed the root intent there with `new --graph {name} ...`, "
-          "then run `check`")
+          f"{cfg}\nnext: run `check`; the new graph reports empty-registers as a "
+          "warning until its first layer is authored (throughline >= 2.3.0)")
 
 
 def cmd_check(repo: Path, a) -> None:

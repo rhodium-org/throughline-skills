@@ -1,6 +1,6 @@
 uid: SRC-0003
 type: source
-status: proposed
+status: ratified
 title: The two skills the marketplace held on 2026-09-12, and their graphs
 text: 'challenge and multigraph, the skills in the tl plugin that day, read for the
   conventions the new one should follow: the SKILL.md shape, the script reached through
@@ -12,3 +12,5 @@ attrs:
   path: skills/challenge/SKILL.md; skills/multigraph/SKILL.md
   origin: ai
   read: '2026-09-12'
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:f5534cd4ffebbe59bac1bd8ab1763277b694e54aac5c72e28f0a4d9de56c8853

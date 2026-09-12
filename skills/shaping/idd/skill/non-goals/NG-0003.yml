@@ -1,8 +1,10 @@
 uid: NG-0003
 type: non_goal
-status: proposed
+status: ratified
 title: No opinion about which model or editor does the second graph's work
 text: Once the second graph exists, what runs its work is not the skill's concern.
 normative: true
 attrs:
   origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:8f20ad661b4344b538675a9401780baf6e9be503774464f3b38adfe60610986b

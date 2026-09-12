@@ -1,6 +1,6 @@
 uid: REQ-0001
 type: requirement
-status: proposed
+status: ratified
 title: The layout comes from the discovery, not from tl init's register set
 text: The skill lays the layout down under idd/ itself, from tl init --bare, tl register
   new and tl schema, and never depends on the register set that tl init creates by
@@ -15,3 +15,5 @@ links:
 attrs:
   priority: must
   origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:7f04bbb468ac3e82011e87b5088eddfa7b8ea444f5d65f0dd38e4572f3b4e9f4

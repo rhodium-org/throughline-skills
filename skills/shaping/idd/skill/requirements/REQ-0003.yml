@@ -1,6 +1,6 @@
 uid: REQ-0003
 type: requirement
-status: proposed
+status: ratified
 title: The second directory is named during discovery and recorded, never defaulted
 text: 'The second graph''s directory name is chosen once the domain is known and
   recorded twice: as a decision item in shaping and as a path source in shaping''s
@@ -13,3 +13,5 @@ links:
 attrs:
   priority: must
   origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:bcd73f0e01bc0e80b53ef1f3e65afe83cb5598a790c75905be1e1d087fa2a436
