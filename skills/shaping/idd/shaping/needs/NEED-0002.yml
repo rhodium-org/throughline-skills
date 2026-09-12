@@ -1,6 +1,6 @@
 uid: NEED-0002
 type: need
-status: proposed
+status: ratified
 title: Every requirement can be verified by a recorded acceptance test
 text: 'The brief names six acceptance checks: fresh repo with no sources, with sources,
   a rejection, a re-run, the ordering, and the repo''s own gates. Each must be recordable
@@ -14,3 +14,5 @@ links:
   type: derives_from
 attrs:
   origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:419ef602b34d8a0859b6270f8f501c2cf965aad6d03fdaf9357293b052065594

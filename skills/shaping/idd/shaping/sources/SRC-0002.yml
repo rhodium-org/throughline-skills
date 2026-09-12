@@ -1,13 +1,15 @@
 uid: SRC-0002
 type: source
 status: proposed
-title: 'The installed tool: tl 2.2.1 and tl-compose 0.16.4'
-text: tl --help, tl init --help and a scratch tl init in each of its three forms;
-  tl register new, tl schema, tl new and tl check --help; probes of nesting, graph
-  location, unknown config keys, a zero-item path source, an empty graph, a lone
-  intent, and strict on a proposed item. Recorded in references/layout.md with the
-  date.
+title: 'The installed tool as read on 2026-09-12: tl 2.2.1 and tl-compose 0.16.4'
+text: 'The versions on the workstation that day. Read: tl --help, tl init --help
+  and a scratch tl init in each of its three forms; tl register new, tl schema, tl
+  new and tl check --help; probes of nesting, graph location, unknown config keys,
+  a zero-item path source, an empty graph, a lone intent, and strict on a proposed
+  item. What was found is in references/layout.md under that date; a later run re-verifies
+  against whatever is installed then.'
 normative: true
 attrs:
   path: tl --help; skills/shaping/references/layout.md
   origin: ai
+  read: '2026-09-12'

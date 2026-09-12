@@ -1,6 +1,6 @@
 uid: DEC-0001
 type: decision
-status: proposed
+status: ratified
 title: Name the graph skill
 text: 'The thing being built is a skill, so its graph is idd/skill/ under skills/shaping/.
   Not product, not subject: the name says what the graph is a graph of.'
@@ -12,3 +12,5 @@ attrs:
   kind: name
   dir: skill
   origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:8dfe71f1a665ca9e4f790e1e177d53069b972c61a99f5e9ca7f5b93dbafc3040

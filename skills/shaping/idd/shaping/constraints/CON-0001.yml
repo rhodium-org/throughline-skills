@@ -1,6 +1,6 @@
 uid: CON-0001
 type: constraint
-status: proposed
+status: ratified
 title: 'Workspace standard: every tool ships its own IDD graph'
 text: Every script, skill, hook or generator made in this workspace carries a graph
   with one intent root, one requirement per changeable behaviour and one test per
@@ -10,3 +10,5 @@ rationale: The operator's standing rule, inherited rather than rediscovered.
 normative: true
 attrs:
   origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:04ae176551a474ce0b43587f4b1c900e3c1a05d035b38a25a427d216029fb81e

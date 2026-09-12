@@ -1,6 +1,6 @@
 uid: DEC-0003
 type: decision
-status: proposed
+status: ratified
 title: Requirements register (REQ, requirement)
 text: 'One requirement per changeable behaviour: the brief''s R1 to R8, reworded
   where the tool disagreed. Each derives from the intent and carries a priority.'
@@ -17,3 +17,5 @@ attrs:
   item_type: requirement
   grounding: grounded
   origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:128c11389ea3bab4fe6996575a2a6ca9d1c1e44be8a4c915aa4c18ff8c1e9438

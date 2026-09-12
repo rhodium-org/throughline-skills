@@ -1,6 +1,6 @@
 uid: NG-0002
 type: non_goal
-status: proposed
+status: ratified
 title: No risk register in the skill graph
 text: A skill in a marketplace carries no operational risk a register would track.
   What can go wrong is a wrong graph, and that is what the requirements and their
@@ -13,3 +13,5 @@ links:
   type: derives_from
 attrs:
   origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:9ab4dba579c4804359974988ee7d680e25056cb63ffff0b1d8afbcecf017a89a

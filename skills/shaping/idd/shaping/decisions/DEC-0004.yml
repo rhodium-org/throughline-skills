@@ -1,6 +1,6 @@
 uid: DEC-0004
 type: decision
-status: proposed
+status: ratified
 title: Tests register (TEST, test)
 text: One acceptance test per requirement, each verifying the requirement it is written
   against, with a method attribute saying how it is run. Created now so the coverage
@@ -19,3 +19,5 @@ attrs:
   item_type: test
   grounding: grounded
   origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:dd89364c6dd0df23ddf3370e9e7ef343c1c07555b466faca2a8dd0bb4b4ba8f6

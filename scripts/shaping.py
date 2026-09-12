@@ -37,6 +37,7 @@ import shutil
 import subprocess
 import sys
 import tomllib
+from datetime import date
 from pathlib import Path
 
 IDD = "idd"
@@ -58,7 +59,7 @@ SHAPING_REGISTERS = [
 # follows from, so it is a delivery root and an unserved one is a finding.
 SHAPING_ROOTS = {"source": "root", "domain": "delivery-root"}
 SHAPING_ATTRS = {
-    "source": [("path", "--kind", "string")],
+    "source": [("path", "--kind", "string"), ("read", "--kind", "date")],
     "decision": [
         ("kind", "--kind", "enum", "--values", "register,name", "--required"),
         ("prefix", "--kind", "string"),
@@ -211,7 +212,9 @@ def cmd_status(repo: Path, a) -> None:
         rows = data["items"].get(item_type, [])
         print(f"\n{title} ({len(rows)})")
         for r in rows:
-            print(f"  {r['uid']}  [{r['status']}]  {r['title']}")
+            read = r["attrs"].get("read")
+            when = f"  (read {read})" if read else ""
+            print(f"  {r['uid']}  [{r['status']}]  {r['title']}{when}")
     print()
     if data["name"]:
         state = "exists" if data["shaped_exists"] else "not yet written"
@@ -233,7 +236,13 @@ def cmd_new(repo: Path, a) -> None:
         args += ["--ground", g]
     if a.ground_type:
         args += ["--ground-type", a.ground_type]
-    for kv in a.attr or []:
+    attrs = list(a.attr or [])
+    if a.type == "source" and not any(kv.startswith("read=") for kv in attrs):
+        # A source is a record of what was read, and what was read is what
+        # existed that day: date it by construction so it never reads as a
+        # present-tense claim, and a re-run can see how old the reading is.
+        attrs.append("read=" + date.today().isoformat())
+    for kv in attrs:
         if "=" not in kv:
             die(f"--attr expects KEY=VALUE, got {kv!r}")
         args += ["--attr", kv]

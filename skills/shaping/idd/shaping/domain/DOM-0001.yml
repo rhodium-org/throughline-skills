@@ -1,6 +1,6 @@
 uid: DOM-0001
 type: domain
-status: proposed
+status: ratified
 title: A Claude Code skill in the tl plugin marketplace
 text: 'The thing being built is an Agent Skill: a SKILL.md holding the judgement
   and a standard-library script holding the mechanics, shipped as the third skill
@@ -17,3 +17,5 @@ links:
   type: derives_from
 attrs:
   origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:e90bc5d376bc7e9baecc8319e2f121edc4f9ba392ec02b2260bd30e6d301a585

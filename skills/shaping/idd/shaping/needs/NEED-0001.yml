@@ -1,6 +1,6 @@
 uid: NEED-0001
 type: need
-status: proposed
+status: ratified
 title: Every behaviour the brief fixes is an item a human can ratify, reject or amend
 text: The brief's eight requirements, its rewording where the installed tool disagreed,
   and its settled decisions must each be one requirement grounded in one intent,
@@ -14,3 +14,5 @@ links:
   type: derives_from
 attrs:
   origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:6266baa70e860ed0832b4987a55031da1b687938220202fc51f3d4b694f3d37e

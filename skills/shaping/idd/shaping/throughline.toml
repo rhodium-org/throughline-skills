@@ -92,6 +92,8 @@ severity = "warning"
 attrs.origin = { type = "enum", values = ["human", "ai", "hybrid"] }
 # throughline shaping: a source carries its path
 attrs.path = { type = "string" }
+# throughline shaping: a source is a record of what was read on a day
+attrs.read = { type = "date" }
 
 # throughline shaping: the shaping conversation records domain reading
 [types.domain]

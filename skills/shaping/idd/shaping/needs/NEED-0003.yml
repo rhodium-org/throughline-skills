@@ -1,6 +1,6 @@
 uid: NEED-0003
 type: need
-status: proposed
+status: ratified
 title: What the skill deliberately does not do is recorded where a reader will find
   it
 text: No change to tl init, no two-way sync between the graphs, no opinion on which
@@ -12,3 +12,5 @@ links:
   type: derives_from
 attrs:
   origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:d21eb97091f22ad5b0af41677150d1dc8e6af0ff60d9b278cf703516f3de2cc9

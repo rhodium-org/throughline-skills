@@ -1,6 +1,6 @@
 uid: DEC-0002
 type: decision
-status: proposed
+status: ratified
 title: Vision register (INT, intent, delivery root)
 text: 'Holds the one intent the skill is grounded in: initialising a graph is a judgement
   that belongs to intelligence, not to a scaffold. An intent is a delivery root,
@@ -18,3 +18,5 @@ attrs:
   item_type: intent
   grounding: delivery-root
   origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:f8a1416335f34c1c32c3b1faf6c33e45541b3327d3c969fe6a1e7953a46da3e9

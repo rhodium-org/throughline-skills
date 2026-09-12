@@ -1,6 +1,6 @@
 uid: NG-0003
 type: non_goal
-status: proposed
+status: ratified
 title: No constraints register in the skill graph
 text: The brief's six settled design decisions are what the requirements say; holding
   them again as constraints would state one thing in two places. The one standard
@@ -14,3 +14,5 @@ links:
   type: derives_from
 attrs:
   origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:04219a074a55192aad44bdaf4bd8f608afe8af979590bd720691ca8557491430

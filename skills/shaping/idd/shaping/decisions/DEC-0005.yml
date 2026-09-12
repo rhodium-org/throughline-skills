@@ -1,6 +1,6 @@
 uid: DEC-0005
 type: decision
-status: proposed
+status: ratified
 title: Non-goals register (NG, non_goal, root)
 text: 'The brief''s three non-goals as items: negative space a proposal can be pointed
   at. A non_goal is a root and never flagged unserved.'
@@ -15,3 +15,5 @@ attrs:
   item_type: non_goal
   grounding: root
   origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:5cb522fa36b5fbcacdd474a3ca9c5d4a8228bf9f9656260343fd129ef3ec0a15

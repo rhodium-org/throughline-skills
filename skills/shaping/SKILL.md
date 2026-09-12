@@ -90,7 +90,10 @@ items grounded in more than your own reading.
 
 Ask what to read: briefs, decks, existing docs, code, a ticket. Read each one.
 Each becomes a `source` item so provenance survives — title it by what it is,
-put a one-line account of what it says in the text, and record where it is:
+put a one-line account of what it says in the text, and record where it is.
+The script stamps the day it was read (`read`): a source is a record of what
+existed that day, not a claim about now, so write it that way — "the two
+skills the marketplace held", not "the marketplace's two skills":
 
 ```sh
 python3 "$S" new SRC --type source --title "Programme brief, March 2026" \
@@ -260,7 +263,7 @@ shape every time:
 
 | register | prefix | type | root? | holds |
 |---|---|---|---|---|
-| `sources/` | SRC | `source` | root | each document read, with its `path` |
+| `sources/` | SRC | `source` | root | each document read, with its `path` and the day it was `read` |
 | `domain/` | DOM | `domain` | delivery root | the reading of what this is |
 | `needs/` | NEED | `need` | — | what the work needs from its graph |
 | `decisions/` | DEC | `decision` | — | the name, and one per register created |
