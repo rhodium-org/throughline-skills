@@ -142,8 +142,12 @@ def cmd_mentions(g: Graph, args) -> None:
                         continue
                     reported.add((cited, sent))
                     if in_path(sent, m):
+                        # A file may be named after a local or a borrowed item
+                        # that shares the UID; name every candidate (REQ-0002).
+                        cands = sorted(u for u in g.items
+                                       if u == bare or u.endswith(":" + bare))
                         paths += 1
-                        print(f"path      {uid} -> {cited}  [{field}]  {sent[:140]}")
+                        print(f"path      {uid} -> {' | '.join(cands)}  [{field}]  {sent[:140]}")
                         continue
                     n += 1
                     print(f"mentions  {uid} -> {cited}  [{field}]  {sent[:140]}")
@@ -250,7 +254,10 @@ def cmd_failure_case(g: Graph, args) -> None:
 def cmd_untestable(g: Graph, args) -> None:
     """REQ-0005: predicates no observation of the running system could settle."""
     n = 0
-    pat = re.compile(r"\b(" + "|".join(re.escape(w) for w in VAGUE_WORDS) + r")\b", re.I)
+    # Word boundaries that a hyphen does not supply: "machine-readable" is a
+    # compound, not the predicate "readable".
+    pat = re.compile(r"(?<![\w-])(" + "|".join(re.escape(w) for w in VAGUE_WORDS)
+                     + r")(?![\w-])", re.I)
     for uid, item in g.items.items():
         if args.local_only and not g.is_local(uid):
             continue
