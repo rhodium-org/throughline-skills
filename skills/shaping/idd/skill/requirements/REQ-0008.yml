@@ -1,6 +1,6 @@
 uid: REQ-0008
 type: requirement
-status: proposed
+status: ratified
 title: Re-running on a shaped repo re-confirms the prior reasoning, never overwrites
   it
 text: On a repo that already has idd/shaping/, the skill reads the prior reasoning
@@ -14,3 +14,5 @@ links:
 attrs:
   priority: must
   origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:ea2d00b19427b0590a4e1015051095c533e5c1f38acd87514ce9ad16c70dd48c
