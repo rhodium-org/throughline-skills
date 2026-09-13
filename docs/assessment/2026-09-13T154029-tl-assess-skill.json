@@ -1,0 +1,156 @@
+{
+  "name": "tl-assess-skill",
+  "label": "The tl:assess skill itself, re-recorded with the git measure scoped to its own paths after REQ-0008: a script, a skill text, a graph of seventeen items, eight fixture tests and a collection repository, built and used on its own build, 13 September 2026.",
+  "recorded_at": "2026-09-13T15:40:29+00:00",
+  "graph_root": "/home/henry/Projects/01-applications/throughline-skills/skills/assess/idd",
+  "repository": ".",
+  "graph": {
+    "items_local": 17,
+    "items_live": 17,
+    "items_accepted": 17,
+    "acceptance_ratio": 1.0,
+    "by_type": {
+      "intent": 1,
+      "requirement": 8,
+      "test": 8
+    },
+    "by_status": {
+      "ratified": 17
+    },
+    "by_origin": {
+      "ai": 17
+    },
+    "ratified_by": {
+      "Henry Grech-Cini": 17
+    },
+    "normative": 17,
+    "tests_by_method": {
+      "automated": 8
+    },
+    "sources_composed": {},
+    "citations_by_source": {},
+    "citations": 0,
+    "citations_stamped": 0,
+    "citations_unstamped": 0,
+    "local_links": 17
+  },
+  "git": {
+    "scope": [
+      "skills/assess",
+      "scripts/assess.py",
+      "tests/test_assess.py",
+      "docs/assessment"
+    ],
+    "commits": 10,
+    "first_commit": "2026-09-13T15:54:00+01:00",
+    "last_commit": "2026-09-13T16:39:04+01:00",
+    "span_days": 0.03,
+    "authors": {
+      "Henry Grech-Cini": 10
+    },
+    "commits_citing_an_item": 10,
+    "citing_ratio": 1.0,
+    "tags": [],
+    "editions": 0,
+    "lines_added": 1753,
+    "lines_removed": 75,
+    "items_ratified": 17,
+    "items_amended_after_ratification": 1,
+    "amending_commits": 1
+  },
+  "docs": {
+    "documents": {},
+    "words": 0,
+    "docs_check_ok": true,
+    "docs_check": []
+  },
+  "tests": {
+    "test_files": 1,
+    "pattern": "tests/test_assess.py",
+    "passed": 14,
+    "failed": 0
+  },
+  "sessions": {
+    "sessions": [
+      {
+        "file": "/home/henry/.claude/projects/-home-henry-Projects/a0bc2492-467f-448a-ae77-553b7861275b.jsonl",
+        "session_id": "a0bc2492-467f-448a-ae77-553b7861275b",
+        "cwd": "/home/henry/Projects",
+        "first": "2026-09-13T14:39:01.011000+00:00",
+        "last": "2026-09-13T15:39:04.013000+00:00",
+        "wall_clock_hours": 1.0,
+        "active_hours": 0.74,
+        "idle_gap_minutes": 10.0,
+        "since": "2026-09-13T14:20:00+00:00",
+        "until": null,
+        "user_turns": 7,
+        "assistant_turns": 124,
+        "tool_results": 73,
+        "tool_calls": 74,
+        "tool_calls_by_name": {
+          "Bash": 71,
+          "Write": 3
+        },
+        "api_calls": 124,
+        "models": {
+          "claude-fable-5-1": 124
+        },
+        "compactions": 0,
+        "tokens": {
+          "input_tokens": 3248,
+          "output_tokens": 306702,
+          "cache_creation_input_tokens": 1901325,
+          "cache_read_input_tokens": 75017805,
+          "thinking_tokens": 72475
+        }
+      }
+    ],
+    "count": 1,
+    "totals": {
+      "wall_clock_hours": 1.0,
+      "active_hours": 0.74,
+      "user_turns": 7,
+      "assistant_turns": 124,
+      "tool_calls": 74,
+      "api_calls": 124,
+      "compactions": 0,
+      "tokens_input_tokens": 3248,
+      "tokens_output_tokens": 306702,
+      "tokens_cache_creation_input_tokens": 1901325,
+      "tokens_cache_read_input_tokens": 75017805,
+      "tokens_thinking_tokens": 72475
+    },
+    "tool_calls_by_name": {
+      "Bash": 71,
+      "Write": 3
+    }
+  },
+  "done": {
+    "criteria": {
+      "strict_check_clean": true,
+      "docs_current": true,
+      "nothing_awaiting_ratification": true,
+      "working_tree_clean": true,
+      "tests_green": true
+    },
+    "done": true,
+    "strict_errors": 0,
+    "proposed": 0,
+    "passed": 14,
+    "failed": 0
+  },
+  "provenance": {
+    "repository_commit": "c9c0aebd623530fd9caf06e17d964953acdd1d2a",
+    "working_tree_clean": true,
+    "sources": [],
+    "tools": {
+      "tl": "tl 3.0.0",
+      "tl-compose": "tl-compose 0.16.4 (throughline 3.0.0)",
+      "tl-ratify": "tl-ratify 0.7.0 (throughline-compose 0.16.4, throughline 3.0.0)"
+    },
+    "plugin_version": "1.2.0",
+    "plugin_commit": "c9c0aebd623530fd9caf06e17d964953acdd1d2a",
+    "script": "/home/henry/Projects/01-applications/throughline-skills/scripts/assess.py",
+    "python": "3.12.3"
+  }
+}
