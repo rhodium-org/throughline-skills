@@ -105,13 +105,16 @@ def test_git_measure_counts_commits_tags_citations_and_amendments(repo):  # TEST
     git(repo, "add", "-A")
     git(repo, "commit", "-q", "-m", "An amendment with no item named")
     git(repo, "tag", "v0.2.0")
+    run("tl", "-C", str(idd), "ratify", "REQ-0001", "--by", RATIFIER, "--accept-change", check=False)
+    git(repo, "add", "-A")
+    git(repo, "commit", "-q", "-m", "Re-ratified REQ-0001, which is not an amendment")
     g = assess("git", "-C", str(idd))
-    assert g["commits"] == 3
+    assert g["commits"] == 4
     assert g["editions"] == 2 and [t["tag"] for t in g["tags"]] == ["v0.1.0", "v0.2.0"]
-    assert g["commits_citing_an_item"] == 2
+    assert g["commits_citing_an_item"] == 3
     assert g["items_ratified"] >= 1
     assert g["items_amended_after_ratification"] == 1 and g["amending_commits"] == 1
-    assert g["authors"] == {"Tester": 3}
+    assert g["authors"] == {"Tester": 4}
 
 
 def test_docs_and_tests_are_measured_not_invented(repo, tmp_path):  # TEST-0003
@@ -164,6 +167,8 @@ def test_sessions_measure_a_synthetic_transcript(tmp_path):  # TEST-0004
     assert one["tokens"] == {"input_tokens": 30, "output_tokens": 300, "cache_creation_input_tokens": 3000,
                              "cache_read_input_tokens": 15000, "thinking_tokens": 120}
     assert s["totals"]["tokens_output_tokens"] == 300
+    windowed = assess("sessions", str(p), "--until", "2026-09-01T10:10:00Z")
+    assert windowed["sessions"][0]["user_turns"] == 1 and windowed["sessions"][0]["api_calls"] == 2
 
 
 def test_done_fails_per_criterion_then_passes(repo, tmp_path):  # TEST-0005

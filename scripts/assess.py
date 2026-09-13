@@ -19,7 +19,7 @@ Usage:
   assess.py git      -C ROOT [--repo DIR]
   assess.py docs     -C ROOT
   assess.py tests    --glob PATTERN [--results FILE] [--repo DIR]
-  assess.py sessions FILE... [--idle-gap MINUTES]
+  assess.py sessions FILE... [--idle-gap MINUTES] [--since ISO] [--until ISO]
   assess.py done     -C ROOT [--repo DIR] [--results FILE]
   assess.py record   -C ROOT --name NAME [--repo DIR] [--sessions FILE...]
                      [--tests-glob PATTERN] [--results FILE] [--out DIR]
@@ -168,10 +168,20 @@ def measure_git(repo: str, items_dir: str | None) -> dict:
             if not first_ratified:
                 continue
             amended["items_ratified"] += 1
+            # A later commit counts as an amendment only if it changed a line other than the ratification
+            # record and the status: a re-ratification alone is the human's act, not a change to the item.
             later = run(["git", "-C", repo, "log", "--format=%H", f"{first_ratified[0]}..HEAD", "--", f]).stdout.split()
-            if later:
+            amending = 0
+            for commit in later:
+                diff = run(["git", "-C", repo, "show", "--format=", commit, "--", f]).stdout
+                changed = [l for l in diff.splitlines() if (l.startswith("+") or l.startswith("-"))
+                           and not l.startswith(("+++", "---"))
+                           and not re.match(r"[+-]\s*(ratified_by|ratified_fingerprint|ratified_id|status):", l)]
+                if changed:
+                    amending += 1
+            if amending:
                 amended["items_amended_after_ratification"] += 1
-                amended["amending_commits"] += len(later)
+                amended["amending_commits"] += amending
     return {
         "commits": len(commits),
         "first_commit": first,
@@ -235,7 +245,7 @@ def parse_ts(s: str) -> dt.datetime:
     return dt.datetime.fromisoformat(s.replace("Z", "+00:00"))
 
 
-def measure_session(path: str, idle_gap_min: float) -> dict:
+def measure_session(path: str, idle_gap_min: float, since: dt.datetime | None = None, until: dt.datetime | None = None) -> dict:
     first = last = prev = None
     active = dt.timedelta()
     gap = dt.timedelta(minutes=idle_gap_min)
@@ -256,6 +266,8 @@ def measure_session(path: str, idle_gap_min: float) -> dict:
             ts = o.get("timestamp")
             if ts:
                 t = parse_ts(ts)
+                if (since and t < since) or (until and t > until):
+                    continue
                 first = first or t
                 if prev is not None and t > prev:
                     d = t - prev
@@ -297,6 +309,8 @@ def measure_session(path: str, idle_gap_min: float) -> dict:
         "wall_clock_hours": round(wall.total_seconds() / 3600, 2),
         "active_hours": round(active.total_seconds() / 3600, 2),
         "idle_gap_minutes": idle_gap_min,
+        "since": since.isoformat() if since else None,
+        "until": until.isoformat() if until else None,
         "user_turns": user_turns,
         "assistant_turns": assistant_turns,
         "tool_results": tool_results,
@@ -309,8 +323,10 @@ def measure_session(path: str, idle_gap_min: float) -> dict:
     }
 
 
-def measure_sessions(paths: list[str], idle_gap_min: float) -> dict:
-    sessions = [measure_session(p, idle_gap_min) for p in paths]
+def measure_sessions(paths: list[str], idle_gap_min: float, since: str | None = None, until: str | None = None) -> dict:
+    s = parse_ts(since) if since else None
+    u = parse_ts(until) if until else None
+    sessions = [measure_session(p, idle_gap_min, s, u) for p in paths]
     totals: Counter = Counter()
     tools: Counter = Counter()
     for s in sessions:
@@ -361,7 +377,7 @@ def record(args) -> dict:
         "git": measure_git(repo, os.path.relpath(root, repo)),
         "docs": measure_docs(root),
         "tests": measure_tests(args.tests_glob, args.results, repo),
-        "sessions": measure_sessions(args.sessions or [], args.idle_gap),
+        "sessions": measure_sessions(args.sessions or [], args.idle_gap, args.since, args.until),
         "done": measure_done(root, repo, args.results),
     }
     out_dir = Path(args.out or os.path.join(repo, "docs", "assessment"))
@@ -484,11 +500,13 @@ def main(argv: list[str] | None = None) -> int:
     p = sub.add_parser("docs"); root_args(p)
     p = sub.add_parser("tests"); p.add_argument("--glob", required=True); p.add_argument("--results"); p.add_argument("--repo")
     p = sub.add_parser("sessions"); p.add_argument("files", nargs="+"); p.add_argument("--idle-gap", type=float, default=10.0)
+    p.add_argument("--since", help="count transcript entries from this instant (ISO 8601)"); p.add_argument("--until", help="count transcript entries up to this instant (ISO 8601)")
     p = sub.add_parser("done"); root_args(p); p.add_argument("--repo"); p.add_argument("--results")
     p = sub.add_parser("record"); root_args(p)
     p.add_argument("--name", required=True, help="a slug for the work, one word or hyphenated")
     p.add_argument("--label", help="one line saying what the work was")
     p.add_argument("--repo"); p.add_argument("--sessions", nargs="*"); p.add_argument("--idle-gap", type=float, default=10.0)
+    p.add_argument("--since"); p.add_argument("--until")
     p.add_argument("--tests-glob"); p.add_argument("--results"); p.add_argument("--out"); p.add_argument("--collection")
     args = ap.parse_args(argv)
 
@@ -502,7 +520,7 @@ def main(argv: list[str] | None = None) -> int:
     elif args.cmd == "tests":
         out = measure_tests(args.glob, args.results, args.repo)
     elif args.cmd == "sessions":
-        out = measure_sessions(args.files, args.idle_gap)
+        out = measure_sessions(args.files, args.idle_gap, args.since, args.until)
     elif args.cmd == "done":
         out = measure_done(args.path, repo_of(args.path, args.repo), args.results)
         print(json.dumps(out, indent=2))
