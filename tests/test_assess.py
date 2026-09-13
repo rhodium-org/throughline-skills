@@ -201,14 +201,32 @@ def test_record_writes_files_keeps_earlier_ones_and_indexes_the_collection(repo,
     transcript(t)
     coll = tmp_path / "collection"
     first = assess("record", "-C", str(idd), "--name", "fixture", "--label", "A fixture", "--sessions", str(t), "--collection", str(coll))
-    out_json = Path(first["written"][0])
-    out_json.with_suffix(".json").rename(out_json.with_name("2000-01-01-fixture.json"))
-    (coll / "fixture" / out_json.name).rename(coll / "fixture" / "2000-01-01-fixture.json")
     second = assess("record", "-C", str(idd), "--name", "fixture", "--label", "A fixture", "--sessions", str(t), "--collection", str(coll))
     md = Path(second["written"][1]).read_text()
     for heading in ("## Measured", "## What was built", "## Defects found after the first \"done\"", "## What the graph caught", "## Human effort", "## Verdict"):
         assert heading in md
+    assert "| Tools | tl: " in md and "| Skill | tl:assess " in md and second["provenance"]["repository_commit"]
     assert "| Human turns / AI turns | 2 / 3 |" in md
     assert len(list((repo / "docs" / "assessment").glob("*.json"))) == 2
     index = (coll / "README.md").read_text()
     assert index.count("| fixture |") == 2
+
+
+def test_provenance_names_commit_pins_tools_and_plugin(repo):  # TEST-0007
+    idd = graph_with_items(repo)
+    toml = idd / "throughline.toml"
+    toml.write_text(toml.read_text() + '\n[[sources]]\nname = "wcag"\nurl = "https://github.com/rhodium-org/throughline-wcag"\nref = "v2.2.3"\n')
+    git(repo, "add", "-A")
+    git(repo, "commit", "-q", "-m", "A graph (INT-0001)")
+    p = assess("provenance", "-C", str(idd))
+    assert p["repository_commit"] == git(repo, "rev-parse", "HEAD").stdout.strip()
+    assert p["working_tree_clean"] is True
+    assert p["sources"] == [{"name": "wcag", "url": "https://github.com/rhodium-org/throughline-wcag", "ref": "v2.2.3"}]
+    for tool in ("tl", "tl-compose", "tl-ratify"):
+        expected = subprocess.run([tool, "--version"], text=True, capture_output=True) if shutil.which(tool) else None
+        assert p["tools"][tool] == ((expected.stdout or expected.stderr).strip().splitlines()[0] if expected else None)
+    manifest = json.loads((Path(__file__).resolve().parents[1] / ".claude-plugin" / "plugin.json").read_text())
+    assert p["plugin_version"] == manifest["version"] and len(p["plugin_commit"] or "") == 40
+    assert p["script"].endswith("scripts/assess.py") and p["python"].count(".") == 2
+    (idd / "scratch.txt").write_text("dirty\n")
+    assert assess("provenance", "-C", str(idd))["working_tree_clean"] is False

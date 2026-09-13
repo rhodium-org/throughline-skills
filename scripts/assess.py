@@ -21,6 +21,7 @@ Usage:
   assess.py tests    --glob PATTERN [--results FILE] [--repo DIR]
   assess.py sessions FILE... [--idle-gap MINUTES] [--since ISO] [--until ISO]
   assess.py done     -C ROOT [--repo DIR] [--results FILE]
+  assess.py provenance -C ROOT [--repo DIR]
   assess.py record   -C ROOT --name NAME [--repo DIR] [--sessions FILE...]
                      [--tests-glob PATTERN] [--results FILE] [--out DIR]
                      [--collection DIR] [--label TEXT]
@@ -34,8 +35,10 @@ import json
 import os
 import re
 import shutil
+import platform
 import subprocess
 import sys
+import tomllib
 from collections import Counter, defaultdict
 from pathlib import Path
 
@@ -339,6 +342,54 @@ def measure_sessions(paths: list[str], idle_gap_min: float, since: str | None = 
             "tool_calls_by_name": dict(tools.most_common())}
 
 
+# ── provenance ──────────────────────────────────────────────────────────────
+
+def tool_version(name: str) -> str | None:
+    """What `<tool> --version` prints, or None when the tool is not on the path."""
+    if not shutil.which(name):
+        return None
+    out = run([name, "--version"])
+    return (out.stdout or out.stderr).strip().splitlines()[0] if (out.stdout or out.stderr).strip() else "unknown"
+
+
+def plugin_root() -> Path:
+    env = os.environ.get("CLAUDE_PLUGIN_ROOT")
+    return Path(env) if env else Path(__file__).resolve().parent.parent
+
+
+def measure_provenance(root: str, repo: str) -> dict:
+    head = run(["git", "-C", repo, "rev-parse", "HEAD"]).stdout.strip() or None
+    clean = run(["git", "-C", repo, "status", "--porcelain"]).stdout.strip() == ""
+    sources = []
+    toml = Path(root) / "throughline.toml"
+    if toml.exists():
+        try:
+            cfg = tomllib.loads(toml.read_text())
+        except tomllib.TOMLDecodeError:
+            cfg = {}
+        for s in cfg.get("sources", []) or []:
+            sources.append({k: s.get(k) for k in ("name", "url", "path", "ref") if s.get(k) is not None})
+    plugin = plugin_root()
+    manifest = plugin / ".claude-plugin" / "plugin.json"
+    plugin_version = None
+    if manifest.exists():
+        try:
+            plugin_version = json.loads(manifest.read_text()).get("version")
+        except json.JSONDecodeError:
+            plugin_version = None
+    plugin_commit = run(["git", "-C", str(plugin), "rev-parse", "HEAD"]).stdout.strip() or None
+    return {
+        "repository_commit": head,
+        "working_tree_clean": clean,
+        "sources": sources,
+        "tools": {name: tool_version(name) for name in ("tl", "tl-compose", "tl-ratify")},
+        "plugin_version": plugin_version,
+        "plugin_commit": plugin_commit,
+        "script": str(Path(__file__).resolve()),
+        "python": platform.python_version(),
+    }
+
+
 # ── done ────────────────────────────────────────────────────────────────────
 
 def measure_done(root: str, repo: str, results: str | None) -> dict:
@@ -379,10 +430,12 @@ def record(args) -> dict:
         "tests": measure_tests(args.tests_glob, args.results, repo),
         "sessions": measure_sessions(args.sessions or [], args.idle_gap, args.since, args.until),
         "done": measure_done(root, repo, args.results),
+        "provenance": measure_provenance(root, repo),
     }
     out_dir = Path(args.out or os.path.join(repo, "docs", "assessment"))
     out_dir.mkdir(parents=True, exist_ok=True)
-    stem = f"{rec['recorded_at'][:10]}-{args.name}"
+    # Date and time in the name: a second record on the same day never overwrites the first.
+    stem = f"{rec['recorded_at'][:16].replace(':', '')}-{args.name}"
     (out_dir / f"{stem}.json").write_text(json.dumps(rec, indent=2) + "\n")
     (out_dir / f"{stem}.md").write_text(markdown(rec))
     written = [str(out_dir / f"{stem}.json"), str(out_dir / f"{stem}.md")]
@@ -403,6 +456,7 @@ def hours(x: float) -> str:
 
 def markdown(rec: dict) -> str:
     g, git, d, t, s, done = rec["graph"], rec["git"], rec["docs"], rec["tests"], rec["sessions"], rec["done"]
+    prov = rec.get("provenance", {})
     tot = s["totals"]
     rows = [
         ("Items in the graph (local, live)", f"{g['items_live']} of {g['items_local']}"),
@@ -426,6 +480,10 @@ def markdown(rec: dict) -> str:
         ("Tokens in (fresh / cache written / cache read)",
          f"{int(tot.get('tokens_input_tokens', 0)):,} / {int(tot.get('tokens_cache_creation_input_tokens', 0)):,} / {int(tot.get('tokens_cache_read_input_tokens', 0)):,}"),
         ("Done", "yes" if done["done"] else "NO: " + ", ".join(k for k, v in done["criteria"].items() if not v)),
+        ("Measured at commit", f"{(prov.get('repository_commit') or '')[:12]}{'' if prov.get('working_tree_clean', True) else ' (tree not clean)'}"),
+        ("Source pins", "; ".join(f"{x.get('name')} {x.get('ref') or x.get('path') or ''}".strip() for x in prov.get("sources", [])) or "none"),
+        ("Tools", "; ".join(f"{k}: {v or 'absent'}" for k, v in (prov.get("tools") or {}).items())),
+        ("Skill", f"tl:assess {prov.get('plugin_version') or '?'} at {(prov.get('plugin_commit') or '')[:12]}, Python {prov.get('python')}"),
     ]
     table = "| Measure | Value |\n|---|---|\n" + "\n".join(f"| {k} | {v} |" for k, v in rows)
     lines = [
@@ -502,6 +560,7 @@ def main(argv: list[str] | None = None) -> int:
     p = sub.add_parser("sessions"); p.add_argument("files", nargs="+"); p.add_argument("--idle-gap", type=float, default=10.0)
     p.add_argument("--since", help="count transcript entries from this instant (ISO 8601)"); p.add_argument("--until", help="count transcript entries up to this instant (ISO 8601)")
     p = sub.add_parser("done"); root_args(p); p.add_argument("--repo"); p.add_argument("--results")
+    p = sub.add_parser("provenance"); root_args(p); p.add_argument("--repo")
     p = sub.add_parser("record"); root_args(p)
     p.add_argument("--name", required=True, help="a slug for the work, one word or hyphenated")
     p.add_argument("--label", help="one line saying what the work was")
@@ -521,6 +580,8 @@ def main(argv: list[str] | None = None) -> int:
         out = measure_tests(args.glob, args.results, args.repo)
     elif args.cmd == "sessions":
         out = measure_sessions(args.files, args.idle_gap, args.since, args.until)
+    elif args.cmd == "provenance":
+        out = measure_provenance(args.path, repo_of(args.path, args.repo))
     elif args.cmd == "done":
         out = measure_done(args.path, repo_of(args.path, args.repo), args.results)
         print(json.dumps(out, indent=2))

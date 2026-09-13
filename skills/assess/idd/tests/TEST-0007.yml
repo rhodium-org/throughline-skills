@@ -1,0 +1,19 @@
+uid: TEST-0007
+type: test
+status: proposed
+title: The provenance names the commit, the pins, every tool version and the plugin
+text: |-
+  In a throwaway repository with a graph that composes one source, run the
+  provenance command and assert the head commit equals git's, the clean flag
+  follows the working tree, the source appears with its URL and pin, each of tl,
+  tl-compose and tl-ratify is reported with the string its --version prints or
+  as absent, the plugin version equals the manifest's, the script path and the
+  Python version are present; assert the record carries the same block and the
+  Markdown table shows the tool rows.
+normative: true
+links:
+- target: REQ-0007
+  type: verifies
+attrs:
+  origin: ai
+  method: automated

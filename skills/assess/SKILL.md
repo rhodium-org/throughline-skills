@@ -87,8 +87,8 @@ python3 "$S" record -C <graph root> --name <slug> --label "<one line>" \
   --collection <path to the assessments repository>
 ```
 
-This writes `docs/assessment/<date>-<name>.json` (the measured record, never
-edited by hand) and `docs/assessment/<date>-<name>.md` (the numbers as a table
+This writes `docs/assessment/<date>T<time>-<name>.json` (the measured record,
+never edited by hand) and `docs/assessment/<date>T<time>-<name>.md` (the numbers as a table
 followed by the narrative sections to fill in) under the repository, copies
 both into `<collection>/<name>/`, and regenerates the collection's `README.md`
 index. Commit the two files in the work's repository citing the item that
@@ -131,7 +131,7 @@ corrected.
 ## Re-assessing
 
 The same work reaches "done" more than once as its specification moves. Record
-again under the same name; the date in the file name keeps the editions apart
+again under the same name; the date and time in the file name keep the records apart
 and the collection's index shows the trend. Never overwrite an earlier record.
 
 ## What this skill is not
