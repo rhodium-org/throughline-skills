@@ -37,7 +37,7 @@ links:
   stamp: sha256:ad8632cd982da08b3f54a11ff71e1491846bd9555a8c87ee69420957344932dc
 - target: challenger:REQ-0002
   type: implements
-  stamp: sha256:2949cd2ab6ef78c018e5eb1ee0752e0a822bf39bf1cdfaaa11eb02f64f7b8421
+  stamp: sha256:7c438c5241ef34509c013f30eb5ea2c65178dcf8f1d4498a808370f03b572ebf
 attrs:
   priority: must
   origin: ai
