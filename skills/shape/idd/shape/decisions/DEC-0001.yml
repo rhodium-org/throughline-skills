@@ -2,7 +2,7 @@ uid: DEC-0001
 type: decision
 status: ratified
 title: Name the graph skill
-text: 'The thing being built is a skill, so its graph is idd/skill/ under skills/shaping/.
+text: 'The thing being built is a skill, so its graph is idd/skill/ under skills/shape/.
   Not product, not subject: the name says what the graph is a graph of.'
 normative: true
 links:

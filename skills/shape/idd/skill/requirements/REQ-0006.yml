@@ -3,8 +3,8 @@ type: requirement
 status: ratified
 title: A register considered and not created is recorded with its rationale
 text: Every register considered and rejected is a non_goal or constraint item in
-  shaping with a rationale and a link to the need or domain reading that ruled it
-  out, never omitted silently. The five registers tl init would have created are
+  idd/shape/ with a rationale and a link to the need or domain reading that ruled
+  it out, never omitted silently. The five registers tl init would have created are
   always among those considered.
 normative: true
 links:

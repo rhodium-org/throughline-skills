@@ -10,7 +10,7 @@ text: 'The versions on the workstation that day. Read: tl --help, tl init --help
   against whatever is installed then.'
 normative: true
 attrs:
-  path: tl --help; skills/shaping/references/layout.md
+  path: tl --help; skills/shape/references/layout.md
   origin: ai
   read: '2026-09-12'
   ratified_by: Henry Grech-Cini

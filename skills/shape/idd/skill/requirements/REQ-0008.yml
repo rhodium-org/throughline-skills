@@ -3,7 +3,7 @@ type: requirement
 status: ratified
 title: Re-running on a shaped repo re-confirms the prior reasoning, never overwrites
   it
-text: On a repo that already has idd/shaping/, the skill reads the prior reasoning
+text: On a repo that already has idd/shape/, the skill reads the prior reasoning
   back and puts it to the person stage by stage, amending, adding or rejecting items;
   it never starts from a blank sheet, never overwrites, and never renames the second
   graph.

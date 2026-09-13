@@ -12,7 +12,7 @@ same day against `tl 3.0.0` after the `empty-registers` change was released. Re-
 - `tl init` refuses to create a graph inside an existing one (it walks up
   looking for a `throughline.toml`) unless `--force` is passed. Two graphs that
   are *siblings* under a directory holding no `throughline.toml` of its own are
-  not nested, so `idd/shaping/` beside `idd/<name>/` needs no override.
+  not nested, so `idd/shape/` beside `idd/<name>/` needs no override.
 - `tl-compose` accepts the same commands as `tl` and adds source composition.
   Any graph whose `throughline.toml` declares `[[sources]]` must be driven with
   `tl-compose`; bare `tl` on it reports on local items alone.
@@ -32,13 +32,13 @@ a drifting copy of that schema. Registers come from `tl register new PREFIX DIR`
 and item types, attributes and roots from `tl schema ...`, every one of which
 records a `--because` comment in the config.
 
-## The pointer from shaping to the named graph
+## The pointer from the shape graph to the named graph
 
 The name of the second directory is recorded twice, on purpose:
 
-1. As the **name decision** in the shaping graph — a `decision` item with
+1. As the **name decision** in the shape graph — a `decision` item with
    `kind = name` and `dir = <name>`. This is the ratifiable record.
-2. As a **`path` source** in `idd/shaping/throughline.toml`:
+2. As a **`path` source** in `idd/shape/throughline.toml`:
 
    ```toml
    [[sources]]
@@ -47,12 +47,12 @@ The name of the second directory is recorded twice, on purpose:
    ```
 
    `tl-compose` already understands this, so no new config format is needed:
-   `tl-compose -C idd/shaping context` shows the whole picture, and a source
+   `tl-compose -C idd/shape context` shows the whole picture, and a source
    holding zero items composes cleanly (verified). Unknown keys in
    `throughline.toml` are tolerated by the loader, but a native source is a
    pointer tooling already follows, so that is the one used.
 
-Because of (2) the shaping graph takes `tl-compose` from the moment the second
+Because of (2) the shape graph takes `tl-compose` from the moment the second
 graph is written. The script picks the binary per graph by looking for
 `[[sources]]`.
 

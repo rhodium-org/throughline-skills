@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-"""Mechanics of the throughline shaping skill.
+"""Mechanics of the throughline shape skill.
 
 The skill's judgement — what the sources say, what the domain is, which
 registers the work needs and why — lives in SKILL.md. This script does only
-the parts that need no judgement: laying down the shaping graph, authoring an
+the parts that need no judgement: laying down the shape graph, authoring an
 item with the origin and status the skill is bound to, turning the register
-decisions in the shaping graph into a second graph, and running the check
+decisions in the shape graph into a second graph, and running the check
 gate over both. Every structural change goes through the `tl` / `tl-compose`
 CLI; nothing here writes an item file by hand.
 
@@ -13,19 +13,19 @@ Standard library only. `tl-compose` (which brings `tl`) must be on PATH.
 
 Layout it produces, under the repo root:
 
-  idd/shaping/     the reasoning graph — fixed name, owned by the skill
+  idd/shape/       the reasoning graph — fixed name, owned by the skill
   idd/<name>/      the graph for the work itself — named by the skill during
-                   discovery, recorded as the name decision in shaping and as
-                   a `path` source in shaping's throughline.toml
+                   discovery, recorded as the name decision in idd/shape and as
+                   a `path` source in idd/shape's throughline.toml
 
 Usage:
-  shaping.py [-C REPO] init                 create idd/shaping/ (refuses if present)
-  shaping.py [-C REPO] status [--json]      what the shaping graph holds so far
-  shaping.py [-C REPO] new PREFIX --type T --title .. --text .. [--rationale ..]
+  shape.py [-C REPO] init                 create idd/shape/ (refuses if present)
+  shape.py [-C REPO] status [--json]      what the shape graph holds so far
+  shape.py [-C REPO] new PREFIX --type T --title .. --text .. [--rationale ..]
                        [--ground UID]... [--ground-type derives_from]
-                       [--attr k=v]... [--graph shaping|<name>]
-  shaping.py [-C REPO] write                create idd/<name>/ from the decisions
-  shaping.py [-C REPO] check [--strict]     gate both graphs, binary per graph
+                       [--attr k=v]... [--graph shape|<name>]
+  shape.py [-C REPO] write                create idd/<name>/ from the decisions
+  shape.py [-C REPO] check [--strict]     gate both graphs, binary per graph
 """
 from __future__ import annotations
 
@@ -41,10 +41,10 @@ from datetime import date
 from pathlib import Path
 
 IDD = "idd"
-SHAPING = "shaping"
-BECAUSE = "throughline shaping: "
+SHAPE = "shape"
+BECAUSE = "throughline shape: "
 
-# The shaping graph is the same shape every time, because the conversation is.
+# The shape graph is the same shape every time, because the conversation is.
 # type -> (register prefix, register dir, register title)
 SHAPING_REGISTERS = [
     ("source", "SRC", "sources", "Sources read"),
@@ -76,7 +76,7 @@ TYPE_RE = re.compile(r"^[a-z][a-z0-9_]*$")
 
 
 def die(msg: str, code: int = 2) -> None:
-    print(f"shaping: {msg}", file=sys.stderr)
+    print(f"shape: {msg}", file=sys.stderr)
     sys.exit(code)
 
 
@@ -136,14 +136,14 @@ def declare_root(graph: Path, item_type: str, role: str, why: str) -> None:
             "--because", BECAUSE + why)
 
 
-def shaped_name(shaping: Path) -> str | None:
-    """The name decision recorded in the shaping graph, if one is live."""
-    names = [i for i in local_items(shaping)
+def shaped_name(shape: Path) -> str | None:
+    """The name decision recorded in the shape graph, if one is live."""
+    names = [i for i in local_items(shape)
              if i["type"] == "decision" and i.get("attrs", {}).get("kind") == "name"]
     if not names:
         return None
     if len(names) > 1:
-        die("more than one live name decision in shaping: "
+        die("more than one live name decision in idd/shape: "
             + ", ".join(i["uid"] for i in names) + " — reject all but one")
     name = names[0].get("attrs", {}).get("dir")
     if not name:
@@ -154,43 +154,43 @@ def shaped_name(shaping: Path) -> str | None:
 # ---------------------------------------------------------------- commands
 
 def cmd_init(repo: Path, _a) -> None:
-    shaping = repo / IDD / SHAPING
-    if (shaping / "throughline.toml").exists():
-        die(f"{shaping} already exists — this repo has been shaped before; "
+    shape = repo / IDD / SHAPE
+    if (shape / "throughline.toml").exists():
+        die(f"{shape} already exists — this repo has been shaped before; "
             "run `status`, read the prior reasoning back, and re-confirm it "
             "rather than starting again", 1)
     if (repo / IDD / "throughline.toml").exists():
-        die(f"{repo / IDD} is itself a graph root; the shaping layout needs "
+        die(f"{repo / IDD} is itself a graph root; the idd/shape layout needs "
             f"{IDD}/ to hold sibling graphs, not to be one")
-    run(shaping, "init", "--bare", "--name", SHAPING)
+    run(shape, "init", "--bare", "--name", SHAPE)
     for item_type, prefix, d, title in SHAPING_REGISTERS:
-        declare_type(shaping, item_type, f"the shaping conversation records {title.lower()}")
+        declare_type(shape, item_type, f"the shaping conversation records {title.lower()}")
         for spec in SHAPING_ATTRS.get(item_type, []):
-            run(shaping, "schema", "attr", "add", item_type, *spec,
+            run(shape, "schema", "attr", "add", item_type, *spec,
                 "--because", BECAUSE + f"a {item_type} carries its {spec[0]}")
         if item_type in SHAPING_ROOTS:
-            declare_root(shaping, item_type, SHAPING_ROOTS[item_type],
+            declare_root(shape, item_type, SHAPING_ROOTS[item_type],
                          f"a {item_type} is a premise of the shaping")
-        run(shaping, "register", "new", prefix, d, "--title", title)
-    print(f"shaping graph laid down at {shaping}; every item you author "
+        run(shape, "register", "new", prefix, d, "--title", title)
+    print(f"shape graph laid down at {shape}; every item you author "
           "enters as origin ai, status proposed")
 
 
 def status_data(repo: Path) -> dict:
-    shaping = repo / IDD / SHAPING
-    if not (shaping / "throughline.toml").exists():
-        return {"shaping": None}
-    items = local_items(shaping)
+    shape = repo / IDD / SHAPE
+    if not (shape / "throughline.toml").exists():
+        return {"shape": None}
+    items = local_items(shape)
     by_type: dict[str, list] = {}
     for i in items:
         by_type.setdefault(i["type"], []).append(
             {"uid": i["uid"], "title": i["title"], "status": i["status"],
              "attrs": i.get("attrs", {})})
-    name = shaped_name(shaping)
+    name = shaped_name(shape)
     pointer = any(s.get("namespace") == name
-                  for s in config(shaping).get("sources", []))
+                  for s in config(shape).get("sources", []))
     return {
-        "shaping": str(shaping),
+        "shape": str(shape),
         "items": by_type,
         "name": name,
         "shaped_graph": str(repo / IDD / name) if name else None,
@@ -204,10 +204,10 @@ def cmd_status(repo: Path, a) -> None:
     if a.json:
         print(json.dumps(data, indent=2))
         return
-    if data["shaping"] is None:
-        print(f"no shaping graph at {repo / IDD / SHAPING} — run `init` to start discovery")
+    if data["shape"] is None:
+        print(f"no shape graph at {repo / IDD / SHAPE} — run `init` to start discovery")
         return
-    print(f"shaping graph: {data['shaping']}")
+    print(f"shape graph: {data['shape']}")
     for item_type, _p, _d, title in SHAPING_REGISTERS:
         rows = data["items"].get(item_type, [])
         print(f"\n{title} ({len(rows)})")
@@ -257,26 +257,26 @@ def cmd_new(repo: Path, a) -> None:
 
 
 def cmd_write(repo: Path, _a) -> None:
-    shaping = repo / IDD / SHAPING
-    if not (shaping / "throughline.toml").exists():
-        die(f"no shaping graph at {shaping} — run `init` first")
-    name = shaped_name(shaping)
+    shape = repo / IDD / SHAPE
+    if not (shape / "throughline.toml").exists():
+        die(f"no shape graph at {shape} — run `init` first")
+    name = shaped_name(shape)
     if not name:
-        die("no live name decision in shaping — record one (a decision with "
+        die("no live name decision in idd/shape — record one (a decision with "
             "kind=name and dir=<name>) before writing the second graph")
-    if not NAME_RE.match(name) or name == SHAPING:
+    if not NAME_RE.match(name) or name == SHAPE:
         die(f"{name!r} is not a usable directory name (lower-case, digits, "
-            f"hyphens; not {SHAPING!r})")
+            f"hyphens; not {SHAPE!r})")
     target = repo / IDD / name
     if (target / "throughline.toml").exists():
         die(f"{target} already exists — the second graph has been written; add "
             "registers to it with `tl register new` by hand if a new decision "
             "calls for one", 1)
 
-    decisions = [i for i in local_items(shaping)
+    decisions = [i for i in local_items(shape)
                  if i["type"] == "decision" and i.get("attrs", {}).get("kind") == "register"]
     if not decisions:
-        die("no live register decisions in shaping — nothing to write")
+        die("no live register decisions in idd/shape — nothing to write")
     regs = []
     for d in decisions:
         at = d.get("attrs", {})
@@ -305,12 +305,12 @@ def cmd_write(repo: Path, _a) -> None:
             declare_root(target, item_type, grounding, f"{uid} — {title}")
         run(target, "register", "new", prefix, d, "--title", title)
 
-    cfg = shaping / "throughline.toml"
-    if not any(s.get("namespace") == name for s in config(shaping).get("sources", [])):
+    cfg = shape / "throughline.toml"
+    if not any(s.get("namespace") == name for s in config(shape).get("sources", [])):
         with cfg.open("a") as f:
             f.write(
                 "\n# The graph this shaping produced. Composed so `tl-compose context`\n"
-                "# here shows the whole picture; from now on drive shaping with\n"
+                "# here shows the whole picture; from now on drive idd/shape/ with\n"
                 "# tl-compose, never bare tl (the binary rule).\n"
                 "[[sources]]\n"
                 f'namespace = "{name}"\n'
@@ -321,11 +321,11 @@ def cmd_write(repo: Path, _a) -> None:
 
 
 def cmd_check(repo: Path, a) -> None:
-    shaping = repo / IDD / SHAPING
-    if not (shaping / "throughline.toml").exists():
-        die(f"no shaping graph at {shaping}")
-    graphs = [shaping]
-    name = shaped_name(shaping)
+    shape = repo / IDD / SHAPE
+    if not (shape / "throughline.toml").exists():
+        die(f"no shape graph at {shape}")
+    graphs = [shape]
+    name = shaped_name(shape)
     if name and (repo / IDD / name / "throughline.toml").exists():
         graphs.append(repo / IDD / name)
     rc = 0
@@ -349,7 +349,7 @@ def main(argv: list[str] | None = None) -> None:
     s.add_argument("--json", action="store_true")
     n = sub.add_parser("new")
     n.add_argument("prefix")
-    n.add_argument("--graph", default=SHAPING)
+    n.add_argument("--graph", default=SHAPE)
     n.add_argument("--type", required=True)
     n.add_argument("--title", required=True)
     n.add_argument("--text", required=True)

@@ -2,11 +2,11 @@ uid: REQ-0007
 type: requirement
 status: ratified
 title: The skill hands back on zero errors in both graphs
-text: The skill hands back only when both the shaping graph and the second graph
-  report zero errors under tl check. The second graph holds registers and no items
-  at that point; throughline from 2.3.0 reports that as the warning empty-registers,
-  and the skill does not author an item to silence it. --strict is the gate after
-  a human has ratified; the skill never makes it pass.
+text: The skill hands back only when both idd/shape/ and the second graph report
+  zero errors under tl check. The second graph holds registers and no items at that
+  point; throughline from 2.3.0 reports that as the warning empty-registers, and
+  the skill does not author an item to silence it. --strict is the gate after a human
+  has ratified; the skill never makes it pass.
 rationale: The brief's R7 asked for both graphs green under --strict. Strict turns
   the unratified warning on every proposed item into an error, so the gate the skill
   can meet is zero errors under tl check. An empty second graph was itself an error

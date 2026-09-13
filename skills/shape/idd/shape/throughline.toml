@@ -1,5 +1,5 @@
 [project]
-name = "skill"
+name = "shape"
 format_version = 3
 
 # Root item types may exist ungrounded; everything else must reach a root
@@ -7,8 +7,12 @@ format_version = 3
 # a root but NOT a delivery root: it is negative space, so nothing derives from
 # it and it is never flagged 'unserved'.
 [grounding]
-root_types = ["intent", "business_need", "risk", "constraint", "assumption", "non_goal"]
-delivery_roots = ["intent", "business_need", "risk", "constraint"]
+# throughline shape: a source is a premise of the shaping
+# throughline shape: a domain is a premise of the shaping
+root_types = ["intent", "business_need", "risk", "constraint", "assumption", "non_goal",
+              "source", "domain"]
+# throughline shape: a domain is a premise of the shaping
+delivery_roots = ["intent", "business_need", "risk", "constraint", "domain"]
 ground_link_types = ["derives_from", "mitigates", "implements", "verifies"]
 ai_origins = ["ai", "hybrid"]
 
@@ -82,14 +86,50 @@ filter = "type == 'requirement' and status != 'deleted'"
 needs = "incoming:verifies"
 severity = "warning"
 
-# throughline shaping: DEC-0002 — Vision register (INT, intent, delivery root)
-[types.intent]
-# throughline shaping: every item records where it came from
+# throughline shape: the shaping conversation records sources read
+[types.source]
+# throughline shape: every item records where it came from
+attrs.origin = { type = "enum", values = ["human", "ai", "hybrid"] }
+# throughline shape: a source carries its path
+attrs.path = { type = "string" }
+# throughline shape: a source is a record of what was read on a day
+attrs.read = { type = "date" }
+
+# throughline shape: the shaping conversation records domain reading
+[types.domain]
+# throughline shape: every item records where it came from
 attrs.origin = { type = "enum", values = ["human", "ai", "hybrid"] }
 
-# throughline shaping: DEC-0004 — Tests register (TEST, test)
-[types.test]
-# throughline shaping: every item records where it came from
+# throughline shape: the shaping conversation records what this work needs
+# from its graph
+[types.need]
+# throughline shape: every item records where it came from
 attrs.origin = { type = "enum", values = ["human", "ai", "hybrid"] }
-# throughline shaping: DEC-0004 — a test records how it is run
-attrs.method = { type = "enum", values = ["automated", "manual", "document"] }
+
+# throughline shape: the shaping conversation records register and naming
+# decisions
+[types.decision]
+# throughline shape: every item records where it came from
+attrs.origin = { type = "enum", values = ["human", "ai", "hybrid"] }
+# throughline shape: a decision carries its kind
+attrs.kind = { type = "enum", values = ["register", "name"], required = true }
+# throughline shape: a decision carries its prefix
+attrs.prefix = { type = "string" }
+# throughline shape: a decision carries its dir
+attrs.dir = { type = "string" }
+# throughline shape: a decision carries its item_type
+attrs.item_type = { type = "string" }
+# throughline shape: a decision carries its grounding
+attrs.grounding = { type = "enum", values = ["root", "delivery-root", "grounded"] }
+
+# throughline shape: the shaping conversation records inherited standards
+[types.constraint]
+# throughline shape: every item records where it came from
+attrs.origin = { type = "enum", values = ["human", "ai", "hybrid"] }
+
+# The graph this shaping produced. Composed so `tl-compose context`
+# here shows the whole picture; from now on drive idd/shape/ with
+# tl-compose, never bare tl (the binary rule).
+[[sources]]
+namespace = "skill"
+path = "../skill"

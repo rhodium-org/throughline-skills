@@ -4,7 +4,7 @@ status: ratified
 title: No constraints register in the skill graph
 text: The brief's six settled design decisions are what the requirements say; holding
   them again as constraints would state one thing in two places. The one standard
-  the skill inherits lives here in shaping, where it grounds the register decisions
+  the skill inherits lives here in idd/shape/, where it grounds the register decisions
   it mandates.
 rationale: Considered because the brief calls the decisions settled and not to be
   relitigated.

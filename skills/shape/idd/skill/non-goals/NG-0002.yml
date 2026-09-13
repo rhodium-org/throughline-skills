@@ -2,9 +2,9 @@ uid: NG-0002
 type: non_goal
 status: ratified
 title: No two-way sync between the two graphs
-text: Shaping records what produced the second graph; it does not watch the second
-  graph afterwards, and the second graph does not write back. A new register later
-  is a new decision in shaping followed by tl register new by hand.
+text: The shape graph records what produced the second graph; it does not watch the
+  second graph afterwards, and the second graph does not write back. A new register
+  later is a new decision in idd/shape/ followed by tl register new by hand.
 normative: true
 attrs:
   origin: ai

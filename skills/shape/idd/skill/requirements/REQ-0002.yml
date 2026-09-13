@@ -1,8 +1,8 @@
 uid: REQ-0002
 type: requirement
 status: ratified
-title: idd/shaping/ is always created, with exactly that name
-text: The reasoning graph is created at idd/shaping/ every time, with that name and
+title: idd/shape/ is always created, with exactly that name
+text: The reasoning graph is created at idd/shape/ every time, with that name and
   no other, holding sources, domain reading, needs, decisions, rejected registers
   and inherited standards.
 normative: true
