@@ -1,0 +1,17 @@
+uid: TEST-0008
+type: test
+status: proposed
+title: Scoped to paths, the git measure counts only the commits that touched them
+text: |-
+  In a throwaway repository commit files under two directories in separate
+  commits, tag one commit in each, and run the git command scoped to one
+  directory; assert the commit count, dates, authors, citing share, lines and
+  tags cover only that directory's commits, that the scope is reported, and
+  that without paths the whole repository is measured as before.
+normative: true
+links:
+- target: REQ-0008
+  type: verifies
+attrs:
+  origin: ai
+  method: automated

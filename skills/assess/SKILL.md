@@ -55,8 +55,13 @@ plugin.
 ## Gather the inputs
 
 1. **Graph root.** The directory holding `throughline.toml`.
-2. **Repository.** Found from the graph root; pass `--repo` if the graph is
-   not in the repository it describes.
+2. **Repository, and the paths the work lives in.** The repository is found
+   from the graph root; pass `--repo` if the graph is not in the repository it
+   describes. When the repository holds more than this piece of work (a plugin
+   with one graph per skill, a repository with several graphs), pass `--paths`
+   with the repository-relative directories and files that are this work, so
+   the git measure counts only the commits that touched them. The scope is
+   recorded; without it the whole repository is measured.
 3. **Session transcripts.** Claude Code writes one `.jsonl` per session under
    `~/.claude/projects/<slugified working directory>/`. Find the sessions that
    did this work: grep the transcripts for the project's name and keep the
@@ -84,6 +89,7 @@ plugin.
 python3 "$S" record -C <graph root> --name <slug> --label "<one line>" \
   --sessions <transcript.jsonl ...> \
   --tests-glob 'tests/TEST-*.test.ts' --results <summary file> \
+  --paths <dirs and files that are this work, when the repository holds more> \
   --collection <path to the assessments repository>
 ```
 

@@ -16,7 +16,7 @@ criterion fails, so it can gate.
 
 Usage:
   assess.py graph    -C ROOT [--dump FILE]
-  assess.py git      -C ROOT [--repo DIR]
+  assess.py git      -C ROOT [--repo DIR] [--paths PATH...]
   assess.py docs     -C ROOT
   assess.py tests    --glob PATTERN [--results FILE] [--repo DIR]
   assess.py sessions FILE... [--idle-gap MINUTES] [--since ISO] [--until ISO]
@@ -24,7 +24,7 @@ Usage:
   assess.py provenance -C ROOT [--repo DIR]
   assess.py record   -C ROOT --name NAME [--repo DIR] [--sessions FILE...]
                      [--tests-glob PATTERN] [--results FILE] [--out DIR]
-                     [--collection DIR] [--label TEXT]
+                     [--collection DIR] [--label TEXT] [--paths PATH...]
 """
 from __future__ import annotations
 
@@ -144,19 +144,25 @@ def measure_graph(dumped: dict) -> dict:
 
 # ── git ─────────────────────────────────────────────────────────────────────
 
-def measure_git(repo: str, items_dir: str | None) -> dict:
-    log = run(["git", "-C", repo, "log", "--format=%H%x1f%aI%x1f%an%x1f%s", "--reverse"], check=True).stdout
+def measure_git(repo: str, items_dir: str | None, paths: list[str] | None = None) -> dict:
+    scope = ["--", *paths] if paths else []
+    log = run(["git", "-C", repo, "log", "--format=%H%x1f%aI%x1f%an%x1f%s", "--reverse", *scope], check=True).stdout
     commits = [line.split("\x1f") for line in log.splitlines() if line]
     if not commits:
-        return {"commits": 0}
+        return {"commits": 0, "scope": paths or "repository"}
     first, last = commits[0][1], commits[-1][1]
     span = (dt.datetime.fromisoformat(last) - dt.datetime.fromisoformat(first))
     authors = Counter(c[2] for c in commits)
     citing = sum(1 for c in commits if UID_RE.search(c[3]))
     # A lightweight tag has no creator date of its own; the commit's date serves both kinds.
     tag_names = run(["git", "-C", repo, "tag", "--sort=creatordate"]).stdout.split()
-    tags = [{"tag": t, "date": run(["git", "-C", repo, "log", "-1", "--format=%aI", t]).stdout.strip()} for t in tag_names]
-    numstat = run(["git", "-C", repo, "log", "--numstat", "--format="], check=True).stdout
+    in_scope = {c[0] for c in commits}
+    tags = []
+    for t in tag_names:
+        commit = run(["git", "-C", repo, "rev-list", "-n", "1", t]).stdout.strip()
+        if not paths or commit in in_scope:
+            tags.append({"tag": t, "date": run(["git", "-C", repo, "log", "-1", "--format=%aI", t]).stdout.strip()})
+    numstat = run(["git", "-C", repo, "log", "--numstat", "--format=", *scope], check=True).stdout
     added = removed = 0
     for line in numstat.splitlines():
         parts = line.split("\t")
@@ -186,6 +192,7 @@ def measure_git(repo: str, items_dir: str | None) -> dict:
                 amended["items_amended_after_ratification"] += 1
                 amended["amending_commits"] += amending
     return {
+        "scope": paths or "repository",
         "commits": len(commits),
         "first_commit": first,
         "last_commit": last,
@@ -425,7 +432,7 @@ def record(args) -> dict:
         "graph_root": os.path.abspath(root),
         "repository": repo,
         "graph": measure_graph(dumped),
-        "git": measure_git(repo, os.path.relpath(root, repo)),
+        "git": measure_git(repo, os.path.relpath(root, repo), args.paths),
         "docs": measure_docs(root),
         "tests": measure_tests(args.tests_glob, args.results, repo),
         "sessions": measure_sessions(args.sessions or [], args.idle_gap, args.since, args.until),
@@ -471,6 +478,7 @@ def markdown(rec: dict) -> str:
         ("Sources composed", ", ".join(f"{k} ({v} items)" for k, v in g["sources_composed"].items()) or "none"),
         ("Links into sources", f"{g['citations']} ({g['citations_stamped']} stamped, {g['citations_unstamped']} not)"),
         ("Tests by method", ", ".join(f"{k} {v}" for k, v in g["tests_by_method"].items()) or "none"),
+        ("Git scope", "whole repository" if git.get("scope") == "repository" else ", ".join(git.get("scope") or [])),
         ("Commits", f"{git.get('commits', 0)} over {git.get('span_days', 0)} days, {git.get('editions', 0)} tags"),
         ("Commits naming an item", f"{git.get('commits_citing_an_item', 0)} ({git.get('citing_ratio', 0)})"),
         ("Items amended after ratification", f"{git.get('items_amended_after_ratification', 0)} of {git.get('items_ratified', 0)}"),
@@ -559,7 +567,7 @@ def main(argv: list[str] | None = None) -> int:
             p.add_argument("--dump", help="a saved `tl-compose dump` instead of running the tool")
 
     p = sub.add_parser("graph"); root_args(p, dump=True)
-    p = sub.add_parser("git"); root_args(p); p.add_argument("--repo")
+    p = sub.add_parser("git"); root_args(p); p.add_argument("--repo"); p.add_argument("--paths", nargs="*", help="repository-relative paths the work lives in; default the whole repository")
     p = sub.add_parser("docs"); root_args(p)
     p = sub.add_parser("tests"); p.add_argument("--glob", required=True); p.add_argument("--results"); p.add_argument("--repo")
     p = sub.add_parser("sessions"); p.add_argument("files", nargs="+"); p.add_argument("--idle-gap", type=float, default=10.0)
@@ -571,6 +579,7 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--label", help="one line saying what the work was")
     p.add_argument("--repo"); p.add_argument("--sessions", nargs="*"); p.add_argument("--idle-gap", type=float, default=10.0)
     p.add_argument("--since"); p.add_argument("--until")
+    p.add_argument("--paths", nargs="*", help="repository-relative paths the work lives in, for the git measure")
     p.add_argument("--tests-glob"); p.add_argument("--results"); p.add_argument("--out"); p.add_argument("--collection")
     args = ap.parse_args(argv)
 
@@ -578,7 +587,7 @@ def main(argv: list[str] | None = None) -> int:
         out = measure_graph(load_dump(args.path, args.dump))
     elif args.cmd == "git":
         repo = repo_of(args.path, args.repo)
-        out = measure_git(repo, os.path.relpath(args.path, repo) if args.path else None)
+        out = measure_git(repo, os.path.relpath(args.path, repo) if args.path else None, args.paths)
     elif args.cmd == "docs":
         out = measure_docs(args.path)
     elif args.cmd == "tests":

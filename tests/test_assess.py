@@ -230,3 +230,28 @@ def test_provenance_names_commit_pins_tools_and_plugin(repo):  # TEST-0007
     assert p["script"].endswith("scripts/assess.py") and p["python"].count(".") == 2
     (idd / "scratch.txt").write_text("dirty\n")
     assert assess("provenance", "-C", str(idd))["working_tree_clean"] is False
+
+
+def test_git_measure_scoped_to_paths(repo):  # TEST-0008
+    idd = graph_with_items(repo)
+    git(repo, "add", "-A")
+    git(repo, "commit", "-q", "-m", "A graph (INT-0001)")
+    git(repo, "tag", "v0.1.0")
+    (repo / "other").mkdir()
+    (repo / "other" / "thing.txt").write_text("elsewhere\n")
+    git(repo, "add", "-A")
+    git(repo, "commit", "-q", "-m", "Other work, no item named")
+    git(repo, "tag", "other-1")
+    (repo / "scripts").mkdir()
+    (repo / "scripts" / "tool.py").write_text("print(1)\n")
+    git(repo, "add", "-A")
+    git(repo, "commit", "-q", "-m", "The tool (REQ-0001)")
+    scoped = assess("git", "-C", str(idd), "--paths", "idd", "scripts")
+    assert scoped["scope"] == ["idd", "scripts"]
+    assert scoped["commits"] == 2 and scoped["commits_citing_an_item"] == 2 and scoped["citing_ratio"] == 1.0
+    assert [t["tag"] for t in scoped["tags"]] == ["v0.1.0"] and scoped["editions"] == 1
+    assert scoped["lines_added"] == sum(1 for _ in open(repo / "scripts" / "tool.py")) + sum(
+        len(p.read_text().splitlines()) for p in idd.rglob("*") if p.is_file())
+    whole = assess("git", "-C", str(idd))
+    assert whole["scope"] == "repository" and whole["commits"] == 3 and whole["editions"] == 2
+
