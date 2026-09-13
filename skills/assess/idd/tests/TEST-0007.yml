@@ -1,6 +1,6 @@
 uid: TEST-0007
 type: test
-status: proposed
+status: ratified
 title: The provenance names the commit, the pins, every tool version and the plugin
 text: |-
   In a throwaway repository with a graph that composes one source, run the
@@ -17,3 +17,5 @@ links:
 attrs:
   origin: ai
   method: automated
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:328647963883e9afb80fc1a4f68d026bf8507d3c28d7266b86b2285da4f21a53

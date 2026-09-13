@@ -1,8 +1,8 @@
 uid: REQ-0007
 type: requirement
-status: proposed
-title: The record names the commit, the pins and the tool versions it was measured with,
-  so a case can be re-read against the code and tools of its day
+status: ratified
+title: The record names the commit, the pins and the tool versions it was measured
+  with, so a case can be re-read against the code and tools of its day
 text: |-
   Every record carries its provenance: the commit the repository stood at and
   whether the working tree was clean; for a composed graph, each source with the
@@ -21,3 +21,5 @@ links:
 attrs:
   priority: must
   origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:f1dcda6913a20ef8d2def65f614dfa20cc5cdb2672181cbd5d43420c1530aa9e
