@@ -1,6 +1,6 @@
 uid: REQ-0004
 type: requirement
-status: proposed
+status: ratified
 title: An in-repo sibling is wired by an unpinned path source and an external standard
   by a pinned url
 text: A path source is resolved relative to the directory holding the consumer's
@@ -16,3 +16,5 @@ links:
 attrs:
   priority: must
   origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:69a77b571d1be94407dd0d7db38c3ceeacdc1b6c09e57d5936e81a4d61e19be7

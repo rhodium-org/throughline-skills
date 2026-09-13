@@ -1,6 +1,6 @@
 uid: REQ-0007
 type: requirement
-status: proposed
+status: ratified
 title: Every graph is gated in a loop that picks the binary per graph and lets no
   failure mask another
 text: There is no whole-repository check. The skill loops over every graph, chooses
@@ -14,3 +14,5 @@ links:
 attrs:
   priority: must
   origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:26b9ab74a56490a30866d7f55ad076ca73d8ff4fe708eca0fbfb2c88002848f0

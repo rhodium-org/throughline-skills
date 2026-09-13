@@ -1,6 +1,6 @@
 uid: REQ-0002
 type: requirement
-status: proposed
+status: ratified
 title: Orientation enumerates every graph and reads the brief of the one about to
   be touched
 text: The skill lists every throughline.toml in the repository, excluding virtual
@@ -15,3 +15,5 @@ links:
 attrs:
   priority: must
   origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:1d07d5f112ead3151a6f22617a778cb0b14e41d9d277d4b08793e3bdda39a279

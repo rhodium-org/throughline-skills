@@ -1,6 +1,6 @@
 uid: REQ-0008
 type: requirement
-status: proposed
+status: ratified
 title: In a cloud sandbox a source that cannot be resolved is an environment failure,
   not a finding
 text: A fresh sandbox has no personal SSH configuration, no source cache and only
@@ -15,3 +15,5 @@ links:
 attrs:
   priority: should
   origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:aab4dcb417e0a20d081a1e4fb5acbe9a09bf8080b96566c575c6c5f6d54fbda3

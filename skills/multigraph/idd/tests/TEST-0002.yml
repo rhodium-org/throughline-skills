@@ -1,6 +1,6 @@
 uid: TEST-0002
 type: test
-status: proposed
+status: ratified
 title: The skill text orients by enumerating graphs and reading the touched graph's
   brief
 text: Read the skill and confirm it lists every throughline.toml before acting, runs
@@ -13,3 +13,5 @@ links:
 attrs:
   method: document
   origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:26bd05a0060b56845446d0d0a893b4468d8dcdfa89cfecc3114ec7de00359e60

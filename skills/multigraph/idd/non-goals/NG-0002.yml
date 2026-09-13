@@ -1,9 +1,11 @@
 uid: NG-0002
 type: non_goal
-status: proposed
+status: ratified
 title: A single-graph repository is out of scope
 text: In a repository with one throughline.toml the graph's own generated context
   brief governs and this skill does not apply.
 normative: true
 attrs:
   origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:7af04bbed3711059718347f9ad3ba17805e0ba398f39e8fe21134680db5f9c4f

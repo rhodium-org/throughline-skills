@@ -1,6 +1,6 @@
 uid: TEST-0008
 type: test
-status: proposed
+status: ratified
 title: The skill names the sandbox failure modes and calls each an environment failure
 text: Read the remote-session section and confirm it names the SSH-alias url, the
   unauthenticated private url and the empty cache, says a failed source resolution
@@ -13,3 +13,5 @@ links:
 attrs:
   method: document
   origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:92ed94d4db8585448b528378b67dd38d268e7554a3e4588e74866eb3c94c2a12

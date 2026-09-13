@@ -1,6 +1,6 @@
 uid: TEST-0003
 type: test
-status: proposed
+status: ratified
 title: Bare tl passes and tl-compose fails on a fixture whose seam to a sibling is
   broken
 text: Build a fixture with an anchor graph and one consumer graph wired by path,
@@ -14,3 +14,5 @@ links:
 attrs:
   method: manual
   origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:04a5dbd07ac51f917e8daf169026e96fe7c6c289d20a56de494d4901d6bf3b42

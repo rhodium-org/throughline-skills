@@ -1,6 +1,6 @@
 uid: INT-0001
 type: intent
-status: proposed
+status: ratified
 title: A repository of several composed graphs is driven one graph at a time, never
   as one
 text: 'tl-compose lets one throughline graph borrow from another; it never merges
@@ -15,3 +15,5 @@ text: 'tl-compose lets one throughline graph borrow from another; it never merge
 normative: true
 attrs:
   origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:0ae88ee7fd58e07cb9474fe8150728d142cbb896333734e721037c8b02e7668a

@@ -1,6 +1,6 @@
 uid: NG-0001
 type: non_goal
-status: proposed
+status: ratified
 title: No whole-repository command and no merging of graphs
 text: The skill loops over graphs with the tools that exist; it does not invent a
   repository-level check, and it never merges sibling graphs into one project. Each
@@ -8,3 +8,5 @@ text: The skill loops over graphs with the tools that exist; it does not invent 
 normative: true
 attrs:
   origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:095db064fc98bc0b5ce4fdd719426ac94048fe2c2f07832e2929f0ed2616680a

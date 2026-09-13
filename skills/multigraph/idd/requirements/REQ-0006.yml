@@ -1,6 +1,6 @@
 uid: REQ-0006
 type: requirement
-status: proposed
+status: ratified
 title: A ratification is written in the graph that owns the item, judged over the
   union, under the name the human gave
 text: 'A namespace-qualified UID is never passed to a writing command: a source is
@@ -17,3 +17,5 @@ links:
 attrs:
   priority: must
   origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:d069676c8cd2c01d8c20ecbf4a1f74d00ee3a0599914cf384bc8309a40b09a01

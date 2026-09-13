@@ -1,6 +1,6 @@
 uid: REQ-0011
 type: requirement
-status: proposed
+status: ratified
 title: A new graph is added under its scope's idd folder, wired, grounded at birth,
   gated and cited
 text: A new graph is initialised at <scope>/idd, its sources are declared (the in-repo
@@ -16,3 +16,5 @@ links:
 attrs:
   priority: must
   origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:3064e76b871fbeaaed38ebd976e7d95eeade4e4e48f4bf57c90979269ed919bf

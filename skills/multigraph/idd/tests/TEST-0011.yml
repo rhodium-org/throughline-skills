@@ -1,6 +1,6 @@
 uid: TEST-0011
 type: test
-status: proposed
+status: ratified
 title: The add-a-graph steps cover init, wiring, grounding at birth, gating and citation
 text: Read the add-a-graph section and confirm its steps initialise at the scope's
   idd folder, declare sources, ground each item at creation with qualified citations,
@@ -13,3 +13,5 @@ links:
 attrs:
   method: document
   origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:3383316798d108559fce687bb6f386cb44593a1820ffc7a691dc98601b090d92

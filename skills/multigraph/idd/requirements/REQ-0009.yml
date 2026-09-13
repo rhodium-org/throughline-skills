@@ -1,6 +1,6 @@
 uid: REQ-0009
 type: requirement
-status: proposed
+status: ratified
 title: A version-gated behaviour is trusted only after the installed version is read
 text: 'The skill reads tl-compose --version before relying on a behaviour that changed
   between releases: a moved tag or branch ref is refetched from compose 0.16.1 and
@@ -15,3 +15,5 @@ links:
 attrs:
   priority: must
   origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:bf9fb66b2bb7e1e092ca3ac357a850c3f954116aac05697cd4ebeecfced1feb2

@@ -1,6 +1,6 @@
 uid: TEST-0009
 type: test
-status: proposed
+status: ratified
 title: Each version-gated behaviour in the skill states its threshold and its workaround
 text: Read the traps section and confirm each behaviour that changed between releases
   states the release it changed in, tells the reader to read tl-compose --version
@@ -12,3 +12,5 @@ links:
 attrs:
   method: document
   origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:a1944d5aac407ad28b8e4646ca33acccc7588100e33e38c5e88cf3c6cd541174

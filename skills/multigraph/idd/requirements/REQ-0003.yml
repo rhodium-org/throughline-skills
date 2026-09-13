@@ -1,6 +1,6 @@
 uid: REQ-0003
 type: requirement
-status: proposed
+status: ratified
 title: The binary is chosen per graph by whether its config declares a source
 text: A graph whose throughline.toml declares any [[sources]] block is driven with
   tl-compose; a graph with none takes bare tl. The decision is made per graph from
@@ -14,3 +14,5 @@ links:
 attrs:
   priority: must
   origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:1770f9cfa0f59bae9a6d82e671574868dc0d7db035edd41f43867258669255eb

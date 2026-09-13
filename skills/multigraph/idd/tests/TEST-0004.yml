@@ -1,6 +1,6 @@
 uid: TEST-0004
 type: test
-status: proposed
+status: ratified
 title: The skill's wiring example carries the sibling by unpinned path and the standard
   by pinned url
 text: Read the wiring section and confirm the example declares the in-repo sibling
@@ -14,3 +14,5 @@ links:
 attrs:
   method: document
   origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:92011c319c48f3f776876de91333b14e968aeeb82495d36e6e09c911613af9c9

@@ -1,6 +1,6 @@
 uid: REQ-0001
 type: requirement
-status: proposed
+status: ratified
 title: The compose CLI is made present before any graph is touched, and bare tl is
   never a fallback for it
 text: Before acting, the skill confirms tl-compose answers --version and otherwise
@@ -14,3 +14,5 @@ links:
 attrs:
   priority: must
   origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:546158fae23056dde89fa2ec646d3d0a0431eea856c247f49015ed9fc75720b7

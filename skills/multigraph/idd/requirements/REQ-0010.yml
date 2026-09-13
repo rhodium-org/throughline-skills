@@ -1,6 +1,6 @@
 uid: REQ-0010
 type: requirement
-status: proposed
+status: ratified
 title: Graph structure changes through the CLI; the sources block is the one hand-edited
   thing
 text: Items, links, amendments and ratifications are written with the compose new,
@@ -14,3 +14,5 @@ links:
 attrs:
   priority: must
   origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:d53e3a27b8ccc8da00b199e4edc2d751ff4133d6b7c64f29a8c0f19c1e2884dc

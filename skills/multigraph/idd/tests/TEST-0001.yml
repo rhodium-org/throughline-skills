@@ -1,6 +1,6 @@
 uid: TEST-0001
 type: test
-status: proposed
+status: ratified
 title: In a sandbox with no CLI the skill installs compose and stops rather than
   fall back
 text: 'In an interpreter with neither CLI installed, follow the skill: confirm the
@@ -14,3 +14,5 @@ links:
 attrs:
   method: manual
   origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:beba75655e3cb8d6660579536c22a3c5c3b656202df90c992fe80039b29de935

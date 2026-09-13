@@ -1,6 +1,6 @@
 uid: TEST-0007
 type: test
-status: proposed
+status: ratified
 title: The gate loop runs every graph and exits non-zero when any fails
 text: Run the skill's loop on a fixture of three graphs where the second fails. Confirm
   all three checks run, the exit status is non-zero, and the binary chosen for each
@@ -13,3 +13,5 @@ links:
 attrs:
   method: automated
   origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:7e72fb859baf3881a2f8b596dcb69dc297940a893da1d767e8c257dbbce634ac
