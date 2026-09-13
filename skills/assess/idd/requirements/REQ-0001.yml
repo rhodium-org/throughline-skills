@@ -1,7 +1,8 @@
 uid: REQ-0001
 type: requirement
-status: proposed
-title: The graph is measured from its dump, as items by type, status and origin, who ratified, sources composed and links into them
+status: ratified
+title: The graph is measured from its dump, as items by type, status and origin,
+  who ratified, sources composed and links into them
 text: |-
   The script reads the JSON that tl-compose dump, or bare tl dump, emits and
   reports for the local items: the count, how many are live, how many a human
@@ -18,3 +19,5 @@ links:
 attrs:
   priority: must
   origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:0a21c672979cb4dd5e26c5063bea9f4b7c6dfa64cd3bcd6a07ca802818170751

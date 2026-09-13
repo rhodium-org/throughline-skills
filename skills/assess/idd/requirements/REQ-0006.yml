@@ -1,7 +1,8 @@
 uid: REQ-0006
 type: requirement
-status: proposed
-title: A record is written as JSON and as a Markdown skeleton, copied into a collection whose index compares cases
+status: ratified
+title: A record is written as JSON and as a Markdown skeleton, copied into a collection
+  whose index compares cases
 text: |-
   The record command runs every measure and writes, under the repository's
   docs/assessment directory or a given one, a JSON file holding every number and
@@ -19,3 +20,5 @@ links:
 attrs:
   priority: must
   origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:56903be2d434c2c6f4ff76fb74d46ec1ab7cd5a8a1cc3a5d022d082302335301

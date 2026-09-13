@@ -1,6 +1,6 @@
 uid: REQ-0005
 type: requirement
-status: proposed
+status: ratified
 title: Done is a fixed point the script checks and can gate on
 text: |-
   The done command reports whether the strict check has no error, the
@@ -14,3 +14,5 @@ links:
 attrs:
   priority: must
   origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:6bda53c41f1055212ae42378119cde7863c7c8df9bc90033a4b7706a459a7931

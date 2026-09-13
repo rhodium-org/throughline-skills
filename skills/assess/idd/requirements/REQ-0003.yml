@@ -1,7 +1,8 @@
 uid: REQ-0003
 type: requirement
-status: proposed
-title: Documents and tests are measured, as words generated and whether they are current; test files and the suite's own pass and fail counts
+status: ratified
+title: Documents and tests are measured, as words generated and whether they are
+  current; test files and the suite's own pass and fail counts
 text: |-
   The script counts the words of every Markdown document under the graph's
   docs directory and runs the tool's docs check to say whether they are current.
@@ -15,3 +16,5 @@ links:
 attrs:
   priority: must
   origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:a052f99c8c73d9aaac7f49bdb1e2c64173876f1ef8921d04d9bf8b2dec052411

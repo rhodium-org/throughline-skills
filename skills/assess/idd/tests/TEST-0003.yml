@@ -1,9 +1,10 @@
 uid: TEST-0003
 type: test
-status: proposed
+status: ratified
 title: Documents are counted and tests are read from a result file, never invented
-text: |-
-  Write two Markdown documents under docs and a result file with pass and fail lines; assert the word count, the docs check result and the pass and fail counts; assert that with no result file the counts are absent.
+text: Write two Markdown documents under docs and a result file with pass and fail
+  lines; assert the word count, the docs check result and the pass and fail counts;
+  assert that with no result file the counts are absent.
 normative: true
 links:
 - target: REQ-0003
@@ -11,3 +12,5 @@ links:
 attrs:
   origin: ai
   method: automated
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:1ef21dc350ceada74e90c51c766575078e940d1fb0e4aaf3f0ddc31a80701dc3

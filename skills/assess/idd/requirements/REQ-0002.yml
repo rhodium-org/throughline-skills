@@ -1,7 +1,8 @@
 uid: REQ-0002
 type: requirement
-status: proposed
-title: The repository is measured from git, as commits, span, authors, tags, item citations, and items amended after ratification
+status: ratified
+title: The repository is measured from git, as commits, span, authors, tags, item
+  citations, and items amended after ratification
 text: |-
   From the repository holding the graph the script reports the commit count,
   the first and last commit dates and the days between them, commits per author,
@@ -17,3 +18,5 @@ links:
 attrs:
   priority: must
   origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:8886c117c6c061e7180b7aeded3bf5bcdbc7ee32c227ea42050ab12475125fd6

@@ -1,9 +1,12 @@
 uid: TEST-0006
 type: test
-status: proposed
-title: Record writes both files, keeps earlier records, and regenerates the collection index
-text: |-
-  Run record twice under the same name into a temporary collection; assert two dated JSON and Markdown pairs exist in the repository and the collection, the Markdown carries the table and every narrative heading, and the collection README lists both rows.
+status: ratified
+title: Record writes both files, keeps earlier records, and regenerates the collection
+  index
+text: Run record twice under the same name into a temporary collection; assert two
+  dated JSON and Markdown pairs exist in the repository and the collection, the Markdown
+  carries the table and every narrative heading, and the collection README lists
+  both rows.
 normative: true
 links:
 - target: REQ-0006
@@ -11,3 +14,5 @@ links:
 attrs:
   origin: ai
   method: automated
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:797486ae00bb6ea7e88e373d777f040710edb3f6f256bf9e1049a0c7c7b20931

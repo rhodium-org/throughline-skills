@@ -1,7 +1,8 @@
 uid: REQ-0004
 type: requirement
-status: proposed
-title: Sessions are measured from Claude Code transcripts, as wall-clock and active time, turns, tool calls, API calls, models and tokens
+status: ratified
+title: Sessions are measured from Claude Code transcripts, as wall-clock and active
+  time, turns, tool calls, API calls, models and tokens
 text: |-
   Given transcript files the script reports, per session and in total, the
   first and last timestamps, the wall-clock hours between them, the active hours
@@ -18,3 +19,5 @@ links:
 attrs:
   priority: must
   origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:87bbcfd6893972afd7e1c62321415ce1a6c14da22c847fc76d87c875bad194c7

@@ -1,9 +1,11 @@
 uid: TEST-0004
 type: test
-status: proposed
+status: ratified
 title: A synthetic transcript yields the stated times, turns, calls and tokens
-text: |-
-  Write a transcript with known timestamps, one gap longer than the idle gap, two human turns, tool uses and usage blocks; assert wall-clock and active hours, turns, tool calls by name, API calls and every token total; assert an unparseable line is skipped.
+text: Write a transcript with known timestamps, one gap longer than the idle gap,
+  two human turns, tool uses and usage blocks; assert wall-clock and active hours,
+  turns, tool calls by name, API calls and every token total; assert an unparseable
+  line is skipped.
 normative: true
 links:
 - target: REQ-0004
@@ -11,3 +13,5 @@ links:
 attrs:
   origin: ai
   method: automated
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:e2b17072699031e8c7a56da19222915b36f668714961c6885172f73d7ec306ad

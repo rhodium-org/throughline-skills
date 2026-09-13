@@ -1,8 +1,8 @@
 uid: INT-0001
 type: intent
-status: proposed
-title: Every piece of work done on a throughline graph leaves an objective record of
-  what it cost and what the graph caught, so a collection of cases can show whether
+status: ratified
+title: Every piece of work done on a throughline graph leaves an objective record
+  of what it cost and what the graph caught, so a collection of cases can show whether
   working this way pays
 text: |-
   A graph promises fewer errors and documents that cannot drift, at the cost of
@@ -17,3 +17,5 @@ text: |-
 normative: true
 attrs:
   origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:cfaa9cd9fb9080b5a01898622a9217e2e9aa5c19b57ba3091db3c1a21ce1369b
