@@ -1,6 +1,6 @@
 uid: TEST-0009
 type: test
-status: proposed
+status: ratified
 title: The amendment count follows an item through a rename
 text: 'tests/test_assess.py, test_git_measure_follows_a_rename: in a throwaway repository
   commit an item, commit its ratification, move the whole graph directory and amend
@@ -14,3 +14,5 @@ links:
 attrs:
   method: automated
   origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:fb5cb4b78fe33119a66f805c914fd084a0622d8141814f5d86dd3a503418d95b
