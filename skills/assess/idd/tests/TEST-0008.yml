@@ -1,6 +1,6 @@
 uid: TEST-0008
 type: test
-status: proposed
+status: ratified
 title: Scoped to paths, the git measure counts only the commits that touched them
 text: |-
   In a throwaway repository commit files under two directories in separate
@@ -15,3 +15,5 @@ links:
 attrs:
   origin: ai
   method: automated
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:ccb7a46d4a49d811579a081264651f714f677de69816aade80a314c9c02efc7d
