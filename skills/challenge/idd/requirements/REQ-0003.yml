@@ -9,7 +9,13 @@ text: An AI-origin item still proposed is fixed directly with amend, link and un
   a reword. The pass ends by re-running the script, the strict composed check and
   the docs check with the composing binary, committing explicit paths, and handing
   off with the count of new and stale items and the exact ratify command for that
-  graph root.
+  graph root. The report names each challenge by its number and by what it asks,
+  never by the skill's own section labels, because the reader has not read the skill;
+  a challenge that does not apply to the graph is said not to apply and why.
+rationale: '2026-09-13: a challenge report handed to the ratifier said Part B does
+  not apply, a label that exists only inside the skill text. The report shape now
+  forbids leaking the skill''s own structure and says how to report an inapplicable
+  challenge.'
 normative: true
 links:
 - target: INT-0001

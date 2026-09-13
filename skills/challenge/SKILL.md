@@ -162,6 +162,12 @@ For each finding: the challenge number, the item, the sibling or clause it
 collides with, and what you changed or why you left it. Findings you could not
 settle are questions for the ratifier, stated as questions.
 
+Name each challenge by its number and by what it asks. Never by "Part A" or
+"Part B": those labels exist only in this file, and the reader has not read it.
+A challenge that does not apply to the graph is said not to apply and why, for
+example that challenges 10 to 12 concern a composed specification and this graph
+composes none.
+
 ## Part B: an implementation against a moved specification
 
 This applies when a graph composes another graph as its specification, for
