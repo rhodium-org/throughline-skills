@@ -1,0 +1,10 @@
+uid: NG-0001
+type: non_goal
+status: proposed
+title: No whole-repository command and no merging of graphs
+text: The skill loops over graphs with the tools that exist; it does not invent a
+  repository-level check, and it never merges sibling graphs into one project. Each
+  graph stays a separate project with its own config, UID space and accountability.
+normative: true
+attrs:
+  origin: ai

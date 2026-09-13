@@ -1,0 +1,14 @@
+uid: TEST-0009
+type: test
+status: proposed
+title: Each version-gated behaviour in the skill states its threshold and its workaround
+text: Read the traps section and confirm each behaviour that changed between releases
+  states the release it changed in, tells the reader to read tl-compose --version
+  before trusting it, and gives the workaround for the older release.
+normative: true
+links:
+- target: REQ-0009
+  type: verifies
+attrs:
+  method: document
+  origin: ai

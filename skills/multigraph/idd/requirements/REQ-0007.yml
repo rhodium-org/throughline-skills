@@ -1,0 +1,16 @@
+uid: REQ-0007
+type: requirement
+status: proposed
+title: Every graph is gated in a loop that picks the binary per graph and lets no
+  failure mask another
+text: There is no whole-repository check. The skill loops over every graph, chooses
+  tl-compose or tl per graph as REQ-0003 says, runs check in each, and exits non-zero
+  if any graph failed while still running the rest. Whether a graph takes --strict
+  is read from the repository's own CI workflow, not assumed.
+normative: true
+links:
+- target: INT-0001
+  type: derives_from
+attrs:
+  priority: must
+  origin: ai

@@ -1,0 +1,16 @@
+uid: REQ-0003
+type: requirement
+status: proposed
+title: The binary is chosen per graph by whether its config declares a source
+text: A graph whose throughline.toml declares any [[sources]] block is driven with
+  tl-compose; a graph with none takes bare tl. The decision is made per graph from
+  its config, never from a directory pattern. Bare tl on a sourced graph resolves
+  only local items, so it can pass while the seam to a sibling is broken; a graph
+  that borrows only from an in-repo sibling is still a sourced graph.
+normative: true
+links:
+- target: INT-0001
+  type: derives_from
+attrs:
+  priority: must
+  origin: ai

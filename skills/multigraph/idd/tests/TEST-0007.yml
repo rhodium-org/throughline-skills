@@ -1,0 +1,15 @@
+uid: TEST-0007
+type: test
+status: proposed
+title: The gate loop runs every graph and exits non-zero when any fails
+text: Run the skill's loop on a fixture of three graphs where the second fails. Confirm
+  all three checks run, the exit status is non-zero, and the binary chosen for each
+  graph matches whether its config declares a source. The repository's own check
+  workflow is the live instance of this loop.
+normative: true
+links:
+- target: REQ-0007
+  type: verifies
+attrs:
+  method: automated
+  origin: ai

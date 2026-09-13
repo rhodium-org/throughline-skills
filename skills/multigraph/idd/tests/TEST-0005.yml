@@ -1,0 +1,17 @@
+uid: TEST-0005
+type: test
+status: proposed
+title: A transitive namespace resolves only when declared or reexported, with nothing
+  copied
+text: In a fixture where the anchor cites an external namespace, confirm a consumer
+  citing anchor:UID resolves without copying any anchor declaration, that citing
+  the external namespace through the anchor fails until the consumer declares it
+  or the anchor reexports it, and that the skill text forbids copying types, statuses
+  or links from a sibling.
+normative: true
+links:
+- target: REQ-0005
+  type: verifies
+attrs:
+  method: manual
+  origin: ai

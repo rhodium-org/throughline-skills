@@ -1,0 +1,16 @@
+uid: REQ-0010
+type: requirement
+status: proposed
+title: Graph structure changes through the CLI; the sources block is the one hand-edited
+  thing
+text: Items, links, amendments and ratifications are written with the compose new,
+  link, amend and ratify commands. An item file or a register file is never hand-edited.
+  The [[sources]] block of throughline.toml is hand-edited because it is configuration,
+  not graph.
+normative: true
+links:
+- target: INT-0001
+  type: derives_from
+attrs:
+  priority: must
+  origin: ai

@@ -1,0 +1,18 @@
+uid: REQ-0004
+type: requirement
+status: proposed
+title: An in-repo sibling is wired by an unpinned path source and an external standard
+  by a pinned url
+text: A path source is resolved relative to the directory holding the consumer's
+  throughline.toml. An in-repo sibling moves on this programme's schedule and changes
+  in the same commit as the items that follow from it, so it is carried by path and
+  left unpinned so that drift is caught. An external standard moves on someone else's
+  schedule, so it is carried by url and pinned to a tag. Pinning an in-repo sibling
+  is treated as a mistake.
+normative: true
+links:
+- target: INT-0001
+  type: derives_from
+attrs:
+  priority: must
+  origin: ai

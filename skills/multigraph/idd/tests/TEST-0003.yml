@@ -1,0 +1,16 @@
+uid: TEST-0003
+type: test
+status: proposed
+title: Bare tl passes and tl-compose fails on a fixture whose seam to a sibling is
+  broken
+text: Build a fixture with an anchor graph and one consumer graph wired by path,
+  then delete the anchor item the consumer cites. Confirm bare tl check in the consumer
+  exits zero and tl-compose check exits non-zero, and that the skill's per-graph
+  grep selects tl-compose for the consumer and tl for the anchor.
+normative: true
+links:
+- target: REQ-0003
+  type: verifies
+attrs:
+  method: manual
+  origin: ai

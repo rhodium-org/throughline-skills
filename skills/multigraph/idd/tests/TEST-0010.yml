@@ -1,0 +1,15 @@
+uid: TEST-0010
+type: test
+status: proposed
+title: The skill routes every structure change through the CLI and hand-edits only
+  the sources block
+text: Read the skill and confirm it names new, link, amend and ratify as the routes
+  for structure, forbids hand-editing item and register files, and names the sources
+  block as the one hand-edited thing.
+normative: true
+links:
+- target: REQ-0010
+  type: verifies
+attrs:
+  method: document
+  origin: ai

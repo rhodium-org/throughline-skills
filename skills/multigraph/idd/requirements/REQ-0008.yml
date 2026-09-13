@@ -1,0 +1,17 @@
+uid: REQ-0008
+type: requirement
+status: proposed
+title: In a cloud sandbox a source that cannot be resolved is an environment failure,
+  not a finding
+text: A fresh sandbox has no personal SSH configuration, no source cache and only
+  the authentication the session was given. An SSH-alias url, a private https url
+  without credentials, or a slow first fetch is reported as an environment failure
+  and confirmed before any graph defect is hunted. In-repo path sources always resolve
+  in the clone, which is a further reason to wire siblings by path.
+normative: true
+links:
+- target: INT-0001
+  type: derives_from
+attrs:
+  priority: should
+  origin: ai

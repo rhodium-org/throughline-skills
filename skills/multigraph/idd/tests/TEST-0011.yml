@@ -1,0 +1,15 @@
+uid: TEST-0011
+type: test
+status: proposed
+title: The add-a-graph steps cover init, wiring, grounding at birth, gating and citation
+text: Read the add-a-graph section and confirm its steps initialise at the scope's
+  idd folder, declare sources, ground each item at creation with qualified citations,
+  add the graph to the check loop and graph table, leave items proposed for a named
+  human, and cite owning-graph-qualified UIDs in the commit.
+normative: true
+links:
+- target: REQ-0011
+  type: verifies
+attrs:
+  method: document
+  origin: ai

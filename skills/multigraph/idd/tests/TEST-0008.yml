@@ -1,0 +1,15 @@
+uid: TEST-0008
+type: test
+status: proposed
+title: The skill names the sandbox failure modes and calls each an environment failure
+text: Read the remote-session section and confirm it names the SSH-alias url, the
+  unauthenticated private url and the empty cache, says a failed source resolution
+  is confirmed as environment before any graph defect is hunted, and prefers path
+  sources for siblings.
+normative: true
+links:
+- target: REQ-0008
+  type: verifies
+attrs:
+  method: document
+  origin: ai

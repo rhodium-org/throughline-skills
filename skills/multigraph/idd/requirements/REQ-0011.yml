@@ -1,0 +1,18 @@
+uid: REQ-0011
+type: requirement
+status: proposed
+title: A new graph is added under its scope's idd folder, wired, grounded at birth,
+  gated and cited
+text: A new graph is initialised at <scope>/idd, its sources are declared (the in-repo
+  anchor by path, any external standard by pinned url), its own roots and items are
+  authored and grounded at creation with namespace-qualified citations where the
+  chain leaves the graph, and it is added to the repository's check loop and to any
+  table of graphs. Items enter proposed and are handed to a named human. The commit
+  cites each UID qualified by the graph that owns it.
+normative: true
+links:
+- target: INT-0001
+  type: derives_from
+attrs:
+  priority: must
+  origin: ai

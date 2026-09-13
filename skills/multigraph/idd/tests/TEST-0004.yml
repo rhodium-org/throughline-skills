@@ -1,0 +1,16 @@
+uid: TEST-0004
+type: test
+status: proposed
+title: The skill's wiring example carries the sibling by unpinned path and the standard
+  by pinned url
+text: Read the wiring section and confirm the example declares the in-repo sibling
+  with a path relative to the config's directory and no ref, the external standard
+  with a url and a tag, and gives the schedule reasoning that makes pinning a sibling
+  a mistake.
+normative: true
+links:
+- target: REQ-0004
+  type: verifies
+attrs:
+  method: document
+  origin: ai

@@ -1,0 +1,17 @@
+uid: INT-0001
+type: intent
+status: proposed
+title: A repository of several composed graphs is driven one graph at a time, never
+  as one
+text: 'tl-compose lets one throughline graph borrow from another; it never merges
+  them. Each graph in such a repository keeps its own model, its own UID space and
+  its own accountability record, and the commands that read, wire, ratify and gate
+  it must respect that boundary or they report green on a broken seam. This skill
+  is the discipline for working in such a repository: how the tools are made present,
+  how each graph is oriented in, which binary drives each graph, how siblings are
+  wired to each other and to external standards, where a ratification is written,
+  how every graph is gated, which failures belong to the environment rather than
+  to a graph, and how a new graph is added.'
+normative: true
+attrs:
+  origin: ai

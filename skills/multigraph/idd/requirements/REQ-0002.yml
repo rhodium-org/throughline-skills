@@ -1,0 +1,17 @@
+uid: REQ-0002
+type: requirement
+status: proposed
+title: Orientation enumerates every graph and reads the brief of the one about to
+  be touched
+text: The skill lists every throughline.toml in the repository, excluding virtual
+  environments and the git directory, and runs the context command of the graph it
+  is about to change. That generated brief is authoritative over the skill text.
+  Because each graph has its own types, statuses and link vocabulary, a brief read
+  in one graph is never applied to a sibling.
+normative: true
+links:
+- target: INT-0001
+  type: derives_from
+attrs:
+  priority: must
+  origin: ai
