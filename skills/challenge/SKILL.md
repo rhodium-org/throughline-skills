@@ -131,7 +131,9 @@ For each touched item, with its `siblings` output open:
 ### 4. Fix through the CLI, never by hand
 
 - An AI-origin item still `proposed` is yours to fix: `tl amend`, `tl link`,
-  `tl unlink`. Say in the rationale what the pass found and what changed.
+  `tl unlink`. Rewrite the claim in the fewest words that bind — never append
+  a qualifying clause. If the decision changed, record the decision and the
+  alternative rejected in the rationale; never the history of the pass.
 - A ratified item you must amend stays ratified and gains a `ratified-stale`
   finding until the human re-ratifies it. That is correct: the human accepts the
   new wording or reverts it. Never `git checkout` an item to escape it, and
