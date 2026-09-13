@@ -1,0 +1,191 @@
+{
+  "name": "tl-shape-skill",
+  "label": "The tl:shape skill: a discovery conversation that initialises a throughline graph, with a script, two dogfood graphs, eight fixture tests, and a rename from shaping to shape, built 12 to 13 September 2026.",
+  "recorded_at": "2026-09-13T17:33:39+00:00",
+  "graph_root": "/home/henry/Projects/01-applications/throughline-skills/skills/shape/idd/skill",
+  "repository": "/home/henry/Projects/01-applications/throughline-skills",
+  "graph": {
+    "items_local": 20,
+    "items_live": 20,
+    "items_accepted": 20,
+    "acceptance_ratio": 1.0,
+    "by_type": {
+      "intent": 1,
+      "non_goal": 3,
+      "requirement": 8,
+      "test": 8
+    },
+    "by_status": {
+      "ratified": 20
+    },
+    "by_origin": {
+      "ai": 20
+    },
+    "ratified_by": {
+      "Henry Grech-Cini": 20
+    },
+    "normative": 20,
+    "tests_by_method": {
+      "automated": 8
+    },
+    "sources_composed": {},
+    "citations_by_source": {},
+    "citations": 0,
+    "citations_stamped": 0,
+    "citations_unstamped": 0,
+    "local_links": 16
+  },
+  "git": {
+    "scope": [
+      "skills/shaping",
+      "skills/shape",
+      "scripts/shaping.py",
+      "scripts/shape.py",
+      "tests/test_shape.py"
+    ],
+    "commits": 8,
+    "first_commit": "2026-09-12T20:26:13+01:00",
+    "last_commit": "2026-09-13T18:22:19+01:00",
+    "span_days": 0.91,
+    "authors": {
+      "Henry Grech-Cini": 8
+    },
+    "commits_citing_an_item": 8,
+    "citing_ratio": 1.0,
+    "tags": [],
+    "editions": 0,
+    "lines_added": 2287,
+    "lines_removed": 241,
+    "items_ratified": 20,
+    "items_amended_after_ratification": 0,
+    "amending_commits": 0
+  },
+  "docs": {
+    "documents": {},
+    "words": 0,
+    "docs_check_ok": true,
+    "docs_check": []
+  },
+  "tests": {
+    "test_files": 1,
+    "pattern": "tests/test_shape.py",
+    "passed": 8,
+    "failed": 0
+  },
+  "sessions": {
+    "sessions": [
+      {
+        "file": "/home/henry/.claude/projects/-home-henry-Projects-01-applications-throughline-skills/3f3d89a1-73b0-416b-a73a-610109ac0696.jsonl",
+        "session_id": "3f3d89a1-73b0-416b-a73a-610109ac0696",
+        "cwd": "/home/henry/Projects/01-applications/throughline-skills",
+        "first": "2026-09-12T19:04:11.370000+00:00",
+        "last": "2026-09-12T21:38:23.550000+00:00",
+        "wall_clock_hours": 2.57,
+        "active_hours": 0.65,
+        "idle_gap_minutes": 10.0,
+        "since": null,
+        "until": null,
+        "user_turns": 5,
+        "assistant_turns": 135,
+        "tool_results": 59,
+        "tool_calls": 59,
+        "tool_calls_by_name": {
+          "Bash": 59
+        },
+        "api_calls": 135,
+        "models": {
+          "claude-fable-5-1": 135
+        },
+        "compactions": 0,
+        "tokens": {
+          "input_tokens": 3720,
+          "output_tokens": 340826,
+          "cache_creation_input_tokens": 1146452,
+          "cache_read_input_tokens": 21356016,
+          "thinking_tokens": 129991
+        }
+      },
+      {
+        "file": "/home/henry/.claude/projects/-home-henry-Projects-01-applications-throughline-skills/4d8840da-bc51-4b59-9cde-47047b2e30db.jsonl",
+        "session_id": "4d8840da-bc51-4b59-9cde-47047b2e30db",
+        "cwd": "/home/henry/Projects/01-applications/throughline-skills",
+        "first": "2026-09-13T16:27:25.598000+00:00",
+        "last": "2026-09-13T17:33:37.741000+00:00",
+        "wall_clock_hours": 1.1,
+        "active_hours": 0.87,
+        "idle_gap_minutes": 10.0,
+        "since": null,
+        "until": null,
+        "user_turns": 9,
+        "assistant_turns": 136,
+        "tool_results": 66,
+        "tool_calls": 68,
+        "tool_calls_by_name": {
+          "Bash": 65,
+          "Skill": 2,
+          "mcp__ccd_session__spawn_task": 1
+        },
+        "api_calls": 136,
+        "models": {
+          "claude-fable-5-1": 136
+        },
+        "compactions": 0,
+        "tokens": {
+          "input_tokens": 3664,
+          "output_tokens": 202313,
+          "cache_creation_input_tokens": 490971,
+          "cache_read_input_tokens": 20014350,
+          "thinking_tokens": 91257
+        }
+      }
+    ],
+    "count": 2,
+    "totals": {
+      "wall_clock_hours": 3.67,
+      "active_hours": 1.52,
+      "user_turns": 14,
+      "assistant_turns": 271,
+      "tool_calls": 127,
+      "api_calls": 271,
+      "compactions": 0,
+      "tokens_input_tokens": 7384,
+      "tokens_output_tokens": 543139,
+      "tokens_cache_creation_input_tokens": 1637423,
+      "tokens_cache_read_input_tokens": 41370366,
+      "tokens_thinking_tokens": 221248
+    },
+    "tool_calls_by_name": {
+      "Bash": 124,
+      "Skill": 2,
+      "mcp__ccd_session__spawn_task": 1
+    }
+  },
+  "done": {
+    "criteria": {
+      "strict_check_clean": true,
+      "docs_current": true,
+      "nothing_awaiting_ratification": true,
+      "working_tree_clean": true,
+      "tests_green": true
+    },
+    "done": true,
+    "strict_errors": 0,
+    "proposed": 0,
+    "passed": 8,
+    "failed": 0
+  },
+  "provenance": {
+    "repository_commit": "d800ae6300a4da2a0306ba7a374aebcf2124d19f",
+    "working_tree_clean": true,
+    "sources": [],
+    "tools": {
+      "tl": "tl 3.0.0",
+      "tl-compose": "tl-compose 0.16.4 (throughline 3.0.0)",
+      "tl-ratify": "tl-ratify 0.7.0 (throughline-compose 0.16.4, throughline 3.0.0)"
+    },
+    "plugin_version": "1.3.0",
+    "plugin_commit": "d800ae6300a4da2a0306ba7a374aebcf2124d19f",
+    "script": "/home/henry/Projects/01-applications/throughline-skills/scripts/assess.py",
+    "python": "3.12.3"
+  }
+}
