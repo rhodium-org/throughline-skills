@@ -436,6 +436,11 @@ def record(args) -> dict:
     out_dir.mkdir(parents=True, exist_ok=True)
     # Date and time in the name: a second record on the same day never overwrites the first.
     stem = f"{rec['recorded_at'][:19].replace(':', '')}-{args.name}"
+    # Never overwrite: a record taken in the same second as another gets a suffix.
+    base, n = stem, 1
+    while (out_dir / f"{stem}.json").exists() or (args.collection and (Path(args.collection) / args.name / f"{stem}.json").exists()):
+        n += 1
+        stem = f"{base}-{n}"
     (out_dir / f"{stem}.json").write_text(json.dumps(rec, indent=2) + "\n")
     (out_dir / f"{stem}.md").write_text(markdown(rec))
     written = [str(out_dir / f"{stem}.json"), str(out_dir / f"{stem}.md")]
