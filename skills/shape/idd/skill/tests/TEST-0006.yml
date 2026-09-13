@@ -1,0 +1,16 @@
+uid: TEST-0006
+type: test
+status: proposed
+title: A rejected register is a non_goal with its rationale, linked to what ruled
+  it out
+text: 'tests/test_shape.py, test_rejected_register_is_recorded_with_its_rationale:
+  asserts the non_goal recorded during the discovery holds the rationale given, derives
+  from the need that made it unnecessary, sits in the non-goals register of idd/shape/,
+  and is listed by status under registers considered and not created.'
+normative: true
+links:
+- target: REQ-0006
+  type: verifies
+attrs:
+  method: automated
+  origin: ai

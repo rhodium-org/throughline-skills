@@ -1,0 +1,16 @@
+uid: TEST-0002
+type: test
+status: proposed
+title: init lays idd/shape/ down under that name and refuses a repo whose idd/ is
+  a graph
+text: 'tests/test_shape.py, test_shape_graph_is_always_at_that_name: runs the init
+  shell read out of SKILL.md and asserts idd/ holds only shape/, a project named
+  shape, and the six registers; then runs tl init in a second repo''s idd/ and asserts
+  the script''s init refuses it, names the reason, and writes nothing.'
+normative: true
+links:
+- target: REQ-0002
+  type: verifies
+attrs:
+  method: automated
+  origin: ai

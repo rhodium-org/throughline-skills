@@ -1,0 +1,18 @@
+uid: TEST-0003
+type: test
+status: proposed
+title: write refuses until a usable name decision exists, then records the pointer
+text: 'tests/test_shape.py, test_second_graph_named_in_discovery_never_defaulted:
+  with a register decision but no name decision, write exits 2 naming the missing
+  decision and idd/ still holds only shape/; name decisions of shape, Estate and
+  my estate are each refused as unusable; after a decision naming estate, write creates
+  idd/estate/, the shape graph''s throughline.toml carries the path source namespace
+  estate, and status --json reports the name, that the graph exists and that the
+  pointer is recorded.'
+normative: true
+links:
+- target: REQ-0003
+  type: verifies
+attrs:
+  method: automated
+  origin: ai

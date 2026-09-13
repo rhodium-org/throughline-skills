@@ -277,9 +277,14 @@ def cmd_write(repo: Path, _a) -> None:
                  if i["type"] == "decision" and i.get("attrs", {}).get("kind") == "register"]
     if not decisions:
         die("no live register decisions in idd/shape — nothing to write")
+    grounds = {i["uid"] for i in local_items(shape) if i["type"] in ("need", "constraint")}
     regs = []
     for d in decisions:
         at = d.get("attrs", {})
+        if not any(l.get("target") in grounds for l in d.get("links", [])):
+            die(f"{d['uid']} is a register decision grounded in no live need or "
+                "constraint — registers come from the needs, after they are "
+                "confirmed; link it to the need or standard that calls for it")
         missing = [k for k in ("prefix", "dir", "item_type") if not at.get(k)]
         if missing:
             die(f"{d['uid']} is a register decision missing {', '.join(missing)}")
@@ -331,7 +336,7 @@ def cmd_check(repo: Path, a) -> None:
     rc = 0
     for g in graphs:
         cmd = [binary(g), "-C", str(g), "check"] + (["--strict"] if a.strict else [])
-        print(f"== {' '.join(cmd)}")
+        print(f"== {' '.join(cmd)}", flush=True)
         proc = subprocess.run(cmd, text=True)
         rc = max(rc, proc.returncode)
         print()

@@ -1,0 +1,17 @@
+uid: TEST-0005
+type: test
+status: proposed
+title: Every item the script authors is origin ai at proposed, and the script has
+  no ratify
+text: 'tests/test_shape.py, test_every_item_is_ai_and_proposed_and_the_script_cannot_ratify:
+  after the discovery and write, asserts all seven items in the shape graph and an
+  intent authored into the second graph with --graph carry origin ai and status proposed,
+  that the script rejects a ratify subcommand and its source contains no ratify call,
+  and that SKILL.md tells the agent to decline when asked to ratify.'
+normative: true
+links:
+- target: REQ-0005
+  type: verifies
+attrs:
+  method: automated
+  origin: ai

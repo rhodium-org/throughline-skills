@@ -1,0 +1,16 @@
+uid: TEST-0008
+type: test
+status: proposed
+title: init and write refuse a shaped repo and status reads the prior reasoning back
+text: 'tests/test_shape.py, test_rerun_reconfirms_and_never_overwrites: on a written
+  repo, runs the init shell read out of SKILL.md and asserts it exits 1 saying the
+  repo was shaped before, that write exits 1 saying the second graph exists, that
+  every file under idd/ is byte-for-byte unchanged, and that the status shell lists
+  every prior item and the shaped graph.'
+normative: true
+links:
+- target: REQ-0008
+  type: verifies
+attrs:
+  method: automated
+  origin: ai

@@ -1,0 +1,18 @@
+uid: TEST-0004
+type: test
+status: proposed
+title: The stages are ordered in the skill text and write refuses a register no need
+  called for
+text: 'tests/test_shape.py, test_registers_come_after_needs: asserts the five stage
+  headings of SKILL.md appear in order and that the sentence withholding the word
+  register until the needs are confirmed sits before the registers stage; then, with
+  a register decision grounded only in the domain, asserts write exits 2 naming that
+  decision and creates nothing, and that linking the decision to a need lets write
+  proceed.'
+normative: true
+links:
+- target: REQ-0004
+  type: verifies
+attrs:
+  method: automated
+  origin: ai
