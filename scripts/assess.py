@@ -30,6 +30,7 @@ from __future__ import annotations
 
 import argparse
 import datetime as dt
+import difflib
 import glob
 import json
 import os
@@ -173,17 +174,28 @@ def measure_git(repo: str, items_dir: str | None, paths: list[str] | None = None
     if items_dir:
         files = [f for f in run(["git", "-C", repo, "ls-files", items_dir]).stdout.splitlines() if ITEM_FILE_RE.search(f)]
         for f in files:
-            first_ratified = run(["git", "-C", repo, "log", "--format=%H", "--reverse", "-S", "ratified_by", "--", f]).stdout.split()
-            if not first_ratified:
+            # The item's history at whatever path it had, oldest first: a rename
+            # must hide neither the ratification before it nor an amendment made in it.
+            # (--follow stops at the rename when combined with --reverse, so reverse here.)
+            log = run(["git", "-C", repo, "log", "--follow", "--format=%x1e%H", "--name-only", "--", f]).stdout
+            states = []
+            for block in log.split("\x1e"):
+                lines = [l for l in block.splitlines() if l.strip()]
+                if len(lines) >= 2:
+                    states.append((lines[0], lines[-1]))
+            states.reverse()
+            contents = [run(["git", "-C", repo, "show", f"{c}:{path}"]).stdout for c, path in states]
+            first_ratified = next((i for i, c in enumerate(contents) if "ratified_by" in c), None)
+            if first_ratified is None:
                 continue
             amended["items_ratified"] += 1
-            # A later commit counts as an amendment only if it changed a line other than the ratification
-            # record and the status: a re-ratification alone is the human's act, not a change to the item.
-            later = run(["git", "-C", repo, "log", "--format=%H", f"{first_ratified[0]}..HEAD", "--", f]).stdout.split()
+            # A later change counts as an amendment only if it touched a line other than the
+            # ratification record and the status: a re-ratification alone is the human's act,
+            # not a change to the item, and a move alone changes no line at all.
             amending = 0
-            for commit in later:
-                diff = run(["git", "-C", repo, "show", "--format=", commit, "--", f]).stdout
-                changed = [l for l in diff.splitlines() if (l.startswith("+") or l.startswith("-"))
+            for i in range(first_ratified + 1, len(contents)):
+                diff = difflib.unified_diff(contents[i - 1].splitlines(), contents[i].splitlines(), lineterm="", n=0)
+                changed = [l for l in diff if (l.startswith("+") or l.startswith("-"))
                            and not l.startswith(("+++", "---"))
                            and not re.match(r"[+-]\s*(ratified_by|ratified_fingerprint|ratified_id|status):", l)]
                 if changed:

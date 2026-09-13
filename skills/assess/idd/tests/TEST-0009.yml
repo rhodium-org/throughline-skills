@@ -1,0 +1,16 @@
+uid: TEST-0009
+type: test
+status: proposed
+title: The amendment count follows an item through a rename
+text: 'tests/test_assess.py, test_git_measure_follows_a_rename: in a throwaway repository
+  commit an item, commit its ratification, move the whole graph directory and amend
+  the item in one commit, re-ratify in the next, and assert one item amended after
+  ratification in one commit; move the directory again with no other change and assert
+  the counts are unchanged.'
+normative: true
+links:
+- target: REQ-0002
+  type: verifies
+attrs:
+  method: automated
+  origin: ai

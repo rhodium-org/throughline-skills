@@ -117,6 +117,30 @@ def test_git_measure_counts_commits_tags_citations_and_amendments(repo):  # TEST
     assert g["authors"] == {"Tester": 4}
 
 
+def test_git_measure_follows_a_rename(repo):  # TEST-0009
+    idd = graph_with_items(repo)
+    git(repo, "add", "-A")
+    git(repo, "commit", "-q", "-m", "A graph (INT-0001)")
+    run("tl", "-C", str(idd), "ratify", "REQ-0001", "--by", RATIFIER, check=False)
+    git(repo, "add", "-A")
+    git(repo, "commit", "-q", "-m", "Ratified: REQ-0001")
+    git(repo, "mv", "idd", "graph")
+    p = repo / "graph" / "requirements" / "REQ-0001.yml"
+    p.write_text(p.read_text().replace("A ratified requirement.", "A ratified requirement, amended in the move."))
+    git(repo, "add", "-A")
+    git(repo, "commit", "-q", "-m", "The graph moved and REQ-0001 amended in the same commit")
+    run("tl", "-C", str(repo / "graph"), "ratify", "REQ-0001", "--by", RATIFIER, "--accept-change", check=False)
+    git(repo, "add", "-A")
+    git(repo, "commit", "-q", "-m", "Re-ratified REQ-0001")
+    g = assess("git", "-C", str(repo / "graph"))
+    assert g["items_ratified"] >= 1
+    assert g["items_amended_after_ratification"] == 1 and g["amending_commits"] == 1
+    git(repo, "mv", "graph", "moved")
+    git(repo, "commit", "-q", "-m", "Moved again, nothing amended")
+    g = assess("git", "-C", str(repo / "moved"))
+    assert g["items_amended_after_ratification"] == 1 and g["amending_commits"] == 1
+
+
 def test_docs_and_tests_are_measured_not_invented(repo, tmp_path):  # TEST-0003
     idd = graph_with_items(repo)
     (idd / "docs").mkdir()
