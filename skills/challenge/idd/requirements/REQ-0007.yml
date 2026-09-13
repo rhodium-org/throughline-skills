@@ -1,6 +1,6 @@
 uid: REQ-0007
 type: requirement
-status: proposed
+status: ratified
 title: A branch's tests are the tests verifying any of its members, the head included
 text: The verification check walks a branch from its head through the live items
   grounded below it. The branch's members are the non-test items in it, the head
@@ -30,3 +30,5 @@ links:
 attrs:
   priority: must
   origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:5d6090438460cb00ea2754bf7702c703eb7f0abb577a8fb598b046431239d1dd

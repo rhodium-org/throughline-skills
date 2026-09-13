@@ -1,6 +1,6 @@
 uid: TEST-0007
 type: test
-status: proposed
+status: ratified
 title: A requirement verified by a test on itself reads as verified when it heads
   a branch
 text: 'Build a throwaway graph with tl: an intent; a requirement verified by an automated
@@ -19,3 +19,5 @@ links:
 attrs:
   method: automated
   origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:baab0bf11eac221b6cb17e6e3c758d7b3132d1afdf7b27f19ce93fc026a0ba47

@@ -29,9 +29,7 @@ jobs:
 
       - name: Gate every graph
         run: |
-          # skills/challenge/idd left strict once tl-challenge REQ-0007 and
-          # TEST-0007 are ratified.
-          STRICT=" idd skills/assess/idd skills/multigraph/idd skills/shape/idd/shape skills/shape/idd/skill "
+          STRICT=" idd skills/assess/idd skills/challenge/idd skills/multigraph/idd skills/shape/idd/shape skills/shape/idd/skill "
           rc=0
           for cfg in $(find . -name throughline.toml -not -path '*/.git/*' | sort); do
             graph="${cfg#./}"; graph="${graph%/throughline.toml}"
