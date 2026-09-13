@@ -3,16 +3,21 @@ type: test
 status: ratified
 title: Bare tl passes and tl-compose fails on a fixture whose seam to a sibling is
   broken
-text: Build a fixture with an anchor graph and one consumer graph wired by path,
-  then delete the anchor item the consumer cites. Confirm bare tl check in the consumer
-  exits zero and tl-compose check exits non-zero, and that the skill's per-graph
-  grep selects tl-compose for the consumer and tl for the anchor.
+text: 'tests/test_multigraph.py, test_bare_tl_cannot_see_the_seam: builds an anchor
+  graph and a consumer wired to it by path with one item grounded on the anchor root;
+  confirms tl-compose check passes and bare tl check fails with namespace-unresolved,
+  then tombstones the anchor item and confirms tl-compose check fails with deleted-link-target
+  while bare tl reports exactly the finding codes it reported when the graph was
+  healthy. test_binary_rule_grep runs the grep line read out of the skill text and
+  confirms it selects tl-compose for the consumer and tl for the anchor.'
+rationale: '2026-09-13: written as a pytest; the manual wording expected bare tl
+  to exit zero, which the fixture showed it never does on a sourced graph.'
 normative: true
 links:
 - target: REQ-0003
   type: verifies
 attrs:
-  method: manual
+  method: automated
   origin: ai
   ratified_by: Henry Grech-Cini
   ratified_fingerprint: sha256:04a5dbd07ac51f917e8daf169026e96fe7c6c289d20a56de494d4901d6bf3b42

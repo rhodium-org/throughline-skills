@@ -3,17 +3,21 @@ type: test
 status: ratified
 title: Ratify refuses a namespaced UID and accepts a local item grounded only through
   a sibling
-text: In a fixture consumer graph with an item whose only grounding is a path-sourced
-  sibling root, confirm bare tl ratify refuses it as ungrounded, tl-compose ratify
-  with a given name writes the record locally, and tl-compose ratify of the sibling's
-  UID from the consumer exits 2 with nothing written. Confirm the skill text says
-  to ask for the name and use it exactly.
+text: 'tests/test_multigraph.py, test_ratify_owning_graph_over_union: in the two-graph
+  fixture with the consumer item at proposed and grounded only through the anchor
+  root, confirms bare tl ratify refuses it as not grounded and writes nothing, tl-compose
+  ratify of the anchor''s UID from the consumer exits 2 with the anchor file unchanged,
+  and tl-compose ratify of the local item with a given name writes that name and
+  ratified status to the consumer''s file. The skill text is confirmed to say the
+  name is asked for, used exactly, and never invented, guessed or reused.'
+rationale: '2026-09-13: written as a pytest; the item must be at proposed, since
+  draft to ratified is not an allowed transition.'
 normative: true
 links:
 - target: REQ-0006
   type: verifies
 attrs:
-  method: manual
+  method: automated
   origin: ai
   ratified_by: Henry Grech-Cini
   ratified_fingerprint: sha256:488763b8c0c1859304ae84b01d024e2952a00470b35e80bc9d5a43470f8d1f08

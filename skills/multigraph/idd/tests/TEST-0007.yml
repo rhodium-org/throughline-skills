@@ -2,10 +2,14 @@ uid: TEST-0007
 type: test
 status: ratified
 title: The gate loop runs every graph and exits non-zero when any fails
-text: Run the skill's loop on a fixture of three graphs where the second fails. Confirm
-  all three checks run, the exit status is non-zero, and the binary chosen for each
-  graph matches whether its config declares a source. The repository's own check
-  workflow is the live instance of this loop.
+text: 'tests/test_multigraph.py, test_gate_loop: runs the loop read out of the skill
+  text over a tree of three graphs where the consumer''s anchor item has been tombstoned;
+  confirms three check groups ran, the exit status is non-zero, and the binary named
+  in each group matches whether that graph declares a source. The repository''s own
+  check workflow is the live instance of the same loop and runs this suite after
+  it.'
+rationale: '2026-09-13: the automated method now names the pytest that runs it rather
+  than only the workflow.'
 normative: true
 links:
 - target: REQ-0007

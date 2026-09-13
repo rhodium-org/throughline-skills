@@ -56,10 +56,12 @@ grep -q '^\[\[sources\]\]' <graph>/throughline.toml && echo tl-compose || echo t
 ```
 
 Bare `tl` on a sourced graph does not know what `subject:UR-0001` means. It
-reports on the local items alone — so it can **look green while the seam to the
-sibling graph is broken**. "This graph adopts no external standard" and "this
-graph needs no composition" are not the same statement: a graph that borrows only
-from an in-repo sibling still has a source, and still needs `tl-compose`.
+reports every such link as `namespace-unresolved`, whether the sibling item is
+intact or gone — so it **cannot see the seam at all**: red on a healthy graph and
+no redder on a broken one. Only `tl-compose` tells the two apart. "This graph
+adopts no external standard" and "this graph needs no composition" are not the
+same statement: a graph that borrows only from an in-repo sibling still has a
+source, and still needs `tl-compose`.
 
 ## Layout and wiring
 
@@ -91,7 +93,9 @@ citing last month's description of a subject that has since changed.
 
 Borrowed items are referenced `namespace:UID`; a bare UID is always local.
 Composition is **one level deep** — if a sibling you adopt itself cites another
-namespace, declare that namespace too, or have the sibling `reexport` it:
+namespace, composing the sibling fails outright until you either declare that
+namespace too or pull it through with a `reexport` entry on *your* `[[sources]]`
+block for the sibling:
 
 ```toml
 [[sources]]

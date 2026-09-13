@@ -40,3 +40,11 @@ jobs:
             echo "::endgroup::"
           done
           exit $rc
+
+      # The multigraph skill's fixture tests (tl-multigraph TEST-0003, 0005,
+      # 0006, 0007) build throwaway graphs with the real CLIs and run the
+      # shell out of its SKILL.md.
+      - name: Fixture tests
+        run: |
+          pip install pytest
+          pytest -q tests

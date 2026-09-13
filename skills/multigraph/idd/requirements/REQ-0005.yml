@@ -4,10 +4,15 @@ status: ratified
 title: Adopting a source costs the sources block and nothing else, and composition
   is one level deep
 text: Borrowed items are cited as namespace:UID; a bare UID is always local. When
-  an adopted sibling itself cites another namespace, the consumer declares that namespace
-  too or the sibling reexports it. A sibling's types, statuses and link vocabulary
-  are never copied into the consumer's config, because copied declarations are inert
-  and wrong the moment the source moves.
+  an adopted sibling itself cites another namespace, composing the sibling fails
+  until the consumer either declares that namespace too or pulls it through with
+  a reexport entry on its own source block for the sibling; nothing is hoisted automatically.
+  A sibling's types, statuses and link vocabulary are never copied into the consumer's
+  config, because copied declarations are inert and wrong the moment the source moves.
+rationale: '2026-09-13: the earlier wording, or the sibling reexports it, put the
+  reexport on the wrong graph. tl-compose reads reexport from the consumer''s own
+  [[sources]] block for the sibling, and the fixture showed composition of the sibling
+  fails outright until the transitive namespace is declared or pulled through.'
 normative: true
 links:
 - target: INT-0001

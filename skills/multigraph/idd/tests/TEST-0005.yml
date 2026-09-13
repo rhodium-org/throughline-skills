@@ -3,17 +3,22 @@ type: test
 status: ratified
 title: A transitive namespace resolves only when declared or reexported, with nothing
   copied
-text: In a fixture where the anchor cites an external namespace, confirm a consumer
-  citing anchor:UID resolves without copying any anchor declaration, that citing
-  the external namespace through the anchor fails until the consumer declares it
-  or the anchor reexports it, and that the skill text forbids copying types, statuses
-  or links from a sibling.
+text: 'tests/test_multigraph.py, test_transitive_namespace: builds an external graph,
+  an anchor that implements one of its items by path, and a consumer wired to the
+  anchor; confirms tl-compose check in the consumer exits 2 naming the undeclared
+  namespace, then passes under each remedy in turn, the consumer declaring the external
+  source itself or a reexport entry on the consumer''s source block for the anchor,
+  after which the consumer can ground an item on the external item directly. The
+  consumer''s config is confirmed to be its own init output plus sources blocks and
+  nothing copied.'
+rationale: '2026-09-13: written as a pytest; the manual wording had the anchor doing
+  the reexport, which is not where tl-compose reads it.'
 normative: true
 links:
 - target: REQ-0005
   type: verifies
 attrs:
-  method: manual
+  method: automated
   origin: ai
   ratified_by: Henry Grech-Cini
   ratified_fingerprint: sha256:475c20651cc0d7d2159fbe1a4804a7484352646e3a4803be1c8d9d3a602f205a

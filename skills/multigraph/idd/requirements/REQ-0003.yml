@@ -2,11 +2,17 @@ uid: REQ-0003
 type: requirement
 status: ratified
 title: The binary is chosen per graph by whether its config declares a source
-text: A graph whose throughline.toml declares any [[sources]] block is driven with
+text: 'A graph whose throughline.toml declares any [[sources]] block is driven with
   tl-compose; a graph with none takes bare tl. The decision is made per graph from
-  its config, never from a directory pattern. Bare tl on a sourced graph resolves
-  only local items, so it can pass while the seam to a sibling is broken; a graph
-  that borrows only from an in-repo sibling is still a sourced graph.
+  its config, never from a directory pattern. Bare tl cannot see a seam at all: on
+  a sourced graph it reports every namespace-qualified link as unresolved whether
+  the sibling item is intact or gone, so it neither passes a healthy graph nor tells
+  a broken one apart, and only tl-compose does. A graph that borrows only from an
+  in-repo sibling is still a sourced graph.'
+rationale: '2026-09-13: the fixture test showed the earlier claim, that bare tl can
+  pass while the seam is broken, is false against every public core release; namespace-qualified
+  links have raised namespace-unresolved since throughline 1.2.5. The rule stands;
+  its reason is corrected, and the skill text with it.'
 normative: true
 links:
 - target: INT-0001
