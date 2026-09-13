@@ -1,0 +1,21 @@
+uid: TEST-0007
+type: test
+status: proposed
+title: A requirement verified by a test on itself reads as verified when it heads
+  a branch
+text: 'Build a throwaway graph with tl: an intent; a requirement verified by an automated
+  test on itself and refined by a second requirement that a manual test verifies;
+  and a third requirement nothing verifies. Run verification with requirement as
+  the branch type and pass if the first branch reports two members with one automated
+  and one manual test and no flag, the refinement reports one manual test and no
+  automated check, and the third is listed untested and flagged. Run it with intent
+  as the branch type and pass if the same tests are counted once and the intent is
+  never listed untested, also after a test is linked to the intent itself. Delete
+  a test and pass if its requirement returns to untested. The fixture is tests/test_challenge.py.'
+normative: true
+links:
+- target: REQ-0007
+  type: verifies
+attrs:
+  method: automated
+  origin: ai

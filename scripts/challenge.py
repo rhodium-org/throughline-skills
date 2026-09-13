@@ -179,9 +179,19 @@ def cmd_universal(g: Graph, args) -> None:
 
 
 def cmd_verification(g: Graph, args) -> None:
-    """REQ-0004: verification per branch, not per item."""
+    """REQ-0004: verification per branch, not per item.
+
+    A branch is the head plus every live item grounded below it. Its members
+    are the items that need verifying: every non-test item in the branch, the
+    head included, less root types (an intent is verified through its branch,
+    not by a test of its own) and less the types passed as --ignore-types. Its
+    tests are the live tests with a verifies link into any member or into the
+    head, so a requirement headed branch counts the tests that verify the
+    requirement itself; before, only tests below the head were found and a
+    directly verified requirement read as unchecked."""
     branch_types = set(args.branch_types.split(",")) if args.branch_types else g.delivery_roots
     method_attr = args.method_attr
+    ignore = set(args.ignore_types.split(",")) if args.ignore_types else set()
     n = 0
     for root_uid, root in sorted(g.items.items()):
         if root.get("type") not in branch_types or not g.live(root):
@@ -194,43 +204,40 @@ def cmd_verification(g: Graph, args) -> None:
             if u in seen:
                 continue
             seen.add(u)
-            stack.extend(g.children(u))
+            stack.extend(k for k in g.children(u) if g.live(g.items[k]))
+        members = sorted(u for u in seen
+                         if g.items[u].get("type") != "test"
+                         and g.items[u].get("type") not in g.root_types
+                         and g.items[u].get("type") not in ignore)
         tally: dict[str, int] = defaultdict(int)
         tested_types: dict[str, set] = defaultdict(set)
         untested: list[str] = []
-        ignore = set(args.ignore_types.split(",")) if args.ignore_types else set()
-        for u in seen:
+        for u in sorted(set(members) | {root_uid}):
             it = g.items[u]
-            if u == root_uid or it.get("type") == "test" or it.get("type") in g.root_types:
-                continue
-            if it.get("type") in ignore:
-                continue
-            tests = [s for s, l in g.incoming.get(u, []) if l.get("type") == "verifies"]
+            tests = [s for s, l in g.incoming.get(u, [])
+                     if l.get("type") == "verifies" and g.live(g.items[s])]
             if not tests:
-                if it.get("normative", True):
+                if u in members and it.get("normative", True):
                     untested.append(u)
                 continue
             for t in tests:
-                m = (g.items.get(t, {}).get("attrs") or {}).get(method_attr) or "unstated"
+                m = (g.items[t].get("attrs") or {}).get(method_attr) or "unstated"
                 tally[m] += 1
                 tested_types[m].add(it.get("type"))
-        members = len(seen) - 1
         auto = tally.get("automated", 0)
         flag = ""
         if members and auto == 0:
             flag = "  <- NO AUTOMATED CHECK"
         elif members and tally:
             covered = set().union(*tested_types.values())
-            all_types = {g.items[u].get("type") for u in seen if u != root_uid
-                         and g.items[u].get("type") != "test"
-                         and g.items[u].get("type") not in ignore}
+            all_types = {g.items[u].get("type") for u in members}
             if all_types - covered:
                 flag = f"  <- unchecked kinds: {', '.join(sorted(all_types - covered))}"
         if flag:
             n += 1
         dist = ", ".join(f"{k}={v}" for k, v in sorted(tally.items())) or "none"
         print(f"branch    {root_uid}  {root.get('title', '')[:60]}\n"
-              f"          members={members} tests: {dist}"
+              f"          members={len(members)} tests: {dist}"
               f"{'  untested: ' + ', '.join(sorted(untested)) if untested else ''}{flag}")
     print(f"# verification: {n} branch(es) flagged")
 

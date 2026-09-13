@@ -1,0 +1,32 @@
+uid: REQ-0007
+type: requirement
+status: proposed
+title: A branch's tests are the tests verifying any of its members, the head included
+text: The verification check walks a branch from its head through the live items
+  grounded below it. The branch's members are the non-test items in it, the head
+  included, less root types and less the types given as ignored. Its tests are the
+  live tests with a verifies link into any member or into the head, tallied by method.
+  A branch headed by a requirement that a test verifies directly therefore reports
+  that test; a branch whose members have no live automated test is flagged, and each
+  member with no live test at all is listed as untested. A test grounded outside
+  the branch, or a deleted test, is not counted.
+rationale: 'Seen on 13 September 2026: on the assess and shape graphs, where every
+  test verifies its requirement directly, the per-requirement view called all sixteen
+  requirement branches unchecked while the intent branch counted eight automated
+  tests. The walk skipped the head, so a branch of one requirement had no member
+  to collect tests for. Reading the head''s tests as the branch''s makes the view
+  say the same thing at every level. Rejected: reporting per item instead, which
+  is the coverage rule tl check already has; the branch view earns its place only
+  when the head''s test and the tests below it are read together.'
+normative: true
+links:
+- target: INT-0001
+  type: derives_from
+- target: challenger:REQ-0004
+  type: implements
+  stamp: sha256:a84576c0b29ffb8374755bed9d8523524f6562dcfc7f757ac05f0bf80343f339
+- target: REQ-0001
+  type: refines
+attrs:
+  priority: must
+  origin: ai
