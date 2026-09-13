@@ -387,7 +387,8 @@ def measure_provenance(root: str, repo: str) -> dict:
         except tomllib.TOMLDecodeError:
             cfg = {}
         for s in cfg.get("sources", []) or []:
-            sources.append({k: s.get(k) for k in ("name", "url", "path", "ref") if s.get(k) is not None})
+            # A source is declared under `namespace`; `name` is read for a graph written before that key.
+            sources.append({k: s.get(k) for k in ("namespace", "name", "url", "path", "ref") if s.get(k) is not None})
     plugin = plugin_root()
     manifest = plugin / ".claude-plugin" / "plugin.json"
     plugin_version = None
@@ -506,7 +507,7 @@ def markdown(rec: dict) -> str:
          f"{int(tot.get('tokens_input_tokens', 0)):,} / {int(tot.get('tokens_cache_creation_input_tokens', 0)):,} / {int(tot.get('tokens_cache_read_input_tokens', 0)):,}"),
         ("Done", "yes" if done["done"] else "NO: " + ", ".join(k for k, v in done["criteria"].items() if not v)),
         ("Measured at commit", f"{(prov.get('repository_commit') or '')[:12]}{'' if prov.get('working_tree_clean', True) else ' (tree not clean)'}"),
-        ("Source pins", "; ".join(f"{x.get('name')} {x.get('ref') or x.get('path') or ''}".strip() for x in prov.get("sources", [])) or "none"),
+        ("Source pins", "; ".join(f"{x.get('namespace') or x.get('name')} {x.get('ref') or x.get('path') or ''}".strip() for x in prov.get("sources", [])) or "none"),
         ("Tools", "; ".join(f"{k}: {v or 'absent'}" for k, v in (prov.get("tools") or {}).items())),
         ("Skill", f"tl:assess {prov.get('plugin_version') or '?'} at {(prov.get('plugin_commit') or '')[:12]}, Python {prov.get('python')}"),
     ]

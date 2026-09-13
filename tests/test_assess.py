@@ -239,13 +239,16 @@ def test_record_writes_files_keeps_earlier_ones_and_indexes_the_collection(repo,
 def test_provenance_names_commit_pins_tools_and_plugin(repo):  # TEST-0007
     idd = graph_with_items(repo)
     toml = idd / "throughline.toml"
-    toml.write_text(toml.read_text() + '\n[[sources]]\nname = "wcag"\nurl = "https://github.com/rhodium-org/throughline-wcag"\nref = "v2.2.3"\n')
+    toml.write_text(toml.read_text() + '\n[[sources]]\nnamespace = "wcag"\nurl = "https://github.com/rhodium-org/throughline-wcag"\nref = "v2.2.3"\n')
     git(repo, "add", "-A")
     git(repo, "commit", "-q", "-m", "A graph (INT-0001)")
     p = assess("provenance", "-C", str(idd))
     assert p["repository_commit"] == git(repo, "rev-parse", "HEAD").stdout.strip()
     assert p["working_tree_clean"] is True
-    assert p["sources"] == [{"name": "wcag", "url": "https://github.com/rhodium-org/throughline-wcag", "ref": "v2.2.3"}]
+    assert p["sources"] == [{"namespace": "wcag", "url": "https://github.com/rhodium-org/throughline-wcag", "ref": "v2.2.3"}]
+    record = assess("record", "-C", str(idd), "--name", "pins", "--out", str(repo / "out"))
+    md = next((repo / "out").glob("*-pins.md")).read_text()
+    assert "| Source pins | wcag v2.2.3 |" in md
     for tool in ("tl", "tl-compose", "tl-ratify"):
         expected = subprocess.run([tool, "--version"], text=True, capture_output=True) if shutil.which(tool) else None
         assert p["tools"][tool] == ((expected.stdout or expected.stderr).strip().splitlines()[0] if expected else None)
