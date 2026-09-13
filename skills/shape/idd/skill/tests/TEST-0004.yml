@@ -1,6 +1,6 @@
 uid: TEST-0004
 type: test
-status: proposed
+status: ratified
 title: The stages are ordered in the skill text and write refuses a register no need
   called for
 text: 'tests/test_shape.py, test_registers_come_after_needs: asserts the five stage
@@ -16,3 +16,5 @@ links:
 attrs:
   method: automated
   origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:10e5caee5a2707c527130523200a76744412ac96bf4146acb782c5e5360fece7

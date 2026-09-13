@@ -1,6 +1,6 @@
 uid: TEST-0007
 type: test
-status: proposed
+status: ratified
 title: check exits zero across both graphs with the second empty, and strict does
   not
 text: 'tests/test_shape.py, test_hands_back_on_zero_errors_in_both_graphs: runs the
@@ -15,3 +15,5 @@ links:
 attrs:
   method: automated
   origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:fd05d4fc27535d6a6e7b35f3a35bfd332e8d01cff8b148011d1d1f566f1d6cb7

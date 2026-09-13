@@ -1,6 +1,6 @@
 uid: TEST-0008
 type: test
-status: proposed
+status: ratified
 title: init and write refuse a shaped repo and status reads the prior reasoning back
 text: 'tests/test_shape.py, test_rerun_reconfirms_and_never_overwrites: on a written
   repo, runs the init shell read out of SKILL.md and asserts it exits 1 saying the
@@ -14,3 +14,5 @@ links:
 attrs:
   method: automated
   origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:4bf5574ee23a118413640af2e06ca472a21c0af7413bc8e3a8d400b36b5388d1

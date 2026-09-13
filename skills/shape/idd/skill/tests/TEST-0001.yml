@@ -1,6 +1,6 @@
 uid: TEST-0001
 type: test
-status: proposed
+status: ratified
 title: The written layout holds the registers the decisions named and none of tl
   init's
 text: 'tests/test_shape.py, test_layout_comes_from_discovery_not_tl_init: takes a
@@ -18,3 +18,5 @@ links:
 attrs:
   method: automated
   origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:1496cfe101de977c78ca6ff72fb19d4b7b34b84d541b941f3c098ea388898c15

@@ -1,6 +1,6 @@
 uid: TEST-0006
 type: test
-status: proposed
+status: ratified
 title: A rejected register is a non_goal with its rationale, linked to what ruled
   it out
 text: 'tests/test_shape.py, test_rejected_register_is_recorded_with_its_rationale:
@@ -14,3 +14,5 @@ links:
 attrs:
   method: automated
   origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:9683363450d95da2abca172694cd54c808fce5a592700478ffc24553b8b93504

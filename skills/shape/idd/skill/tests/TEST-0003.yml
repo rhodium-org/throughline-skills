@@ -1,6 +1,6 @@
 uid: TEST-0003
 type: test
-status: proposed
+status: ratified
 title: write refuses until a usable name decision exists, then records the pointer
 text: 'tests/test_shape.py, test_second_graph_named_in_discovery_never_defaulted:
   with a register decision but no name decision, write exits 2 naming the missing
@@ -16,3 +16,5 @@ links:
 attrs:
   method: automated
   origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:45a5d4c4107cf70345bac2626832000fa1cc250a98ef582c821801b139c8d7d6

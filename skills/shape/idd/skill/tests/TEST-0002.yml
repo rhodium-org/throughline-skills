@@ -1,6 +1,6 @@
 uid: TEST-0002
 type: test
-status: proposed
+status: ratified
 title: init lays idd/shape/ down under that name and refuses a repo whose idd/ is
   a graph
 text: 'tests/test_shape.py, test_shape_graph_is_always_at_that_name: runs the init
@@ -14,3 +14,5 @@ links:
 attrs:
   method: automated
   origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:5a8a06b9f5f22dff31dda4a4f788fb2f695fe4a8a396b7f4c7f09efe98aeaaec
