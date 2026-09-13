@@ -1,0 +1,13 @@
+uid: TEST-0002
+type: test
+status: proposed
+title: The git measure counts commits, tags, citing commits and amendments after ratification
+text: |-
+  In a throwaway repository commit an item file, commit its ratification, commit a later amendment, tag twice, and commit one message naming a UID and one not; assert the counts, the editions, the citing ratio and one item amended after ratification.
+normative: true
+links:
+- target: REQ-0002
+  type: verifies
+attrs:
+  origin: ai
+  method: automated

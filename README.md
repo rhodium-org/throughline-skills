@@ -15,9 +15,10 @@ repo, and nothing is installed on your laptop.
 | `/tl:shaping` | **Initialising a graph** for a new piece of work by a structured discovery conversation — sources, then domain, then what the work needs from its graph, and only then the registers — instead of the fixed register guess `tl init` makes. The reasoning lands in `idd/shaping/`; the graph for the work itself lands in `idd/<name>/`, named during discovery. Everything it writes is AI-origin and `proposed`; a human ratifies. |
 | `/tl:multigraph` | Repositories holding **more than one** throughline graph, composed with `tl-compose`: how to pick the right binary per graph, wire sibling graphs by `path`, gate them all, and ratify items whose grounding chain crosses graphs. |
 | `/tl:challenge` | A **challenge pass** before hand-off: the twelve questions `tl check` cannot ask (link strength, prose mentions without an edge, siblings naming one thing two ways, verification per branch, untestable predicates, a rationale narrower than its family, no failure case, an item pointing at its own replacement, universal force with one mechanism, and for a composed specification: unstamped links, spec items nothing implements, a stamped target that moved), with a script for the deterministic ones. Also re-checks an **implementation graph against a specification it composes** once that specification moved: stamped links, `suspect-link` triage, and spec items nothing implements. |
+| `/tl:assess` | An **objective assessment** of a piece of work when it reaches done: items and acceptance, sources and citations, commits and editions, items amended after ratification, generated documents, tests, session time, tokens and tool calls from the transcripts, then a narrative beside the numbers and a copy in a collection of cases. |
 
 Each skill activates on its own when Claude notices the situation it covers, or
-you can invoke one directly as `/tl:shaping`, `/tl:multigraph` or `/tl:challenge`.
+you can invoke one directly as `/tl:shaping`, `/tl:multigraph`, `/tl:challenge` or `/tl:assess`.
 
 ## Install
 

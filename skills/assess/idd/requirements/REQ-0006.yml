@@ -1,0 +1,21 @@
+uid: REQ-0006
+type: requirement
+status: proposed
+title: A record is written as JSON and as a Markdown skeleton, copied into a collection whose index compares cases
+text: |-
+  The record command runs every measure and writes, under the repository's
+  docs/assessment directory or a given one, a JSON file holding every number and
+  a Markdown file holding the numbers as one table followed by the narrative
+  sections the skill text names, each empty for a person to fill. The file names
+  carry the date and the work's slug, so the same work re-assessed later keeps its
+  earlier records. Given a collection directory it copies both files under the
+  slug and regenerates the collection's README as an index table with one row per
+  record: date, work, live items, acceptance, editions, active time, tokens out,
+  done, and a link to the assessment.
+normative: true
+links:
+- target: INT-0001
+  type: derives_from
+attrs:
+  priority: must
+  origin: ai

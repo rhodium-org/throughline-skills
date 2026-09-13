@@ -1,0 +1,13 @@
+uid: TEST-0001
+type: test
+status: proposed
+title: The graph measure agrees with a fixture graph
+text: |-
+  Build a throwaway graph with tl containing items of several types, statuses and origins, two ratified by a named person, and a link into a composed source; run the graph command from its dump and assert every count.
+normative: true
+links:
+- target: REQ-0001
+  type: verifies
+attrs:
+  origin: ai
+  method: automated

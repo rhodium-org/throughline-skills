@@ -1,0 +1,20 @@
+uid: REQ-0001
+type: requirement
+status: proposed
+title: The graph is measured from its dump, as items by type, status and origin, who ratified, sources composed and links into them
+text: |-
+  The script reads the JSON that tl-compose dump, or bare tl dump, emits and
+  reports for the local items: the count, how many are live, how many a human
+  has accepted, the counts by type, by status and by origin, the names of the
+  ratifiers with their counts, the normative count, and the tests by method. For
+  the borrowed items it reports each composed source with its item count, and for
+  the local links into sources it reports the count per source and how many carry
+  a stamp. It depends on nothing beyond the Python standard library, so it runs in
+  a sandbox where nothing can be installed.
+normative: true
+links:
+- target: INT-0001
+  type: derives_from
+attrs:
+  priority: must
+  origin: ai

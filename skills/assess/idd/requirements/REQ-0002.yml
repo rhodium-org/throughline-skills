@@ -1,0 +1,19 @@
+uid: REQ-0002
+type: requirement
+status: proposed
+title: The repository is measured from git, as commits, span, authors, tags, item citations, and items amended after ratification
+text: |-
+  From the repository holding the graph the script reports the commit count,
+  the first and last commit dates and the days between them, commits per author,
+  the tags with their dates as the editions, the share of commits whose message
+  names an item by UID, lines added and removed, and, for every item file that
+  has ever carried a ratification, whether any commit touched it after the commit
+  that first ratified it, as the count of items amended after ratification and
+  the count of amending commits.
+normative: true
+links:
+- target: INT-0001
+  type: derives_from
+attrs:
+  priority: must
+  origin: ai

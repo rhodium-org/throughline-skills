@@ -1,7 +1,7 @@
 {
   "name": "tl",
-  "description": "Skills for working in throughline IDD requirements repositories: /tl:shaping initialises a graph by a structured discovery conversation instead of tl init's register guess, /tl:challenge runs the challenge pass tl check cannot, and /tl:multigraph manages a repository holding more than one graph.",
-  "version": "1.1.1",
+  "description": "Skills for working in throughline IDD requirements repositories: /tl:shaping initialises a graph by a structured discovery conversation instead of tl init's register guess, /tl:challenge runs the challenge pass tl check cannot, /tl:multigraph manages a repository holding more than one graph, and /tl:assess records an objective assessment of a piece of work when it reaches done.",
+  "version": "1.2.0",
   "author": {
     "name": "Dr Henry J Grech-Cini"
   },
@@ -16,6 +16,8 @@
     "init",
     "shaping",
     "review",
-    "traceability"
+    "traceability",
+    "assess",
+    "metrics"
   ]
 }

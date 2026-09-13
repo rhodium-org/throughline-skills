@@ -1,0 +1,19 @@
+uid: INT-0001
+type: intent
+status: proposed
+title: Every piece of work done on a throughline graph leaves an objective record of
+  what it cost and what the graph caught, so a collection of cases can show whether
+  working this way pays
+text: |-
+  A graph promises fewer errors and documents that cannot drift, at the cost of
+  items to write, ratifications to make and gates to keep green. Whether that
+  trade pays is an empirical question, answered only by cases measured the same
+  way each time. This skill records one case when a piece of work reaches done:
+  numbers a person did not choose, taken from the graph, the git history, the
+  generated documents, the tests and the session transcripts; a narrative beside
+  them; and a copy in a collection whose index compares cases. The skill takes no
+  side. A case that shows the graph adding cost and letting errors through is
+  recorded as fully as one that shows the opposite.
+normative: true
+attrs:
+  origin: ai

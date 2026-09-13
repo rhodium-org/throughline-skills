@@ -1,0 +1,16 @@
+uid: REQ-0005
+type: requirement
+status: proposed
+title: Done is a fixed point the script checks and can gate on
+text: |-
+  The done command reports whether the strict check has no error, the
+  generated documents are current, no live item is proposed or draft, the working
+  tree is clean, and, when a result file is given, no test failed. It exits zero
+  only when every criterion holds, so it can gate a release or a hand-off.
+normative: true
+links:
+- target: INT-0001
+  type: derives_from
+attrs:
+  priority: must
+  origin: ai

@@ -1,0 +1,20 @@
+uid: REQ-0004
+type: requirement
+status: proposed
+title: Sessions are measured from Claude Code transcripts, as wall-clock and active time, turns, tool calls, API calls, models and tokens
+text: |-
+  Given transcript files the script reports, per session and in total, the
+  first and last timestamps, the wall-clock hours between them, the active hours
+  as the sum of gaps between entries no longer than an idle gap that defaults to
+  ten minutes and is stated in the output, the human turns, the assistant turns,
+  the tool results, the tool calls by tool name, the API calls, the models used,
+  the compactions, and the tokens as input, output, cache written, cache read and
+  thinking, summed from each assistant message's usage. It reads the format Claude
+  Code writes and skips lines it cannot parse.
+normative: true
+links:
+- target: INT-0001
+  type: derives_from
+attrs:
+  priority: must
+  origin: ai

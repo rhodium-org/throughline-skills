@@ -1,0 +1,13 @@
+uid: TEST-0005
+type: test
+status: proposed
+title: Done fails on each criterion and passes when all hold
+text: |-
+  On a throwaway graph assert done exits 1 with a proposed item, with a dirty working tree, and with a result file showing a failure, and exits 0 once each is put right.
+normative: true
+links:
+- target: REQ-0005
+  type: verifies
+attrs:
+  origin: ai
+  method: automated
