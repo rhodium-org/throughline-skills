@@ -435,7 +435,7 @@ def record(args) -> dict:
     out_dir = Path(args.out or os.path.join(repo, "docs", "assessment"))
     out_dir.mkdir(parents=True, exist_ok=True)
     # Date and time in the name: a second record on the same day never overwrites the first.
-    stem = f"{rec['recorded_at'][:16].replace(':', '')}-{args.name}"
+    stem = f"{rec['recorded_at'][:19].replace(':', '')}-{args.name}"
     (out_dir / f"{stem}.json").write_text(json.dumps(rec, indent=2) + "\n")
     (out_dir / f"{stem}.md").write_text(markdown(rec))
     written = [str(out_dir / f"{stem}.json"), str(out_dir / f"{stem}.md")]
