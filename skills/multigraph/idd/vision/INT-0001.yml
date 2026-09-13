@@ -11,7 +11,11 @@ text: 'tl-compose lets one throughline graph borrow from another; it never merge
   how each graph is oriented in, which binary drives each graph, how siblings are
   wired to each other and to external standards, where a ratification is written,
   how every graph is gated, which failures belong to the environment rather than
-  to a graph, and how a new graph is added.'
+  to a graph, which behaviours depend on the installed release, that structure changes
+  only through the CLI, and how a new graph is added.'
+rationale: 'Challenge pass 2026-09-13: the enumeration of what the discipline covers
+  omitted two of its children, the version-gated behaviours and CLI-only structure
+  changes, so the parent did not grant what those must-priority items claim.'
 normative: true
 attrs:
   origin: ai

@@ -116,8 +116,9 @@ tl-compose: subject:UR-0003 does not exist          # exit 2
 
 A source is read-only. Composition gives a wider *view*, never a wider
 *authority* — a borrowed item is never edited, restatused or ratified by a
-consumer, because its own graph owns its accountability record. Passing
-`namespace:UID` to any writing command is a mistake, not a shortcut.
+consumer, because its own graph owns its accountability record. Naming
+`namespace:UID` as the item a writing command acts on is a mistake, not a
+shortcut; it appears in a write only as a link target, as when `--ground` cites it.
 
 **What `tl-compose ratify` actually buys you** is the reason to use it here: it
 hands core's accountability gate the *union* as its grounding view. A human may
