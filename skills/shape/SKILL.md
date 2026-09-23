@@ -35,7 +35,7 @@ Rules that hold throughout:
   not create is a `non_goal` in `idd/shape/`, with its rationale, next to the ones
   you did create. There is no decisions register; the graph is the decision log.
 - **Never hand-edit a `<UID>.yml` or `.register.yml`.** Every structural change
-  goes through `tl`/`tl-compose`; the script wraps the calls that matter.
+  goes through `tl`; the script wraps the calls that matter.
 - **Stop at registers.** Gate both graphs, hand back for ratification, and
   *offer* to go on to the first layer of items, starting with the intent the
   second graph is grounded in. Do not go on unasked.
@@ -43,13 +43,14 @@ Rules that hold throughout:
 ## First: tools and the script
 
 ```sh
-tl-compose --version || pip install throughline-compose   # brings tl with it
+tl --version || pip install 'throughline>=3.11.0'
 S="${CLAUDE_PLUGIN_ROOT}/scripts/shape.py"
 python3 "$S" --help
 ```
 
-Needs Python ≥ 3.11 and throughline ≥ 2.3.0 (a fresh install brings the
-latest). If the plugin root variable is unset, the script sits at
+Needs Python ≥ 3.11 and throughline ≥ 3.11.0, the release from which `tl`
+composes a graph's sources itself; the script exits 2 on an older `tl`. If the
+plugin root variable is unset, the script sits at
 `scripts/shape.py` beside this file's plugin. `references/layout.md` records
 what was verified about the tool on the date it names; `tl --help` beats both.
 
@@ -63,12 +64,12 @@ python3 "$S" -C <repo> status
 ```
 
 If `idd/shape/` exists, **do not start again.** Read the prior reasoning
-back — `tl-compose -C idd/shape context`, then each register's items — and
+back — `tl -C idd/shape context`, then each register's items — and
 put it to the person stage by stage: *"Last time this was read as a
 data-migration project with these three needs; is that still true?"* Amend
-what changed with `tl-compose amend` (a normative change marks dependants
+what changed with `tl amend` (a normative change marks dependants
 suspect, which is correct), add what is new, and mark what no longer holds
-`rejected` with `tl-compose status`. A prior name decision stands unless they
+`rejected` with `tl status`. A prior name decision stands unless they
 say otherwise; the second graph is never renamed by this skill. Then continue
 from whichever stage below the change reaches.
 
@@ -207,7 +208,7 @@ reading that made it wrong:
 NG=$(python3 "$S" new NG --type non_goal --title "No risk register" \
   --text "Threats and controls already carry the risk picture; a third register would split it." \
   --rationale "Considered because tl init would have offered one.")
-tl-compose -C idd/shape link "$NG" "$N" --type derives_from
+tl -C idd/shape link "$NG" "$N" --type derives_from
 ```
 
 *Considered* includes the five `tl init` would have given: say, for each of
@@ -224,8 +225,9 @@ python3 "$S" -C <repo> write
 This creates `idd/<name>/` from `--bare`, declares each item type, root and
 `origin` attribute the decisions call for (every change carries a `--because`
 naming the decision), creates the registers, and records the pointer: a
-`path` source in `idd/shape/throughline.toml` naming the second graph. From
-here `idd/shape/` is driven with `tl-compose`, never bare `tl`; the script chooses.
+`path` source in `idd/shape/throughline.toml` naming the second graph. `tl`
+composes the second graph through that pointer, so `tl -C idd/shape context`
+shows the whole picture from here on.
 
 Gate both graphs:
 
@@ -234,9 +236,8 @@ python3 "$S" -C <repo> check
 ```
 
 Hand back on **zero errors in both graphs**. The second graph holds registers
-and no items yet, which throughline from 2.3.0 reports as the warning
-`empty-registers`, not an error; on an older tool it is the error `empty-graph`,
-so upgrade rather than author an item to silence it. Other warnings will remain:
+and no items yet, which throughline reports as the warning `empty-registers`,
+not an error; do not author an item to silence it. Other warnings will remain:
 every item in `idd/shape/` is AI-origin and unratified, and that is the point.
 `--strict` is the gate *after* ratification; a graph the skill has only
 proposed into cannot pass it, and you must not make it pass by ratifying.
@@ -246,7 +247,7 @@ Then stop and present, naming the absolute path and the command to run:
 > Shaped. `idd/shape/` holds N items across sources, domain, needs, decisions,
 > non-goals and constraints; `idd/<name>/` has these registers and no items yet.
 > Both report zero errors.
-> To ratify: `cd <absolute repo path> && tl-compose -C idd/shape ratify` for
+> To ratify: `cd <absolute repo path> && tl -C idd/shape ratify` for
 > each of <UIDs>. I can go on to the first layer of items in `idd/<name>/`,
 > starting with its intent, if you want; I have stopped at registers.
 

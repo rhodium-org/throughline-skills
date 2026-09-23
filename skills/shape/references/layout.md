@@ -1,8 +1,8 @@
 # How two graphs share one repository
 
-Verified on 2026-09-12 against `tl 2.2.1` and `tl-compose 0.16.4`, and again the
-same day against `tl 3.0.0` after the `empty-registers` change was released. Re-verify against the installed tool before trusting any line here;
-`tl --help` and `tl-compose --version` are authoritative over this file.
+Verified on 2026-09-23 against `tl 3.11.3`. Re-verify against the installed
+tool before trusting any line here; `tl --help` and `tl --version` are
+authoritative over this file.
 
 ## How the tool locates a graph
 
@@ -13,9 +13,10 @@ same day against `tl 3.0.0` after the `empty-registers` change was released. Re-
   looking for a `throughline.toml`) unless `--force` is passed. Two graphs that
   are *siblings* under a directory holding no `throughline.toml` of its own are
   not nested, so `idd/shape/` beside `idd/<name>/` needs no override.
-- `tl-compose` accepts the same commands as `tl` and adds source composition.
-  Any graph whose `throughline.toml` declares `[[sources]]` must be driven with
-  `tl-compose`; bare `tl` on it reports on local items alone.
+- `tl` composes the `[[sources]]` a graph's `throughline.toml` declares, from
+  throughline 3.11.0. One command drives both graphs, sourced or not; an older
+  `tl` reads a sourced graph without its sources, which is why the skill needs
+  3.11.0 or later.
 
 ## What `tl init` produces — and what this skill does not reproduce
 
@@ -46,20 +47,20 @@ The name of the second directory is recorded twice, on purpose:
    path = "../<name>"
    ```
 
-   `tl-compose` already understands this, so no new config format is needed:
-   `tl-compose -C idd/shape context` shows the whole picture, and a source
+   `tl` already understands this, so no new config format is needed:
+   `tl -C idd/shape context` shows the whole picture, and a source
    holding zero items composes cleanly (verified). Unknown keys in
    `throughline.toml` are tolerated by the loader, but a native source is a
    pointer tooling already follows, so that is the one used.
 
-Because of (2) the shape graph takes `tl-compose` from the moment the second
-graph is written. The script picks the binary per graph by looking for
-`[[sources]]`.
+Because of (2) `tl` composes the second graph into every check, listing and
+brief of the shape graph from the moment it is written. The script drives both
+graphs with `tl`.
 
 ## Facts the check gate enforces that shape the design
 
-- **Registers with no items are a warning from throughline 2.3.0.** Before
-  2.3.0 every empty graph was the error `empty-graph`; from 2.3.0 that error
+- **Registers with no items are a warning.** Before throughline 2.3.0 every
+  empty graph was the error `empty-graph`; from 2.3.0 that error
   is kept for a project with no register manifest at all, and registers that
   hold no items report the warning `empty-registers` (SR-0194 in throughline's
   own graph, made for this skill). So a second graph handed back with its
@@ -84,4 +85,4 @@ graph is written. The script picks the binary per graph by looking for
   every type it uses (including default roots such as `constraint`) before
   giving it an `origin` attribute.
 - **A malformed link missing `target`** is reported as `malformed-link`, not a
-  crash, on 2.2.1. Nothing here hand-writes YAML in any case.
+  crash. Nothing here hand-writes YAML in any case.

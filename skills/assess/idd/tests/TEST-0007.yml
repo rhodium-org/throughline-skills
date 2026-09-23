@@ -5,10 +5,10 @@ title: The provenance names the commit, the pins, every tool version and the plu
 text: In a throwaway repository with a graph that composes one source, run the provenance
   command and assert the head commit equals git's, the clean flag follows the working
   tree, the source appears under its namespace with its URL and pin and the record's
-  table prints it so, each of tl, tl-compose and tl-ratify is reported with the string
-  its --version prints or as absent, the plugin version equals the manifest's, the
-  script path and the Python version are present; assert the record carries the same
-  block and the Markdown table shows the tool rows.
+  table prints it so, the tools reported are exactly tl and tl-ratify, each with
+  the string its --version prints or as absent, the plugin version equals the manifest's,
+  the script path and the Python version are present; assert the record carries the
+  same block and the Markdown table shows the tool rows.
 normative: true
 links:
 - target: REQ-0007

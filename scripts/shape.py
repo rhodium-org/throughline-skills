@@ -6,10 +6,11 @@ registers the work needs and why — lives in SKILL.md. This script does only
 the parts that need no judgement: laying down the shape graph, authoring an
 item with the origin and status the skill is bound to, turning the register
 decisions in the shape graph into a second graph, and running the check
-gate over both. Every structural change goes through the `tl` / `tl-compose`
-CLI; nothing here writes an item file by hand.
+gate over both. Every structural change goes through the `tl` CLI; nothing
+here writes an item file by hand.
 
-Standard library only. `tl-compose` (which brings `tl`) must be on PATH.
+Standard library only. `tl` from throughline 3.11.0 or later must be on PATH;
+it composes the pointer from idd/shape/ to the second graph itself.
 
 Layout it produces, under the repo root:
 
@@ -25,7 +26,7 @@ Usage:
                        [--ground UID]... [--ground-type derives_from]
                        [--attr k=v]... [--graph shape|<name>]
   shape.py [-C REPO] write                create idd/<name>/ from the decisions
-  shape.py [-C REPO] check [--strict]     gate both graphs, binary per graph
+  shape.py [-C REPO] check [--strict]     gate both graphs
 """
 from __future__ import annotations
 
@@ -33,12 +34,13 @@ import argparse
 import json
 import os
 import re
-import shutil
 import subprocess
 import sys
 import tomllib
 from datetime import date
 from pathlib import Path
+
+from tl_cli import require_tl
 
 IDD = "idd"
 SHAPE = "shape"
@@ -80,19 +82,8 @@ def die(msg: str, code: int = 2) -> None:
     sys.exit(code)
 
 
-def binary(graph: Path) -> str:
-    """The multigraph rule: a graph with [[sources]] takes tl-compose."""
-    cfg = graph / "throughline.toml"
-    sourced = cfg.exists() and "[[sources]]" in cfg.read_text()
-    name = "tl-compose" if sourced else "tl"
-    if shutil.which(name) is None:
-        die(f"{name} is not on PATH — pip install throughline-compose")
-    return name
-
-
 def run(graph: Path, *args: str, quiet: bool = False) -> subprocess.CompletedProcess:
-    cmd = [binary(graph) if graph.joinpath("throughline.toml").exists() else "tl",
-           "-C", str(graph), *args]
+    cmd = [require_tl(), "-C", str(graph), *args]
     proc = subprocess.run(cmd, capture_output=True, text=True)
     if proc.returncode != 0:
         sys.stderr.write(proc.stdout)
@@ -314,15 +305,14 @@ def cmd_write(repo: Path, _a) -> None:
     if not any(s.get("namespace") == name for s in config(shape).get("sources", [])):
         with cfg.open("a") as f:
             f.write(
-                "\n# The graph this shaping produced. Composed so `tl-compose context`\n"
-                "# here shows the whole picture; from now on drive idd/shape/ with\n"
-                "# tl-compose, never bare tl (the binary rule).\n"
+                "\n# The graph this shaping produced. Composed so `tl context`\n"
+                "# here shows the whole picture.\n"
                 "[[sources]]\n"
                 f'namespace = "{name}"\n'
                 f'path = "../{name}"\n')
     print(f"wrote {target} with {len(regs)} register(s) and recorded the pointer in "
           f"{cfg}\nnext: run `check`; the new graph reports empty-registers as a "
-          "warning until its first layer is authored (throughline >= 2.3.0)")
+          "warning until its first layer is authored")
 
 
 def cmd_check(repo: Path, a) -> None:
@@ -335,7 +325,7 @@ def cmd_check(repo: Path, a) -> None:
         graphs.append(repo / IDD / name)
     rc = 0
     for g in graphs:
-        cmd = [binary(g), "-C", str(g), "check"] + (["--strict"] if a.strict else [])
+        cmd = [require_tl(), "-C", str(g), "check"] + (["--strict"] if a.strict else [])
         print(f"== {' '.join(cmd)}", flush=True)
         proc = subprocess.run(cmd, text=True)
         rc = max(rc, proc.returncode)

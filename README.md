@@ -13,7 +13,7 @@ repo, and nothing is installed on your laptop.
 | Skill | What it's for |
 |---|---|
 | `/tl:shape` | **Initialising a graph** for a new piece of work by a structured discovery conversation — sources, then domain, then what the work needs from its graph, and only then the registers — instead of the fixed register guess `tl init` makes. The reasoning lands in `idd/shape/`; the graph for the work itself lands in `idd/<name>/`, named during discovery. Everything it writes is AI-origin and `proposed`; a human ratifies. |
-| `/tl:multigraph` | Repositories holding **more than one** throughline graph, composed with `tl-compose`: how to pick the right binary per graph, wire sibling graphs by `path`, gate them all, and ratify items whose grounding chain crosses graphs. |
+| `/tl:multigraph` | Repositories holding **more than one** throughline graph, composed together: how to wire sibling graphs by `path`, what a source's own sources bring with them, gate every graph, and ratify items whose grounding chain crosses graphs. |
 | `/tl:challenge` | A **challenge pass** before hand-off: the twelve questions `tl check` cannot ask (link strength, prose mentions without an edge, siblings naming one thing two ways, verification per branch, untestable predicates, a rationale narrower than its family, no failure case, an item pointing at its own replacement, universal force with one mechanism, and for a composed specification: unstamped links, spec items nothing implements, a stamped target that moved), with a script for the deterministic ones. Also re-checks an **implementation graph against a specification it composes** once that specification moved: stamped links, `suspect-link` triage, and spec items nothing implements. |
 | `/tl:assess` | An **objective assessment** of a piece of work when it reaches done: items and acceptance, sources and citations, commits and editions, items amended after ratification, generated documents, tests, session time, tokens and tool calls from the transcripts, then a narrative beside the numbers and a copy in a collection of cases. |
 
@@ -46,9 +46,11 @@ Marketplaces → Add marketplace**, paste either source above, then install.
 This is designed for it. Everything runs in the Claude sandbox, not on your
 machine:
 
-- Each skill installs the CLI it needs itself (`pip install throughline-compose`,
-  which brings `throughline` with it). Nothing is installed on your laptop.
-- Requires Python ≥ 3.11 in the session, which cloud sessions have.
+- Each skill installs the CLI it needs itself
+  (`pip install 'throughline>=3.11.0'`; from 3.11.0 `tl` composes a graph's
+  sources itself). Nothing is installed on your laptop.
+- Requires Python ≥ 3.11 in the session, which cloud sessions have, and
+  throughline ≥ 3.11.0; the scripts refuse an older `tl`.
 - Graphs wired to each other by `path` need no network at all. Graphs that adopt
   an external standard by `url` need the sandbox to reach that host — use
   `https://` URLs, never an SSH host alias, which will not resolve there.

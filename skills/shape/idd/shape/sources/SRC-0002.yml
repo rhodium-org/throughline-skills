@@ -1,17 +1,20 @@
 uid: SRC-0002
 type: source
 status: ratified
-title: 'The installed tool as read on 2026-09-12: tl 2.2.1 and tl-compose 0.16.4'
-text: 'The versions on the workstation that day. Read: tl --help, tl init --help
-  and a scratch tl init in each of its three forms; tl register new, tl schema, tl
-  new and tl check --help; probes of nesting, graph location, unknown config keys,
-  a zero-item path source, an empty graph, a lone intent, and strict on a proposed
+title: 'The installed tool as read on 2026-09-23: tl 3.11.3'
+text: 'The version on the workstation that day. Read: tl --help, tl init --help and
+  a scratch tl init in each of its three forms; tl register new, tl schema, tl new
+  and tl check --help; probes of nesting, graph location, unknown config keys, a
+  zero-item path source, an empty graph, a lone intent, and strict on a proposed
   item. What was found is in references/layout.md under that date; a later run re-verifies
   against whatever is installed then.'
+rationale: Re-read when throughline 3.11.0 moved composition into tl. Every probe
+  gave the answer the 2026-09-12 reading recorded, except that tl now composes the
+  pointer to the second graph itself.
 normative: true
 attrs:
   path: tl --help; skills/shape/references/layout.md
   origin: ai
-  read: '2026-09-12'
+  read: '2026-09-23'
   ratified_by: Henry Grech-Cini
   ratified_fingerprint: sha256:94cd9ded58b61059d5b2d348b71b278870d563d0cacfde8b0f26bb4572863696

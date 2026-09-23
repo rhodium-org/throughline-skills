@@ -192,10 +192,10 @@ footer{border-top:1px solid var(--hairline); padding-top:1.25rem}
     <article class="panel">
       <span class="when">More than one graph in a repository</span>
       <h3>/tl:multigraph</h3>
-      <p>Repositories holding several throughline graphs composed with
-      <code>tl-compose</code>: picking the right binary per graph, wiring sibling
-      graphs by <code>path</code>, gating them all, and ratifying items whose
-      grounding chain crosses graphs.</p>
+      <p>Repositories holding several throughline graphs composed together:
+      wiring sibling graphs by <code>path</code>, what a source's own sources
+      bring with them, gating every graph, and ratifying items whose grounding
+      chain crosses graphs.</p>
     </article>
     <article class="panel">
       <span class="when">When a piece of work reaches done</span>
@@ -216,8 +216,9 @@ footer{border-top:1px solid var(--hairline); padding-top:1.25rem}
 <section aria-labelledby="laptop">
   <h2 id="laptop">On a locked-down laptop</h2>
   <p>This is designed for it. Everything runs in the Claude sandbox: the skill
-  installs the CLI it needs itself with <code>pip install throughline-compose</code>,
-  which needs Python 3.11 or later — cloud sessions have it. Graphs wired to
+  installs the CLI it needs itself with <code>pip install 'throughline&gt;=3.11.0'</code>,
+  the first release in which <code>tl</code> composes a graph's sources itself,
+  and needs Python 3.11 or later — cloud sessions have it. Graphs wired to
   each other by <code>path</code> need no network at all. Graphs adopting an
   external standard by <code>url</code> need the sandbox to reach that host, so
   use <code>https://</code> URLs and never an SSH host alias, which will not

@@ -1,10 +1,10 @@
 name: check
 
-# Every throughline graph in this repository is gated. The binary is chosen
-# per graph (a graph with [[sources]] takes tl-compose), as the multigraph
-# skill prescribes. Graphs whose every item a human has ratified take
-# --strict; a graph deliberately left proposed for ratification cannot pass
-# strict (unratified is an error there), so it is gated on zero errors.
+# Every throughline graph in this repository is gated with tl, which composes
+# a graph's [[sources]] itself, as the multigraph skill prescribes. Graphs
+# whose every item a human has ratified take --strict; a graph deliberately
+# left proposed for ratification cannot pass strict (unratified is an error
+# there), so it is gated on zero errors.
 
 on:
   push:
@@ -24,28 +24,31 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Install throughline-compose (brings tl with it)
-        run: pip install throughline-compose
+      - name: Install throughline (tl composes sources from 3.11.0)
+        run: pip install 'throughline>=3.11.0'
 
       - name: Gate every graph
         run: |
-          STRICT=" idd skills/assess/idd skills/challenge/idd skills/multigraph/idd skills/shape/idd/shape skills/shape/idd/skill "
+          # skills/assess/idd, skills/challenge/idd, skills/multigraph/idd,
+          # skills/shape/idd/shape and skills/shape/idd/skill return to strict
+          # once the items amended or proposed for
+          # https://github.com/rhodium-org/throughline-skills/issues/1 are ratified.
+          STRICT=" idd "
           rc=0
           for cfg in $(find . -name throughline.toml -not -path '*/.git/*' | sort); do
             graph="${cfg#./}"; graph="${graph%/throughline.toml}"
-            grep -q '^\[\[sources\]\]' "$cfg" && bin=tl-compose || bin=tl
             case "$STRICT" in *" $graph "*) flag=--strict ;; *) flag= ;; esac
-            echo "::group::$bin -C $graph check $flag"
-            "$bin" -C "$graph" check $flag || rc=1
+            echo "::group::tl -C $graph check $flag"
+            tl -C "$graph" check $flag || rc=1
             echo "::endgroup::"
           done
           exit $rc
 
       # The fixture tests of the multigraph skill (tl-multigraph TEST-0003,
-      # 0005, 0006, 0007), the assess skill (tl-assess TEST-0001 to 0008), the
-      # shape skill (skill TEST-0001 to 0008) and the challenge skill
-      # (tl-challenge TEST-0007) build throwaway graphs with the real CLIs
-      # and, where a skill gives shell, run it out of SKILL.md.
+      # 0005, 0006, 0007), the assess skill (tl-assess TEST-0001 to 0010), the
+      # shape skill (skill TEST-0001 to 0009) and the challenge skill
+      # (tl-challenge TEST-0007, 0008) build throwaway graphs with the real
+      # CLI and, where a skill gives shell, run it out of SKILL.md.
       - name: Fixture tests
         run: |
           pip install pytest

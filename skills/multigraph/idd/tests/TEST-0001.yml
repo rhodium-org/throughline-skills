@@ -1,12 +1,12 @@
 uid: TEST-0001
 type: test
 status: ratified
-title: In a sandbox with no CLI the skill installs compose and stops rather than
-  fall back
-text: 'In an interpreter with neither CLI installed, follow the skill: confirm the
-  version check fails, that one pip install of throughline-compose makes both tl-compose
-  and tl answer, and that the skill text forbids proceeding with bare tl when that
-  install fails.'
+title: In a sandbox with no CLI the skill installs throughline and stops rather than
+  carry on without it
+text: 'In an interpreter with no throughline installed, follow the skill: confirm
+  the version check fails, that one pip install of throughline makes tl answer at
+  3.11.0 or later, and that the skill text forbids proceeding when that install fails
+  or with an older tl.'
 normative: true
 links:
 - target: REQ-0001

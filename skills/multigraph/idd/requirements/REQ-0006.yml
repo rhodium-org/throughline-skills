@@ -8,11 +8,10 @@ text: 'A namespace-qualified UID is never the item a writing command acts on: a 
   item is never edited, restatused or ratified from a consumer. It appears in a write
   only as the target of a link, as when an item is grounded against it at creation.
   To ratify a local item whose grounding chain reaches a root only through a sibling,
-  the skill runs the compose ratify command in the owning graph, so that grounding
-  is judged over the union rather than wrongly refused over the local graph alone.
-  One commit may carry ratifications in several graphs, one ratify call per graph.
-  The ratifying name is asked for and used exactly; it is never invented, guessed
-  or reused.'
+  the skill runs tl ratify in the owning graph, which judges grounding over the union,
+  so the item is not refused as ungrounded. One commit may carry ratifications in
+  several graphs, one ratify call per graph. The ratifying name is asked for and
+  used exactly; it is never invented, guessed or reused.'
 rationale: 'Challenge pass 2026-09-13: the earlier wording, never passed to a writing
   command, collided with the sibling that grounds new items against namespace:UID
   at creation and with the one that cites borrowed items by link, since new --ground

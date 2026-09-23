@@ -1,17 +1,17 @@
 uid: TEST-0003
 type: test
 status: ratified
-title: Bare tl passes and tl-compose fails on a fixture whose seam to a sibling is
-  broken
-text: 'tests/test_multigraph.py, test_bare_tl_cannot_see_the_seam: builds an anchor
-  graph and a consumer wired to it by path with one item grounded on the anchor root;
-  confirms tl-compose check passes and bare tl check fails with namespace-unresolved,
-  then tombstones the anchor item and confirms tl-compose check fails with deleted-link-target
-  while bare tl reports exactly the finding codes it reported when the graph was
-  healthy. test_binary_rule_grep runs the grep line read out of the skill text and
-  confirms it selects tl-compose for the consumer and tl for the anchor.'
-rationale: '2026-09-13: written as a pytest; the manual wording expected bare tl
-  to exit zero, which the fixture showed it never does on a sourced graph.'
+title: tl check passes a healthy seam and fails a broken one, and the skill names
+  no second command
+text: 'tests/test_multigraph.py, test_tl_sees_the_seam: builds an anchor graph and
+  a consumer wired to it by path with one item grounded on the anchor root; confirms
+  tl check in the consumer composes the anchor and passes, then tombstones the anchor
+  item and confirms tl check fails with deleted-link-target naming anchor:INT-0001.
+  test_skill_names_one_command reads every shell fence out of the skill text and
+  confirms each throughline command in them is tl and none is chosen by what a graph''s
+  config declares.'
+rationale: Asserts the check itself, on both sides of the seam, and the text a reader
+  follows, since the per-graph choice it replaces lived in a shell line.
 normative: true
 links:
 - target: REQ-0003

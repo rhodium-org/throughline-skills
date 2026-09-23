@@ -3,13 +3,13 @@ type: requirement
 status: ratified
 title: The deterministic challenges run in the sandbox from a dump with nothing to
   install
-text: The skill ships a script that reads the JSON that tl-compose dump, or bare
-  tl dump, emits and performs every challenger requirement that needs no judgement.
-  It depends on nothing beyond the Python standard library, so it runs in a Claude
-  sandbox where nothing can be installed on the user's machine. Given a graph root
-  it runs the tool itself; given a saved dump it reads that. Which checks it performs,
-  and what each reports, is specified by the challenger requirements this item implements
-  and is not restated here.
+text: The skill ships a script that reads the JSON that tl dump emits and performs
+  every challenger requirement that needs no judgement. It depends on nothing beyond
+  the Python standard library, so it runs in a Claude sandbox where nothing can be
+  installed on the user's machine. Given a graph root it runs the tool itself; given
+  a saved dump it reads that. Which checks it performs, and what each reports, is
+  specified by the challenger requirements this item implements and is not restated
+  here.
 normative: true
 links:
 - target: INT-0001

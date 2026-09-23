@@ -1,0 +1,19 @@
+uid: REQ-0008
+type: requirement
+status: proposed
+title: Run on a graph root, the script refuses a tl older than the release that composes
+text: 'Before it runs tl on a graph root, the script reads tl --version. When tl
+  is missing, or older than throughline 3.11.0, the first release that composes a
+  graph''s sources itself, it exits 2 naming the floor and the upgrade command, and
+  challenges nothing: an older tl dumps a sourced graph without its sources, so every
+  borrowed item and every link into one would be missing from the review. Given a
+  saved dump it needs no tl at all.'
+rationale: Refusing was chosen over challenging what an older tl returns, since a
+  review of half a graph reads as a clean one.
+normative: true
+links:
+- target: INT-0001
+  type: derives_from
+attrs:
+  priority: must
+  origin: ai

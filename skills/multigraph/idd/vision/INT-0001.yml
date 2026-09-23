@@ -3,20 +3,18 @@ type: intent
 status: ratified
 title: A repository of several composed graphs is driven one graph at a time, never
   as one
-text: 'tl-compose lets one throughline graph borrow from another; it never merges
+text: 'Composition lets one throughline graph borrow from another; it never merges
   them. Each graph in such a repository keeps its own model, its own UID space and
   its own accountability record, and the commands that read, wire, ratify and gate
-  it must respect that boundary or they cannot see the seam between the graphs at
-  all. This skill is the discipline for working in such a repository: how the tools
-  are made present, how each graph is oriented in, which binary drives each graph,
-  how siblings are wired to each other and to external standards, where a ratification
-  is written, how every graph is gated, which failures belong to the environment
-  rather than to a graph, which behaviours depend on the installed release, that
-  structure changes only through the CLI, and how a new graph is added.'
-rationale: 'Challenge pass 2026-09-13 added the two omitted children. Fixture tests
-  the same day showed the phrase report green on a broken seam was false: bare tl
-  on a sourced graph is red whether the seam is intact or broken, so the boundary
-  violation is blindness, not a false pass.'
+  it must respect that boundary. This skill is the discipline for working in such
+  a repository: how the tool is made present, how each graph is oriented in, that
+  one command drives every graph, how siblings are wired to each other and to external
+  standards, where a ratification is written, how every graph is gated, which failures
+  belong to the environment rather than to a graph, which release the skill relies
+  on, that structure changes only through the CLI, and how a new graph is added.'
+rationale: 'One command drives every graph because throughline 3.11.0 composes in
+  tl itself. Keeping a second command for sourced graphs was rejected: it is a second
+  name for one tool.'
 normative: true
 attrs:
   origin: ai

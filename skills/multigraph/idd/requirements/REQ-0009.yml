@@ -1,13 +1,15 @@
 uid: REQ-0009
 type: requirement
 status: ratified
-title: A version-gated behaviour is trusted only after the installed version is read
-text: 'The skill reads tl-compose --version before relying on a behaviour that changed
-  between releases: a moved tag or branch ref is refetched from compose 0.16.1 and
-  silently stale below it; query and ls answer over the union from 0.12.0 and over
-  local items only before; the grounding headline counted the union before 0.11.0.
-  Below the threshold the skill applies the workaround the skill text gives, such
-  as bumping the ref or clearing the cached source.'
+title: Composition is trusted from the release floor, never worked around below it
+text: The skill states throughline 3.11.0 as its one floor and names no release threshold
+  below it. From that release tl refetches a remote source whose tag or branch moved,
+  lists borrowed items beside local ones in query, ls and dump unless --local is
+  given, and judges ratification over the union. Where the installed tl is older,
+  the skill upgrades it rather than giving a workaround for the older release.
+rationale: The skill carried three compose-era thresholds, each with a workaround.
+  All three fall below the release floor the skill now requires, so the floor replaces
+  them.
 normative: true
 links:
 - target: INT-0001

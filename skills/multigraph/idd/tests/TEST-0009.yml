@@ -1,10 +1,12 @@
 uid: TEST-0009
 type: test
 status: ratified
-title: Each version-gated behaviour in the skill states its threshold and its workaround
-text: Read the traps section and confirm each behaviour that changed between releases
-  states the release it changed in, tells the reader to read tl-compose --version
-  before trusting it, and gives the workaround for the older release.
+title: The skill states one release floor and carries no workaround below it
+text: Read the skill text and confirm it states throughline 3.11.0 as the floor,
+  tells the reader to read tl --version and upgrade an older release, names no release
+  threshold below the floor and no workaround for one, and describes the refetch
+  of a moved ref, the union listings with --local, and ratification over the union
+  as behaviours the reader can rely on.
 normative: true
 links:
 - target: REQ-0009

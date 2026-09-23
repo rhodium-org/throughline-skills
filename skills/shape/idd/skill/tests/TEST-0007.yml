@@ -5,9 +5,9 @@ title: check exits zero across both graphs with the second empty, and strict doe
   not
 text: 'tests/test_shape.py, test_hands_back_on_zero_errors_in_both_graphs: runs the
   check shell read out of SKILL.md after write and asserts it exits zero, drives
-  idd/shape/ with tl-compose and idd/estate/ with tl, reports empty-registers for
-  the second graph and zero errors for both, and that the second graph still holds
-  no items; then asserts check --strict exits non-zero on the unratified items.'
+  both idd/shape/ and idd/estate/ with tl, reports empty-registers for the second
+  graph and zero errors for both, and that the second graph still holds no items;
+  then asserts check --strict exits non-zero on the unratified items.'
 normative: true
 links:
 - target: REQ-0007

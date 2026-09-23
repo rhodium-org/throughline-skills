@@ -1,18 +1,19 @@
 uid: REQ-0005
 type: requirement
 status: ratified
-title: Adopting a source costs the sources block and nothing else, and composition
-  is one level deep
-text: Borrowed items are cited as namespace:UID; a bare UID is always local. When
-  an adopted sibling itself cites another namespace, composing the sibling fails
-  until the consumer either declares that namespace too or pulls it through with
-  a reexport entry on its own source block for the sibling; nothing is hoisted automatically.
-  A sibling's types, statuses and link vocabulary are never copied into the consumer's
-  config, because copied declarations are inert and wrong the moment the source moves.
-rationale: '2026-09-13: the earlier wording, or the sibling reexports it, put the
-  reexport on the wrong graph. tl-compose reads reexport from the consumer''s own
-  [[sources]] block for the sibling, and the fixture showed composition of the sibling
-  fails outright until the transitive namespace is declared or pulled through.'
+title: Adopting a source costs the sources block and nothing else, and the source's
+  own sources come with it
+text: Borrowed items are cited as namespace:UID; a bare UID is always local. A source's
+  own sources are composed with it, to any depth, and the consumer may cite a transitive
+  namespace by the label it binds under without declaring it; declaring the same
+  source as well binds it once. The consumer's one lever over a transitive label
+  is an alias on the declared source that carries it; the withdrawn reexport key
+  is refused. A sibling's types, statuses and link vocabulary are never copied into
+  the consumer's config, because copied declarations are inert and wrong the moment
+  the source moves.
+rationale: Composition was one level deep, with reexport as the remedy on the consumer's
+  own block. throughline composes transitively and refuses reexport (its SR-0045),
+  so the skill teaches alias as the one lever instead.
 normative: true
 links:
 - target: INT-0001

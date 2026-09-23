@@ -32,7 +32,7 @@ find . -name throughline.toml -not -path '*/.venv/*' -not -path '*/.git/*'
 ```
 
 If that finds nothing, there is nothing to challenge. Say so, point at
-`tl init --no-demo` (or `tl-compose init`) to create one, and stop. Do not put
+`tl init --no-demo` to create one, and stop. Do not put
 the challenges to a proposal, a schema, a document or the conversation, and do
 not present a review of such prose under the challenge numbers or in the report
 shape below: every challenge is defined over items, links and stamps, and none
@@ -42,17 +42,19 @@ one, labelled as one, outside this skill's report.
 ## Next: tools and the script
 
 ```sh
-tl-compose --version || pip install throughline-compose   # brings tl with it
+tl --version || pip install 'throughline>=3.11.0'
 S="${CLAUDE_PLUGIN_ROOT}/scripts/challenge.py"
 python3 "$S" --help
 ```
 
-The script reads the JSON that `tl-compose dump` emits (or bare `tl dump` when
-the graph has no `[[sources]]`) and needs nothing beyond the standard library.
-`-C <graph root>` runs the tool for you; `--dump FILE` reads a saved dump. Every
-command exits 0: the output is a review list, never a gate. If the plugin root
-variable is unset, the script sits at `scripts/challenge.py` beside this file's
-plugin.
+The script reads the JSON that `tl dump` emits, which covers the graph's
+`[[sources]]` too, and needs nothing beyond the standard library. `-C <graph
+root>` runs the tool for you; `--dump FILE` reads a saved dump. Run on a graph
+root it needs throughline ≥ 3.11.0, the release from which `tl` composes a
+graph's sources, and exits 2 on an older `tl` rather than challenge half a
+graph. Otherwise every command exits 0: the output is a review list, never a
+gate. If the plugin root variable is unset, the script sits at
+`scripts/challenge.py` beside this file's plugin.
 
 ## The twelve challenges
 
@@ -148,15 +150,14 @@ For each touched item, with its `siblings` output open:
 
 ```sh
 python3 "$S" -C idd all                      # the findings you fixed are gone
-tl-compose -C idd check --strict             # only unratified / ratified-stale remain
-tl-compose -C idd docs && tl-compose -C idd docs --check
+tl -C idd check --strict                     # only unratified / ratified-stale remain
+tl -C idd docs && tl -C idd docs --check
 ```
 
-In a composed repo use `tl-compose` for `docs` too: bare `tl docs` cannot
-resolve borrowed clauses and silently strips their labels from the generated
-documents, which shows up as a spurious diff. Commit explicit paths, cite the
-UIDs, and hand off with the count: N new items, M stale ones, and the exact
-`tl -C <graph root> ratify` command for the graph in question.
+`tl docs` renders borrowed clauses through the composed graph, so a composed
+repo regenerates its documents with the same command. Commit explicit paths,
+cite the UIDs, and hand off with the count: N new items, M stale ones, and the
+exact `tl -C <graph root> ratify` command for the graph in question.
 
 ### Report shape
 
@@ -184,17 +185,13 @@ A stamp records the target's fingerprint at the moment you confirmed the link.
 Without it a moved spec is invisible to `check`.
 
 ```sh
-tl-compose -C idd link REQ-0007 spec:SR-0032 --type implements --stamp
+tl -C idd link REQ-0007 spec:SR-0032 --type implements --stamp
 python3 "$S" -C idd unstamped --namespace spec      # links that cannot detect drift
 ```
 
-To refresh a stale stamp, **unlink then relink**. Running `link --stamp` again
-on an existing pair adds a second link and leaves the stale one in place:
-
-```sh
-tl-compose -C idd unlink REQ-0007 spec:SR-0032 --type implements
-tl-compose -C idd link   REQ-0007 spec:SR-0032 --type implements --stamp
-```
+To refresh a stale stamp, run `link --stamp` again on the same pair. `tl`
+restamps the existing link in place (`restamped REQ-0007 --implements-->
+spec:SR-0032`) and adds no second one.
 
 ### 2. Repin and read the suspects
 
@@ -202,15 +199,15 @@ Point the source's `ref` at the new tag (never at a branch you intend to stay
 on), then:
 
 ```sh
-tl-compose -C idd check
+tl -C idd check
 ```
 
 Every `suspect-link` finding is one local item whose spec target changed since
 you confirmed it. For each: read the target as it now stands
-(`tl-compose -C idd context spec:SR-0032`, or diff the two editions in
-`~/.cache/throughline-compose/sources/`), then decide:
+(`tl -C idd context spec:SR-0032`, or diff the two editions in
+`~/.cache/throughline/sources/`), then decide:
 
-- **Still satisfied.** Refresh the stamp (unlink, relink `--stamp`) and note in
+- **Still satisfied.** Refresh the stamp (`link --stamp` on the same pair) and note in
   the rationale what moved and why it does not bind this item.
 - **No longer satisfied.** Move the item to the graph's suspect status with
   `tl status <UID> suspect`, amend it, change the code and its tests, run the

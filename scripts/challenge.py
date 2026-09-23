@@ -1,13 +1,15 @@
 #!/usr/bin/env python3
 """Deterministic half of a throughline challenge pass.
 
-Reads a project as the JSON that `tl-compose dump` (or bare `tl dump`) emits and
-reports the checks that need no judgement. The semantic checks (link strength,
+Reads a project as the JSON that `tl dump` emits and reports the checks that
+need no judgement. The semantic checks (link strength,
 sibling naming, a rationale narrower than its family) are left to the reader;
 `siblings` prints the material they need held together.
 
 Standard library only. Every command exits 0; the output is a review list, not a
-gate. Run `all` for the graph-wide checks, `siblings UID` for one item.
+gate. Run `all` for the graph-wide checks, `siblings UID` for one item. Given a
+graph root it runs `tl` from throughline 3.11.0 or later, which composes the
+graph's sources, and exits 2 on an older one.
 
 Usage:
   challenge.py [-C PATH | --dump FILE] <command> [options]
@@ -35,6 +37,8 @@ import subprocess
 import sys
 from collections import defaultdict
 
+from tl_cli import require_tl
+
 UID_RE = re.compile(r"(?<![\w:])(?:([A-Za-z][\w-]*):)?([A-Z][A-Z0-9]*-\d{3,})\b")
 UNIVERSAL_RE = re.compile(
     r"\b(always|never|every|all|none|nothing|no [\w-]+ at all|anywhere|"
@@ -58,14 +62,12 @@ def load(args) -> dict:
     if args.dump:
         with open(args.dump) as fh:
             return json.load(fh)
-    for tool in ("tl-compose", "tl"):
-        try:
-            out = subprocess.run([tool, "-C", args.path, "dump"],
-                                 capture_output=True, text=True, check=True)
-            return json.loads(out.stdout)
-        except (FileNotFoundError, subprocess.CalledProcessError):
-            continue
-    sys.exit("could not run `tl-compose dump` or `tl dump`; pass --dump FILE")
+    cmd = [require_tl(), "-C", args.path, "dump"]
+    out = subprocess.run(cmd, capture_output=True, text=True)
+    if out.returncode != 0:
+        sys.exit(f"`{' '.join(cmd)}` exited {out.returncode}: {out.stderr.strip()}; "
+                 "pass --dump FILE")
+    return json.loads(out.stdout)
 
 
 class Graph:
@@ -314,7 +316,7 @@ def cmd_unstamped(g: Graph, args) -> None:
             if not l.get("stamp"):
                 n += 1
                 print(f"unstamped {uid} --{l.get('type')}--> {tgt}")
-    print(f"# unstamped: {n} link(s); refresh with `tl-compose unlink SRC DST --type T` then `link ... --stamp`")
+    print(f"# unstamped: {n} link(s); stamp each in place with `tl link SRC DST --type T --stamp`")
 
 
 def cmd_uncovered(g: Graph, args) -> None:

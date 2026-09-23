@@ -6,14 +6,13 @@ title: The record names the commit, the pins and the tool versions it was measur
 text: |-
   Every record carries its provenance: the commit the repository stood at and
   whether the working tree was clean; for a composed graph, each source with the
-  URL and the tag or commit it is pinned to; the versions of tl, tl-compose and
-  tl-ratify as each reports them, or that one was not on the path; the version
-  of this plugin from its manifest and the commit of the plugin's own repository
-  when the script runs from a checkout; the path of the script; and the Python
-  version. The same facts are printed by a provenance command and appear as rows
-  in the Markdown table. A number without the tools that produced it cannot be
-  compared with a later one, and a case cannot be re-read without the code it
-  measured.
+  URL and the tag or commit it is pinned to; the versions of tl and tl-ratify as
+  each reports them, or that one was not on the path; the version of this plugin
+  from its manifest and the commit of the plugin's own repository when the script
+  runs from a checkout; the path of the script; and the Python version. The same
+  facts are printed by a provenance command and appear as rows in the Markdown
+  table. A number without the tools that produced it cannot be compared with a
+  later one, and a case cannot be re-read without the code it measured.
 normative: true
 links:
 - target: INT-0001

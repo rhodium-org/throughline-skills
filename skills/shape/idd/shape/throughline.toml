@@ -127,9 +127,8 @@ attrs.grounding = { type = "enum", values = ["root", "delivery-root", "grounded"
 # throughline shape: every item records where it came from
 attrs.origin = { type = "enum", values = ["human", "ai", "hybrid"] }
 
-# The graph this shaping produced. Composed so `tl-compose context`
-# here shows the whole picture; from now on drive idd/shape/ with
-# tl-compose, never bare tl (the binary rule).
+# The graph this shaping produced. Composed so `tl context`
+# here shows the whole picture.
 [[sources]]
 namespace = "skill"
 path = "../skill"

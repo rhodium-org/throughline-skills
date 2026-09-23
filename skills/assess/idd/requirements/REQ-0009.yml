@@ -1,0 +1,21 @@
+uid: REQ-0009
+type: requirement
+status: proposed
+title: A command that runs tl refuses one older than the release that composes
+text: 'Before a measuring command runs tl on a graph root, the script reads tl --version.
+  When tl is missing, or older than throughline 3.11.0, the first release that composes
+  a graph''s sources itself, the command exits 2 naming the floor and the upgrade
+  command, and measures nothing: an older tl reads a sourced graph without its sources,
+  so the sources composed and the links into them would be reported as absent. A
+  command given a saved dump, or measuring git, transcripts or test results, needs
+  no tl.'
+rationale: Refusing was chosen over measuring what an older tl returns, since a record
+  of half a graph would join the collection as a true case. Exit 2 keeps the refusal
+  apart from done's exit 1, which means a criterion failed.
+normative: true
+links:
+- target: INT-0001
+  type: derives_from
+attrs:
+  priority: must
+  origin: ai

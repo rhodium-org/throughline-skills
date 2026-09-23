@@ -1,8 +1,9 @@
 """Fixture tests for the assess skill's script.
 
-tl-assess TEST-0001 to TEST-0006. Each test builds a throwaway graph or
-repository with the real CLIs, or a synthetic transcript, and asserts the
-numbers the script reports. Needs tl on PATH: pip install throughline-compose.
+tl-assess TEST-0001 to TEST-0009; TEST-0010 is in test_tl_floor.py. Each test
+builds a throwaway graph or repository with the real CLI, or a synthetic
+transcript, and asserts the numbers the script reports. Needs tl from
+throughline 3.11.0 or later on PATH: pip install 'throughline>=3.11.0'.
 """
 import json
 import shutil
@@ -16,7 +17,7 @@ SCRIPT = Path(__file__).resolve().parents[1] / "scripts" / "assess.py"
 RATIFIER = "Ada Lovelace"
 
 if shutil.which("tl") is None:
-    raise RuntimeError("tl is not on PATH: pip install throughline-compose")
+    raise RuntimeError("tl is not on PATH: pip install 'throughline>=3.11.0'")
 
 
 def run(*args, cwd=None, check=True):
@@ -36,7 +37,9 @@ def git(repo, *args):
 
 
 def item(path: Path, uid: str, type_: str, title: str, status="proposed", links=(), attrs=None, ratified=False):
-    body = [f"uid: {uid}", f"type: {type_}", f"status: {status}", f"title: {title}", f"text: {title}.", "normative: true"]
+    # Only a requirement is normative: its priority attribute is declared so.
+    normative = "true" if type_ == "requirement" else "false"
+    body = [f"uid: {uid}", f"type: {type_}", f"status: {status}", f"title: {title}", f"text: {title}.", f"normative: {normative}"]
     if links:
         body.append("links:")
         for target, kind in links:
@@ -249,7 +252,8 @@ def test_provenance_names_commit_pins_tools_and_plugin(repo):  # TEST-0007
     record = assess("record", "-C", str(idd), "--name", "pins", "--out", str(repo / "out"))
     md = next((repo / "out").glob("*-pins.md")).read_text()
     assert "| Source pins | wcag v2.2.3 |" in md
-    for tool in ("tl", "tl-compose", "tl-ratify"):
+    assert set(p["tools"]) == {"tl", "tl-ratify"}
+    for tool in ("tl", "tl-ratify"):
         expected = subprocess.run([tool, "--version"], text=True, capture_output=True) if shutil.which(tool) else None
         assert p["tools"][tool] == ((expected.stdout or expected.stderr).strip().splitlines()[0] if expected else None)
     manifest = json.loads((Path(__file__).resolve().parents[1] / ".claude-plugin" / "plugin.json").read_text())

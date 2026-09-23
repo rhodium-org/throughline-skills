@@ -1,18 +1,20 @@
 uid: TEST-0005
 type: test
 status: ratified
-title: A transitive namespace resolves only when declared or reexported, with nothing
-  copied
-text: 'tests/test_multigraph.py, test_transitive_namespace: builds an external graph,
+title: A source's own sources compose with it, an alias renames one, reexport is
+  refused, and nothing is copied
+text: 'tests/test_multigraph.py: test_transitive_namespace builds an external graph,
   an anchor that implements one of its items by path, and a consumer wired to the
-  anchor; confirms tl-compose check in the consumer exits 2 naming the undeclared
-  namespace, then passes under each remedy in turn, the consumer declaring the external
-  source itself or a reexport entry on the consumer''s source block for the anchor,
-  after which the consumer can ground an item on the external item directly. The
-  consumer''s config is confirmed to be its own init output plus sources blocks and
-  nothing copied.'
-rationale: '2026-09-13: written as a pytest; the manual wording had the anchor doing
-  the reexport, which is not where tl-compose reads it.'
+  anchor only; confirms tl check in the consumer composes the external graph via
+  the anchor and passes, that the consumer can ground items on the anchor and on
+  the external item directly, that declaring the external source as well still passes,
+  and that the consumer''s config is its own init output plus sources blocks and
+  nothing copied. test_alias_renames_a_transitive_label confirms an alias on the
+  anchor''s block binds the external graph under the new label and the old label
+  no longer resolves. test_reexport_is_refused confirms a reexport key on the consumer''s
+  block makes check exit 2 naming it withdrawn.'
+rationale: 'Each clause of REQ-0005 that the tool decides is asserted against the
+  tool: the transitive composition, the alias, the refusal and the copy-nothing rule.'
 normative: true
 links:
 - target: REQ-0005

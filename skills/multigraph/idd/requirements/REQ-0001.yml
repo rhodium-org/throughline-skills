@@ -1,12 +1,12 @@
 uid: REQ-0001
 type: requirement
 status: ratified
-title: The compose CLI is made present before any graph is touched, and bare tl is
-  never a fallback for it
-text: Before acting, the skill confirms tl-compose answers --version and otherwise
-  installs throughline-compose, which brings tl with it. It needs Python 3.11 or
+title: The CLI is made present at the release that composes before any graph is touched
+text: Before acting, the skill confirms tl --version reports throughline 3.11.0 or
+  later, and otherwise installs or upgrades throughline. It needs Python 3.11 or
   later and honours any higher floor the repository pins. If the install fails the
-  skill stops; it never carries on with bare tl in place of tl-compose.
+  skill stops; it never carries on with an older tl, which reads a sourced graph
+  without its sources and reports every namespace-qualified link as unresolved.
 normative: true
 links:
 - target: INT-0001

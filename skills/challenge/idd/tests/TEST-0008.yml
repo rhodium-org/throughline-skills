@@ -1,0 +1,16 @@
+uid: TEST-0008
+type: test
+status: proposed
+title: An older or missing tl is refused, naming the floor, before anything is read
+text: 'tests/test_tl_floor.py, the tl-challenge TEST-0008 cases: with a stand-in
+  tl reporting 3.10.2 first on the path, the script''s all command on a graph root
+  exits 2, names 3.11.0 and the upgrade command, and leaves the directory empty;
+  with no tl on the path it exits 2 naming the install; with a stand-in reporting
+  3.11.0 the floor does not refuse it.'
+normative: true
+links:
+- target: REQ-0008
+  type: verifies
+attrs:
+  method: automated
+  origin: ai

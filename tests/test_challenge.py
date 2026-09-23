@@ -1,8 +1,9 @@
 """Fixture tests for the challenge skill's script.
 
-tl-challenge TEST-0007. Each test builds a throwaway graph with the real CLI
-and asserts what the script's verification command reports for it. Needs tl
-on PATH: pip install throughline-compose.
+tl-challenge TEST-0007; TEST-0008 is in test_tl_floor.py. Each test builds a
+throwaway graph with the real CLI and asserts what the script's verification
+command reports for it. Needs tl from throughline 3.11.0 or later on PATH:
+pip install 'throughline>=3.11.0'.
 """
 import re
 import shutil
@@ -15,7 +16,7 @@ import pytest
 SCRIPT = Path(__file__).resolve().parents[1] / "scripts" / "challenge.py"
 
 if shutil.which("tl") is None:
-    raise RuntimeError("tl is not on PATH: pip install throughline-compose")
+    raise RuntimeError("tl is not on PATH: pip install 'throughline>=3.11.0'")
 
 
 # ── helpers ─────────────────────────────────────────────────────────────────

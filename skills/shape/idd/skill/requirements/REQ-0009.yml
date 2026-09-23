@@ -1,0 +1,19 @@
+uid: REQ-0009
+type: requirement
+status: proposed
+title: The script drives both graphs with tl from the release that composes and refuses
+  an older one
+text: Every call the script makes goes to tl, which from throughline 3.11.0 composes
+  the pointer from idd/shape/ to the second graph itself. Before its first call the
+  script reads tl --version and, when tl is missing or older than 3.11.0, exits 2
+  naming the floor and the upgrade command and writes nothing.
+rationale: An older tl reads idd/shape/ without the second graph, so the gate would
+  pass over half the picture. Refusing was chosen over a second command for the sourced
+  graph, which would be a second name for one tool.
+normative: true
+links:
+- target: INT-0001
+  type: derives_from
+attrs:
+  priority: must
+  origin: ai

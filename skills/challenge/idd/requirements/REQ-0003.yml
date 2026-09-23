@@ -8,11 +8,11 @@ text: A proposed AI-origin item is fixed with amend, link and unlink. A fix rewr
   A ratified item that must change is amended and left ratified-stale for its human
   to accept or revert; its ratification attributes are never touched and it is never
   checked out to escape the finding. Every prose mention reported gets a link or
-  a reword. The pass ends with the script, the strict composed check and the docs
-  check re-run with the composing binary, explicit paths committed, and a hand-off
-  giving the count of new and stale items and the exact ratify command for the graph
-  root. The report names each challenge by number and by what it asks, never by the
-  skill's own section labels, and says why an inapplicable challenge does not apply.
+  a reword. The pass ends with the script, tl check --strict and tl docs --check
+  re-run over the composed graph, explicit paths committed, and a hand-off giving
+  the count of new and stale items and the exact ratify command for the graph root.
+  The report names each challenge by number and by what it asks, never by the skill's
+  own section labels, and says why an inapplicable challenge does not apply.
 rationale: 'Rationale holds the decision and the alternative rejected. A fix that
   appends a clause to the text, or logs the pass in the rationale, makes an item
   longer every time it is challenged, until nobody finishes reading it. A separate

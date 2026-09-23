@@ -1,18 +1,15 @@
 uid: REQ-0003
 type: requirement
 status: ratified
-title: The binary is chosen per graph by whether its config declares a source
-text: 'A graph whose throughline.toml declares any [[sources]] block is driven with
-  tl-compose; a graph with none takes bare tl. The decision is made per graph from
-  its config, never from a directory pattern. Bare tl cannot see a seam at all: on
-  a sourced graph it reports every namespace-qualified link as unresolved whether
-  the sibling item is intact or gone, so it neither passes a healthy graph nor tells
-  a broken one apart, and only tl-compose does. A graph that borrows only from an
-  in-repo sibling is still a sourced graph.'
-rationale: '2026-09-13: the fixture test showed the earlier claim, that bare tl can
-  pass while the seam is broken, is false against every public core release; namespace-qualified
-  links have raised namespace-unresolved since throughline 1.2.5. The rule stands;
-  its reason is corrected, and the skill text with it.'
+title: Every graph is driven with tl, which composes the sources its config declares
+text: 'One command drives every graph in the repository, sourced or not: tl, which
+  composes every [[sources]] block its config declares. Nothing is chosen per graph.
+  A check of a sourced graph passes while the sibling items it cites are intact and
+  fails, naming the namespace:UID link, once one is tombstoned. A graph that borrows
+  only from an in-repo sibling is a sourced graph like any other.'
+rationale: The command used to be chosen per graph because the uncomposed one could
+  not see the seam. From throughline 3.11.0 the one command composes, so the choice
+  is gone and the seam is seen by the same check that gates an unsourced graph.
 normative: true
 links:
 - target: INT-0001

@@ -1,17 +1,19 @@
 uid: TEST-0006
 type: test
 status: ratified
-title: Ratify refuses a namespaced UID and accepts a local item grounded only through
-  a sibling
+title: Ratify refuses a namespaced UID and judges a local item grounded only through
+  a sibling over the union
 text: 'tests/test_multigraph.py, test_ratify_owning_graph_over_union: in the two-graph
   fixture with the consumer item at proposed and grounded only through the anchor
-  root, confirms bare tl ratify refuses it as not grounded and writes nothing, tl-compose
-  ratify of the anchor''s UID from the consumer exits 2 with the anchor file unchanged,
-  and tl-compose ratify of the local item with a given name writes that name and
-  ratified status to the consumer''s file. The skill text is confirmed to say the
-  name is asked for, used exactly, and never invented, guessed or reused.'
-rationale: '2026-09-13: written as a pytest; the item must be at proposed, since
-  draft to ratified is not an allowed transition.'
+  root, confirms tl ratify of the anchor''s UID from the consumer exits 2 with the
+  anchor file unchanged; with the consumer''s sources block removed, confirms tl
+  ratify refuses the local item as not grounded and writes nothing; with it restored,
+  confirms tl ratify with a given name writes that name and ratified status to the
+  consumer''s file. The skill text is confirmed to say the name is asked for, used
+  exactly, and never invented, guessed or reused.'
+rationale: The item must be at proposed, since draft to ratified is not an allowed
+  transition. The refusal without the sources block shows that the grounding the
+  ratification relies on is the union's.
 normative: true
 links:
 - target: REQ-0006

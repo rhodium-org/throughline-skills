@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Objective measures of a piece of work done on a throughline graph.
 
-Reads the graph as the JSON that `tl-compose dump` (or bare `tl dump`) emits,
+Reads the graph as the JSON that `tl dump` emits,
 the repository's git history, the generated documents, a test result file and
 the Claude Code session transcripts, and reports numbers a person did not
 choose: item counts by type, status and origin; who ratified; sources composed
@@ -12,7 +12,8 @@ meets the done criteria. `record` writes the whole assessment as JSON and as a
 Markdown skeleton whose narrative sections a person fills in.
 
 Standard library only. Every measuring command exits 0; `done` exits 1 when a
-criterion fails, so it can gate.
+criterion fails, so it can gate. A command that runs `tl` needs throughline
+3.11.0 or later, which composes the graph's sources, and exits 2 on an older one.
 
 Usage:
   assess.py graph    -C ROOT [--dump FILE]
@@ -43,6 +44,8 @@ import tomllib
 from collections import Counter, defaultdict
 from pathlib import Path
 
+from tl_cli import require_tl
+
 UID_RE = re.compile(r"(?<![\w:])(?:([A-Za-z][\w-]*):)?([A-Z][A-Z0-9]*-\d{3,})\b")
 ITEM_FILE_RE = re.compile(r"(^|/)[A-Z][A-Z0-9]*-\d{3,}\.ya?ml$")
 LIVE_STATUSES = {"proposed", "draft", "ratified", "implemented", "deferred", "verified"}
@@ -54,23 +57,13 @@ def run(cmd: list[str], cwd: str | None = None, check: bool = False) -> subproce
     return subprocess.run(cmd, cwd=cwd, text=True, capture_output=True, check=check)
 
 
-def tool_for(root: str) -> str:
-    """tl-compose when the graph composes sources, else tl; whichever is installed."""
-    toml = Path(root) / "throughline.toml"
-    composes = "[[sources]]" in toml.read_text() if toml.exists() else False
-    for name in (["tl-compose", "tl"] if composes else ["tl", "tl-compose"]):
-        if shutil.which(name):
-            return name
-    raise SystemExit("neither tl-compose nor tl is on PATH: pip install throughline-compose")
-
-
 def load_dump(root: str | None, dump: str | None) -> dict:
     if dump:
         with open(dump) as fh:
             return json.load(fh)
     if not root:
         raise SystemExit("give -C ROOT or --dump FILE")
-    out = run([tool_for(root), "-C", root, "dump"], check=True)
+    out = run([require_tl(), "-C", root, "dump"], check=True)
     return json.loads(out.stdout)
 
 
@@ -227,7 +220,7 @@ def measure_docs(root: str) -> dict:
     words: dict[str, int] = {}
     for p in sorted(docs_dir.glob("*.md")) if docs_dir.is_dir() else []:
         words[p.name] = len(p.read_text(errors="replace").split())
-    check = run([tool_for(root), "-C", root, "docs", "--check"])
+    check = run([require_tl(), "-C", root, "docs", "--check"])
     return {
         "documents": words,
         "words": sum(words.values()),
@@ -402,7 +395,7 @@ def measure_provenance(root: str, repo: str) -> dict:
         "repository_commit": head,
         "working_tree_clean": clean,
         "sources": sources,
-        "tools": {name: tool_version(name) for name in ("tl", "tl-compose", "tl-ratify")},
+        "tools": {name: tool_version(name) for name in ("tl", "tl-ratify")},
         "plugin_version": plugin_version,
         "plugin_commit": plugin_commit,
         "script": str(Path(__file__).resolve()),
@@ -413,10 +406,10 @@ def measure_provenance(root: str, repo: str) -> dict:
 # ── done ────────────────────────────────────────────────────────────────────
 
 def measure_done(root: str, repo: str, results: str | None) -> dict:
-    check = run([tool_for(root), "-C", root, "check", "--strict"])
+    check = run([require_tl(), "-C", root, "check", "--strict"])
     m = re.search(r"(\d+) error\(s\), (\d+) warning\(s\)", check.stdout + check.stderr)
     errors = int(m.group(1)) if m else (0 if check.returncode == 0 else -1)
-    docs = run([tool_for(root), "-C", root, "docs", "--check"])
+    docs = run([require_tl(), "-C", root, "docs", "--check"])
     dumped = load_dump(root, None)
     proposed = sum(1 for i in items_of(dumped) if is_local(str(i.get("uid", ""))) and i.get("status") in ("proposed", "draft"))
     clean = run(["git", "-C", repo, "status", "--porcelain"]).stdout.strip() == ""
@@ -577,7 +570,7 @@ def main(argv: list[str] | None = None) -> int:
     def root_args(p, dump=False):
         p.add_argument("-C", dest="path", help="graph root (the directory holding throughline.toml)")
         if dump:
-            p.add_argument("--dump", help="a saved `tl-compose dump` instead of running the tool")
+            p.add_argument("--dump", help="a saved `tl dump` instead of running the tool")
 
     p = sub.add_parser("graph"); root_args(p, dump=True)
     p = sub.add_parser("git"); root_args(p); p.add_argument("--repo"); p.add_argument("--paths", nargs="*", help="repository-relative paths the work lives in; default the whole repository")

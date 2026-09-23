@@ -1,10 +1,11 @@
 """Fixture tests for the shape skill's script.
 
 skill TEST-0001 to TEST-0008, one per requirement. Each test drives
-scripts/shape.py over a throwaway repository with the real CLIs, and where
+scripts/shape.py over a throwaway repository with the real CLI, and where
 the skill text gives shell to run, the shell is read out of SKILL.md so that
-what is tested is what a reader follows. Needs tl and tl-compose on PATH:
-pip install throughline-compose.
+what is tested is what a reader follows. TEST-0009 is in test_tl_floor.py.
+Needs tl from throughline 3.11.0 or later on PATH:
+pip install 'throughline>=3.11.0'.
 """
 import json
 import os
@@ -22,9 +23,8 @@ SKILL = ROOT / "skills" / "shape" / "SKILL.md"
 TL_INIT_REGISTERS = {"vision", "requirements", "nonfunctional", "non-goals", "tests"}
 SHAPE_REGISTERS = {"sources", "domain", "needs", "decisions", "non-goals", "constraints"}
 
-for _tool in ("tl", "tl-compose"):
-    if shutil.which(_tool) is None:
-        raise RuntimeError(f"{_tool} is not on PATH: pip install throughline-compose")
+if shutil.which("tl") is None:
+    raise RuntimeError("tl is not on PATH: pip install 'throughline>=3.11.0'")
 
 
 # ── helpers ─────────────────────────────────────────────────────────────────
@@ -69,8 +69,7 @@ def skill_run(repo, heading, index=0):
 
 
 def dump(graph):
-    binary = "tl-compose" if "[[sources]]" in (graph / "throughline.toml").read_text() else "tl"
-    r = run(binary, "-C", str(graph), "dump")
+    r = run("tl", "-C", str(graph), "dump")
     assert r.returncode == 0, r.stderr
     return json.loads(r.stdout)
 
@@ -254,7 +253,7 @@ def test_hands_back_on_zero_errors_in_both_graphs(written):  # TEST-0007 / REQ-0
     assert r.returncode == 0, r.stdout + r.stderr
     out = r.stdout + r.stderr
     commands = re.findall(r"^== (\S+) -C (\S+) check", out, re.M)
-    assert [(b, Path(p).name) for b, p in commands] == [("tl-compose", "shape"), ("tl", "estate")]
+    assert [(b, Path(p).name) for b, p in commands] == [("tl", "shape"), ("tl", "estate")]
     assert "empty-registers" in out
     assert out.count("0 error(s)") == 2 and "[ERROR]" not in out
     assert local_items(repo / "idd" / "estate") == []   # nothing authored to silence the warning
