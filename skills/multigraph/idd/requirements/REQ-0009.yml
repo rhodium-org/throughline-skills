@@ -18,4 +18,16 @@ attrs:
   priority: must
   origin: ai
   ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:bf9fb66b2bb7e1e092ca3ac357a850c3f954116aac05697cd4ebeecfced1feb2
+  ratified_fingerprint: sha256:954ca2aff39092552456729af8f4af5081f95ae85a435563d379dc2284438bb4
+  ratified_content:
+    type: requirement
+    text: The skill states throughline 3.11.0 as its one floor and names no release
+      threshold below it. From that release tl refetches a remote source whose tag
+      or branch moved, lists borrowed items beside local ones in query, ls and dump
+      unless --local is given, and judges ratification over the union. Where the
+      installed tl is older, the skill upgrades it rather than giving a workaround
+      for the older release.
+    normative: true
+    derived: false
+    attrs:
+      priority: must

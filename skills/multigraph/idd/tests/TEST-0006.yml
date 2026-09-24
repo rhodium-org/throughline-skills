@@ -22,4 +22,18 @@ attrs:
   method: automated
   origin: ai
   ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:8dbdbba20399c7e6027f5c296d82d9280ec540ff62985c0c1f733b414d452943
+  ratified_fingerprint: sha256:56dab54d3632170712afb2d3706291990205b34519234c6be861e8c501e7f772
+  ratified_content:
+    type: test
+    text: 'tests/test_multigraph.py, test_ratify_owning_graph_over_union: in the
+      two-graph fixture with the consumer item at proposed and grounded only through
+      the anchor root, confirms tl ratify of the anchor''s UID from the consumer
+      exits 2 with the anchor file unchanged; with the consumer''s sources block
+      removed, confirms tl ratify refuses the local item as not grounded and writes
+      nothing; with it restored, confirms tl ratify with a given name writes that
+      name and ratified status to the consumer''s file. The skill text is confirmed
+      to say the name is asked for, used exactly, and never invented, guessed or
+      reused.'
+    normative: true
+    derived: false
+    attrs: {}

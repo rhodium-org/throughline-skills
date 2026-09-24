@@ -15,4 +15,15 @@ attrs:
   priority: must
   origin: ai
   ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:546158fae23056dde89fa2ec646d3d0a0431eea856c247f49015ed9fc75720b7
+  ratified_fingerprint: sha256:4787b37ff6d9d5f5cb329b21a6f202efb15caa975606de34281355669f34dad4
+  ratified_content:
+    type: requirement
+    text: Before acting, the skill confirms tl --version reports throughline 3.11.0
+      or later, and otherwise installs or upgrades throughline. It needs Python 3.11
+      or later and honours any higher floor the repository pins. If the install fails
+      the skill stops; it never carries on with an older tl, which reads a sourced
+      graph without its sources and reports every namespace-qualified link as unresolved.
+    normative: true
+    derived: false
+    attrs:
+      priority: must

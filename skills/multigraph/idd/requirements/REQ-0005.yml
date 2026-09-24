@@ -22,4 +22,18 @@ attrs:
   priority: must
   origin: ai
   ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:93f3f47e46081e19f8cbfed8b420e3951ffb485752b27cfe9cbb102dbfe75547
+  ratified_fingerprint: sha256:b6991bb8f23a1f544af06f9423447f0eaa05b3fe0313078723d007f55056a299
+  ratified_content:
+    type: requirement
+    text: Borrowed items are cited as namespace:UID; a bare UID is always local.
+      A source's own sources are composed with it, to any depth, and the consumer
+      may cite a transitive namespace by the label it binds under without declaring
+      it; declaring the same source as well binds it once. The consumer's one lever
+      over a transitive label is an alias on the declared source that carries it;
+      the withdrawn reexport key is refused. A sibling's types, statuses and link
+      vocabulary are never copied into the consumer's config, because copied declarations
+      are inert and wrong the moment the source moves.
+    normative: true
+    derived: false
+    attrs:
+      priority: must

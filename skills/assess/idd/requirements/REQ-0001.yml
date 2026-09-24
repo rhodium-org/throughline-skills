@@ -20,4 +20,19 @@ attrs:
   priority: must
   origin: ai
   ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:0a21c672979cb4dd5e26c5063bea9f4b7c6dfa64cd3bcd6a07ca802818170751
+  ratified_fingerprint: sha256:45cc4507dcfd161ea21e6fdef79b9cd9a6aa35cfae94e13748b0fe17dad3a96f
+  ratified_content:
+    type: requirement
+    text: |-
+      The script reads the JSON that tl dump emits and reports for the local items:
+      the count, how many are live, how many a human has accepted, the counts by type,
+      by status and by origin, the names of the ratifiers with their counts, the
+      normative count, and the tests by method. For the borrowed items it reports each
+      composed source with its item count, and for the local links into sources it
+      reports the count per source and how many carry a stamp. It depends on nothing
+      beyond the Python standard library, so it runs in a sandbox where nothing can be
+      installed.
+    normative: true
+    derived: false
+    attrs:
+      priority: must

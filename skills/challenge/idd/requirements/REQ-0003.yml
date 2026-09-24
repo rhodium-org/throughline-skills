@@ -26,4 +26,22 @@ attrs:
   priority: must
   origin: ai
   ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:1c24aedb67d800dad62d6725f4502024a039b186925de89b4e778ba0a1bf6076
+  ratified_fingerprint: sha256:f943e8e09cee88b2c5f1b2fcd55b9bf1881a1ed6bdc35c4d9d8cb14743fd3da0
+  ratified_content:
+    type: requirement
+    text: A proposed AI-origin item is fixed with amend, link and unlink. A fix rewrites
+      the claim in the fewest words that bind; if the decision changed, the rationale
+      records the decision and the alternative rejected, never the history of the
+      pass. A ratified item that must change is amended and left ratified-stale for
+      its human to accept or revert; its ratification attributes are never touched
+      and it is never checked out to escape the finding. Every prose mention reported
+      gets a link or a reword. The pass ends with the script, tl check --strict and
+      tl docs --check re-run over the composed graph, explicit paths committed, and
+      a hand-off giving the count of new and stale items and the exact ratify command
+      for the graph root. The report names each challenge by number and by what it
+      asks, never by the skill's own section labels, and says why an inapplicable
+      challenge does not apply.
+    normative: true
+    derived: false
+    attrs:
+      priority: must

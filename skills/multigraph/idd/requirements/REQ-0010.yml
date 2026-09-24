@@ -15,4 +15,14 @@ attrs:
   priority: must
   origin: ai
   ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:091ffeebf3841386f5f943464eaa1d0da47f398ee9dbe4057e7fce30e4683338
+  ratified_fingerprint: sha256:f0e771f8a24eb9f5f29845a7fa6fa6766b60018881e1d6e341a7f91e224dd9a3
+  ratified_content:
+    type: requirement
+    text: Items, links, amendments and ratifications are written with tl new, link,
+      amend and ratify. An item file or a register file is never hand-edited. The
+      [[sources]] block of throughline.toml is hand-edited because it is configuration,
+      not graph.
+    normative: true
+    derived: false
+    attrs:
+      priority: must

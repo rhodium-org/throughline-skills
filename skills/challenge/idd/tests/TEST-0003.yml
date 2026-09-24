@@ -15,4 +15,14 @@ attrs:
   origin: ai
   method: document
   ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:c17e469447fa87e4e4538e9086be57d4b1ccb5f260b9169de05f9190a37a5721
+  ratified_fingerprint: sha256:a68410ab3b5efbdcfde8d6ef60f7c6f316298a0078d1e3fd3eef291126f1ae6b
+  ratified_content:
+    type: test
+    text: Amend a ratified item in a scratch copy and confirm it stays ratified with
+      a ratified-stale finding, which is what the skill says. Confirm the skill forbids
+      editing ratification attributes and checking out an item, regenerates documents
+      with tl docs over the composed graph, and ends with a ratify command that names
+      the graph root.
+    normative: true
+    derived: false
+    attrs: {}

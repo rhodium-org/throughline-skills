@@ -18,4 +18,16 @@ attrs:
   priority: must
   origin: ai
   ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:6569269db103270810a68e7b1a8cc4eabe7c13b94d636d5c30344f648a96dda7
+  ratified_fingerprint: sha256:c6ef3bd44d14b53c3d887d307fb7aebd4b3da65f1e0e8314c944cf522ec7439f
+  ratified_content:
+    type: requirement
+    text: 'One command drives every graph in the repository, sourced or not: tl,
+      which composes every [[sources]] block its config declares. Nothing is chosen
+      per graph. A check of a sourced graph passes while the sibling items it cites
+      are intact and fails, naming the namespace:UID link, once one is tombstoned.
+      A graph that borrows only from an in-repo sibling is a sourced graph like any
+      other.'
+    normative: true
+    derived: false
+    attrs:
+      priority: must

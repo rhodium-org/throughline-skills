@@ -15,4 +15,13 @@ attrs:
   method: manual
   origin: ai
   ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:beba75655e3cb8d6660579536c22a3c5c3b656202df90c992fe80039b29de935
+  ratified_fingerprint: sha256:8241eb327d211ef6db0faef6e02fdff8d84c8d33a97138c7c4749aecaf4d1d28
+  ratified_content:
+    type: test
+    text: 'In an interpreter with no throughline installed, follow the skill: confirm
+      the version check fails, that one pip install of throughline makes tl answer
+      at 3.11.0 or later, and that the skill text forbids proceeding when that install
+      fails or with an older tl.'
+    normative: true
+    derived: false
+    attrs: {}

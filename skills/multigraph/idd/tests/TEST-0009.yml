@@ -15,4 +15,14 @@ attrs:
   method: document
   origin: ai
   ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:a1944d5aac407ad28b8e4646ca33acccc7588100e33e38c5e88cf3c6cd541174
+  ratified_fingerprint: sha256:937db1dd279cbdc71d30f68bb48a792671fe1ce1f59078763f2ae155f95f1931
+  ratified_content:
+    type: test
+    text: Read the skill text and confirm it states throughline 3.11.0 as the floor,
+      tells the reader to read tl --version and upgrade an older release, names no
+      release threshold below the floor and no workaround for one, and describes
+      the refetch of a moved ref, the union listings with --local, and ratification
+      over the union as behaviours the reader can rely on.
+    normative: true
+    derived: false
+    attrs: {}

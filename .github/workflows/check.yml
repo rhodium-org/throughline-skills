@@ -29,11 +29,7 @@ jobs:
 
       - name: Gate every graph
         run: |
-          # skills/assess/idd, skills/challenge/idd, skills/multigraph/idd,
-          # skills/shape/idd/shape and skills/shape/idd/skill return to strict
-          # once the items amended or proposed for
-          # https://github.com/rhodium-org/throughline-skills/issues/1 are ratified.
-          STRICT=" idd "
+          STRICT=" idd skills/assess/idd skills/challenge/idd skills/multigraph/idd skills/shape/idd/shape skills/shape/idd/skill "
           rc=0
           for cfg in $(find . -name throughline.toml -not -path '*/.git/*' | sort); do
             graph="${cfg#./}"; graph="${graph%/throughline.toml}"

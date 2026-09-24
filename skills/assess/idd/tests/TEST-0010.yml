@@ -1,6 +1,6 @@
 uid: TEST-0010
 type: test
-status: proposed
+status: ratified
 title: An older or missing tl is refused, naming the floor, before anything is measured
 text: 'tests/test_tl_floor.py, the tl-assess TEST-0010 cases: with a stand-in tl
   reporting 3.10.2 first on the path, the graph command on a graph root exits 2,
@@ -14,3 +14,15 @@ links:
 attrs:
   method: automated
   origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:964649e979f4c25bcf4257bd76bb165a9070227b16774d75229d91affd86bf9b
+  ratified_content:
+    type: test
+    text: 'tests/test_tl_floor.py, the tl-assess TEST-0010 cases: with a stand-in
+      tl reporting 3.10.2 first on the path, the graph command on a graph root exits
+      2, names 3.11.0 and the upgrade command, and leaves the directory empty; with
+      no tl on the path it exits 2 naming the install; with a stand-in reporting
+      3.11.0 the floor does not refuse it.'
+    normative: true
+    derived: false
+    attrs: {}

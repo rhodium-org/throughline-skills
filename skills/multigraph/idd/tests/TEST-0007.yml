@@ -18,4 +18,15 @@ attrs:
   method: automated
   origin: ai
   ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:2664ad47cb84644da3bcc4d88b1f02929796ef2841dcd77852f901b5b7d1845b
+  ratified_fingerprint: sha256:65b0e264a17aebe68e0c237d6cf7309883cb4dabd064c7972cf7a09971e81a03
+  ratified_content:
+    type: test
+    text: 'tests/test_multigraph.py, test_gate_loop: runs the loop read out of the
+      skill text over a tree of three graphs where the consumer''s anchor item has
+      been tombstoned; confirms a check group ran for each of the three graphs, every
+      group ran tl, the exit status is non-zero, and the broken seam is reported.
+      The repository''s own check workflow is the live instance of the same loop
+      and runs this suite after it.'
+    normative: true
+    derived: false
+    attrs: {}

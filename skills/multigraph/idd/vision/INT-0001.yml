@@ -19,4 +19,19 @@ normative: true
 attrs:
   origin: ai
   ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:dc17cb1289502c7d788e660c1fd790cad6a3f60d53b5a7d22bf4c9217199472f
+  ratified_fingerprint: sha256:4bc8b5e234bb1a62ea2cab2c3fc87157ce22e915f5ac8105cfeaf7784ff3c451
+  ratified_content:
+    type: intent
+    text: 'Composition lets one throughline graph borrow from another; it never merges
+      them. Each graph in such a repository keeps its own model, its own UID space
+      and its own accountability record, and the commands that read, wire, ratify
+      and gate it must respect that boundary. This skill is the discipline for working
+      in such a repository: how the tool is made present, how each graph is oriented
+      in, that one command drives every graph, how siblings are wired to each other
+      and to external standards, where a ratification is written, how every graph
+      is gated, which failures belong to the environment rather than to a graph,
+      which release the skill relies on, that structure changes only through the
+      CLI, and how a new graph is added.'
+    normative: true
+    derived: false
+    attrs: {}

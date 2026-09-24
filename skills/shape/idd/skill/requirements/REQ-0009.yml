@@ -1,6 +1,6 @@
 uid: REQ-0009
 type: requirement
-status: proposed
+status: ratified
 title: The script drives both graphs with tl from the release that composes and refuses
   an older one
 text: Every call the script makes goes to tl, which from throughline 3.11.0 composes
@@ -17,3 +17,15 @@ links:
 attrs:
   priority: must
   origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:c2edff015806c15e7c548a14d1e15a02a2bc0608d9940b258da1c5ab36752531
+  ratified_content:
+    type: requirement
+    text: Every call the script makes goes to tl, which from throughline 3.11.0 composes
+      the pointer from idd/shape/ to the second graph itself. Before its first call
+      the script reads tl --version and, when tl is missing or older than 3.11.0,
+      exits 2 naming the floor and the upgrade command and writes nothing.
+    normative: true
+    derived: false
+    attrs:
+      priority: must

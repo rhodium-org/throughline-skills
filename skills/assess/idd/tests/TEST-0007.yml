@@ -17,4 +17,17 @@ attrs:
   origin: ai
   method: automated
   ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:37fb072b2cc102f918c276520eb2debca35a5ea58cd311a655664ddef30cd098
+  ratified_fingerprint: sha256:eaacde118d2efa0c8419858c58973702936bcaaa2a75816677d828eb7daf1362
+  ratified_content:
+    type: test
+    text: In a throwaway repository with a graph that composes one source, run the
+      provenance command and assert the head commit equals git's, the clean flag
+      follows the working tree, the source appears under its namespace with its URL
+      and pin and the record's table prints it so, the tools reported are exactly
+      tl and tl-ratify, each with the string its --version prints or as absent, the
+      plugin version equals the manifest's, the script path and the Python version
+      are present; assert the record carries the same block and the Markdown table
+      shows the tool rows.
+    normative: true
+    derived: false
+    attrs: {}

@@ -17,4 +17,15 @@ attrs:
   origin: ai
   method: automated
   ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:1691c476d4fec8e502e80b98a81e2d85477b2d51cd2f33c8f0beb3c7b6801cf5
+  ratified_fingerprint: sha256:f7759bc6dcafcfd288d917db5ff788845c5c8e6bfbdc0d5ab966a325aa4ded6e
+  ratified_content:
+    type: test
+    text: In a Python interpreter with no third-party packages, run the script on
+      a saved dump and confirm it runs. Run it on a graph root with tl from throughline
+      3.11.0 or later on the path and confirm it runs the tool itself. For each challenger
+      requirement that this skill's REQ-0001 implements, confirm the script has a
+      command whose output is that requirement's finding; the fixtures and expected
+      findings are the ones the challenger's own tests describe.
+    normative: true
+    derived: false
+    attrs: {}

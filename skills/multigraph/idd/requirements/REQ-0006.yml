@@ -25,4 +25,20 @@ attrs:
   priority: must
   origin: ai
   ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:e95a5b4dac396c35da8eb39750e7ca5c7ebece13dc721b497bc17dcd7c9d21dc
+  ratified_fingerprint: sha256:5a6a39e8eb895e75299ae9187cbafdd6383cfc57a1f77f6bf4f761730c607994
+  ratified_content:
+    type: requirement
+    text: 'A namespace-qualified UID is never the item a writing command acts on:
+      a source is read-only and composition widens the view, not the authority, so
+      a borrowed item is never edited, restatused or ratified from a consumer. It
+      appears in a write only as the target of a link, as when an item is grounded
+      against it at creation. To ratify a local item whose grounding chain reaches
+      a root only through a sibling, the skill runs tl ratify in the owning graph,
+      which judges grounding over the union, so the item is not refused as ungrounded.
+      One commit may carry ratifications in several graphs, one ratify call per graph.
+      The ratifying name is asked for and used exactly; it is never invented, guessed
+      or reused.'
+    normative: true
+    derived: false
+    attrs:
+      priority: must

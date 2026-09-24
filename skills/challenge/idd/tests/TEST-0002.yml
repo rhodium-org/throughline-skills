@@ -18,4 +18,16 @@ attrs:
   origin: ai
   method: document
   ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:b228c8a8c22e3b75f44d2bf081762366d90f235786b15574aee13018931254e9
+  ratified_fingerprint: sha256:cefad32a83f120a900bec161cfc83aa5826b1f06a629a077978911abf487bc93
+  ratified_content:
+    type: test
+    text: Run siblings on an item with three parents of different link types and
+      confirm each parent, its text, and every other child under it appear. Read
+      the skill and confirm it puts the strength, naming and rationale questions
+      and the collision sweep in terms a reader can apply without the tool. Read
+      the skill's Part B and confirm it puts the moved-target question with both
+      editions of the target beside each other, and refreshes a stamp by running
+      link --stamp again on the same pair, which restamps the existing link in place.
+    normative: true
+    derived: false
+    attrs: {}

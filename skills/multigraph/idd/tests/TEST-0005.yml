@@ -23,4 +23,19 @@ attrs:
   method: automated
   origin: ai
   ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:bb55de3c8c3a951390eafc327618d5693ea8fbe2ee7904e80dfaad12527526cb
+  ratified_fingerprint: sha256:046b9849fa1c641fe66b26f2970786d8bb767d7c66d6b011e8c2d5640898532e
+  ratified_content:
+    type: test
+    text: 'tests/test_multigraph.py: test_transitive_namespace builds an external
+      graph, an anchor that implements one of its items by path, and a consumer wired
+      to the anchor only; confirms tl check in the consumer composes the external
+      graph via the anchor and passes, that the consumer can ground items on the
+      anchor and on the external item directly, that declaring the external source
+      as well still passes, and that the consumer''s config is its own init output
+      plus sources blocks and nothing copied. test_alias_renames_a_transitive_label
+      confirms an alias on the anchor''s block binds the external graph under the
+      new label and the old label no longer resolves. test_reexport_is_refused confirms
+      a reexport key on the consumer''s block makes check exit 2 naming it withdrawn.'
+    normative: true
+    derived: false
+    attrs: {}

@@ -20,4 +20,16 @@ attrs:
   method: automated
   origin: ai
   ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:683169ebbdbf4841212173aeef495f76aa95863027440f016c5496bfb0353103
+  ratified_fingerprint: sha256:7132be8c3feaaf34df1021e0062387f710d3d87380ef6af3d5700a6a421c083e
+  ratified_content:
+    type: test
+    text: 'tests/test_multigraph.py, test_tl_sees_the_seam: builds an anchor graph
+      and a consumer wired to it by path with one item grounded on the anchor root;
+      confirms tl check in the consumer composes the anchor and passes, then tombstones
+      the anchor item and confirms tl check fails with deleted-link-target naming
+      anchor:INT-0001. test_skill_names_one_command reads every shell fence out of
+      the skill text and confirms each throughline command in them is tl and none
+      is chosen by what a graph''s config declares.'
+    normative: true
+    derived: false
+    attrs: {}

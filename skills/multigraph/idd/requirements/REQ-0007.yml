@@ -17,4 +17,14 @@ attrs:
   priority: must
   origin: ai
   ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:26b9ab74a56490a30866d7f55ad076ca73d8ff4fe708eca0fbfb2c88002848f0
+  ratified_fingerprint: sha256:90852af829d256ae92ef7bb23c3d677ca307da01c31a83fb8a8c27b039b78c9f
+  ratified_content:
+    type: requirement
+    text: There is no whole-repository check. The skill loops over every graph, runs
+      tl check in each, and exits non-zero if any graph failed while still running
+      the rest. Whether a graph takes --strict is read from the repository's own
+      CI workflow, not assumed.
+    normative: true
+    derived: false
+    attrs:
+      priority: must

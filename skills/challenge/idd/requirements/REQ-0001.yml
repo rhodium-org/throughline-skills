@@ -42,4 +42,17 @@ attrs:
   priority: must
   origin: ai
   ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:693bdfd8971882d58eb665fecf79fabb81b40d4fa586ebf4f8b8e3f953457452
+  ratified_fingerprint: sha256:a8fb401176b27547876d508c960b6ddcb379310b6b09b3ba002ce0fd37c45777
+  ratified_content:
+    type: requirement
+    text: The skill ships a script that reads the JSON that tl dump emits and performs
+      every challenger requirement that needs no judgement. It depends on nothing
+      beyond the Python standard library, so it runs in a Claude sandbox where nothing
+      can be installed on the user's machine. Given a graph root it runs the tool
+      itself; given a saved dump it reads that. Which checks it performs, and what
+      each reports, is specified by the challenger requirements this item implements
+      and is not restated here.
+    normative: true
+    derived: false
+    attrs:
+      priority: must
