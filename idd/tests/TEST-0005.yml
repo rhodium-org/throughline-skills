@@ -1,5 +1,5 @@
 uid: TEST-0005
-type: requirement
+type: test
 status: proposed
 title: The install section names one route and the remove command
 text: Fetch the page and pass if its install section says to use one route, contains
