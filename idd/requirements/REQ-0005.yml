@@ -1,6 +1,6 @@
 uid: REQ-0005
 type: requirement
-status: proposed
+status: ratified
 title: The page says the two install routes are alternatives and how to switch
 text: The install section says that the hosted and GitHub routes register the same
   marketplace name, so a reader runs one of them, not both. It gives the command
@@ -14,3 +14,16 @@ links:
 attrs:
   priority: should
   origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:18eee1c50190050a3ac6eb3b9b37bc8bc7bff32b2ff1626cf172c9a487ee819f
+  ratified_content:
+    type: requirement
+    text: The install section says that the hosted and GitHub routes register the
+      same marketplace name, so a reader runs one of them, not both. It gives the
+      command that removes an existing registration before switching to the other
+      route, and quotes enough of Claude Code's refusal ("its network source differs")
+      for a reader who already ran both to recognise it.
+    normative: true
+    derived: false
+    attrs:
+      priority: should

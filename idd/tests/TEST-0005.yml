@@ -1,6 +1,6 @@
 uid: TEST-0005
 type: test
-status: proposed
+status: ratified
 title: The install section names one route and the remove command
 text: Fetch the page and pass if its install section says to use one route, contains
   /plugin marketplace remove throughline-skills, and contains the phrase network
@@ -12,3 +12,13 @@ links:
 attrs:
   method: automated
   origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:2ee2518611f44fa38b7f2728d504013ef1d180567ee19f631c7805111a4b1b5b
+  ratified_content:
+    type: test
+    text: Fetch the page and pass if its install section says to use one route, contains
+      /plugin marketplace remove throughline-skills, and contains the phrase network
+      source differs.
+    normative: true
+    derived: false
+    attrs: {}
