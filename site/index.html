@@ -161,6 +161,10 @@ footer{border-top:1px solid var(--hairline); padding-top:1.25rem}
   In the browser you can also use <b>Manage plugins → Marketplaces → Add
   marketplace</b> and paste either source. To pick up a new version:
   <code>/plugin marketplace update throughline-skills</code>.</p>
+  <p>Pick one route, not both: they register the same name. Adding the second
+  is refused with “its network source differs from the one declared for it
+  in settings”. To switch routes, remove the first, then add the other:
+  <code>/plugin marketplace remove throughline-skills</code>.</p>
 </section>
 
 <section aria-labelledby="whats-in-it">

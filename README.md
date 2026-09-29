@@ -38,6 +38,14 @@ Two routes — both work in the terminal and at [claude.ai/code](https://claude.
 /plugin install tl@throughline-skills
 ```
 
+Pick one of the two, not both: they register the same marketplace name, and
+adding the second is refused with *"its network source differs from the one
+declared for it in settings"*. To switch, remove the first, then add the other:
+
+```
+/plugin marketplace remove throughline-skills
+```
+
 In the browser you can also do it without typing commands: **Manage plugins →
 Marketplaces → Add marketplace**, paste either source above, then install.
 
