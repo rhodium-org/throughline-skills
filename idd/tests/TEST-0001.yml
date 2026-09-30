@@ -18,3 +18,16 @@ attrs:
   origin: ai
   ratified_by: Henry Grech-Cini
   ratified_fingerprint: sha256:6fc9e49cae9cc0fff277db33b6a23de9c219b4f7c0dab41ea96578c0b0be2a6a
+  ratified_content:
+    type: test
+    text: Open the page at a 320 CSS pixel viewport and pass if nothing scrolls sideways
+      and every command is readable. Open it at a 1280 pixel viewport at 400 percent
+      zoom and pass if all content and links remain reachable. Apply line height
+      1.5, paragraph spacing 2, letter spacing 0.12 and word spacing 0.16 times the
+      font size and pass if nothing is clipped or overlaps. At a wide viewport pass
+      if the install commands and the skill entries sit side by side and the column
+      is centred.
+    normative: true
+    derived: false
+    attrs: {}
+  ratified_revision: 8c4a03ce33181b12522970373682375e3ea4b470

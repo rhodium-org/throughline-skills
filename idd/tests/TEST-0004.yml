@@ -15,3 +15,13 @@ attrs:
   origin: ai
   ratified_by: Henry Grech-Cini
   ratified_fingerprint: sha256:d60cf4ee31bf7f9c9f4e866533e92cbb3b208ab1d7d11e4580eafb33c84866b6
+  ratified_content:
+    type: test
+    text: Fetch the page and pass if the response carries no Set-Cookie header, the
+      body contains no script element, and every absolute URL it references is either
+      its own origin, github.com or claude.ai in link text, or one of the two font
+      origins. Pass if the host's content security policy would refuse anything else.
+    normative: true
+    derived: false
+    attrs: {}
+  ratified_revision: 8c4a03ce33181b12522970373682375e3ea4b470

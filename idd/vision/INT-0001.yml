@@ -13,3 +13,15 @@ attrs:
   origin: ai
   ratified_by: Henry Grech-Cini
   ratified_fingerprint: sha256:11375d11b680431fc8755d243389006af07bad45bdde24135a28233ff7d85ad8
+  ratified_content:
+    type: intent
+    text: The marketplace has one public page, skills.iddn.uk. A practitioner who
+      may add a marketplace URL but may not install software reads it to learn what
+      the skills do, copies the two commands, and is done. The page is part of the
+      iddn.uk estate and looks like it. It is usable by keyboard, by screen reader,
+      at high zoom and on a phone, because the people it is for include those who
+      work that way.
+    normative: true
+    derived: false
+    attrs: {}
+  ratified_revision: 8c4a03ce33181b12522970373682375e3ea4b470

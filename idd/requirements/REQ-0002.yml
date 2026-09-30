@@ -25,3 +25,18 @@ attrs:
   origin: ai
   ratified_by: Henry Grech-Cini
   ratified_fingerprint: sha256:5b6447e9b12b3847ff8cd54ddaf01f99ec31efb2fb21b3f311ccae843a6da364
+  ratified_content:
+    type: requirement
+    text: 'Colours resolve through the same tokens the iddn.uk splash declares, in
+      both the dark and the light palette, chosen by the visitor''s system preference.
+      Every text colour clears 4.5 to 1 on every surface it is painted on, page ground
+      and raised panel alike, and every control boundary clears 3 to 1. The ratios
+      are measured and recorded beside each token, not assumed. Type is the estate''s:
+      Archivo for headings, Source Serif 4 for prose, JetBrains Mono for commands
+      and identifiers, each with a system fallback so the page reads before the fonts
+      arrive or if they never do.'
+    normative: true
+    derived: false
+    attrs:
+      priority: must
+  ratified_revision: 8c4a03ce33181b12522970373682375e3ea4b470

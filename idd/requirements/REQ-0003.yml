@@ -32,3 +32,15 @@ attrs:
   origin: ai
   ratified_by: Henry Grech-Cini
   ratified_fingerprint: sha256:027a084f9b7f5e7489e74113d64252f6d35589b025932bf395e4da04f187a5a1
+  ratified_content:
+    type: requirement
+    text: Each link and control shows a visible focus ring when reached by keyboard.
+      Standalone links are at least 24 CSS pixels tall; links inside a sentence rely
+      on the sentence for their size. The page has a title that says what it is,
+      its language is declared as British English, and every heading describes the
+      section under it. There is one main landmark and one footer.
+    normative: true
+    derived: false
+    attrs:
+      priority: must
+  ratified_revision: 8c4a03ce33181b12522970373682375e3ea4b470

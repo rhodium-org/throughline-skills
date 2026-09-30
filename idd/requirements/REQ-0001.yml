@@ -27,3 +27,17 @@ attrs:
   origin: ai
   ratified_by: Henry Grech-Cini
   ratified_fingerprint: sha256:ed135fe0f33074ae2648ab81ba02fd9b28adb87cbb997dd1e53df77dbd783558
+  ratified_content:
+    type: requirement
+    text: 'The content sits in a centred column no wider than 72rem, with prose no
+      longer than about 70 characters a line, and uses the width it has: the install
+      commands and the skill entries sit side by side when the viewport allows and
+      stack when it does not. Nothing scrolls sideways at a viewport 320 CSS pixels
+      wide, and nothing is lost at 400 percent zoom or with text at 200 percent.
+      Commands wrap rather than clip. Line height is at least 1.5 and the layout
+      survives the text-spacing overrides WCAG names.'
+    normative: true
+    derived: false
+    attrs:
+      priority: must
+  ratified_revision: 8c4a03ce33181b12522970373682375e3ea4b470
