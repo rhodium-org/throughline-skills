@@ -114,3 +114,15 @@ def test_a_deleted_test_no_longer_verifies(graph):
     run("tl", "-C", str(graph), "delete", "TEST-0003", "--reason", "fixture")
     assert branch_line(verification(graph, "requirement"), "REQ-0002") == (
         "members=1 tests: none  untested: REQ-0002  <- NO AUTOMATED CHECK")
+
+
+def test_script_starts_without_sigpipe():
+    """tl-challenge REQ-0009 / TEST-0009: Windows has no signal.SIGPIPE."""
+    code = ("import runpy, signal, sys\n"
+            f"sys.path.insert(0, {str(SCRIPT.parent)!r})\n"
+            "del signal.SIGPIPE\n"
+            f"sys.argv = [{str(SCRIPT)!r}, '--help']\n"
+            f"runpy.run_path({str(SCRIPT)!r}, run_name='__main__')\n")
+    r = subprocess.run([sys.executable, "-c", code], text=True, capture_output=True)
+    assert "SIGPIPE" not in r.stderr, r.stderr
+    assert r.returncode == 0, r.stderr

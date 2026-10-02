@@ -401,5 +401,6 @@ def main(argv=None) -> int:
 
 
 if __name__ == "__main__":
-    signal.signal(signal.SIGPIPE, signal.SIG_DFL)
+    if hasattr(signal, "SIGPIPE"):  # POSIX only; Windows has no SIGPIPE
+        signal.signal(signal.SIGPIPE, signal.SIG_DFL)
     sys.exit(main())

@@ -1,0 +1,14 @@
+uid: TEST-0009
+type: test
+status: proposed
+title: The script runs with signal.SIGPIPE absent
+text: 'tests/test_challenge.py, test_script_starts_without_sigpipe: runs the script
+  as __main__ with signal.SIGPIPE deleted and --help, and confirms it exits 0 with
+  no AttributeError.'
+normative: true
+links:
+- target: REQ-0009
+  type: verifies
+attrs:
+  method: automated
+  origin: ai
