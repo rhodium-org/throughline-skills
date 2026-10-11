@@ -97,7 +97,7 @@ def die(msg: str, code: int = 2) -> None:
     sys.exit(code)
 
 
-# tl: implements skill/REQ-0009
+# tl: implements skill/REQ-0009@e43dcbfe112b
 def run(graph: Path, *args: str, quiet: bool = False) -> subprocess.CompletedProcess:
     cmd = [require_tl(), "-C", str(graph), *args]
     proc = subprocess.run(cmd, capture_output=True, text=True)
@@ -143,7 +143,7 @@ def declare_root(graph: Path, item_type: str, role: str, why: str) -> None:
             "--because", BECAUSE + why)
 
 
-# tl: implements skill/REQ-0003
+# tl: implements skill/REQ-0003@0f49b897c80f
 def shaped_name(shape: Path) -> str | None:
     """The name decision recorded in the shape graph, if one is live."""
     names = [i for i in local_items(shape)
@@ -174,7 +174,7 @@ def in_progress(repo: Path) -> list[Path]:
     return [d for d in shapings(repo) if IN_PROGRESS_RE.match(d.name)]
 
 
-# tl: implements skill/REQ-0010
+# tl: implements skill/REQ-0010@d46c90a84b98
 def resolve(repo: Path, a, required: bool = True) -> Path | None:
     """The shaping a command acts on: the one named, else the one in progress,
     else the only one there is (REQ-0010)."""
@@ -199,7 +199,7 @@ def resolve(repo: Path, a, required: bool = True) -> Path | None:
         + ", ".join(d.name for d in (going or found)))
 
 
-# tl: implements skill/REQ-0002
+# tl: implements skill/REQ-0002@1da7cc6bf70c
 def free_in_progress_name(repo: Path) -> str:
     n = 1
     while True:
@@ -209,7 +209,7 @@ def free_in_progress_name(repo: Path) -> str:
         n += 1
 
 
-# tl: implements skill/REQ-0002
+# tl: implements skill/REQ-0002@1da7cc6bf70c
 def name_shaping(repo: Path, shape: Path, name: str) -> Path:
     """Rename a written shaping after the graph it produced: the directory after
     the graph's directory, the project after the graph's project, so two shape
@@ -231,7 +231,7 @@ def name_shaping(repo: Path, shape: Path, name: str) -> Path:
 
 # ---------------------------------------------------------------- commands
 
-# tl: implements skill/REQ-0001, skill/REQ-0002, skill/REQ-0008
+# tl: implements skill/REQ-0001@7f04bbb468ac, skill/REQ-0002@1da7cc6bf70c, skill/REQ-0008@f949d8dcb4c7
 def cmd_init(repo: Path, a) -> None:
     if (repo / IDD / "throughline.toml").exists():
         die(f"{repo / IDD} is itself a graph root; the shape layout needs "
@@ -323,7 +323,7 @@ def cmd_status(repo: Path, a) -> None:
         print("shaped graph: not yet named (no live name decision)")
 
 
-# tl: implements skill/REQ-0005
+# tl: implements skill/REQ-0005@2733b556d7a4
 def cmd_new(repo: Path, a) -> None:
     graph = repo / IDD / a.graph if a.graph else resolve(repo, a)
     if not (graph / "throughline.toml").exists():
@@ -356,7 +356,7 @@ def cmd_new(repo: Path, a) -> None:
     print(uid)
 
 
-# tl: implements skill/REQ-0001, skill/REQ-0002, skill/REQ-0003, skill/REQ-0004
+# tl: implements skill/REQ-0001@7f04bbb468ac, skill/REQ-0002@1da7cc6bf70c, skill/REQ-0003@0f49b897c80f, skill/REQ-0004@a8eb459a52e8
 def cmd_write(repo: Path, a) -> None:
     shape = resolve(repo, a)
     name = shaped_name(shape)
@@ -435,7 +435,7 @@ def cmd_write(repo: Path, a) -> None:
           "empty-registers as a warning until its first layer is authored")
 
 
-# tl: implements skill/REQ-0007
+# tl: implements skill/REQ-0007@14bac9f5d8ac
 def cmd_check(repo: Path, a) -> None:
     shape = resolve(repo, a)
     graphs = [shape]
