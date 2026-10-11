@@ -25,7 +25,7 @@ def refuse(msg: str) -> None:
     sys.exit(2)
 
 
-# tl: implements tl-assess/REQ-0009@2a17db5c5743, tl-challenge/REQ-0008, skill/REQ-0009@e43dcbfe112b, tl-reconcile/REQ-0011@2a93748c2549
+# tl: implements tl-assess/REQ-0009@2a17db5c5743, tl-challenge/REQ-0008@0a8cc6e25509, skill/REQ-0009@e43dcbfe112b, tl-reconcile/REQ-0011@2a93748c2549
 @functools.cache
 def require_tl() -> str:
     """`tl`, once it is on PATH at MINIMUM or later; otherwise exit 2 saying why."""
