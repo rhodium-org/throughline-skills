@@ -19,14 +19,16 @@ attrs:
   method: automated
   origin: ai
   ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:83f40da66d720d5933d377309df899c1e4e5ed2b49f05b71eda82432733b3e16
+  ratified_fingerprint: sha256:965dd8a603d3ade8f8c3870b5d5acb48414106ba07992aeba704db2063e0aa48
   ratified_content:
     type: test
     text: Build a throwaway repository with one graph and files citing in each comment
-      opener, one with several references, one borrowed reference, one stamped and
-      one with a seven-digit stamp. Pass if every valid citation is read with its
-      link type, references and stamp, and the seven-digit stamp and a marker line
-      with no link type are reported malformed. Add a second graph and pass if the
+      opener, one with several references, one borrowed reference, one stamped, one
+      with no space after the marker, and one with a seven-digit stamp. Pass if every
+      valid citation is read with its link type, references and stamp, and the seven-digit
+      stamp and a marker line with nothing after the marker are reported malformed,
+      while a line of tl's own output and a marker followed by a word no graph uses
+      as a link type are not citations at all. Add a second graph and pass if the
       unqualified citations are now reported and qualified ones resolve. The fixture
       is tests/test_reconcile.py.
     normative: false

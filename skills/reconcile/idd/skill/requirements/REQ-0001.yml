@@ -33,20 +33,23 @@ attrs:
   priority: must
   origin: ai
   ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:db27c8ecd771f766dbce819dc961df01cd426e1093ff4638cf6b7d1fc50c3912
+  ratified_fingerprint: sha256:efdaeb927f642d2e1d23fadd5014817a4a010729ddfba17a3e5c9c3bd2074c8d
   ratified_content:
     type: requirement
     text: 'A citation is a line whose content, after leading whitespace and at most
       one comment opener (#, //, --, ;, %, /*, * or <!--), begins with the marker
-      tl: followed by a link type from the graph''s link vocabulary and one or more
-      comma-separated item references. A reference is a UID as tl names it, a borrowed
-      item keeping its namespace (spec:SR-0032). In a repository holding more than
-      one throughline graph it is preceded by the project name of the graph it belongs
-      to and a slash (billing/REQ-0042); in a repository holding one, the qualifier
-      is optional. A reference may end in @ and a stamp: at least eight leading hex
-      digits of the item''s fingerprint, the SHA-256 that tl ratify and tl link --stamp
-      record over its normative content. A line opening with the marker that does
-      not parse is a malformed citation, reported, never skipped.'
+      tl:, then optional whitespace, a link type from the graph''s link vocabulary
+      and one or more comma-separated item references. A reference is a UID as tl
+      names it, a borrowed item keeping its namespace (spec:SR-0032). In a repository
+      holding more than one throughline graph it is preceded by the project name
+      of the graph it belongs to and a slash (billing/REQ-0042); in a repository
+      holding one, the qualifier is optional. A reference may end in @ and a stamp:
+      at least eight leading hex digits of the item''s fingerprint, the SHA-256 that
+      tl ratify and tl link --stamp record over its normative content. A marker line
+      whose first word is a link type in some graph of the repository and that does
+      not then parse, or with nothing after the marker, is a malformed citation,
+      reported, never skipped. A marker line whose first word is no graph''s link
+      type is not a citation: tl''s own output opens with the same marker.'
     normative: true
     derived: false
     attrs:

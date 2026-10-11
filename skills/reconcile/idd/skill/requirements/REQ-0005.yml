@@ -19,15 +19,16 @@ attrs:
   priority: must
   origin: ai
   ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:a8415d543fa9ebfd14c0de8e8275d990a8f7a608230cc1cf58c378f9f14a05f1
+  ratified_fingerprint: sha256:31cf438bda2165ec2a0094437e438eab6c5a31d9874e103304a7bdaa8e6a9a97
   ratified_content:
     type: requirement
-    text: An item at implemented or verified (by default; others by option) that
-      no implements or satisfies citation names is reported as claimed but absent.
-      An implements or satisfies citation naming an item at the graph's initial or
-      proposed status, or at deferred, is reported as code doing work nobody has
-      accepted; one naming an item at the graph's suspect status is reported as code
-      resting on an item under question.
+    text: A live local item other than a test at implemented or verified (by default;
+      others by option) that no implements or satisfies citation names is reported
+      as claimed but absent; a test is verified by being run, not built, and its
+      own check is not-wired. An implements or satisfies citation naming an item
+      at the graph's initial or proposed status, or at deferred, is reported as code
+      doing work nobody has accepted; one naming an item at the graph's suspect status
+      is reported as code resting on an item under question.
     normative: true
     derived: false
     attrs:

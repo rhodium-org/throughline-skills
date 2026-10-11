@@ -17,15 +17,16 @@ attrs:
   method: automated
   origin: ai
   ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:6bb8dfe77b9ab8efecbae15718e1e8c98a81ac4053f1f597f6b8d30ec4f1dd5a
+  ratified_fingerprint: sha256:f16df4bef57d4e09c1d63e1aaf917f228e8b9ee7cc3cfa4a3699694efd8914c0
   ratified_content:
     type: test
     text: In a throwaway repository, cite a UID from a tracked file, an untracked
-      file, a file under a graph root and a file matched by an exclude pattern. Pass
-      if only the tracked, unexcluded citation is read and the report's file and
-      citation counts match. In a second repository whose root is the graph, cite
-      from a source file and from a file in a register directory, and pass if only
-      the source file is read. The fixture is tests/test_reconcile.py.
+      file, a file under a graph root, a file matched by an exclude pattern and a
+      file matched by a pattern in .reconcileignore. Pass if only the tracked, unexcluded,
+      unignored citation is read and the report's file and citation counts match.
+      In a second repository whose root is the graph, cite from a source file and
+      from a file in a register directory, and pass if only the source file is read.
+      The fixture is tests/test_reconcile.py.
     normative: false
     derived: false
     attrs: {}
