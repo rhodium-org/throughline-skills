@@ -37,7 +37,7 @@ def run(script, args, root, path):
     return subprocess.run(argv, cwd=root, env=env, text=True, capture_output=True)
 
 
-# tl: verifies tl-assess/TEST-0010, tl-challenge/TEST-0008, skill/TEST-0009@fc336132e98c, tl-reconcile/TEST-0011@ebdf614d4ad1
+# tl: verifies tl-assess/TEST-0010@964649e979f4, tl-challenge/TEST-0008, skill/TEST-0009@fc336132e98c, tl-reconcile/TEST-0011@ebdf614d4ad1
 @pytest.mark.parametrize("item", COMMANDS)
 def test_an_older_tl_is_refused_naming_the_floor(item, tmp_path):
     script, args = COMMANDS[item]
@@ -51,7 +51,7 @@ def test_an_older_tl_is_refused_naming_the_floor(item, tmp_path):
     assert list(root.iterdir()) == []            # refused before anything was written
 
 
-# tl: verifies tl-assess/TEST-0010, tl-challenge/TEST-0008, skill/TEST-0009@fc336132e98c, tl-reconcile/TEST-0011@ebdf614d4ad1
+# tl: verifies tl-assess/TEST-0010@964649e979f4, tl-challenge/TEST-0008, skill/TEST-0009@fc336132e98c, tl-reconcile/TEST-0011@ebdf614d4ad1
 @pytest.mark.parametrize("item", COMMANDS)
 def test_no_tl_is_refused_naming_the_install(item, tmp_path):
     script, args = COMMANDS[item]
@@ -63,7 +63,7 @@ def test_no_tl_is_refused_naming_the_install(item, tmp_path):
     assert "tl is not on PATH" in r.stderr and "throughline>=3.11.0" in r.stderr
 
 
-# tl: verifies tl-assess/TEST-0010, tl-challenge/TEST-0008, skill/TEST-0009@fc336132e98c, tl-reconcile/TEST-0011@ebdf614d4ad1
+# tl: verifies tl-assess/TEST-0010@964649e979f4, tl-challenge/TEST-0008, skill/TEST-0009@fc336132e98c, tl-reconcile/TEST-0011@ebdf614d4ad1
 @pytest.mark.parametrize("item", COMMANDS)
 def test_the_floor_itself_is_accepted(item, tmp_path):
     script, args = COMMANDS[item]
