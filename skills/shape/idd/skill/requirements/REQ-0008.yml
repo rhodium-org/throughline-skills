@@ -1,12 +1,14 @@
 uid: REQ-0008
 type: requirement
 status: ratified
-title: Re-running on a shaped repo re-confirms the prior reasoning, never overwrites
-  it
-text: On a repo that already has idd/shape/, the skill reads the prior reasoning
-  back and puts it to the person stage by stage, amending, adding or rejecting items;
-  it never starts from a blank sheet, never overwrites, and never renames the second
-  graph.
+title: Re-running on a shaped repo re-confirms the prior reasoning, and a new shaping
+  beside it is started only on purpose
+text: On a repo that already holds a shape graph, the skill reads the prior reasoning
+  back and, for the work that graph shaped, puts it to the person stage by stage,
+  amending, adding or rejecting items; it never starts that work from a blank sheet,
+  never overwrites, and never renames the second graph. A shaping for other work
+  in the same repository is started beside the existing ones only when asked for
+  explicitly.
 normative: true
 links:
 - target: INT-0001

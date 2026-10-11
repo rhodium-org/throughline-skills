@@ -1,12 +1,17 @@
 uid: TEST-0002
 type: test
 status: ratified
-title: init lays idd/shape/ down under that name and refuses a repo whose idd/ is
-  a graph
-text: 'tests/test_shape.py, test_shape_graph_is_always_at_that_name: runs the init
+title: init lays a shaping down as shape, numbers a second, and write names it after
+  its graph
+text: 'tests/test_shape.py, test_shape_graph_is_named_for_its_graph: runs the init
   shell read out of SKILL.md and asserts idd/ holds only shape/, a project named
-  shape, and the six registers; then runs tl init in a second repo''s idd/ and asserts
-  the script''s init refuses it, names the reason, and writes nothing.'
+  shape, and the six registers; asserts init --another lays a second shaping down
+  at shape-2/; after discovery and write on the first, asserts idd/ holds estate/
+  and estate-shape/ with a project named estate-shape and the pointer still resolving,
+  and no shape/; asserts that write on a shaping written before the rename existed
+  only renames it, naming its project after the graph''s project where that differs
+  from the directory; then runs tl init in a second repo''s idd/ and asserts the
+  script''s init refuses it, names the reason, and writes nothing.'
 normative: true
 links:
 - target: REQ-0002

@@ -1,10 +1,20 @@
 uid: REQ-0002
 type: requirement
 status: ratified
-title: idd/shape/ is always created, with exactly that name
-text: The reasoning graph is created at idd/shape/ every time, with that name and
-  no other, holding sources, domain reading, needs, decisions, rejected registers
-  and inherited standards.
+title: Each shaping's reasoning graph is laid down as shape while in progress and
+  named after its graph once written
+text: Each shaping's reasoning graph is created at idd/shape/, or at the first free
+  idd/shape-2/, idd/shape-3/ and onward when shaping in progress holds that name,
+  and holds sources, domain reading, needs, decisions, rejected registers and inherited
+  standards. When the second graph is written, the reasoning graph's directory becomes
+  the second graph's directory name followed by -shape, and its project name the
+  second graph's project name followed by -shape, so a repository shaped for several
+  graphs holds one reasoning graph beside each, named for the graph it produced.
+rationale: 'Seen on 11 October 2026: shaping is used for more than one graph in a
+  repository, and a fixed idd/shape/ holds only one. The name changes at write, not
+  at the name decision, because until the second graph exists the name decision can
+  still be amended. Rejected: shape-<name>, which would sort the reasoning graphs
+  together but apart from the graphs they explain.'
 normative: true
 links:
 - target: INT-0001

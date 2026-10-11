@@ -1,0 +1,19 @@
+uid: REQ-0010
+type: requirement
+status: proposed
+title: With more than one shaping in a repository, each command acts on the one it
+  is given
+text: A command that reads or writes a shape graph acts on the shaping it is given
+  by name. Given none, it acts on the one shaping in progress, or on the one shaping
+  the repository holds; where that leaves more than one, it exits 2 listing them
+  and writes nothing. Status given none lists every shaping the repository holds,
+  with its second graph and whether that is written.
+rationale: 'Follows from more than one shaping per repository: a command guessing
+  among them would write into the wrong reasoning.'
+normative: true
+links:
+- target: INT-0001
+  type: derives_from
+attrs:
+  priority: must
+  origin: ai

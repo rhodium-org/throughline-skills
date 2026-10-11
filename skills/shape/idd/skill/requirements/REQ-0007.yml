@@ -2,7 +2,7 @@ uid: REQ-0007
 type: requirement
 status: ratified
 title: The skill hands back on zero errors in both graphs
-text: The skill hands back only when both idd/shape/ and the second graph report
+text: The skill hands back only when the shape graph and the second graph both report
   zero errors under tl check. The second graph holds registers and no items at that
   point; throughline from 2.3.0 reports that as the warning empty-registers, and
   the skill does not author an item to silence it. --strict is the gate after a human

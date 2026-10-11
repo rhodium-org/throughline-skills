@@ -1,6 +1,6 @@
 ---
 name: shape
-description: Initialise a throughline IDD graph for a new piece of work by a structured discovery conversation instead of the fixed register set `tl init` lays down. Use whenever someone wants to "initialise a throughline", "set up IDD", "start a new graph", "shape the registers", "work out which registers we need", or "run tl init" for work that has no graph yet — and when a repo already has `idd/shape/` and the work has moved, to re-confirm the reasoning. Reads the sources, states the domain, writes down what the work needs from its graph, and only then proposes registers, each with a rationale and each rejection recorded; the reasoning lives in `idd/shape/` and the work's own graph in `idd/<name>/`, named during discovery. Everything it writes is AI-origin and `proposed`; a human ratifies. `tl init` is untouched and remains the command-line route.
+description: Initialise a throughline IDD graph for a new piece of work by a structured discovery conversation instead of the fixed register set `tl init` lays down. Use whenever someone wants to "initialise a throughline", "set up IDD", "start a new graph", "shape the registers", "work out which registers we need", or "run tl init" for work that has no graph yet — and when a repo already holds a shape graph (`idd/<name>-shape/`) and the work has moved, to re-confirm the reasoning, or needs another graph shaped beside it. Reads the sources, states the domain, writes down what the work needs from its graph, and only then proposes registers, each with a rationale and each rejection recorded; the reasoning lives in `idd/shape/` while in progress and in `idd/<name>-shape/` once the work's own graph is written to `idd/<name>/`, named during discovery. Everything it writes is AI-origin and `proposed`; a human ratifies. `tl init` is untouched and remains the command-line route.
 user-invocable: true
 ---
 
@@ -15,12 +15,18 @@ can. This skill is that conversation, and it records its own reasoning in a
 graph that sits beside the one it produces, so the register set is as
 ratifiable as anything in it.
 
-Two graphs, one repository, under `idd/`:
+Two graphs for each piece of work, under `idd/`:
 
 ```
-idd/shape/   the reasoning — fixed name, always this, owned by this skill
-idd/<name>/    the work itself — named during discovery; this skill only proposes into it
+idd/shape/          the reasoning while the shaping is in progress, owned by this skill
+idd/<name>/         the work itself — named during discovery; this skill only proposes into it
+idd/<name>-shape/   the reasoning once idd/<name>/ is written: write renames it
 ```
+
+A repository can hold several pieces of work shaped this way, each graph with
+its reasoning beside it, named for it. A second shaping still in progress
+while `idd/shape/` is taken is laid down at `idd/shape-2/`, then `shape-3/`.
+"The shape graph" below means whichever of these the shaping is in.
 
 Rules that hold throughout:
 
@@ -32,7 +38,7 @@ Rules that hold throughout:
   confirmed you will reproduce the same defaults `tl init` gives, which is the
   failure this skill exists to remove.
 - **A rejection is an item, not silence.** A register you considered and did
-  not create is a `non_goal` in `idd/shape/`, with its rationale, next to the ones
+  not create is a `non_goal` in the shape graph, with its rationale, next to the ones
   you did create. There is no decisions register; the graph is the decision log.
 - **Never hand-edit a `<UID>.yml` or `.register.yml`.** Every structural change
   goes through `tl`; the script wraps the calls that matter.
@@ -63,8 +69,14 @@ graph from the decisions, the check gate. The judgement below is yours.
 python3 "$S" -C <repo> status
 ```
 
-If `idd/shape/` exists, **do not start again.** Read the prior reasoning
-back — `tl -C idd/shape context`, then each register's items — and
+Status lists every shaping the repo holds: `shape/` or `shape-<n>/` in
+progress, `<name>-shape/` written. When more than one is there, every command
+takes `--shape <dir>` to say which; given none it acts on the one in progress,
+and refuses rather than guess between two.
+
+If a shaping exists for the work in front of you, **do not start again.** Read
+the prior reasoning back — `tl -C idd/<name>-shape context` (or `idd/shape` for
+one still in progress), then each register's items — and
 put it to the person stage by stage: *"Last time this was read as a
 data-migration project with these three needs; is that still true?"* Amend
 what changed with `tl amend` (a normative change marks dependants
@@ -76,15 +88,23 @@ from whichever stage below the change reaches.
 If the repo's `idd/` is itself a graph root (a `throughline.toml` directly in
 it), this layout cannot be used there; say so and stop. The script refuses too.
 
-If there is no `idd/shape/`:
+If the repo has no shaping yet:
 
 ```sh
 python3 "$S" -C <repo> init
 ```
 
+If it has, and the person confirms this is other work needing a graph of its
+own, start a shaping beside the existing ones; the script refuses to without
+`--another`, so that a re-run never starts again by accident:
+
+```sh
+python3 "$S" -C <repo> init --another
+```
+
 ## The discovery, in order
 
-Each stage produces items in `idd/shape/`. Confirm each stage with the
+Each stage produces items in the shape graph. Confirm each stage with the
 person before moving to the next; the confirmation is what makes the later
 items grounded in more than your own reading.
 
@@ -152,7 +172,7 @@ N=$(python3 "$S" new NEED --type need --title "Every control traces to a threat"
 
 **Inherited standards** arrive here. If the team has a standing rule — "every
 graph has requirements and tests", "always a risk register" — record it once
-as a `constraint` in `idd/shape/` and ground the register decisions it mandates in
+as a `constraint` in the shape graph and ground the register decisions it mandates in
 it rather than rediscovering them. A constraint is a delivery root: one that
 no decision follows from will fail the check, which is right.
 
@@ -208,7 +228,7 @@ reading that made it wrong:
 NG=$(python3 "$S" new NG --type non_goal --title "No risk register" \
   --text "Threats and controls already carry the risk picture; a third register would split it." \
   --rationale "Considered because tl init would have offered one.")
-tl -C idd/shape link "$NG" "$N" --type derives_from
+tl -C idd/shape link "$NG" "$N" --type derives_from    # the shape graph, in progress
 ```
 
 *Considered* includes the five `tl init` would have given: say, for each of
@@ -225,9 +245,14 @@ python3 "$S" -C <repo> write
 This creates `idd/<name>/` from `--bare`, declares each item type, root and
 `origin` attribute the decisions call for (every change carries a `--because`
 naming the decision), creates the registers, and records the pointer: a
-`path` source in `idd/shape/throughline.toml` naming the second graph. `tl`
-composes the second graph through that pointer, so `tl -C idd/shape context`
-shows the whole picture from here on.
+`path` source in the shape graph's `throughline.toml` naming the second graph.
+Then it renames the shape graph, directory and project, to `<name>-shape`, so
+the reasoning sits beside the graph it produced under that graph's name. The
+name changes here and not at the name decision because until the second graph
+exists the name can still be amended. `tl` composes the second graph through
+the pointer, so `tl -C idd/<name>-shape context` shows the whole picture from
+here on. On a shaping written before shape graphs were named this way, `write`
+only renames it.
 
 Gate both graphs:
 
@@ -238,16 +263,16 @@ python3 "$S" -C <repo> check
 Hand back on **zero errors in both graphs**. The second graph holds registers
 and no items yet, which throughline reports as the warning `empty-registers`,
 not an error; do not author an item to silence it. Other warnings will remain:
-every item in `idd/shape/` is AI-origin and unratified, and that is the point.
+every item in the shape graph is AI-origin and unratified, and that is the point.
 `--strict` is the gate *after* ratification; a graph the skill has only
 proposed into cannot pass it, and you must not make it pass by ratifying.
 
 Then stop and present, naming the absolute path and the command to run:
 
-> Shaped. `idd/shape/` holds N items across sources, domain, needs, decisions,
+> Shaped. `idd/<name>-shape/` holds N items across sources, domain, needs, decisions,
 > non-goals and constraints; `idd/<name>/` has these registers and no items yet.
 > Both report zero errors.
-> To ratify: `cd <absolute repo path> && tl -C idd/shape ratify` for
+> To ratify: `cd <absolute repo path> && tl -C idd/<name>-shape ratify` for
 > each of <UIDs>. I can go on to the first layer of items in `idd/<name>/`,
 > starting with its intent, if you want; I have stopped at registers.
 
@@ -278,6 +303,6 @@ dependants that disturbed.
 
 It does not change `tl init` or any `tl` command. It does not ratify. It does
 not rename or delete the second graph once written; adding a register to an
-existing second graph is a new decision in `idd/shape/` followed by
+existing second graph is a new decision in its shape graph followed by
 `tl register new` there by hand, and the script says so. It has no view on
 which model or editor does the second graph's work afterwards.

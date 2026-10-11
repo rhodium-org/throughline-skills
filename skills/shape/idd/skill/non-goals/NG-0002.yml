@@ -4,7 +4,7 @@ status: ratified
 title: No two-way sync between the two graphs
 text: The shape graph records what produced the second graph; it does not watch the
   second graph afterwards, and the second graph does not write back. A new register
-  later is a new decision in idd/shape/ followed by tl register new by hand.
+  later is a new decision in the shape graph followed by tl register new by hand.
 normative: true
 attrs:
   origin: ai

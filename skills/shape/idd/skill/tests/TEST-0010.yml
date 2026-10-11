@@ -1,0 +1,18 @@
+uid: TEST-0010
+type: test
+status: proposed
+title: A command given no shaping picks the one in progress or refuses, and status
+  lists them all
+text: 'tests/test_shape.py, test_commands_act_on_the_shaping_they_are_given: with
+  estate-shape written and shape-2 in progress, asserts new with no shaping named
+  writes into shape-2; with a second in-progress shaping beside it, asserts new,
+  write and check exit 2 naming both and change nothing, that --shape selects either,
+  and that status with none named lists estate-shape with estate written and both
+  in progress.'
+normative: true
+links:
+- target: REQ-0010
+  type: verifies
+attrs:
+  method: automated
+  origin: ai
