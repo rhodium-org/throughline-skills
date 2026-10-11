@@ -1,6 +1,6 @@
 uid: REQ-0009
 type: requirement
-status: ratified
+status: rejected
 title: Composition is trusted from the release floor, never worked around below it
 text: The skill states throughline 3.11.0 as its one floor and names no release threshold
   below it. From that release tl refetches a remote source whose tag or branch moved,

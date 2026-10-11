@@ -1,6 +1,6 @@
 uid: TEST-0009
 type: test
-status: ratified
+status: rejected
 title: The skill states one release floor and carries no workaround below it
 text: Read the skill text and confirm it states throughline 3.11.0 as the floor,
   tells the reader to read tl --version and upgrade an older release, names no release

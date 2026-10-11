@@ -1,6 +1,6 @@
 uid: TEST-0003
 type: test
-status: ratified
+status: rejected
 title: tl check passes a healthy seam and fails a broken one, and the skill names
   no second command
 text: 'tests/test_multigraph.py, test_tl_sees_the_seam: builds an anchor graph and

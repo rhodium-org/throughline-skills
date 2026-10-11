@@ -1,0 +1,28 @@
+uid: TEST-0012
+type: test
+status: ratified
+title: The skill points at tl context for composition and restates none of it
+text: 'tests/test_multigraph.py, test_skill_defers_composition_to_tl_context: confirms
+  the skill text tells the reader to run tl context in the graph about to be touched
+  and read its composition section, and that it carries none of that section''s mechanics:
+  no alias, no reexport, no source cache or offline variable, no --local, and no
+  account of transitive sources.'
+normative: true
+links:
+- target: REQ-0012
+  type: verifies
+attrs:
+  method: automated
+  origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:0c0604e5a23d21831a129c3a2b33db4ac683b9550e9e011599ab461a0585cb39
+  ratified_content:
+    type: test
+    text: 'tests/test_multigraph.py, test_skill_defers_composition_to_tl_context:
+      confirms the skill text tells the reader to run tl context in the graph about
+      to be touched and read its composition section, and that it carries none of
+      that section''s mechanics: no alias, no reexport, no source cache or offline
+      variable, no --local, and no account of transitive sources.'
+    normative: true
+    derived: false
+    attrs: {}
