@@ -29,7 +29,7 @@ jobs:
 
       - name: Gate every graph
         run: |
-          STRICT=" idd skills/assess/idd skills/challenge/idd skills/multigraph/idd skills/reconcile/idd/skill-shape skills/reconcile/idd/skill skills/shape/idd/skill-shape skills/shape/idd/skill "
+          STRICT=" skills/assess/idd skills/challenge/idd skills/multigraph/idd skills/reconcile/idd/skill-shape skills/reconcile/idd/skill skills/shape/idd/skill-shape skills/shape/idd/skill "
           rc=0
           for cfg in $(find . -name throughline.toml -not -path '*/.git/*' | sort); do
             graph="${cfg#./}"; graph="${graph%/throughline.toml}"

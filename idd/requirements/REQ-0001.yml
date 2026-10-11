@@ -7,8 +7,8 @@ text: 'The content sits in a centred column no wider than 72rem, with prose no l
   and the skill entries sit side by side when the viewport allows and stack when
   it does not. Nothing scrolls sideways at a viewport 320 CSS pixels wide, and nothing
   is lost at 400 percent zoom or with text at 200 percent. Commands wrap rather than
-  clip. Line height is at least 1.5 and the layout survives the text-spacing overrides
-  WCAG names.'
+  clip. Body text, prose and commands have a line height of at least 1.5; headings
+  may be set tighter. The layout survives the text-spacing overrides WCAG names.'
 normative: true
 links:
 - target: INT-0001
