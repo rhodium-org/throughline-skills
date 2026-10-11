@@ -1,6 +1,6 @@
 uid: REQ-0010
 type: requirement
-status: ratified
+status: rejected
 title: Graph structure changes through the CLI; the sources block is the one hand-edited
   thing
 text: Items, links, amendments and ratifications are written with tl new, link, amend

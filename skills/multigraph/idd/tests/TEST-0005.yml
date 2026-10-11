@@ -1,6 +1,6 @@
 uid: TEST-0005
 type: test
-status: ratified
+status: rejected
 title: A source's own sources compose with it, an alias renames one, reexport is
   refused, and nothing is copied
 text: 'tests/test_multigraph.py: test_transitive_namespace builds an external graph,

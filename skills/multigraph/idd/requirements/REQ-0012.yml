@@ -1,0 +1,26 @@
+uid: REQ-0012
+type: requirement
+status: proposed
+title: The skill states only what spans graphs and defers how composition works to
+  tl context
+text: 'The skill text tells the reader to read the composition section of tl context
+  in the sourced graph it is about to touch, and states nothing that section already
+  states: how a source is declared, transitive sources and alias, what each union-aware
+  command reads, the source cache, or which files are edited by hand. What it states
+  is only what one graph''s brief cannot see: the repository''s other graphs, how
+  they are wired to each other, gated together, ratified in their owning graphs,
+  and added.'
+rationale: 'Slimmed on 11 October 2026: tl context from throughline 3.11 carries
+  the composition mechanics, generated from the installed release, and the skill''s
+  copy of them could only drift. Rejected: retiring the skill, which would leave
+  a repository that grew several graphs without tl:shape with no guidance on finding,
+  wiring and gating them together; tl:shape makes every shaped repository such a
+  repository. REQ-0003, REQ-0005, REQ-0009 and REQ-0010 restated the brief and are
+  rejected with their tests.'
+normative: true
+links:
+- target: INT-0001
+  type: derives_from
+attrs:
+  priority: must
+  origin: ai

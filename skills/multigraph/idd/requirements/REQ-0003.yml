@@ -1,6 +1,6 @@
 uid: REQ-0003
 type: requirement
-status: ratified
+status: rejected
 title: Every graph is driven with tl, which composes the sources its config declares
 text: 'One command drives every graph in the repository, sourced or not: tl, which
   composes every [[sources]] block its config declares. Nothing is chosen per graph.
