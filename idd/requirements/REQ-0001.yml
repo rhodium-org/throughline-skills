@@ -7,8 +7,8 @@ text: 'The content sits in a centred column no wider than 72rem, with prose no l
   and the skill entries sit side by side when the viewport allows and stack when
   it does not. Nothing scrolls sideways at a viewport 320 CSS pixels wide, and nothing
   is lost at 400 percent zoom or with text at 200 percent. Commands wrap rather than
-  clip. Line height is at least 1.5 and the layout survives the text-spacing overrides
-  WCAG names.'
+  clip. Body text, prose and commands have a line height of at least 1.5; headings
+  may be set tighter. The layout survives the text-spacing overrides WCAG names.'
 normative: true
 links:
 - target: INT-0001
@@ -26,7 +26,7 @@ attrs:
   priority: must
   origin: ai
   ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:ed135fe0f33074ae2648ab81ba02fd9b28adb87cbb997dd1e53df77dbd783558
+  ratified_fingerprint: sha256:332eb46d6870d6b0ec9fbfdada7488ae03b0af19fd17000c4a50b1b4ef76a2a2
   ratified_content:
     type: requirement
     text: 'The content sits in a centred column no wider than 72rem, with prose no
@@ -34,8 +34,9 @@ attrs:
       commands and the skill entries sit side by side when the viewport allows and
       stack when it does not. Nothing scrolls sideways at a viewport 320 CSS pixels
       wide, and nothing is lost at 400 percent zoom or with text at 200 percent.
-      Commands wrap rather than clip. Line height is at least 1.5 and the layout
-      survives the text-spacing overrides WCAG names.'
+      Commands wrap rather than clip. Body text, prose and commands have a line height
+      of at least 1.5; headings may be set tighter. The layout survives the text-spacing
+      overrides WCAG names.'
     normative: true
     derived: false
     attrs:

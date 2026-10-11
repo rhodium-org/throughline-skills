@@ -61,7 +61,7 @@ body::before{
   content:''; position:fixed; inset:0; z-index:0; pointer-events:none;
   background:radial-gradient(115% 75% at 50% -8%,var(--glow) 0%,transparent 60%);
 }
-/* tl: implements throughline-skills/REQ-0001 */
+/* tl: implements throughline-skills/REQ-0001@332eb46d6870 */
 .page{position:relative; z-index:1; max-width:72rem; margin:0 auto; display:flex; flex-direction:column; gap:clamp(2rem,5vh,3.5rem)}
 
 /* masthead rule, as on the splash */
@@ -123,7 +123,7 @@ footer{border-top:1px solid var(--hairline); padding-top:1.25rem}
   transition:color .18s ease,border-color .18s ease;
 }
 .post a:hover,.post a:focus-visible{color:var(--intent); border-color:var(--intent)}
-.post span{font-size:.9rem; color:var(--patina); line-height:1.45}
+.post span{font-size:.9rem; color:var(--patina); line-height:1.5}
 .colophon{margin-top:1.25rem; font-family:var(--mono); font-size:.7rem; letter-spacing:.12em; text-transform:uppercase; color:var(--patina)}
 @media (prefers-reduced-motion:reduce){ *{transition:none !important} }
 </style>
@@ -140,7 +140,7 @@ footer{border-top:1px solid var(--hairline); padding-top:1.25rem}
 <section class="hero">
   <p class="eyebrow">Claude Code plugin marketplace</p>
   <h1>throughline skills for Claude Code</h1>
-  <p class="lede">Two skills for working in
+  <p class="lede">Skills for working in
   <a href="https://github.com/rhodium-org/throughline">throughline</a> IDD
   requirements repositories. Install once and they apply in your own repos.
   Your graph stays committed there, as it must be — throughline is git-native
