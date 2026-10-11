@@ -2,9 +2,9 @@ uid: TEST-0005
 type: test
 status: ratified
 title: The install section names one route and the remove command
-text: Fetch the page and pass if its install section says to use one route, contains
-  /plugin marketplace remove throughline-skills, and contains the phrase network
-  source differs.
+text: Read the install section of site/index.html and pass if it says to pick one
+  route, contains /plugin marketplace remove throughline-skills, and contains the
+  phrase network source differs.
 normative: true
 links:
 - target: REQ-0005
