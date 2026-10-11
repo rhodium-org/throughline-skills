@@ -81,7 +81,7 @@ def graph(tmp_path):
 
 # ── TEST-0007: a branch's tests include those verifying its head ────────────
 
-# tl: verifies tl-challenge/TEST-0007
+# tl: verifies tl-challenge/TEST-0007@baab0bf11eac
 def test_requirement_branch_counts_the_test_on_its_head(graph):
     out = verification(graph, "requirement")
     assert branch_line(out, "REQ-0001") == "members=2 tests: automated=1, manual=1"
@@ -91,7 +91,7 @@ def test_requirement_branch_counts_the_test_on_its_head(graph):
     assert flagged(out) == 2
 
 
-# tl: verifies tl-challenge/TEST-0007
+# tl: verifies tl-challenge/TEST-0007@baab0bf11eac
 def test_intent_branch_reads_the_same_tests(graph):
     out = verification(graph, "intent")
     assert branch_line(out, "INT-0001") == (
@@ -99,7 +99,7 @@ def test_intent_branch_reads_the_same_tests(graph):
     assert flagged(out) == 0
 
 
-# tl: verifies tl-challenge/TEST-0007
+# tl: verifies tl-challenge/TEST-0007@baab0bf11eac
 def test_a_test_on_a_root_head_is_counted_but_the_root_is_never_untested(graph):
     new(graph, "TEST", "An automated test of the intent itself", type_="test",
         attrs=["method=automated"], ground="INT-0001", ground_type="verifies")
@@ -108,7 +108,7 @@ def test_a_test_on_a_root_head_is_counted_but_the_root_is_never_untested(graph):
         "members=3 tests: automated=2, manual=1  untested: REQ-0002")
 
 
-# tl: verifies tl-challenge/TEST-0007
+# tl: verifies tl-challenge/TEST-0007@baab0bf11eac
 def test_a_deleted_test_no_longer_verifies(graph):
     new(graph, "TEST", "A test later withdrawn", type_="test",
         attrs=["method=automated"], ground="REQ-0002", ground_type="verifies")
@@ -120,7 +120,7 @@ def test_a_deleted_test_no_longer_verifies(graph):
         "members=1 tests: none  untested: REQ-0002  <- NO AUTOMATED CHECK")
 
 
-# tl: verifies tl-challenge/TEST-0009
+# tl: verifies tl-challenge/TEST-0009@34755facc37d
 def test_script_starts_without_sigpipe():
     """tl-challenge REQ-0009 / TEST-0009: Windows has no signal.SIGPIPE."""
     code = ("import runpy, signal, sys\n"
@@ -228,7 +228,7 @@ def clean(dump, *command):
     return r.stdout
 
 
-# tl: verifies tl-challenge/TEST-0001
+# tl: verifies tl-challenge/TEST-0001@f7759bc6dcaf
 def test_every_deterministic_challenge_runs_from_a_dump_in_a_clean_interpreter(challenged):
     import ast
     local = {p.stem for p in SCRIPT.parent.glob("*.py")}
