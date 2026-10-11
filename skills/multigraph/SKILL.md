@@ -18,11 +18,11 @@ source, transitive sources and `alias`, what each command reads over the union,
 the source cache, and what is edited by hand. That brief is generated from the
 installed `tl` and moves with it. This skill covers only what one graph's brief
 cannot see: the repository's other graphs.
-<!-- tl: implements tl-multigraph/REQ-0012 -->
+<!-- tl: implements tl-multigraph/REQ-0012@d089f63d78e9 -->
 
 ## First: make sure the tool exists
 
-<!-- tl: implements tl-multigraph/REQ-0001 -->
+<!-- tl: implements tl-multigraph/REQ-0001@4787b37ff6d9 -->
 ```sh
 tl --version || pip install 'throughline>=3.11.0'
 ```
@@ -35,7 +35,7 @@ link as unresolved. If the install fails, stop.
 
 ## Orient: find every graph, then read the one you touch
 
-<!-- tl: implements tl-multigraph/REQ-0002 -->
+<!-- tl: implements tl-multigraph/REQ-0002@1d07d5f112ea -->
 ```sh
 find . -name throughline.toml -not -path '*/.venv/*' -not -path '*/.git/*'
 tl -C <graph> context
@@ -48,7 +48,7 @@ describes another.
 
 ## Wire siblings by path, standards by a pinned url
 
-<!-- tl: implements tl-multigraph/REQ-0004 -->
+<!-- tl: implements tl-multigraph/REQ-0004@69a77b571d1b -->
 Choose by **whose schedule the source moves on**:
 
 ```toml
@@ -78,7 +78,7 @@ reasoning sits beside it as `idd/<name>-shape/`.
 
 ## Ratify in the graph that owns the item
 
-<!-- tl: implements tl-multigraph/REQ-0006 -->
+<!-- tl: implements tl-multigraph/REQ-0006@5a6a39e8eb89 -->
 A borrowed item is never ratified from a consumer; `tl` refuses a
 namespace-qualified UID (`tl: subject:UR-0003 does not exist`, exit 2). To
 ratify across graphs, **go to the graph that owns each item**, one `ratify`
@@ -96,7 +96,7 @@ never invent, guess or reuse a name.
 
 ## Gate every graph
 
-<!-- tl: implements tl-multigraph/REQ-0007 -->
+<!-- tl: implements tl-multigraph/REQ-0007@90852af829d2 -->
 There is no whole-repository command. Loop over every graph, and do not let one
 failure mask another:
 
@@ -117,7 +117,7 @@ cannot pass strict.
 
 ## In a cloud sandbox
 
-<!-- tl: implements tl-multigraph/REQ-0008 -->
+<!-- tl: implements tl-multigraph/REQ-0008@aab4dcb417e0 -->
 A fresh sandbox holds a clone of one repository and nothing personal:
 
 - **An SSH-alias url fails** (`git@my-alias:org/repo.git` needs a personal
@@ -132,7 +132,7 @@ otherwise: confirm that before hunting a graph defect.
 
 ## Adding a graph to the repository
 
-<!-- tl: implements tl-multigraph/REQ-0011 -->
+<!-- tl: implements tl-multigraph/REQ-0011@3064e76b871f -->
 1. `tl -C <scope>/idd init` (or `/tl:shape`, which also records why), then
    declare its `[[sources]]`: the in-repo anchor by `path`, any external
    standard by pinned `url` and `ref`.

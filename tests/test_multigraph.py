@@ -86,7 +86,7 @@ def two_graphs(tmp_path):
 
 # ── TEST-0006: ratify in the owning graph, over the union ───────────────────
 
-# tl: verifies tl-multigraph/TEST-0006
+# tl: verifies tl-multigraph/TEST-0006@56dab54d3632
 def test_ratify_owning_graph_over_union(two_graphs):
     anchor, consumer = two_graphs
     c = str(consumer)
@@ -123,7 +123,7 @@ def test_ratify_owning_graph_over_union(two_graphs):
 
 # ── TEST-0007: the gate loop ────────────────────────────────────────────────
 
-# tl: verifies tl-multigraph/TEST-0007
+# tl: verifies tl-multigraph/TEST-0007@65b0e264a17a
 def test_gate_loop(tmp_path, two_graphs):
     anchor, consumer = two_graphs
     sound = init(tmp_path / "sound", "sound")
@@ -142,7 +142,7 @@ def test_gate_loop(tmp_path, two_graphs):
 
 # ── TEST-0012: composition is read from tl context, not restated here ────────
 
-# tl: verifies tl-multigraph/TEST-0012
+# tl: verifies tl-multigraph/TEST-0012@0c0604e5a23d
 def test_skill_defers_composition_to_tl_context():
     text = SKILL.read_text()
     flat = re.sub(r"\s+", " ", text)
