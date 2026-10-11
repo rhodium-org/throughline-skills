@@ -1,6 +1,6 @@
 uid: TEST-0017
 type: test
-status: proposed
+status: ratified
 title: A fingerprint the script computes differently from tl's stops the run
 text: Ratify an item in a throwaway graph and pass if a scan runs and a citation
   stamped with the item's ratified fingerprint is not stale. Then change the ratified
@@ -16,3 +16,17 @@ links:
 attrs:
   method: automated
   origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:34e4494179888d8f6992eddb844f24a8bbfcaa5a8c9e1e9bb075cb6ad085844b
+  ratified_content:
+    type: test
+    text: Ratify an item in a throwaway graph and pass if a scan runs and a citation
+      stamped with the item's ratified fingerprint is not stale. Then change the
+      ratified fingerprint recorded on the item without changing its content, so
+      that tl check reports it ratified-stale, and pass if the scan still runs; give
+      the scan a stand-in tl whose dump drops the item's normative attribute, so
+      the computation disagrees with a ratification tl check accepts, and pass if
+      it exits 2 naming the item. The fixture is tests/test_reconcile.py.
+    normative: false
+    derived: false
+    attrs: {}
