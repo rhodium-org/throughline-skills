@@ -21,14 +21,16 @@ attrs:
   priority: must
   origin: ai
   ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:b8d272c19c05dfa8cea1f7a418122a991e8adb5c62b4a9ec8db5e597086dd076
+  ratified_fingerprint: sha256:284c5f9b98dc2dd1d65498633ad6cd4ec4f2dcde1d4f810300ee32d1b5cea9be
   ratified_content:
     type: requirement
-    text: The scanner reads every file git tracks under the paths it is given, skipping
-      each throughline graph root and every path matched by an exclude pattern. A
-      citation in an untracked, skipped or excluded file is never reported. Its report
-      names how many files it read and how many citations it found, so a run over
-      the wrong paths is visible as one.
+    text: 'The scanner reads every file git tracks under the paths it is given, skipping
+      each graph''s own files and every path matched by an exclude pattern: a graph
+      rooted below the repository root is skipped whole, and a graph rooted at the
+      repository root, whose tree holds the code too, has its throughline.toml and
+      its register directories skipped. A citation in an untracked, skipped or excluded
+      file is never reported. Its report names how many files it read and how many
+      citations it found, so a run over the wrong paths is visible as one.'
     normative: true
     derived: false
     attrs:
