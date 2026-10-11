@@ -108,7 +108,7 @@ def _norm(value: object) -> str:
     return "\n".join(line.rstrip() for line in text.split("\n")).strip()
 
 
-# tl: implements tl-reconcile/REQ-0001, tl-reconcile/REQ-0017
+# tl: implements tl-reconcile/REQ-0001@efdaeb927f64, tl-reconcile/REQ-0017@3f30a1e93c0b
 def fingerprint(item: dict, config: dict) -> str:
     """The SHA-256 tl ratify and tl link --stamp record, recomputed from what
     tl dump carries: the authored UID, type, text, the normative and derived
@@ -176,7 +176,7 @@ def find_graphs(repo: Path) -> list[Path]:
     return roots
 
 
-# tl: implements tl-reconcile/REQ-0017
+# tl: implements tl-reconcile/REQ-0017@3f30a1e93c0b
 def check_fingerprints(graph: Graph) -> None:
     """Refuse to run when this script's fingerprint disagrees with a
     ratification tl check accepts: tl's algorithm has moved, and every stamp
@@ -226,7 +226,7 @@ class Citation:
     error: str | None = None
 
 
-# tl: implements tl-reconcile/REQ-0001
+# tl: implements tl-reconcile/REQ-0001@efdaeb927f64
 def parse_line(text: str, link_types: set) -> tuple | None:
     """None for a line that is not a citation; else (link, refs, error).
 
@@ -274,7 +274,7 @@ def excluded(path: str, patterns: list[str]) -> bool:
                for pat in patterns for p in prefixes)
 
 
-# tl: implements tl-reconcile/REQ-0002
+# tl: implements tl-reconcile/REQ-0002@a20ec0186960
 def scan_files(repo: Path, paths: list[str], patterns: list[str],
                graphs: list[Graph]) -> tuple[int, list[Citation]]:
     """Every citation in the files git tracks under PATHS, skipping each
@@ -339,7 +339,7 @@ def display(graph: Graph, uid: str, graphs: list[Graph]) -> str:
     return f"{graph.name}/{uid}" if len(graphs) > 1 else uid
 
 
-# tl: implements tl-reconcile/REQ-0003
+# tl: implements tl-reconcile/REQ-0003@349d841068d4
 def resolve(ref: Ref, link: str, graphs: list[Graph]) -> tuple:
     """(graph, item, None) for a ref to a live item, else (graph?, item?, (kind, why))."""
     if ref.graph:
@@ -400,7 +400,7 @@ def uid_key(uid: str) -> tuple:
 
 # ---------------------------------------------------------------- graph-side checks
 
-# tl: implements tl-reconcile/REQ-0004, tl-reconcile/REQ-0005, tl-reconcile/REQ-0006
+# tl: implements tl-reconcile/REQ-0004@106eb6ca501d, tl-reconcile/REQ-0005@31cf438bda21, tl-reconcile/REQ-0006@3ddd98e35ec8
 def graph_findings(graphs: list[Graph], resolved: list[Resolved], a) -> tuple[list, list]:
     """Findings that start from the graph: what nothing cites, what is claimed
     built and is not, what code builds that nobody accepted, and the tests.
@@ -511,7 +511,7 @@ def strip_sources(toml_text: str) -> str:
     return "".join(out)
 
 
-# tl: implements tl-reconcile/REQ-0007
+# tl: implements tl-reconcile/REQ-0007@6a1d3a105819
 def stamped_edition(repo: Path, r: Resolved, cache: dict) -> str | None:
     """The commit whose edition of the item the stamp was taken from, found by
     dumping the graph as each commit touching the item's file held it."""
@@ -586,7 +586,7 @@ def commit_time(repo: Path, *args: str) -> int:
     return int(out) if out.isdigit() else 0
 
 
-# tl: implements tl-reconcile/REQ-0009
+# tl: implements tl-reconcile/REQ-0009@bb02cd099748
 def review_order(repo: Path, resolved: list[Resolved], graphs: list[Graph]) -> list[dict]:
     """Unstamped citations, those whose item changed after the cited line
     first. A weak signal for where to start reading, never a finding."""
@@ -625,7 +625,7 @@ def print_finding(f: Finding) -> None:
         print(f"      code: {f.code}")
 
 
-# tl: implements tl-reconcile/REQ-0011
+# tl: implements tl-reconcile/REQ-0011@2a93748c2549
 def cmd_scan(repo: Path, a) -> None:
     graphs, files, citations, findings, resolved = collect(repo, a)
     more, through_children = graph_findings(graphs, resolved, a)
@@ -662,7 +662,7 @@ def cmd_scan(repo: Path, a) -> None:
     sys.exit(1 if a.gate and findings else 0)
 
 
-# tl: implements tl-reconcile/REQ-0010
+# tl: implements tl-reconcile/REQ-0010@03b6f6ba7aeb
 def render_table(resolved: list[Resolved], graphs: list[Graph]) -> str:
     rows = sorted({(r.graph.name, uid_key(r.ref.uid), display(r.graph, r.ref.uid, graphs),
                     r.item.get("title", ""), r.citation.link, r.citation.path, r.citation.line)
@@ -705,7 +705,7 @@ def cmd_table(repo: Path, a) -> None:
     print(f"wrote the citation table ({table.count(chr(10)) - 2} row(s)) to {target}")
 
 
-# tl: implements tl-reconcile/REQ-0008
+# tl: implements tl-reconcile/REQ-0008@6f63bce2f150
 def cmd_restamp(repo: Path, a) -> None:
     """Stamp the citations of one item, or of one file and line, with the
     item's current fingerprint. Deliberately no form that stamps everything."""
