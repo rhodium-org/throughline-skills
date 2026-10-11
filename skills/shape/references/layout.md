@@ -12,7 +12,8 @@ authoritative over this file.
 - `tl init` refuses to create a graph inside an existing one (it walks up
   looking for a `throughline.toml`) unless `--force` is passed. Two graphs that
   are *siblings* under a directory holding no `throughline.toml` of its own are
-  not nested, so `idd/shape/` beside `idd/<name>/` needs no override.
+  not nested, so `idd/shape/` (or `idd/<name>-shape/`) beside `idd/<name>/` needs
+  no override.
 - `tl` composes the `[[sources]]` a graph's `throughline.toml` declares, from
   throughline 3.11.0. One command drives both graphs, sourced or not; an older
   `tl` reads a sourced graph without its sources, which is why the skill needs
@@ -39,7 +40,7 @@ The name of the second directory is recorded twice, on purpose:
 
 1. As the **name decision** in the shape graph — a `decision` item with
    `kind = name` and `dir = <name>`. This is the ratifiable record.
-2. As a **`path` source** in `idd/shape/throughline.toml`:
+2. As a **`path` source** in the shape graph's `throughline.toml`:
 
    ```toml
    [[sources]]
@@ -48,7 +49,7 @@ The name of the second directory is recorded twice, on purpose:
    ```
 
    `tl` already understands this, so no new config format is needed:
-   `tl -C idd/shape context` shows the whole picture, and a source
+   `tl -C idd/<name>-shape context` shows the whole picture, and a source
    holding zero items composes cleanly (verified). Unknown keys in
    `throughline.toml` are tolerated by the loader, but a native source is a
    pointer tooling already follows, so that is the one used.
@@ -56,6 +57,17 @@ The name of the second directory is recorded twice, on purpose:
 Because of (2) `tl` composes the second graph into every check, listing and
 brief of the shape graph from the moment it is written. The script drives both
 graphs with `tl`.
+
+## Naming the shape graph after its graph
+
+Verified on 2026-10-11 against `tl 3.15.1`. `write` renames the shape graph's
+directory to `<name>-shape` and its `[project] name` to the second graph's
+project name followed by `-shape`. Neither breaks anything: the pointer is the
+sibling path `../<name>`, which the rename leaves valid, and the fingerprint
+reads an item's UID, type, text and normative attributes, never the project
+name or the path, so ratifications survive the rename. There is no `tl`
+command for the project name, so the script edits that one line of
+`throughline.toml`.
 
 ## Facts the check gate enforces that shape the design
 

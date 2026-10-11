@@ -1,5 +1,5 @@
 [project]
-name = "shape"
+name = "tl-reconcile-shape"
 format_version = 3
 
 # Root item types may exist ungrounded; everything else must reach a root
