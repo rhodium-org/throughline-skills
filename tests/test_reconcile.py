@@ -123,7 +123,7 @@ def commit(repo, msg="c", when=None):
 
 # ── one test per requirement ────────────────────────────────────────────────
 
-# tl: verifies tl-reconcile/TEST-0001
+# tl: verifies tl-reconcile/TEST-0001@965dd8a603d3
 def test_each_comment_form_parses_and_a_broken_marker_is_reported(repo, tmp_path):
     spec = Graph(tmp_path, "spec", "spec")             # outside the repo: borrowed, not counted
     spec.req("A borrowed clause")
@@ -165,7 +165,7 @@ def test_each_comment_form_parses_and_a_broken_marker_is_reported(repo, tmp_path
     assert not [f for f in report["findings"] if f.get("path") == "src/qualified.txt"]
 
 
-# tl: verifies tl-reconcile/TEST-0002
+# tl: verifies tl-reconcile/TEST-0002@f16df4bef57d
 def test_untracked_graph_and_excluded_files_are_not_read(repo):
     g = Graph(repo, "g", "app")
     r1 = g.req("One")
@@ -183,7 +183,7 @@ def test_untracked_graph_and_excluded_files_are_not_read(repo):
     assert text.startswith("read 1 file(s), found 1 citation(s)")
 
 
-# tl: verifies tl-reconcile/TEST-0002
+# tl: verifies tl-reconcile/TEST-0002@f16df4bef57d
 def test_a_graph_at_the_root_skips_only_its_own_files(repo):
     g = Graph(repo, ".", "app")
     r1 = g.req("One")
@@ -195,7 +195,7 @@ def test_a_graph_at_the_root_skips_only_its_own_files(repo):
     assert not [f for f in report["findings"] if f.get("path")]
 
 
-# tl: verifies tl-reconcile/TEST-0003
+# tl: verifies tl-reconcile/TEST-0003@2e939f78d533
 def test_every_unresolvable_citation_is_reported_with_file_and_line(repo):
     g = Graph(repo, "g", "app")
     live, gone, rejected = g.req("Live"), g.req("Gone", ratified=False), g.req("No", ratified=False)
@@ -219,7 +219,7 @@ def test_every_unresolvable_citation_is_reported_with_file_and_line(repo):
                                       ("ambiguous-graph", 7)])
 
 
-# tl: verifies tl-reconcile/TEST-0004
+# tl: verifies tl-reconcile/TEST-0004@101c4399f265
 def test_uncited_items_are_listed_apart_from_parents_realised_by_children(repo):
     g = Graph(repo, "g", "app")
     cited, uncited, parent = g.req("Cited"), g.req("Uncited"), g.req("Parent")
@@ -239,7 +239,7 @@ def test_uncited_items_are_listed_apart_from_parents_realised_by_children(repo):
     assert {f["ref"] for f in report["findings"] if f["kind"] == "uncited"} == {uncited, nfr}
 
 
-# tl: verifies tl-reconcile/TEST-0005
+# tl: verifies tl-reconcile/TEST-0005@41c15dc62ff5
 def test_status_contradictions_are_reported_both_ways(repo):
     g = Graph(repo, "g", "app")
     built = g.req("Claimed built")
@@ -263,7 +263,7 @@ def test_status_contradictions_are_reported_both_ways(repo):
     assert ("under-question", suspect) in found
 
 
-# tl: verifies tl-reconcile/TEST-0006
+# tl: verifies tl-reconcile/TEST-0006@e505ccb16ab3
 def test_unwired_tests_and_unrecorded_test_citations_are_reported(repo):
     g = Graph(repo, "g", "app")
     r1, r2 = g.req("Tested"), g.req("Untested")
@@ -277,7 +277,7 @@ def test_unwired_tests_and_unrecorded_test_citations_are_reported(repo):
     assert ("unrecorded-test", empty) in found and ("unrecorded-test", r2) in found
 
 
-# tl: verifies tl-reconcile/TEST-0007
+# tl: verifies tl-reconcile/TEST-0007@9e3c7fc70697
 def test_a_stamp_goes_stale_on_text_not_title_and_names_its_edition(repo):
     g = Graph(repo, "g", "app")
     r1 = g.req("Stamped", text="Does one thing.")
@@ -299,7 +299,7 @@ def test_a_stamp_goes_stale_on_text_not_title_and_names_its_edition(repo):
     assert not [f for f in report["findings"] if f.get("ref") == r2]
 
 
-# tl: verifies tl-reconcile/TEST-0008
+# tl: verifies tl-reconcile/TEST-0008@a2f1ba181157
 def test_restamp_touches_only_the_named_items_citations(repo):
     g = Graph(repo, "g", "app")
     r1, r2 = g.req("One"), g.req("Two")
@@ -321,7 +321,7 @@ def test_restamp_touches_only_the_named_items_citations(repo):
     assert "--all" not in reconcile(repo, "restamp", "--help").stdout
 
 
-# tl: verifies tl-reconcile/TEST-0009
+# tl: verifies tl-reconcile/TEST-0009@85e10d966407
 def test_unstamped_citations_whose_item_moved_are_listed_first(repo):
     g = Graph(repo, "g", "app")
     r1, r2 = g.req("Moves later"), g.req("Stays")
@@ -337,7 +337,7 @@ def test_unstamped_citations_whose_item_moved_are_listed_first(repo):
     assert report["findings"] == []
 
 
-# tl: verifies tl-reconcile/TEST-0010
+# tl: verifies tl-reconcile/TEST-0010@929986433015
 def test_the_table_is_stable_written_between_markers_and_checked(repo):
     g = Graph(repo, "g", "app")
     r1, r2 = g.req("One"), g.req("Two")
@@ -358,7 +358,7 @@ def test_the_table_is_stable_written_between_markers_and_checked(repo):
     assert reconcile(repo, "table", "--check", "docs/trace.md").returncode == 0
 
 
-# tl: verifies tl-reconcile/TEST-0011
+# tl: verifies tl-reconcile/TEST-0011@ebdf614d4ad1
 def test_standard_library_only_old_tl_refused_gate_only_when_asked(repo, tmp_path):
     local = {p.stem for p in SCRIPT.parent.glob("*.py")}
     for node in ast.walk(ast.parse(SCRIPT.read_text())):
@@ -384,7 +384,7 @@ def test_standard_library_only_old_tl_refused_gate_only_when_asked(repo, tmp_pat
     assert r.returncode == 2 and "older than 3.11.0" in r.stderr
 
 
-# tl: verifies tl-reconcile/TEST-0017
+# tl: verifies tl-reconcile/TEST-0017@34e449417988
 def test_a_fingerprint_disagreeing_with_tl_stops_the_run(repo, tmp_path):
     g = Graph(repo, "g", "app")
     r1 = g.req("Stamped")

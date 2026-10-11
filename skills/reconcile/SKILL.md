@@ -41,7 +41,7 @@ beside this file's plugin.
 
 ## Part A: cite the graph as you write
 
-<!-- tl: implements tl-reconcile/REQ-0014 -->
+<!-- tl: implements tl-reconcile/REQ-0014@df9a4a3c2bdc -->
 When you write or change code in a repository holding a graph, cite the items
 it serves **as you write it**, not afterwards: a citation written with the code
 records what it was written for; one added later records what someone believes
@@ -86,7 +86,7 @@ repository does: `… (billing REQ-0042, TEST-0042)`.
 
 ### A standing instruction for the repository
 
-<!-- tl: implements tl-reconcile/REQ-0015 -->
+<!-- tl: implements tl-reconcile/REQ-0015@bde2b6316298 -->
 An agent that has not loaded this skill will not cite. The paragraph below,
 added to the repository's `CLAUDE.md` or equivalent, makes it do so. Offer it
 when a repository with a graph has none; **add it only when the person asks**.
@@ -144,7 +144,7 @@ reading, never a finding in itself.
 
 ### 3. Read each cited location against its item
 
-<!-- tl: implements tl-reconcile/REQ-0013 -->
+<!-- tl: implements tl-reconcile/REQ-0013@2ac4d01b8322 -->
 The script proves a citation resolves; it cannot tell whether the code does
 what the item says. For each citation in scope, open the item
 (`tl -C <graph root> context <UID>`) and the code beside it, and read the
@@ -154,7 +154,7 @@ than it says, or **other** than it says. Then look at the code in scope that
 cites nothing and ask what item justifies it; code that traces to nothing is
 reported, not cited into a convenient item.
 
-<!-- tl: implements tl-reconcile/REQ-0016 -->
+<!-- tl: implements tl-reconcile/REQ-0016@3769fec4f714 -->
 If the repository already holds a structural graph of its code (a code-graph
 tool's output, an index), you may use it to find where an uncited item is
 probably built. Install no such tool. A code graph only narrows the search: it
@@ -162,7 +162,7 @@ never closes a finding, because a structural link is not a written citation.
 
 ### 4. Put each disagreement to the human
 
-<!-- tl: implements tl-reconcile/REQ-0012 -->
+<!-- tl: implements tl-reconcile/REQ-0012@bd066e472f8a -->
 Report every finding with **both sides as they stand**: the item (UID,
 status, text) and the code (file, line, what it does). Then ask which side is
 wrong. Until the human has said:
