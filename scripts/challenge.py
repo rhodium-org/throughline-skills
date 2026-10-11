@@ -58,6 +58,7 @@ REPLACEMENT_NAME_RE = re.compile(
     r"supersed|replac|obsolet|deprecat|irrelevant|retire", re.I)
 
 
+# tl: implements tl-challenge/REQ-0008
 def load(args) -> dict:
     if args.dump:
         with open(args.dump) as fh:
@@ -119,6 +120,7 @@ def in_path(sent: str, m: "re.Match") -> bool:
     return before in ("/", "\\") or re.match(r"\.\w", sent[m.end():m.end() + 2]) is not None
 
 
+# tl: implements tl-challenge/REQ-0001, tl-challenge/challenger:REQ-0002
 def cmd_mentions(g: Graph, args) -> None:
     """REQ-0002: a UID in prose with no matching link edge. A token inside a
     file path is a path mention, listed apart and not counted as a citation."""
@@ -157,6 +159,7 @@ def cmd_mentions(g: Graph, args) -> None:
           "(a file named after an item — an edge is the human's call)")
 
 
+# tl: implements tl-challenge/REQ-0001, tl-challenge/challenger:REQ-0009
 def cmd_universal(g: Graph, args) -> None:
     """REQ-0009: universal language whose grounded children name one mechanism."""
     n = 0
@@ -180,6 +183,7 @@ def cmd_universal(g: Graph, args) -> None:
     print(f"# universal: {n} finding(s) (universal language realised by exactly one grounded child)")
 
 
+# tl: implements tl-challenge/REQ-0001, tl-challenge/REQ-0007, tl-challenge/challenger:REQ-0004
 def cmd_verification(g: Graph, args) -> None:
     """REQ-0004: verification per branch, not per item.
 
@@ -244,6 +248,7 @@ def cmd_verification(g: Graph, args) -> None:
     print(f"# verification: {n} branch(es) flagged")
 
 
+# tl: implements tl-challenge/REQ-0001, tl-challenge/challenger:REQ-0007
 def cmd_failure_case(g: Graph, args) -> None:
     """REQ-0007: requirements with no clause saying what a violation is (weak signal)."""
     n = 0
@@ -260,6 +265,7 @@ def cmd_failure_case(g: Graph, args) -> None:
     print(f"# failure-case: {n} item(s) state only the wanted behaviour (review order, not a gate)")
 
 
+# tl: implements tl-challenge/REQ-0001, tl-challenge/challenger:REQ-0005
 def cmd_untestable(g: Graph, args) -> None:
     """REQ-0005: predicates no observation of the running system could settle."""
     n = 0
@@ -281,6 +287,7 @@ def cmd_untestable(g: Graph, args) -> None:
     print(f"# untestable: {n} sentence(s) with a vague predicate")
 
 
+# tl: implements tl-challenge/REQ-0001, tl-challenge/challenger:REQ-0008
 def cmd_replacement(g: Graph, args) -> None:
     """REQ-0008: a live item pointing at its own replacement. Name-based only:
     the tool reads meaning, this script can only read names, so it also prints
@@ -300,6 +307,7 @@ def cmd_replacement(g: Graph, args) -> None:
           + ("" if suspects else " (no link type is named like one; classify the vocabulary above by meaning)"))
 
 
+# tl: implements tl-challenge/REQ-0001, tl-challenge/challenger:REQ-0010
 def cmd_unstamped(g: Graph, args) -> None:
     """Implementation discipline: a link into a source without a stamp cannot
     tell you when the source moved."""
@@ -319,6 +327,7 @@ def cmd_unstamped(g: Graph, args) -> None:
     print(f"# unstamped: {n} link(s); stamp each in place with `tl link SRC DST --type T --stamp`")
 
 
+# tl: implements tl-challenge/REQ-0001, tl-challenge/challenger:REQ-0011
 def cmd_uncovered(g: Graph, args) -> None:
     """Borrowed items of the given types that no local item links to."""
     ns = args.namespace
@@ -339,6 +348,7 @@ def cmd_uncovered(g: Graph, args) -> None:
     print(f"# uncovered: {n} borrowed item(s) in '{ns}' with no incoming local link")
 
 
+# tl: implements tl-challenge/REQ-0002, tl-challenge/challenger:REQ-0001, tl-challenge/challenger:REQ-0003, tl-challenge/challenger:REQ-0006
 def cmd_siblings(g: Graph, args) -> None:
     """Material for REQ-0001, REQ-0003 and REQ-0006: hold the family together."""
     uid = args.uid
@@ -401,6 +411,7 @@ def main(argv=None) -> int:
 
 
 if __name__ == "__main__":
+    # tl: implements tl-challenge/REQ-0009
     if hasattr(signal, "SIGPIPE"):  # POSIX only; Windows has no SIGPIPE
         signal.signal(signal.SIGPIPE, signal.SIG_DFL)
     sys.exit(main())

@@ -64,6 +64,7 @@ The script does only the mechanics — layout, well-formed items, the second
 graph from the decisions, the check gate. The judgement below is yours.
 
 ## Has this repo been shaped before?
+<!-- tl: implements skill/REQ-0008, skill/REQ-0010 -->
 
 ```sh
 python3 "$S" -C <repo> status
@@ -103,6 +104,7 @@ python3 "$S" -C <repo> init --another
 ```
 
 ## The discovery, in order
+<!-- tl: implements skill/REQ-0004 -->
 
 Each stage produces items in the shape graph. Confirm each stage with the
 person before moving to the next; the confirmation is what makes the later
@@ -185,6 +187,7 @@ Confirm the needs with the person. Not until they are confirmed do you say the
 word *register*.
 
 ### 4. Registers
+<!-- tl: implements skill/REQ-0006 -->
 
 Only now, propose the register set for the second graph. Hold the needs
 together and ask, for each need, what register would carry the items that
@@ -237,6 +240,7 @@ and why, or out and why. Their absence from the set is a decision, not an
 oversight.
 
 ### 5. Write, gate, hand off
+<!-- tl: implements skill/REQ-0005, skill/REQ-0007 -->
 
 ```sh
 python3 "$S" -C <repo> write

@@ -130,6 +130,7 @@ def written(discovered):
 
 # ── one test per requirement ────────────────────────────────────────────────
 
+# tl: verifies skill/TEST-0001
 def test_layout_comes_from_discovery_not_tl_init(written):  # TEST-0001 / REQ-0001
     repo, uids = written
     estate = repo / "idd" / "estate"
@@ -149,6 +150,7 @@ def test_layout_comes_from_discovery_not_tl_init(written):  # TEST-0001 / REQ-00
     assert {"target": uids["src"], "type": "derives_from"} in dom["links"]
 
 
+# tl: verifies skill/TEST-0002
 def test_shape_graph_is_named_for_its_graph(discovered, tmp_path):  # TEST-0002 / REQ-0002
     repo, _ = discovered
     cfg = repo / "idd" / "shape" / "throughline.toml"
@@ -191,6 +193,7 @@ def test_shape_graph_is_named_for_its_graph(discovered, tmp_path):  # TEST-0002 
     assert not (other / "idd" / "shape").exists()
 
 
+# tl: verifies skill/TEST-0003
 def test_second_graph_named_in_discovery_never_defaulted(repo):  # TEST-0003 / REQ-0003
     assert shape(repo, "init").returncode == 0
     dom = new(repo, "DOM", "domain", "A hosting estate run for tenants")
@@ -219,6 +222,7 @@ def test_second_graph_named_in_discovery_never_defaulted(repo):  # TEST-0003 / R
     assert status["name"] == "estate" and status["shaped_exists"] and status["pointer_recorded"]
 
 
+# tl: verifies skill/TEST-0004
 def test_registers_come_after_needs(repo):  # TEST-0004 / REQ-0004
     text = SKILL.read_text()
     stages = ["### 1. Sources", "### 2. Domain", "### 3. Specific needs",
@@ -243,6 +247,7 @@ def test_registers_come_after_needs(repo):  # TEST-0004 / REQ-0004
     assert r.returncode == 0, r.stdout + r.stderr
 
 
+# tl: verifies skill/TEST-0005
 def test_every_item_is_ai_and_proposed_and_the_script_cannot_ratify(written):  # TEST-0005 / REQ-0005
     repo, _ = written
     items = local_items(repo / "idd" / "estate-shape")
@@ -259,6 +264,7 @@ def test_every_item_is_ai_and_proposed_and_the_script_cannot_ratify(written):  #
     assert "ratify" not in SCRIPT.read_text().replace("Ratification", "").lower().replace("never ratif", "")
 
 
+# tl: verifies skill/TEST-0006
 def test_rejected_register_is_recorded_with_its_rationale(discovered):  # TEST-0006 / REQ-0006
     repo, uids = discovered
     ng = next(i for i in local_items(repo / "idd" / "shape") if i["uid"] == uids["ng"])
@@ -271,6 +277,7 @@ def test_rejected_register_is_recorded_with_its_rationale(discovered):  # TEST-0
     assert ng["uid"] in considered.split("\n\n")[0]
 
 
+# tl: verifies skill/TEST-0007
 def test_hands_back_on_zero_errors_in_both_graphs(written):  # TEST-0007 / REQ-0007
     repo, _ = written
     r = skill_run(repo, "### 5. Write, gate, hand off", 1)
@@ -286,6 +293,7 @@ def test_hands_back_on_zero_errors_in_both_graphs(written):  # TEST-0007 / REQ-0
     assert "unratified" in strict.stdout + strict.stderr
 
 
+# tl: verifies skill/TEST-0008
 def test_rerun_reconfirms_and_never_overwrites(written):  # TEST-0008 / REQ-0008
     repo, uids = written
     before = snapshot(repo / "idd")
@@ -309,6 +317,7 @@ def test_rerun_reconfirms_and_never_overwrites(written):  # TEST-0008 / REQ-0008
     assert {k: v for k, v in after.items() if k.parts[0] != "shape"} == before
 
 
+# tl: verifies skill/TEST-0010
 def test_commands_act_on_the_shaping_they_are_given(written):  # TEST-0010 / REQ-0010
     repo, _ = written
     assert shape(repo, "init", "--another").returncode == 0      # lands at idd/shape/

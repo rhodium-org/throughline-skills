@@ -81,6 +81,7 @@ def graph_with_items(repo):
     return idd
 
 
+# tl: verifies tl-assess/TEST-0001
 def test_graph_measure_counts_the_fixture(repo):  # TEST-0001
     idd = graph_with_items(repo)
     run("tl", "-C", str(idd), "ratify", "REQ-0001", "--by", RATIFIER, check=False)
@@ -95,6 +96,7 @@ def test_graph_measure_counts_the_fixture(repo):  # TEST-0001
     assert g["citations"] == 0 and g["local_links"] == 4
 
 
+# tl: verifies tl-assess/TEST-0002
 def test_git_measure_counts_commits_tags_citations_and_amendments(repo):  # TEST-0002
     idd = graph_with_items(repo)
     git(repo, "add", "-A")
@@ -120,6 +122,7 @@ def test_git_measure_counts_commits_tags_citations_and_amendments(repo):  # TEST
     assert g["authors"] == {"Tester": 4}
 
 
+# tl: verifies tl-assess/TEST-0009
 def test_git_measure_follows_a_rename(repo):  # TEST-0009
     idd = graph_with_items(repo)
     git(repo, "add", "-A")
@@ -144,6 +147,7 @@ def test_git_measure_follows_a_rename(repo):  # TEST-0009
     assert g["items_amended_after_ratification"] == 1 and g["amending_commits"] == 1
 
 
+# tl: verifies tl-assess/TEST-0003
 def test_docs_and_tests_are_measured_not_invented(repo, tmp_path):  # TEST-0003
     idd = graph_with_items(repo)
     (idd / "docs").mkdir()
@@ -181,6 +185,7 @@ def transcript(path: Path):
     path.write_text("\n".join(json.dumps(l) if not isinstance(l, str) else l for l in lines) + "\n")
 
 
+# tl: verifies tl-assess/TEST-0004
 def test_sessions_measure_a_synthetic_transcript(tmp_path):  # TEST-0004
     p = tmp_path / "s1.jsonl"
     transcript(p)
@@ -198,6 +203,7 @@ def test_sessions_measure_a_synthetic_transcript(tmp_path):  # TEST-0004
     assert windowed["sessions"][0]["user_turns"] == 1 and windowed["sessions"][0]["api_calls"] == 2
 
 
+# tl: verifies tl-assess/TEST-0005
 def test_done_fails_per_criterion_then_passes(repo, tmp_path):  # TEST-0005
     idd = graph_with_items(repo)
     git(repo, "add", "-A")
@@ -220,6 +226,7 @@ def test_done_fails_per_criterion_then_passes(repo, tmp_path):  # TEST-0005
     assert r.returncode == 0 and out["done"] is True, out
 
 
+# tl: verifies tl-assess/TEST-0006
 def test_record_writes_files_keeps_earlier_ones_and_indexes_the_collection(repo, tmp_path):  # TEST-0006
     idd = graph_with_items(repo)
     git(repo, "add", "-A")
@@ -239,6 +246,7 @@ def test_record_writes_files_keeps_earlier_ones_and_indexes_the_collection(repo,
     assert index.count("| fixture |") == 2
 
 
+# tl: verifies tl-assess/TEST-0007
 def test_provenance_names_commit_pins_tools_and_plugin(repo):  # TEST-0007
     idd = graph_with_items(repo)
     toml = idd / "throughline.toml"
@@ -263,6 +271,7 @@ def test_provenance_names_commit_pins_tools_and_plugin(repo):  # TEST-0007
     assert assess("provenance", "-C", str(idd))["working_tree_clean"] is False
 
 
+# tl: verifies tl-assess/TEST-0008
 def test_git_measure_scoped_to_paths(repo):  # TEST-0008
     idd = graph_with_items(repo)
     git(repo, "add", "-A")
