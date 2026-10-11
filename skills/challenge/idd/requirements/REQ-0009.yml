@@ -1,6 +1,6 @@
 uid: REQ-0009
 type: requirement
-status: proposed
+status: ratified
 title: The script starts on a platform without SIGPIPE
 text: On a platform whose signal module has no SIGPIPE (Windows), the script starts
   and runs its checks instead of exiting on an AttributeError; where SIGPIPE exists
@@ -12,3 +12,15 @@ links:
 attrs:
   priority: must
   origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:df754ec5b91b834b4305ffc899a8ad9928ca9a9fbc72236803e72f8c6fad1e9d
+  ratified_content:
+    type: requirement
+    text: On a platform whose signal module has no SIGPIPE (Windows), the script
+      starts and runs its checks instead of exiting on an AttributeError; where SIGPIPE
+      exists it still restores the default disposition so a closed pipe ends the
+      output quietly.
+    normative: true
+    derived: false
+    attrs:
+      priority: must
