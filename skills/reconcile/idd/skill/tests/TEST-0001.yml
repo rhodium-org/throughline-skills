@@ -1,0 +1,32 @@
+uid: TEST-0001
+type: test
+status: ratified
+title: Each comment form, qualifier rule and stamp form parses, and a broken marker
+  line is reported
+text: Build a throwaway repository with one graph and files citing in each comment
+  opener, one with several references, one borrowed reference, one stamped and one
+  with a seven-digit stamp. Pass if every valid citation is read with its link type,
+  references and stamp, and the seven-digit stamp and a marker line with no link
+  type are reported malformed. Add a second graph and pass if the unqualified citations
+  are now reported and qualified ones resolve. The fixture is tests/test_reconcile.py.
+normative: false
+links:
+- target: REQ-0001
+  type: verifies
+attrs:
+  method: automated
+  origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:83f40da66d720d5933d377309df899c1e4e5ed2b49f05b71eda82432733b3e16
+  ratified_content:
+    type: test
+    text: Build a throwaway repository with one graph and files citing in each comment
+      opener, one with several references, one borrowed reference, one stamped and
+      one with a seven-digit stamp. Pass if every valid citation is read with its
+      link type, references and stamp, and the seven-digit stamp and a marker line
+      with no link type are reported malformed. Add a second graph and pass if the
+      unqualified citations are now reported and qualified ones resolve. The fixture
+      is tests/test_reconcile.py.
+    normative: false
+    derived: false
+    attrs: {}

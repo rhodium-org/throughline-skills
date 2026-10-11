@@ -1,0 +1,25 @@
+uid: TEST-0010
+type: test
+status: ratified
+title: The table is stable, written between markers, and its check fails when the
+  code moves
+text: Render the table twice and pass if the outputs are identical. Write it into
+  a file between markers, add a citation, and pass if the check form exits 1, then
+  0 after rewriting. The fixture is tests/test_reconcile.py.
+normative: false
+links:
+- target: REQ-0010
+  type: verifies
+attrs:
+  method: automated
+  origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:9299864330151e578568841bfd9404ea59ba7aee79c559b3c8a07c65318477a9
+  ratified_content:
+    type: test
+    text: Render the table twice and pass if the outputs are identical. Write it
+      into a file between markers, add a citation, and pass if the check form exits
+      1, then 0 after rewriting. The fixture is tests/test_reconcile.py.
+    normative: false
+    derived: false
+    attrs: {}

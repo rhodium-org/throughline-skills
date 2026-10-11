@@ -1,0 +1,20 @@
+uid: NG-0003
+type: non_goal
+status: ratified
+title: No language parser
+text: The scanner reads lines, not syntax trees. It does not know which function
+  a citation sits in, and a citation's reach is what the agent reads around it.
+rationale: One marker in every comment syntax is what lets one scanner serve every
+  language.
+normative: false
+attrs:
+  origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:58d18c7d91fe6474773cac118e253283e6591f92ef2a906b7d76f81dcbfbdf17
+  ratified_content:
+    type: non_goal
+    text: The scanner reads lines, not syntax trees. It does not know which function
+      a citation sits in, and a citation's reach is what the agent reads around it.
+    normative: false
+    derived: false
+    attrs: {}

@@ -1,0 +1,26 @@
+uid: DEC-0005
+type: decision
+status: ratified
+title: Non-goals register (NG, non_goal, root)
+text: 'The brief''s exclusions as items: negative space a proposal can be pointed
+  at. A non_goal is a root and never flagged unserved.'
+normative: true
+links:
+- target: NEED-0004
+  type: derives_from
+attrs:
+  kind: register
+  prefix: NG
+  dir: non-goals
+  item_type: non_goal
+  grounding: root
+  origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:ba1d4103442c269783b07178c4fadd39cc0b78fcb2b89800e3d1a7e80b2bdfaa
+  ratified_content:
+    type: decision
+    text: 'The brief''s exclusions as items: negative space a proposal can be pointed
+      at. A non_goal is a root and never flagged unserved.'
+    normative: true
+    derived: false
+    attrs: {}

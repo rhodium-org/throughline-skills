@@ -1,0 +1,20 @@
+uid: NG-0002
+type: non_goal
+status: ratified
+title: No change to tl
+text: The skill adds no command, flag or attribute to throughline. If a code scan
+  earns its place, its home is upstream, and this skill becomes its hand-run form.
+rationale: As tl:challenge is the hand-run form of throughline-challenger.
+normative: false
+attrs:
+  origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:ed02b8ea492c9f7ce1dfca33ee3998aef7d67519725bf50c7489be524e12ce18
+  ratified_content:
+    type: non_goal
+    text: The skill adds no command, flag or attribute to throughline. If a code
+      scan earns its place, its home is upstream, and this skill becomes its hand-run
+      form.
+    normative: false
+    derived: false
+    attrs: {}

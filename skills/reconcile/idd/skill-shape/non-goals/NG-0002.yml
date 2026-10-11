@@ -1,0 +1,25 @@
+uid: NG-0002
+type: non_goal
+status: ratified
+title: No risk register in the skill graph
+text: The risk worth naming, that a check tempts an agent to edit whichever side
+  is easier, is answered by a requirement and its test, not tracked as an operational
+  risk.
+rationale: Considered because a check that can propose edits to ratified items looked
+  like it carried one.
+normative: false
+links:
+- target: DOM-0001
+  type: derives_from
+attrs:
+  origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:01452aad588ec3aa31a85a6a7f0dea0fe59f2234e470a36194aca233eb8865aa
+  ratified_content:
+    type: non_goal
+    text: The risk worth naming, that a check tempts an agent to edit whichever side
+      is easier, is answered by a requirement and its test, not tracked as an operational
+      risk.
+    normative: false
+    derived: false
+    attrs: {}

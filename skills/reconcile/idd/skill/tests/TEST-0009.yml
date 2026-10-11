@@ -1,0 +1,25 @@
+uid: TEST-0009
+type: test
+status: ratified
+title: An unstamped citation whose item changed after its code is listed first, and
+  is no finding
+text: Commit two cited items and their code, then amend the first item and commit.
+  Pass if the first citation is listed before the second, and the run reports no
+  finding for either. The fixture is tests/test_reconcile.py.
+normative: false
+links:
+- target: REQ-0009
+  type: verifies
+attrs:
+  method: automated
+  origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:85e10d9664075effcf9ad8a0651a9bd12f244deda52bc227aef80cf3595ec1a1
+  ratified_content:
+    type: test
+    text: Commit two cited items and their code, then amend the first item and commit.
+      Pass if the first citation is listed before the second, and the run reports
+      no finding for either. The fixture is tests/test_reconcile.py.
+    normative: false
+    derived: false
+    attrs: {}

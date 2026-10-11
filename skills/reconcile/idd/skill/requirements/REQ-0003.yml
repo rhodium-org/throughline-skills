@@ -1,0 +1,29 @@
+uid: REQ-0003
+type: requirement
+status: ratified
+title: A citation that resolves to no live item is reported with where it stands
+text: Each citation is resolved against the repository's graphs as tl dump gives
+  them. A malformed citation, a link type outside the vocabulary, a qualifier naming
+  no graph or more than one, an unqualified UID in a repository holding more than
+  one graph, a UID no graph holds, and a UID whose item is in the graph's invalidated
+  or tombstone status are each reported with the file and line.
+normative: true
+links:
+- target: REQ-0001
+  type: derives_from
+attrs:
+  priority: must
+  origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:349d841068d497c70f9548702a8c04b1253931531e34e03ba1ca85cf70765fe3
+  ratified_content:
+    type: requirement
+    text: Each citation is resolved against the repository's graphs as tl dump gives
+      them. A malformed citation, a link type outside the vocabulary, a qualifier
+      naming no graph or more than one, an unqualified UID in a repository holding
+      more than one graph, a UID no graph holds, and a UID whose item is in the graph's
+      invalidated or tombstone status are each reported with the file and line.
+    normative: true
+    derived: false
+    attrs:
+      priority: must

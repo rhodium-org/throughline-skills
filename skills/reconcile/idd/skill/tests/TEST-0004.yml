@@ -1,0 +1,30 @@
+uid: TEST-0004
+type: test
+status: ratified
+title: Uncited accepted items are listed, apart from parents realised through their
+  children
+text: Build a graph with a ratified requirement cited by code, a ratified one uncited,
+  a ratified parent whose refining child is cited, and a proposed one uncited. Pass
+  if the second is listed as uncited, the parent apart as realised through children,
+  and neither the first nor the proposed one is listed. Pass the types option and
+  pass if an uncited item of the named type is listed. The fixture is tests/test_reconcile.py.
+normative: false
+links:
+- target: REQ-0004
+  type: verifies
+attrs:
+  method: automated
+  origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:101c4399f265fe2e45211c98d14ba23aa5417359ac116f95e394acb084f0102b
+  ratified_content:
+    type: test
+    text: Build a graph with a ratified requirement cited by code, a ratified one
+      uncited, a ratified parent whose refining child is cited, and a proposed one
+      uncited. Pass if the second is listed as uncited, the parent apart as realised
+      through children, and neither the first nor the proposed one is listed. Pass
+      the types option and pass if an uncited item of the named type is listed. The
+      fixture is tests/test_reconcile.py.
+    normative: false
+    derived: false
+    attrs: {}

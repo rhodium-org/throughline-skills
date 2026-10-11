@@ -1,0 +1,25 @@
+uid: NG-0005
+type: non_goal
+status: ratified
+title: No separate notation register in the skill graph
+text: The notation is one requirement, not a class of items. Its grammar fits in
+  one item's text, and the scanner's requirements derive from it, which is what makes
+  an amendment flag them.
+rationale: Considered because the notation is a contract other repositories' code
+  will carry.
+normative: false
+links:
+- target: NEED-0003
+  type: derives_from
+attrs:
+  origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:9a7006d32281ba7a6501378c451edd95ca9d7db8886f299b7b65c1fde9c75041
+  ratified_content:
+    type: non_goal
+    text: The notation is one requirement, not a class of items. Its grammar fits
+      in one item's text, and the scanner's requirements derive from it, which is
+      what makes an amendment flag them.
+    normative: false
+    derived: false
+    attrs: {}

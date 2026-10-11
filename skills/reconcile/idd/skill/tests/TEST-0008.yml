@@ -1,0 +1,27 @@
+uid: TEST-0008
+type: test
+status: ratified
+title: Restamping touches only the named item's citations and leaves other stale
+  ones stale
+text: Make two items' citations stale, one of them unstamped elsewhere. Restamp the
+  first UID; pass if all its citations, the unstamped one included, carry its current
+  fingerprint, the second item's citation is still stale, and no command option restamps
+  both at once. The fixture is tests/test_reconcile.py.
+normative: false
+links:
+- target: REQ-0008
+  type: verifies
+attrs:
+  method: automated
+  origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:a2f1ba181157eefe13f2050be2665c89992ca7728692cdb01efd3b70aa1dcc26
+  ratified_content:
+    type: test
+    text: Make two items' citations stale, one of them unstamped elsewhere. Restamp
+      the first UID; pass if all its citations, the unstamped one included, carry
+      its current fingerprint, the second item's citation is still stale, and no
+      command option restamps both at once. The fixture is tests/test_reconcile.py.
+    normative: false
+    derived: false
+    attrs: {}

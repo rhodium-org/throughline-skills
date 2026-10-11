@@ -1,0 +1,33 @@
+uid: REQ-0005
+type: requirement
+status: ratified
+title: A status the code contradicts is reported in both directions
+text: An item at implemented or verified (by default; others by option) that no implements
+  or satisfies citation names is reported as claimed but absent. An implements or
+  satisfies citation naming an item at the graph's initial or proposed status, or
+  at deferred, is reported as code doing work nobody has accepted; one naming an
+  item at the graph's suspect status is reported as code resting on an item under
+  question.
+rationale: tl context tells an agent to do only work the graph justifies; a citation
+  to an unaccepted item is the evidence that it did not.
+normative: true
+links:
+- target: REQ-0001
+  type: derives_from
+attrs:
+  priority: must
+  origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:a8415d543fa9ebfd14c0de8e8275d990a8f7a608230cc1cf58c378f9f14a05f1
+  ratified_content:
+    type: requirement
+    text: An item at implemented or verified (by default; others by option) that
+      no implements or satisfies citation names is reported as claimed but absent.
+      An implements or satisfies citation naming an item at the graph's initial or
+      proposed status, or at deferred, is reported as code doing work nobody has
+      accepted; one naming an item at the graph's suspect status is reported as code
+      resting on an item under question.
+    normative: true
+    derived: false
+    attrs:
+      priority: must

@@ -1,0 +1,19 @@
+uid: NG-0006
+type: non_goal
+status: ratified
+title: No running of code or measuring of test coverage
+text: A verifies citation says a test is meant to verify an item, not that it passes
+  or reaches the code. Whether tests pass is the test runner's report.
+rationale: Tests passing is already measured by tl:assess from a test result file.
+normative: false
+attrs:
+  origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:f5b3b4b4630d96beb8ea28e7635db39cbd08a3e0d7f949b7f4809f814286befb
+  ratified_content:
+    type: non_goal
+    text: A verifies citation says a test is meant to verify an item, not that it
+      passes or reaches the code. Whether tests pass is the test runner's report.
+    normative: false
+    derived: false
+    attrs: {}

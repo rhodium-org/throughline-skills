@@ -1,0 +1,30 @@
+uid: SRC-0003
+type: source
+status: ratified
+title: The four skills the marketplace held on 2026-10-11, and their practice of
+  citing UIDs
+text: 'shape, challenge, multigraph and assess, read for the conventions a fifth
+  follows: the SKILL.md shape, a standard-library script reached through the plugin
+  root, a graph per skill under skills/<skill>/idd/, fixture tests run in CI. Their
+  scripts open docstrings with the UID they implement, their tests carry the TEST
+  UID in a comment, and commit subjects end with the graph and UIDs they serve: the
+  informal form of the notation this skill fixes.'
+normative: true
+attrs:
+  path: skills/challenge/SKILL.md; scripts/challenge.py; tests/test_assess.py; git
+    log
+  read: '2026-10-11'
+  origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:91de9fd7f228463f8c01385e0a1311b4640940aa74c9c6989f37ec23d8f0400e
+  ratified_content:
+    type: source
+    text: 'shape, challenge, multigraph and assess, read for the conventions a fifth
+      follows: the SKILL.md shape, a standard-library script reached through the
+      plugin root, a graph per skill under skills/<skill>/idd/, fixture tests run
+      in CI. Their scripts open docstrings with the UID they implement, their tests
+      carry the TEST UID in a comment, and commit subjects end with the graph and
+      UIDs they serve: the informal form of the notation this skill fixes.'
+    normative: true
+    derived: false
+    attrs: {}

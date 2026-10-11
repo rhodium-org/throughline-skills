@@ -1,0 +1,23 @@
+uid: NG-0004
+type: non_goal
+status: ratified
+title: No sources register in the skill graph
+text: Provenance is the shape graph's job. The skill graph reaches the brief through
+  idd/shape/, which cites it.
+rationale: Considered because the second graph might otherwise seem to have no record
+  of where it came from.
+normative: false
+links:
+- target: DOM-0001
+  type: derives_from
+attrs:
+  origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:00278af843a9b922178c693173e2a11183de7941e3f269ab7d7099803f4afa0d
+  ratified_content:
+    type: non_goal
+    text: Provenance is the shape graph's job. The skill graph reaches the brief
+      through idd/shape/, which cites it.
+    normative: false
+    derived: false
+    attrs: {}

@@ -1,0 +1,24 @@
+uid: NEED-0004
+type: need
+status: ratified
+title: What the skill deliberately does not do is recorded where a reader will find
+  it
+text: No silent amendment of a ratified item to match the code, no required code-graph
+  tool, no change to tl, no per-language parser. A proposal to extend the skill must
+  be able to be pointed at the non-goal it crosses.
+normative: true
+links:
+- target: DOM-0001
+  type: derives_from
+attrs:
+  origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:463e4cd55a74a6ab0e2020ec2599c5b884874124c8a900e562557b43ae3a2d57
+  ratified_content:
+    type: need
+    text: No silent amendment of a ratified item to match the code, no required code-graph
+      tool, no change to tl, no per-language parser. A proposal to extend the skill
+      must be able to be pointed at the non-goal it crosses.
+    normative: true
+    derived: false
+    attrs: {}

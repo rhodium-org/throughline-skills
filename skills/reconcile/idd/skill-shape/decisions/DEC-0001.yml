@@ -1,0 +1,23 @@
+uid: DEC-0001
+type: decision
+status: ratified
+title: Name the graph skill
+text: The thing being built is a skill, so its graph is idd/skill/ under skills/reconcile/,
+  as the shape skill's is under skills/shape/.
+normative: true
+links:
+- target: DOM-0001
+  type: derives_from
+attrs:
+  kind: name
+  dir: skill
+  origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:1a9fb99c5ddcb313cd211eaf081de407d0cc25f7fdef5fbf85b35a85bc7dc128
+  ratified_content:
+    type: decision
+    text: The thing being built is a skill, so its graph is idd/skill/ under skills/reconcile/,
+      as the shape skill's is under skills/shape/.
+    normative: true
+    derived: false
+    attrs: {}

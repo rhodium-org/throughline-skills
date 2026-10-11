@@ -1,0 +1,29 @@
+uid: REQ-0012
+type: requirement
+status: ratified
+title: Every disagreement is put to the human as a choice of which side moves
+text: 'The skill reports each finding with both sides: the item as it stands and
+  the code as it stands. It never amends an item, reverts a ratification or changes
+  code to make a disagreement go away until the human has said which side is wrong.
+  It settles itself only a malformed or unqualified citation whose intended target
+  is unambiguous, and a stamp it has re-read the code to confirm.'
+normative: true
+links:
+- target: INT-0001
+  type: derives_from
+attrs:
+  priority: must
+  origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:bd066e472f8a3ef3740f3af2b50c2d630f1dc990cbfaa859c694b49519c76a40
+  ratified_content:
+    type: requirement
+    text: 'The skill reports each finding with both sides: the item as it stands
+      and the code as it stands. It never amends an item, reverts a ratification
+      or changes code to make a disagreement go away until the human has said which
+      side is wrong. It settles itself only a malformed or unqualified citation whose
+      intended target is unambiguous, and a stamp it has re-read the code to confirm.'
+    normative: true
+    derived: false
+    attrs:
+      priority: must

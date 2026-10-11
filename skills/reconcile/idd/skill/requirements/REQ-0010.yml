@@ -1,0 +1,31 @@
+uid: REQ-0010
+type: requirement
+status: ratified
+title: The citations render as an item-by-item table in a generated document, and
+  a stale table fails
+text: The scanner renders a Markdown table of every cited item with each citation's
+  link type, file and line, in a stable order, and can write it between begin and
+  end markers in a named file. A check form exits 1 when the table in the file differs
+  from the table the code now gives.
+rationale: Generated documents are where a reader meets the graph; with the table
+  beside them, the documentation says where each requirement is built and tested,
+  and stays current under CI as tl docs --check keeps the rest current.
+normative: true
+links:
+- target: REQ-0001
+  type: derives_from
+attrs:
+  priority: should
+  origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:03b6f6ba7aeb92f897cbaff2d6688d2741ecf8aab5f649f3a7b98a3f6e4fea92
+  ratified_content:
+    type: requirement
+    text: The scanner renders a Markdown table of every cited item with each citation's
+      link type, file and line, in a stable order, and can write it between begin
+      and end markers in a named file. A check form exits 1 when the table in the
+      file differs from the table the code now gives.
+    normative: true
+    derived: false
+    attrs:
+      priority: should

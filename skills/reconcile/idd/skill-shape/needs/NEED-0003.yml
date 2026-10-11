@@ -1,0 +1,26 @@
+uid: NEED-0003
+type: need
+status: ratified
+title: A change to the notation flags everything that depends on it
+text: Code in other repositories will carry the notation, so its grammar is a contract.
+  It must live in one item whose amendment marks the scanner's requirements and their
+  tests suspect, rather than in prose the script and SKILL.md each restate.
+rationale: 'Unlike the other skills'' behaviours, the notation outlives a run: it
+  is written into code that this repository does not own.'
+normative: true
+links:
+- target: DOM-0001
+  type: derives_from
+attrs:
+  origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:0352614eb4e6e95580dfcefb7f5c77b3f227c575d530a3879df972b3a250e0fe
+  ratified_content:
+    type: need
+    text: Code in other repositories will carry the notation, so its grammar is a
+      contract. It must live in one item whose amendment marks the scanner's requirements
+      and their tests suspect, rather than in prose the script and SKILL.md each
+      restate.
+    normative: true
+    derived: false
+    attrs: {}

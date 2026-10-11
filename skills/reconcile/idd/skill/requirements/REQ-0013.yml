@@ -1,0 +1,30 @@
+uid: REQ-0013
+type: requirement
+status: ratified
+title: Each cited location is read against its item, and uncited code is asked what
+  justifies it
+text: For each citation in scope, the agent reads the cited code against its item's
+  text and priority and reports where the code does less, more or other than the
+  item says. For code in scope that cites nothing, it asks whether an item justifies
+  it and reports what does not trace.
+rationale: The script proves that a citation resolves, not that the code does what
+  the item says. That is a judgement, as challenges 1, 3 and 6 are.
+normative: true
+links:
+- target: INT-0001
+  type: derives_from
+attrs:
+  priority: must
+  origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:2ac4d01b8322fb435a741496e97bbd0a0be838511ea3e3f3bba99cf38854880e
+  ratified_content:
+    type: requirement
+    text: For each citation in scope, the agent reads the cited code against its
+      item's text and priority and reports where the code does less, more or other
+      than the item says. For code in scope that cites nothing, it asks whether an
+      item justifies it and reports what does not trace.
+    normative: true
+    derived: false
+    attrs:
+      priority: must

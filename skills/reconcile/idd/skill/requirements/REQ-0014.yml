@@ -1,0 +1,31 @@
+uid: REQ-0014
+type: requirement
+status: ratified
+title: An agent writing code under throughline cites the items it serves as it writes
+text: When writing or changing code in a repository holding a throughline graph,
+  the agent writes a citation at the smallest unit that realises the item (the function,
+  class, test or block, not a file header listing everything) at the time it writes
+  the code, and names the graph and UIDs at the end of the commit subject, as in
+  (billing REQ-0042, TEST-0042).
+rationale: A citation added afterwards records what someone believes the code does;
+  one written with the code records what it was written for.
+normative: true
+links:
+- target: INT-0001
+  type: derives_from
+attrs:
+  priority: must
+  origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:df9a4a3c2bdc1460a34b3feef4c5ea398ff9fd8899cd8b388b68609ec0f3753b
+  ratified_content:
+    type: requirement
+    text: When writing or changing code in a repository holding a throughline graph,
+      the agent writes a citation at the smallest unit that realises the item (the
+      function, class, test or block, not a file header listing everything) at the
+      time it writes the code, and names the graph and UIDs at the end of the commit
+      subject, as in (billing REQ-0042, TEST-0042).
+    normative: true
+    derived: false
+    attrs:
+      priority: must

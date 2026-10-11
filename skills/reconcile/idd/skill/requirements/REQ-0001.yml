@@ -1,0 +1,45 @@
+uid: REQ-0001
+type: requirement
+status: ratified
+title: A citation is one line naming a link type and the items it joins the code
+  to
+text: 'A citation is a line whose content, after leading whitespace and at most one
+  comment opener (#, //, --, ;, %, /*, * or <!--), begins with the marker tl: followed
+  by a link type from the graph''s link vocabulary and one or more comma-separated
+  item references. A reference is a UID as tl names it, a borrowed item keeping its
+  namespace (spec:SR-0032). In a repository holding more than one throughline graph
+  it is preceded by the project name of the graph it belongs to and a slash (billing/REQ-0042);
+  in a repository holding one, the qualifier is optional. A reference may end in
+  @ and a stamp: at least eight leading hex digits of the item''s fingerprint as
+  tl dump reports it. A line opening with the marker that does not parse is a malformed
+  citation, reported, never skipped.'
+rationale: 'One marker in every language''s comment syntax lets one scanner serve
+  all languages without a parser per language. The qualifier is required only where
+  a bare UID is ambiguous: this repository holds five graphs and REQ-0001 exists
+  in each. The stamp is optional so that adding or dropping stamps later never changes
+  the grammar code already carries.'
+normative: true
+links:
+- target: INT-0001
+  type: derives_from
+attrs:
+  priority: must
+  origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:7cf4861a6518bb058afc3792529ce4f40ad7306cf9d7cfa3bf635421d59639f9
+  ratified_content:
+    type: requirement
+    text: 'A citation is a line whose content, after leading whitespace and at most
+      one comment opener (#, //, --, ;, %, /*, * or <!--), begins with the marker
+      tl: followed by a link type from the graph''s link vocabulary and one or more
+      comma-separated item references. A reference is a UID as tl names it, a borrowed
+      item keeping its namespace (spec:SR-0032). In a repository holding more than
+      one throughline graph it is preceded by the project name of the graph it belongs
+      to and a slash (billing/REQ-0042); in a repository holding one, the qualifier
+      is optional. A reference may end in @ and a stamp: at least eight leading hex
+      digits of the item''s fingerprint as tl dump reports it. A line opening with
+      the marker that does not parse is a malformed citation, reported, never skipped.'
+    normative: true
+    derived: false
+    attrs:
+      priority: must
