@@ -1,6 +1,6 @@
 """Fixture tests for the shape skill's script.
 
-skill TEST-0001 to TEST-0008, one per requirement. Each test drives
+skill TEST-0001 to TEST-0008 and TEST-0010, one per requirement. Each test drives
 scripts/shape.py over a throwaway repository with the real CLI, and where
 the skill text gives shell to run, the shell is read out of SKILL.md so that
 what is tested is what a reader follows. TEST-0009 is in test_tl_floor.py.
@@ -102,7 +102,7 @@ def discovered(repo):
     """A repo taken through the discovery with the script: one source, a domain
     citing it, the name `estate`, one need, two register decisions grounded in
     the need, one rejected register, and the fixed layout from init."""
-    r = skill_run(repo, "If there is no `idd/shape/`:")
+    r = skill_run(repo, "If the repo has no shaping yet:")
     assert r.returncode == 0, r.stdout + r.stderr
     src = new(repo, "SRC", "source", "The brief", attrs=["path=docs/brief.md"])
     dom = new(repo, "DOM", "domain", "A hosting estate run for tenants", ground=[src])
@@ -140,23 +140,47 @@ def test_layout_comes_from_discovery_not_tl_init(written):  # TEST-0001 / REQ-00
     cfg = (estate / "throughline.toml").read_text()
     assert "threat" in dump(estate)["config"]["grounding"]["delivery_roots"]
     assert re.search(r"# throughline shape: DEC-\d+ — Threats register", cfg)
-    assert registers(repo / "idd" / "shape") == SHAPE_REGISTERS
+    assert registers(repo / "idd" / "estate-shape") == SHAPE_REGISTERS
     # provenance: the source carries where and when it was read, the domain cites it
-    src = next(i for i in local_items(repo / "idd" / "shape") if i["uid"] == uids["src"])
+    src = next(i for i in local_items(repo / "idd" / "estate-shape") if i["uid"] == uids["src"])
     assert src["attrs"]["path"] == "docs/brief.md"
     assert re.fullmatch(r"\d{4}-\d{2}-\d{2}", str(src["attrs"]["read"]))
-    dom = next(i for i in local_items(repo / "idd" / "shape") if i["uid"] == uids["dom"])
+    dom = next(i for i in local_items(repo / "idd" / "estate-shape") if i["uid"] == uids["dom"])
     assert {"target": uids["src"], "type": "derives_from"} in dom["links"]
 
 
-def test_shape_graph_is_always_at_that_name(repo, tmp_path):  # TEST-0002 / REQ-0002
-    r = skill_run(repo, "If there is no `idd/shape/`:")
-    assert r.returncode == 0, r.stdout + r.stderr
+def test_shape_graph_is_named_for_its_graph(discovered, tmp_path):  # TEST-0002 / REQ-0002
+    repo, _ = discovered
     cfg = repo / "idd" / "shape" / "throughline.toml"
     assert cfg.exists()
     assert dump(repo / "idd" / "shape")["config"]["project"]["name"] == "shape"
     assert registers(repo / "idd" / "shape") == SHAPE_REGISTERS
     assert {p.name for p in (repo / "idd").iterdir()} == {"shape"}
+    # a second shaping in progress beside it is numbered
+    r = skill_run(repo, "If the repo has no shaping yet:", 1)
+    assert r.returncode == 0, r.stdout + r.stderr
+    assert {p.name for p in (repo / "idd").iterdir()} == {"shape", "shape-2"}
+    assert registers(repo / "idd" / "shape-2") == SHAPE_REGISTERS
+    # writing the first names it after the graph it produced
+    r = shape(repo, "--shape", "shape", "write")
+    assert r.returncode == 0, r.stdout + r.stderr
+    assert {p.name for p in (repo / "idd").iterdir()} == {"estate", "estate-shape", "shape-2"}
+    named = dump(repo / "idd" / "estate-shape")
+    assert named["config"]["project"]["name"] == "estate-shape"
+    assert named["config"]["sources"][0]["path"] == "../estate"
+    assert run("tl", "-C", str(repo / "idd" / "estate-shape"), "check").returncode == 0
+    # a shaping written before shape graphs were named is only renamed by write
+    # and its project is named after the graph's project, which a person may have changed
+    (repo / "idd" / "estate-shape").rename(repo / "idd" / "shape")
+    toml = repo / "idd" / "estate" / "throughline.toml"
+    toml.write_text(toml.read_text().replace('name = "estate"', 'name = "tl-estate"', 1))
+    before = snapshot(repo / "idd" / "estate")
+    r = shape(repo, "--shape", "shape", "write")
+    assert r.returncode == 0, r.stdout + r.stderr
+    assert "renamed shape to estate-shape" in r.stdout
+    assert dump(repo / "idd" / "estate-shape")["config"]["project"]["name"] == "tl-estate-shape"
+    assert not (repo / "idd" / "shape").exists()
+    assert snapshot(repo / "idd" / "estate") == before
     # a repo whose idd/ is itself a graph root cannot take the layout
     other = tmp_path / "rooted"
     other.mkdir()
@@ -177,7 +201,7 @@ def test_second_graph_named_in_discovery_never_defaulted(repo):  # TEST-0003 / R
     assert r.returncode == 2
     assert "no live name decision" in r.stderr
     assert {p.name for p in (repo / "idd").iterdir()} == {"shape"}
-    for bad in ("shape", "Estate", "my estate"):
+    for bad in ("shape", "shape-2", "estate-shape", "Estate", "my estate"):
         uid = new(repo, "DEC", "decision", f"Name it {bad}", ground=[dom],
                   attrs=["kind=name", f"dir={bad}"])
         r = shape(repo, "write")
@@ -189,7 +213,7 @@ def test_second_graph_named_in_discovery_never_defaulted(repo):  # TEST-0003 / R
     r = shape(repo, "write")
     assert r.returncode == 0, r.stdout + r.stderr
     assert (repo / "idd" / "estate" / "throughline.toml").exists()
-    sources = dump(repo / "idd" / "shape")["config"]["sources"]
+    sources = dump(repo / "idd" / "estate-shape")["config"]["sources"]
     assert {"namespace": "estate", "path": "../estate"} == {k: sources[0][k] for k in ("namespace", "path")}
     status = json.loads(shape(repo, "status", "--json").stdout)
     assert status["name"] == "estate" and status["shaped_exists"] and status["pointer_recorded"]
@@ -221,7 +245,7 @@ def test_registers_come_after_needs(repo):  # TEST-0004 / REQ-0004
 
 def test_every_item_is_ai_and_proposed_and_the_script_cannot_ratify(written):  # TEST-0005 / REQ-0005
     repo, _ = written
-    items = local_items(repo / "idd" / "shape")
+    items = local_items(repo / "idd" / "estate-shape")
     assert len(items) == 7
     assert all(i["attrs"]["origin"] == "ai" and i["status"] == "proposed" for i in items)
     # the same binding holds for an item authored into the second graph
@@ -253,7 +277,7 @@ def test_hands_back_on_zero_errors_in_both_graphs(written):  # TEST-0007 / REQ-0
     assert r.returncode == 0, r.stdout + r.stderr
     out = r.stdout + r.stderr
     commands = re.findall(r"^== (\S+) -C (\S+) check", out, re.M)
-    assert [(b, Path(p).name) for b, p in commands] == [("tl", "shape"), ("tl", "estate")]
+    assert [(b, Path(p).name) for b, p in commands] == [("tl", "estate-shape"), ("tl", "estate")]
     assert "empty-registers" in out
     assert out.count("0 error(s)") == 2 and "[ERROR]" not in out
     assert local_items(repo / "idd" / "estate") == []   # nothing authored to silence the warning
@@ -265,7 +289,7 @@ def test_hands_back_on_zero_errors_in_both_graphs(written):  # TEST-0007 / REQ-0
 def test_rerun_reconfirms_and_never_overwrites(written):  # TEST-0008 / REQ-0008
     repo, uids = written
     before = snapshot(repo / "idd")
-    r = skill_run(repo, "If there is no `idd/shape/`:")
+    r = skill_run(repo, "If the repo has no shaping yet:")
     assert r.returncode == 1
     assert "shaped before" in r.stderr
     r = shape(repo, "write")
@@ -277,3 +301,34 @@ def test_rerun_reconfirms_and_never_overwrites(written):  # TEST-0008 / REQ-0008
     for uid in uids.values():
         assert uid in r.stdout
     assert "shaped graph:" in r.stdout and "estate" in r.stdout
+    # other work gets a shaping beside it, only when asked for
+    r = skill_run(repo, "If the repo has no shaping yet:", 1)
+    assert r.returncode == 0, r.stdout + r.stderr
+    assert (repo / "idd" / "shape" / "throughline.toml").exists()
+    after = snapshot(repo / "idd")
+    assert {k: v for k, v in after.items() if k.parts[0] != "shape"} == before
+
+
+def test_commands_act_on_the_shaping_they_are_given(written):  # TEST-0010 / REQ-0010
+    repo, _ = written
+    assert shape(repo, "init", "--another").returncode == 0      # lands at idd/shape/
+    (repo / "idd" / "shape").rename(repo / "idd" / "shape-2")
+    uid = new(repo, "SRC", "source", "Another brief")             # no shaping named
+    assert (repo / "idd" / "shape-2" / "sources" / f"{uid}.yml").exists()
+    assert shape(repo, "init", "--another").returncode == 0      # a second in progress
+    before = snapshot(repo / "idd")
+    for cmd in (["new", "SRC", "--type", "source", "--title", "x", "--text", "x."],
+                ["write"], ["check"]):
+        r = shape(repo, *cmd)
+        assert r.returncode == 2, cmd
+        assert "shape, shape-2" in r.stderr, cmd
+    assert snapshot(repo / "idd") == before
+    for d in ("shape", "shape-2", "estate-shape"):
+        r = shape(repo, "--shape", d, "new", "SRC", "--type", "source", "--title", "y", "--text", "y.")
+        assert r.returncode == 0, r.stdout + r.stderr
+        assert (repo / "idd" / d / "sources" / f"{r.stdout.strip()}.yml").exists()
+    r = shape(repo, "status")
+    assert r.returncode == 0
+    assert re.search(r"estate-shape\s+\[written\]\s+shaped graph: estate \(exists\)", r.stdout)
+    assert re.search(r"(?m)^  shape\s+\[in progress\]", r.stdout)
+    assert re.search(r"(?m)^  shape-2\s+\[in progress\]", r.stdout)

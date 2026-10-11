@@ -5,9 +5,9 @@ title: check exits zero across both graphs with the second empty, and strict doe
   not
 text: 'tests/test_shape.py, test_hands_back_on_zero_errors_in_both_graphs: runs the
   check shell read out of SKILL.md after write and asserts it exits zero, drives
-  both idd/shape/ and idd/estate/ with tl, reports empty-registers for the second
-  graph and zero errors for both, and that the second graph still holds no items;
-  then asserts check --strict exits non-zero on the unratified items.'
+  both idd/estate-shape/ and idd/estate/ with tl, reports empty-registers for the
+  second graph and zero errors for both, and that the second graph still holds no
+  items; then asserts check --strict exits non-zero on the unratified items.'
 normative: true
 links:
 - target: REQ-0007
@@ -16,13 +16,13 @@ attrs:
   method: automated
   origin: ai
   ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:22d62bb4c916fd36dd0914960545759416fa580b3b24935ccd08c371911e6ad5
+  ratified_fingerprint: sha256:2514120795cb228ab09c7518aa9329a39856bd0fa343ceefdc7a7b9af3909f5f
   ratified_content:
     type: test
     text: 'tests/test_shape.py, test_hands_back_on_zero_errors_in_both_graphs: runs
       the check shell read out of SKILL.md after write and asserts it exits zero,
-      drives both idd/shape/ and idd/estate/ with tl, reports empty-registers for
-      the second graph and zero errors for both, and that the second graph still
+      drives both idd/estate-shape/ and idd/estate/ with tl, reports empty-registers
+      for the second graph and zero errors for both, and that the second graph still
       holds no items; then asserts check --strict exits non-zero on the unratified
       items.'
     normative: true

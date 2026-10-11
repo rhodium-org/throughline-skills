@@ -1,0 +1,27 @@
+uid: NG-0003
+type: non_goal
+status: ratified
+title: No constraints register in the skill graph
+text: The brief's six settled design decisions are what the requirements say; holding
+  them again as constraints would state one thing in two places. The one standard
+  the skill inherits lives here in the shape graph, where it grounds the register
+  decisions it mandates.
+rationale: Considered because the brief calls the decisions settled and not to be
+  relitigated.
+normative: true
+links:
+- target: NEED-0001
+  type: derives_from
+attrs:
+  origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:154e726df309f6a87fb5d8d6d8e406bce87cc2bd4e57d1f89dce047fb326d80f
+  ratified_content:
+    type: non_goal
+    text: The brief's six settled design decisions are what the requirements say;
+      holding them again as constraints would state one thing in two places. The
+      one standard the skill inherits lives here in the shape graph, where it grounds
+      the register decisions it mandates.
+    normative: true
+    derived: false
+    attrs: {}
