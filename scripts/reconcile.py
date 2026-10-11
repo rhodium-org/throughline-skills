@@ -61,6 +61,7 @@ BUILDS = ("implements", "satisfies")
 BEGIN = "<!-- reconcile:begin -->"
 END = "<!-- reconcile:end -->"
 SKIP_DIRS = {".git", ".venv", "venv", "node_modules", "__pycache__"}
+IGNORE_FILE = ".reconcileignore"
 
 # The order findings are reported in, and what each kind means.
 KINDS = {
@@ -226,27 +227,34 @@ class Citation:
 
 
 # tl: implements tl-reconcile/REQ-0001
-def parse_line(text: str) -> tuple | None:
+def parse_line(text: str, link_types: set) -> tuple | None:
     """None for a line that is not a citation; else (link, refs, error).
 
     A citation is a line whose content, after leading whitespace and at most
-    one comment opener, begins with the marker followed by whitespace or the
-    end of the line. Anything after the marker that does not parse is an
+    one comment opener, begins with the marker and then a link type some
+    graph declares. A marker line opening with any other word is not a
+    citation: tl's own messages open with the same marker. A marker with
+    nothing after it, or a link type followed by what does not parse, is an
     error, never a skip."""
     s = text.strip()
     for opener in OPENERS:
         if s.startswith(opener):
             s = s[len(opener):].lstrip()
             break
-    if not s.startswith(MARKER) or (len(s) > len(MARKER) and not s[len(MARKER)].isspace()):
+    if not s.startswith(MARKER):
         return None
     body = s[len(MARKER):].strip()
     for closer in CLOSERS:
         if body.endswith(closer):
             body = body[:-len(closer)].rstrip()
+    if not body:
+        return None, [], "nothing after the marker"
+    first = re.match(r"[a-z][a-z0-9_]*", body)
+    if not first or first.group(0) not in link_types:
+        return None
     m = LINK_RE.fullmatch(body)
     if not m:
-        return None, [], "no link type followed by item references"
+        return first.group(0), [], f"{first.group(0)!r} is followed by no item references"
     link, refs = m.group(1), []
     for raw in (r.strip() for r in m.group(2).split(",")):
         rm = REF_RE.fullmatch(raw)
@@ -270,7 +278,8 @@ def excluded(path: str, patterns: list[str]) -> bool:
 def scan_files(repo: Path, paths: list[str], patterns: list[str],
                graphs: list[Graph]) -> tuple[int, list[Citation]]:
     """Every citation in the files git tracks under PATHS, skipping each
-    graph root and each excluded path. Returns the files read and citations."""
+    graph's own files, each excluded path and each path .reconcileignore
+    names. Returns the files read and the citations found."""
     # A graph nested below the root is skipped whole. A graph at the root holds
     # the code too, so only its own files are: the config and each register.
     roots = [str(g.root.relative_to(repo)).replace(os.sep, "/") for g in graphs]
@@ -280,6 +289,12 @@ def scan_files(repo: Path, paths: list[str], patterns: list[str],
             str(Path(d).relative_to(repo)).replace(os.sep, "/")
             for d, _dirs, files in os.walk(repo) if ".register.yml" in files
             and not set(Path(d).relative_to(repo).parts) & SKIP_DIRS)
+    ignore = repo / IGNORE_FILE
+    if ignore.is_file():
+        skip.append(IGNORE_FILE)
+        patterns = patterns + [ln.strip() for ln in ignore.read_text(encoding="utf-8").splitlines()
+                               if ln.strip() and not ln.strip().startswith("#")]
+    link_types = set().union(*(g.vocabulary for g in graphs))
     listed = git(repo, "ls-files", "-z", "--", *(paths or ["."])).split("\0")
     read, found = 0, []
     for rel in sorted(p for p in listed if p):
@@ -293,7 +308,7 @@ def scan_files(repo: Path, paths: list[str], patterns: list[str],
             continue
         read += 1
         for n, line in enumerate(text.splitlines(), 1):
-            parsed = parse_line(line)
+            parsed = parse_line(line, link_types)
             if parsed is not None:
                 link, refs, error = parsed
                 found.append(Citation(rel, n, line.strip(), link, refs, error))

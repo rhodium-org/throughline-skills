@@ -4,10 +4,12 @@ status: ratified
 title: Each comment form, qualifier rule and stamp form parses, and a broken marker
   line is reported
 text: Build a throwaway repository with one graph and files citing in each comment
-  opener, one with several references, one borrowed reference, one stamped and one
-  with a seven-digit stamp. Pass if every valid citation is read with its link type,
-  references and stamp, and the seven-digit stamp and a marker line with no link
-  type are reported malformed. Add a second graph and pass if the unqualified citations
+  opener, one with several references, one borrowed reference, one stamped, one with
+  no space after the marker, and one with a seven-digit stamp. Pass if every valid
+  citation is read with its link type, references and stamp, and the seven-digit
+  stamp and a marker line with nothing after the marker are reported malformed, while
+  a line of tl's own output and a marker followed by a word no graph uses as a link
+  type are not citations at all. Add a second graph and pass if the unqualified citations
   are now reported and qualified ones resolve. The fixture is tests/test_reconcile.py.
 normative: false
 links:

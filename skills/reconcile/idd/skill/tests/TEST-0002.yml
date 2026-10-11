@@ -4,11 +4,11 @@ status: ratified
 title: Untracked files, graph roots and excluded paths are not read, and the counts
   say so
 text: In a throwaway repository, cite a UID from a tracked file, an untracked file,
-  a file under a graph root and a file matched by an exclude pattern. Pass if only
-  the tracked, unexcluded citation is read and the report's file and citation counts
-  match. In a second repository whose root is the graph, cite from a source file
-  and from a file in a register directory, and pass if only the source file is read.
-  The fixture is tests/test_reconcile.py.
+  a file under a graph root, a file matched by an exclude pattern and a file matched
+  by a pattern in .reconcileignore. Pass if only the tracked, unexcluded, unignored
+  citation is read and the report's file and citation counts match. In a second repository
+  whose root is the graph, cite from a source file and from a file in a register
+  directory, and pass if only the source file is read. The fixture is tests/test_reconcile.py.
 normative: false
 links:
 - target: REQ-0002

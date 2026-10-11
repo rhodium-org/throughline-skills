@@ -2,12 +2,13 @@ uid: REQ-0005
 type: requirement
 status: ratified
 title: A status the code contradicts is reported in both directions
-text: An item at implemented or verified (by default; others by option) that no implements
-  or satisfies citation names is reported as claimed but absent. An implements or
-  satisfies citation naming an item at the graph's initial or proposed status, or
-  at deferred, is reported as code doing work nobody has accepted; one naming an
-  item at the graph's suspect status is reported as code resting on an item under
-  question.
+text: A live local item other than a test at implemented or verified (by default;
+  others by option) that no implements or satisfies citation names is reported as
+  claimed but absent; a test is verified by being run, not built, and its own check
+  is not-wired. An implements or satisfies citation naming an item at the graph's
+  initial or proposed status, or at deferred, is reported as code doing work nobody
+  has accepted; one naming an item at the graph's suspect status is reported as code
+  resting on an item under question.
 rationale: tl context tells an agent to do only work the graph justifies; a citation
   to an unaccepted item is the evidence that it did not.
 normative: true

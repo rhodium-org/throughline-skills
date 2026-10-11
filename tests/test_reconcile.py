@@ -140,15 +140,17 @@ def test_each_comment_form_parses_and_a_broken_marker_is_reported(repo, tmp_path
           cite("implements", f"{r1}, {r2}"),
           cite("satisfies", "spec:REQ-0001"),
           cite("implements", f"{r1}@{stamp}"),
+          f"# {MARK}implements {r1}",
           cite("implements", f"{r1}@{stamp[:7]}"),
           f"# {MARK}",
-          f"# {MARK}shape is not the marker")
+          f"# {MARK}shape is not a link type",
+          f"{MARK} subject:UR-0003 does not exist          # tl's own output")
     commit(repo)
     report = scan(repo, "src")
-    assert report["citations"] == 14                   # the last line is no citation at all
-    assert report["references"] == 13 and report["stamped"] == 1
+    assert report["citations"] == 15                   # the last two lines are no citations at all
+    assert report["references"] == 14 and report["stamped"] == 1
     malformed = [f for f in report["findings"] if f["kind"] == "malformed"]
-    assert [f["line"] for f in malformed] == [13, 14]
+    assert [f["line"] for f in malformed] == [14, 15]
     assert "shorter than 8" in malformed[0]["message"]
     assert not [f for f in report["findings"] if f["kind"] in
                 ("unknown-graph", "unqualified", "no-such-item", "dead-item", "stale",
@@ -159,7 +161,7 @@ def test_each_comment_form_parses_and_a_broken_marker_is_reported(repo, tmp_path
     commit(repo)
     report = scan(repo, "src")
     unqualified = [f for f in report["findings"] if f["kind"] == "unqualified"]
-    assert len(unqualified) == 13                      # every bare reference, the borrowed one too
+    assert len(unqualified) == 14                      # every bare reference, the borrowed one too
     assert not [f for f in report["findings"] if f.get("path") == "src/qualified.txt"]
 
 
@@ -170,6 +172,8 @@ def test_untracked_graph_and_excluded_files_are_not_read(repo):
     write(repo, "src/a.py", cite("implements", r1))
     write(repo, "g/notes.md", cite("implements", "REQ-0099"))
     write(repo, "vendor/c.py", cite("implements", "REQ-0099"))
+    write(repo, "docs/briefs/old.md", cite("implements", "REQ-0099"))
+    write(repo, ".reconcileignore", "# examples, not code", "", "docs/briefs/**")
     commit(repo)
     write(repo, "src/untracked.py", cite("implements", "REQ-0099"))
     report = scan(repo, "--exclude", "vendor")
@@ -197,7 +201,7 @@ def test_every_unresolvable_citation_is_reported_with_file_and_line(repo):
     live, gone, rejected = g.req("Live"), g.req("Gone", ratified=False), g.req("No", ratified=False)
     g.tl("delete", gone)
     g.tl("status", rejected, "rejected")
-    Graph(repo, "d1", "dup")
+    Graph(repo, "d1", "dup").tl("schema", "linktype", "add", "builds", "--because", "fixture")
     Graph(repo, "d2", "dup")
     write(repo, "src/x.py",
           cite("implements", f"app/{live}"),
@@ -245,11 +249,16 @@ def test_status_contradictions_are_reported_both_ways(repo):
     g.tl("status", deferred, "deferred")
     suspect = g.req("Suspect")
     g.tl("status", suspect, "suspect")
+    test = g.new("TEST", "Run and passed", ground=[built], ground_type="verifies",
+                 attrs=["method=manual"])
+    g.ratify(test)
+    g.tl("status", test, "implemented")
+    g.tl("status", test, "verified")
     write(repo, "src/x.py", cite("implements", proposed), cite("implements", deferred),
           cite("satisfies", suspect))
     commit(repo)
     found = kinds(scan(repo))
-    assert ("claimed-absent", built) in found
+    assert ("claimed-absent", built) in found and ("claimed-absent", test) not in found
     assert ("unaccepted", proposed) in found and ("unaccepted", deferred) in found
     assert ("under-question", suspect) in found
 

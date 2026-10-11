@@ -3,10 +3,10 @@ type: test
 status: ratified
 title: An implemented item with no code and code citing a proposed item are both
   reported
-text: Mark one item implemented with no citation; cite a proposed item, a deferred
-  item and a suspect item from code. Pass if the first is reported as claimed but
-  absent, the next two as unaccepted work, and the last as resting on an item under
-  question. The fixture is tests/test_reconcile.py.
+text: Mark one item implemented and one test verified, neither cited; cite a proposed
+  item, a deferred item and a suspect item from code. Pass if the item is reported
+  as claimed but absent and the test is not, the next two as unaccepted work, and
+  the last as resting on an item under question. The fixture is tests/test_reconcile.py.
 normative: false
 links:
 - target: REQ-0005
