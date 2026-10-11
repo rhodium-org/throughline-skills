@@ -1,0 +1,14 @@
+uid: NEED-0004
+type: need
+status: proposed
+title: What the skill deliberately does not do is recorded where a reader will find
+  it
+text: No silent amendment of a ratified item to match the code, no required code-graph
+  tool, no change to tl, no per-language parser. A proposal to extend the skill must
+  be able to be pointed at the non-goal it crosses.
+normative: true
+links:
+- target: DOM-0001
+  type: derives_from
+attrs:
+  origin: ai

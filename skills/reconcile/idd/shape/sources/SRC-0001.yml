@@ -1,0 +1,14 @@
+uid: SRC-0001
+type: source
+status: proposed
+title: The project brief for the reconcile skill
+text: 'Records the design conversation of 2026-10-11: the skill is a check that reports
+  disagreements between code and graph and asks which side moves, named reconcile;
+  one skill holding a citation notation and the reconciliation that reads it; a script
+  for the deterministic checks; graphify optional; no change to tl; two open questions
+  on qualifiers and stamps.'
+normative: true
+attrs:
+  path: skills/reconcile/references/brief.md
+  read: '2026-10-11'
+  origin: ai

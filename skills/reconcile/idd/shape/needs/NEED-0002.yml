@@ -1,0 +1,15 @@
+uid: NEED-0002
+type: need
+status: proposed
+title: Every requirement can be verified by a recorded acceptance test
+text: Each check must be recordable against a fixture repository whose code and graph
+  disagree in a known way, run by the real CLI in CI as the other skills' fixture
+  tests are.
+rationale: A requirement nothing verifies is a claim; the coverage rule names each
+  one until its test exists.
+normative: true
+links:
+- target: DOM-0001
+  type: derives_from
+attrs:
+  origin: ai

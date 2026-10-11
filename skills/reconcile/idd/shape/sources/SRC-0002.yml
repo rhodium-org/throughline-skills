@@ -1,0 +1,13 @@
+uid: SRC-0002
+type: source
+status: proposed
+title: 'The installed tool as read on 2026-10-11: tl 3.15.1'
+text: 'tl --help and tl context read that day. Nothing in tl links an item to a line
+  of code: no code scan, no annotation format, no code reference attribute. tl dump
+  is the sanctioned interchange surface and carries each item''s fingerprint, and
+  tl link --stamp is the model a stamped citation borrows.'
+normative: true
+attrs:
+  path: tl --help; tl context
+  read: '2026-10-11'
+  origin: ai

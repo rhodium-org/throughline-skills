@@ -1,0 +1,21 @@
+uid: DOM-0001
+type: domain
+status: proposed
+title: A Claude Code skill in the tl plugin marketplace that reconciles code with
+  its graph
+text: 'The thing being built is an Agent Skill: a SKILL.md holding the judgement
+  and a standard-library script holding the mechanics, shipped as the fifth skill
+  of the tl plugin. It fixes a notation by which code cites the graph items it serves,
+  and compares a codebase against its throughline graph through those citations,
+  reporting each disagreement for a human to settle on whichever side is wrong. It
+  is not a Python package and not a change to tl.'
+normative: true
+links:
+- target: SRC-0001
+  type: derives_from
+- target: SRC-0002
+  type: derives_from
+- target: SRC-0003
+  type: derives_from
+attrs:
+  origin: ai

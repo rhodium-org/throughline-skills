@@ -1,0 +1,14 @@
+uid: NG-0003
+type: non_goal
+status: proposed
+title: No constraints register in the skill graph
+text: The brief's settled decisions are what the requirements say; holding them again
+  as constraints would state one thing in two places. The one standard the skill
+  inherits lives here in idd/shape/.
+rationale: Considered because the brief calls its decisions settled.
+normative: false
+links:
+- target: NEED-0001
+  type: derives_from
+attrs:
+  origin: ai

@@ -1,0 +1,23 @@
+uid: DEC-0003
+type: decision
+status: proposed
+title: Requirements register (REQ, requirement)
+text: 'One requirement per changeable behaviour: the notation as one item, each deterministic
+  check, the report-and-ask stance, the optional code graph. Each derives from the
+  intent and carries a priority; the scanner''s requirements derive from the notation''s
+  too, so amending it flags them.'
+normative: true
+links:
+- target: NEED-0001
+  type: derives_from
+- target: NEED-0003
+  type: derives_from
+- target: CON-0001
+  type: derives_from
+attrs:
+  kind: register
+  prefix: REQ
+  dir: requirements
+  item_type: requirement
+  grounding: grounded
+  origin: ai

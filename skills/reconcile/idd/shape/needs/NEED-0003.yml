@@ -1,0 +1,15 @@
+uid: NEED-0003
+type: need
+status: proposed
+title: A change to the notation flags everything that depends on it
+text: Code in other repositories will carry the notation, so its grammar is a contract.
+  It must live in one item whose amendment marks the scanner's requirements and their
+  tests suspect, rather than in prose the script and SKILL.md each restate.
+rationale: 'Unlike the other skills'' behaviours, the notation outlives a run: it
+  is written into code that this repository does not own.'
+normative: true
+links:
+- target: DOM-0001
+  type: derives_from
+attrs:
+  origin: ai

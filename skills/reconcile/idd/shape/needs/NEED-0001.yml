@@ -1,0 +1,16 @@
+uid: NEED-0001
+type: need
+status: proposed
+title: Every behaviour the brief fixes is an item a human can ratify, reject or amend
+text: The notation, each deterministic check, the report-and-ask stance and the optional
+  use of a code graph must each be one requirement grounded in one intent, so a change
+  to SKILL.md or the script can cite the item it serves and a reviewer can reject
+  one behaviour without rejecting the skill.
+rationale: The workspace rule, and the brief's settled decisions are what the requirements
+  will say.
+normative: true
+links:
+- target: DOM-0001
+  type: derives_from
+attrs:
+  origin: ai
