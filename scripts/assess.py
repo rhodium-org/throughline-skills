@@ -57,7 +57,7 @@ def run(cmd: list[str], cwd: str | None = None, check: bool = False) -> subproce
     return subprocess.run(cmd, cwd=cwd, text=True, capture_output=True, check=check)
 
 
-# tl: implements tl-assess/REQ-0001, tl-assess/REQ-0009
+# tl: implements tl-assess/REQ-0001@45cc4507dcfd, tl-assess/REQ-0009@2a17db5c5743
 def load_dump(root: str | None, dump: str | None) -> dict:
     if dump:
         with open(dump) as fh:
@@ -88,7 +88,7 @@ def repo_of(root: str | None, repo: str | None) -> str:
 
 # ── graph ───────────────────────────────────────────────────────────────────
 
-# tl: implements tl-assess/REQ-0001
+# tl: implements tl-assess/REQ-0001@45cc4507dcfd
 def measure_graph(dumped: dict) -> dict:
     items = items_of(dumped)
     local = [i for i in items if is_local(str(i.get("uid", "")))]
@@ -140,7 +140,7 @@ def measure_graph(dumped: dict) -> dict:
 
 # ── git ─────────────────────────────────────────────────────────────────────
 
-# tl: implements tl-assess/REQ-0002, tl-assess/REQ-0008
+# tl: implements tl-assess/REQ-0002@8886c117c6c0, tl-assess/REQ-0008@017bcd6c17c0
 def measure_git(repo: str, items_dir: str | None, paths: list[str] | None = None) -> dict:
     scope = ["--", *paths] if paths else []
     log = run(["git", "-C", repo, "log", "--format=%H%x1f%aI%x1f%an%x1f%s", "--reverse", *scope], check=True).stdout
@@ -218,7 +218,7 @@ def measure_git(repo: str, items_dir: str | None, paths: list[str] | None = None
 
 # ── docs ────────────────────────────────────────────────────────────────────
 
-# tl: implements tl-assess/REQ-0003
+# tl: implements tl-assess/REQ-0003@a052f99c8c73
 def measure_docs(root: str) -> dict:
     docs_dir = Path(root) / "docs"
     words: dict[str, int] = {}
@@ -235,7 +235,7 @@ def measure_docs(root: str) -> dict:
 
 # ── tests ───────────────────────────────────────────────────────────────────
 
-# tl: implements tl-assess/REQ-0003
+# tl: implements tl-assess/REQ-0003@a052f99c8c73
 def parse_results(path: str | None) -> dict:
     """A test result file: TAP-style '# pass N' / '# fail N' lines, or JSON {passed, failed}."""
     if not path:
@@ -252,7 +252,7 @@ def parse_results(path: str | None) -> dict:
     return {"passed": int(m_pass.group(1)) if m_pass else None, "failed": int(m_fail.group(1)) if m_fail else None}
 
 
-# tl: implements tl-assess/REQ-0003
+# tl: implements tl-assess/REQ-0003@a052f99c8c73
 def measure_tests(pattern: str | None, results: str | None, repo: str | None) -> dict:
     files = sorted(glob.glob(os.path.join(repo or ".", pattern), recursive=True)) if pattern else []
     out = {"test_files": len(files), "pattern": pattern}
@@ -266,7 +266,7 @@ def parse_ts(s: str) -> dt.datetime:
     return dt.datetime.fromisoformat(s.replace("Z", "+00:00"))
 
 
-# tl: implements tl-assess/REQ-0004
+# tl: implements tl-assess/REQ-0004@87bbcfd68939
 def measure_session(path: str, idle_gap_min: float, since: dt.datetime | None = None, until: dt.datetime | None = None) -> dict:
     first = last = prev = None
     active = dt.timedelta()
@@ -345,7 +345,7 @@ def measure_session(path: str, idle_gap_min: float, since: dt.datetime | None = 
     }
 
 
-# tl: implements tl-assess/REQ-0004
+# tl: implements tl-assess/REQ-0004@87bbcfd68939
 def measure_sessions(paths: list[str], idle_gap_min: float, since: str | None = None, until: str | None = None) -> dict:
     s = parse_ts(since) if since else None
     u = parse_ts(until) if until else None
@@ -364,7 +364,7 @@ def measure_sessions(paths: list[str], idle_gap_min: float, since: str | None = 
 
 # ── provenance ──────────────────────────────────────────────────────────────
 
-# tl: implements tl-assess/REQ-0007
+# tl: implements tl-assess/REQ-0007@66eebc854fe7
 def tool_version(name: str) -> str | None:
     """What `<tool> --version` prints, or None when the tool is not on the path."""
     if not shutil.which(name):
@@ -378,7 +378,7 @@ def plugin_root() -> Path:
     return Path(env) if env else Path(__file__).resolve().parent.parent
 
 
-# tl: implements tl-assess/REQ-0007
+# tl: implements tl-assess/REQ-0007@66eebc854fe7
 def measure_provenance(root: str, repo: str) -> dict:
     head = run(["git", "-C", repo, "rev-parse", "HEAD"]).stdout.strip() or None
     clean = run(["git", "-C", repo, "status", "--porcelain"]).stdout.strip() == ""
@@ -415,7 +415,7 @@ def measure_provenance(root: str, repo: str) -> dict:
 
 # ── done ────────────────────────────────────────────────────────────────────
 
-# tl: implements tl-assess/REQ-0005
+# tl: implements tl-assess/REQ-0005@6bda53c41f10
 def measure_done(root: str, repo: str, results: str | None) -> dict:
     check = run([require_tl(), "-C", root, "check", "--strict"])
     m = re.search(r"(\d+) error\(s\), (\d+) warning\(s\)", check.stdout + check.stderr)
@@ -438,7 +438,7 @@ def measure_done(root: str, repo: str, results: str | None) -> dict:
 
 # ── record ──────────────────────────────────────────────────────────────────
 
-# tl: implements tl-assess/REQ-0006
+# tl: implements tl-assess/REQ-0006@de9d5e7acb9e
 def record(args) -> dict:
     root = args.path
     repo = repo_of(root, args.repo)
@@ -484,7 +484,7 @@ def hours(x: float) -> str:
     return f"{x:.1f} h"
 
 
-# tl: implements tl-assess/REQ-0006
+# tl: implements tl-assess/REQ-0006@de9d5e7acb9e
 def markdown(rec: dict) -> str:
     g, git, d, t, s, done = rec["graph"], rec["git"], rec["docs"], rec["tests"], rec["sessions"], rec["done"]
     prov = rec.get("provenance", {})
@@ -555,7 +555,7 @@ def markdown(rec: dict) -> str:
     return "\n".join(lines)
 
 
-# tl: implements tl-assess/REQ-0006
+# tl: implements tl-assess/REQ-0006@de9d5e7acb9e
 def write_index(collection: Path) -> None:
     rows = []
     for p in sorted(collection.glob("*/*.json")):
