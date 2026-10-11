@@ -3,10 +3,10 @@ type: test
 status: ratified
 title: An implemented item with no code and code citing a proposed item are both
   reported
-text: Mark one item implemented with no citation; cite a proposed item, a deferred
-  item and a suspect item from code. Pass if the first is reported as claimed but
-  absent, the next two as unaccepted work, and the last as resting on an item under
-  question. The fixture is tests/test_reconcile.py.
+text: Mark one item implemented and one test verified, neither cited; cite a proposed
+  item, a deferred item and a suspect item from code. Pass if the item is reported
+  as claimed but absent and the test is not, the next two as unaccepted work, and
+  the last as resting on an item under question. The fixture is tests/test_reconcile.py.
 normative: false
 links:
 - target: REQ-0005
@@ -15,13 +15,13 @@ attrs:
   method: automated
   origin: ai
   ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:b23437ebf131be1e75f94871673fa0ca7c4a58b9da82deee2a5aa2aa29385347
+  ratified_fingerprint: sha256:41c15dc62ff59dc0c5faebf143c937625b0a7144ea69f996399e124ed9b3c2d9
   ratified_content:
     type: test
-    text: Mark one item implemented with no citation; cite a proposed item, a deferred
-      item and a suspect item from code. Pass if the first is reported as claimed
-      but absent, the next two as unaccepted work, and the last as resting on an
-      item under question. The fixture is tests/test_reconcile.py.
+    text: Mark one item implemented and one test verified, neither cited; cite a
+      proposed item, a deferred item and a suspect item from code. Pass if the item
+      is reported as claimed but absent and the test is not, the next two as unaccepted
+      work, and the last as resting on an item under question. The fixture is tests/test_reconcile.py.
     normative: false
     derived: false
     attrs: {}

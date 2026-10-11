@@ -4,12 +4,14 @@ status: ratified
 title: The scanner reads the repository's tracked files, less its graphs and what
   it is told to skip
 text: 'The scanner reads every file git tracks under the paths it is given, skipping
-  each graph''s own files and every path matched by an exclude pattern: a graph rooted
-  below the repository root is skipped whole, and a graph rooted at the repository
-  root, whose tree holds the code too, has its throughline.toml and its register
-  directories skipped. A citation in an untracked, skipped or excluded file is never
-  reported. Its report names how many files it read and how many citations it found,
-  so a run over the wrong paths is visible as one.'
+  each graph''s own files, every path matched by an exclude pattern, and every path
+  matched by a pattern listed in a .reconcileignore file at the repository root (one
+  glob per line; blank lines and lines opening with # ignored): a graph rooted below
+  the repository root is skipped whole, and a graph rooted at the repository root,
+  whose tree holds the code too, has its throughline.toml and its register directories
+  skipped. A citation in an untracked, skipped or excluded file is never reported.
+  Its report names how many files it read and how many citations it found, so a run
+  over the wrong paths is visible as one.'
 rationale: 'Found while building the scanner: skipping a graph root whole, as first
   written, would skip every file of a repository whose root is the graph, which tl
   init in the repository root makes.'
@@ -21,11 +23,13 @@ attrs:
   priority: must
   origin: ai
   ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:284c5f9b98dc2dd1d65498633ad6cd4ec4f2dcde1d4f810300ee32d1b5cea9be
+  ratified_fingerprint: sha256:a20ec0186960dbcde5b89f4e25b676ef6328387ee90d8155aaea50d26561b7a6
   ratified_content:
     type: requirement
     text: 'The scanner reads every file git tracks under the paths it is given, skipping
-      each graph''s own files and every path matched by an exclude pattern: a graph
+      each graph''s own files, every path matched by an exclude pattern, and every
+      path matched by a pattern listed in a .reconcileignore file at the repository
+      root (one glob per line; blank lines and lines opening with # ignored): a graph
       rooted below the repository root is skipped whole, and a graph rooted at the
       repository root, whose tree holds the code too, has its throughline.toml and
       its register directories skipped. A citation in an untracked, skipped or excluded

@@ -2,12 +2,13 @@ uid: REQ-0004
 type: requirement
 status: ratified
 title: An accepted item of an implementable type that no code cites is listed
-text: Every live item of the implementable types (requirement by default; others
-  by option) at an accepted status (approved, ratified, implemented or verified by
-  default; others by option) with no implements or satisfies citation is listed.
-  An item none of whose descendants by refines or derives_from is cited either is
-  listed apart from one whose descendants are, so a parent realised through its children
-  reads differently from work nothing has touched.
+text: 'Every live local item of the implementable types (requirement by default;
+  others by option) at an accepted status (approved, ratified, implemented or verified
+  by default; others by option) with no implements or satisfies citation is listed.
+  A borrowed item is not: it is its owning graph''s to account for. An item none
+  of whose descendants by refines or derives_from is cited either is listed apart
+  from one whose descendants are, so a parent realised through its children reads
+  differently from work nothing has touched.'
 normative: true
 links:
 - target: REQ-0001
@@ -16,15 +17,16 @@ attrs:
   priority: must
   origin: ai
   ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:092ea87655bc58de28ccbe42deda784085ffa8d934e29c31f7b4e676259605a6
+  ratified_fingerprint: sha256:106eb6ca501d461f4324cc293f7a7bb80aee689c21870a2383f797592f0728a8
   ratified_content:
     type: requirement
-    text: Every live item of the implementable types (requirement by default; others
-      by option) at an accepted status (approved, ratified, implemented or verified
-      by default; others by option) with no implements or satisfies citation is listed.
+    text: 'Every live local item of the implementable types (requirement by default;
+      others by option) at an accepted status (approved, ratified, implemented or
+      verified by default; others by option) with no implements or satisfies citation
+      is listed. A borrowed item is not: it is its owning graph''s to account for.
       An item none of whose descendants by refines or derives_from is cited either
       is listed apart from one whose descendants are, so a parent realised through
-      its children reads differently from work nothing has touched.
+      its children reads differently from work nothing has touched.'
     normative: true
     derived: false
     attrs:

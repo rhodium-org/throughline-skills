@@ -1,0 +1,3 @@
+# Paths /tl:reconcile does not read (tl-reconcile REQ-0002).
+# Each brief records the conversation that shaped a skill; its examples are not code.
+skills/*/references/**

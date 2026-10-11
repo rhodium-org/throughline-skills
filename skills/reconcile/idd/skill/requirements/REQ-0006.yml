@@ -3,10 +3,10 @@ type: requirement
 status: ratified
 title: An automated test item no test code cites, or a test citation with nothing
   behind it, is reported
-text: Every live test item whose method is automated with no verifies citation is
-  reported as not wired. A verifies citation naming a test item that verifies nothing
-  in its graph, or naming an item that no test item verifies, is reported as a test
-  the graph does not record.
+text: Every live local test item whose method is automated with no verifies citation
+  is reported as not wired. A verifies citation naming a test item that verifies
+  nothing in its graph, or naming an item that no test item verifies, is reported
+  as a test the graph does not record.
 normative: true
 links:
 - target: REQ-0001
@@ -15,10 +15,10 @@ attrs:
   priority: should
   origin: ai
   ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:8eb62d5157e5d58293eb0819b503d926c2cc106b373e36945d2513819bf7d08f
+  ratified_fingerprint: sha256:3ddd98e35ec8d7a0cdc119a830caa3a42540c6e9eaeda97c71b923f461ffcf2b
   ratified_content:
     type: requirement
-    text: Every live test item whose method is automated with no verifies citation
+    text: Every live local test item whose method is automated with no verifies citation
       is reported as not wired. A verifies citation naming a test item that verifies
       nothing in its graph, or naming an item that no test item verifies, is reported
       as a test the graph does not record.

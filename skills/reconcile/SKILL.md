@@ -53,7 +53,9 @@ the file touches.
 
 A citation is one comment line: the marker `tl:`, a link type from the graph's
 own vocabulary, and one or more comma-separated item references. Only the
-start of a line counts; a trailing comment after code is not a citation.
+start of a line counts; a trailing comment after code is not a citation. The
+link type is what makes a marker line a citation: a line of `tl`'s own output,
+which opens with the same marker, is not one.
 
 | Language family | The line above the code |
 |---|---|
@@ -113,7 +115,8 @@ python3 "$S" -C <repo> scan src tests --exclude 'vendor/**' --graph billing
 ```
 
 The scan reads only files git tracks, skips every graph root and anything
-`--exclude` names, and starts by saying how many files and citations it read:
+`--exclude` or the repository's `.reconcileignore` names, and starts by saying
+how many files and citations it read:
 if that count is wrong, the paths are wrong, and nothing below it means
 anything. `--graph` limits the graph-side findings to the graphs named; in a
 repository of several graphs, scope it to the one the code serves. `--json`
@@ -216,8 +219,13 @@ traces to nothing. Say plainly when there are no findings.
 - **New files are invisible until git tracks them.** `git add` before you scan
   code you have just written.
 - **Examples in documentation are citations too** when a line opens with the
-  marker; put them in a table or mid-line, as this file does, or `--exclude`
-  the file.
+  marker and a link type; put them in a table or mid-line, as this file does,
+  or list the file in `.reconcileignore` at the repository root (one glob per
+  line, `#` for a comment) so that every scan skips it.
+- **A misspelt link type is no citation at all.** `# tl: implments REQ-0042`
+  is ignored, not reported, because a marker line counts only when its first
+  word is some graph's link type. If a citation you wrote is missing from the
+  count, check its spelling.
 - **A trailing comment is not a citation.** `x = 1  # tl: implements …`
   is ignored; the citation goes on its own line above.
 - **In a repository of several graphs, scope with `--graph`.** Otherwise every
