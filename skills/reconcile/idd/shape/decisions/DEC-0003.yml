@@ -1,6 +1,6 @@
 uid: DEC-0003
 type: decision
-status: proposed
+status: ratified
 title: Requirements register (REQ, requirement)
 text: 'One requirement per changeable behaviour: the notation as one item, each deterministic
   check, the report-and-ask stance, the optional code graph. Each derives from the
@@ -21,3 +21,14 @@ attrs:
   item_type: requirement
   grounding: grounded
   origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:40522cfdba03b2d9461b454a6136dd60932a65c5fddf4ca2b6e72aa1d4168552
+  ratified_content:
+    type: decision
+    text: 'One requirement per changeable behaviour: the notation as one item, each
+      deterministic check, the report-and-ask stance, the optional code graph. Each
+      derives from the intent and carries a priority; the scanner''s requirements
+      derive from the notation''s too, so amending it flags them.'
+    normative: true
+    derived: false
+    attrs: {}

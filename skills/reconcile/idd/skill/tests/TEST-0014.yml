@@ -1,6 +1,6 @@
 uid: TEST-0014
 type: test
-status: proposed
+status: ratified
 title: SKILL.md directs citing at the smallest realising unit, while writing, and
   in the commit subject
 text: Read SKILL.md. Pass if it directs an agent writing code under a graph to cite
@@ -13,3 +13,14 @@ links:
 attrs:
   method: document
   origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:30e6408f110d14a7ac0ff8a3efcdd5eacfc29e4876897c8e733ba130c54750fe
+  ratified_content:
+    type: test
+    text: Read SKILL.md. Pass if it directs an agent writing code under a graph to
+      cite as it writes, at the function, class, test or block that realises the
+      item rather than a file header, and to end the commit subject with the graph
+      and UIDs.
+    normative: false
+    derived: false
+    attrs: {}

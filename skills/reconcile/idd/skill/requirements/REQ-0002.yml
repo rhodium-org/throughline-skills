@@ -1,6 +1,6 @@
 uid: REQ-0002
 type: requirement
-status: proposed
+status: ratified
 title: The scanner reads the repository's tracked files, less its graphs and what
   it is told to skip
 text: The scanner reads every file git tracks under the paths it is given, skipping
@@ -18,3 +18,16 @@ links:
 attrs:
   priority: must
   origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:b8d272c19c05dfa8cea1f7a418122a991e8adb5c62b4a9ec8db5e597086dd076
+  ratified_content:
+    type: requirement
+    text: The scanner reads every file git tracks under the paths it is given, skipping
+      each throughline graph root and every path matched by an exclude pattern. A
+      citation in an untracked, skipped or excluded file is never reported. Its report
+      names how many files it read and how many citations it found, so a run over
+      the wrong paths is visible as one.
+    normative: true
+    derived: false
+    attrs:
+      priority: must

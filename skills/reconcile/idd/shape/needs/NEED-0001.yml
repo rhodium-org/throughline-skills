@@ -1,6 +1,6 @@
 uid: NEED-0001
 type: need
-status: proposed
+status: ratified
 title: Every behaviour the brief fixes is an item a human can ratify, reject or amend
 text: The notation, each deterministic check, the report-and-ask stance and the optional
   use of a code graph must each be one requirement grounded in one intent, so a change
@@ -14,3 +14,14 @@ links:
   type: derives_from
 attrs:
   origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:5bf93baea78da27eca862af8f2122c038c7dd87b3968c54a5dbc546e22357cd5
+  ratified_content:
+    type: need
+    text: The notation, each deterministic check, the report-and-ask stance and the
+      optional use of a code graph must each be one requirement grounded in one intent,
+      so a change to SKILL.md or the script can cite the item it serves and a reviewer
+      can reject one behaviour without rejecting the skill.
+    normative: true
+    derived: false
+    attrs: {}

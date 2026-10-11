@@ -1,6 +1,6 @@
 uid: REQ-0015
 type: requirement
-status: proposed
+status: ratified
 title: The skill offers a repository a standing instruction to cite, and adds it
   only when asked
 text: The skill can give a short paragraph stating the notation and the rule to cite
@@ -13,3 +13,14 @@ links:
 attrs:
   priority: could
   origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:bde2b631629860ecfe86d1fe7613c2b6482fe8a3d5a965c8153e872817014481
+  ratified_content:
+    type: requirement
+    text: The skill can give a short paragraph stating the notation and the rule
+      to cite while writing, for the repository's CLAUDE.md or equivalent, so an
+      agent cites without the skill loaded. It adds the paragraph only when asked.
+    normative: true
+    derived: false
+    attrs:
+      priority: could

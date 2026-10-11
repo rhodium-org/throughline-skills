@@ -1,6 +1,6 @@
 uid: TEST-0012
 type: test
-status: proposed
+status: ratified
 title: SKILL.md puts each disagreement to the human and limits what the agent settles
   alone
 text: Read SKILL.md. Pass if it tells the agent to report each finding with the item
@@ -15,3 +15,15 @@ links:
 attrs:
   method: document
   origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:6515d1e54e7cbabacd4b993a166522ea2aadb6aec262ff3aa4e5efbf248be241
+  ratified_content:
+    type: test
+    text: Read SKILL.md. Pass if it tells the agent to report each finding with the
+      item and the code as they stand, forbids amending an item, reverting a ratification
+      or changing code to clear a finding before the human chooses a side, and names
+      as settled by the agent alone only the malformed or unqualified citation with
+      one possible target and the stamp it re-read the code to confirm.
+    normative: false
+    derived: false
+    attrs: {}

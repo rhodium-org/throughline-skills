@@ -1,6 +1,6 @@
 uid: TEST-0002
 type: test
-status: proposed
+status: ratified
 title: Untracked files, graph roots and excluded paths are not read, and the counts
   say so
 text: In a throwaway repository, cite a UID from a tracked file, an untracked file,
@@ -14,3 +14,14 @@ links:
 attrs:
   method: automated
   origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:32a77603295f71baf6d3e25d4adccb154e2b710fd89b6c5387157133640f4d6c
+  ratified_content:
+    type: test
+    text: In a throwaway repository, cite a UID from a tracked file, an untracked
+      file, a file under a graph root and a file matched by an exclude pattern. Pass
+      if only the tracked, unexcluded citation is read and the report's file and
+      citation counts match. The fixture is tests/test_reconcile.py.
+    normative: false
+    derived: false
+    attrs: {}

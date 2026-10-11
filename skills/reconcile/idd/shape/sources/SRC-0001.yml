@@ -1,6 +1,6 @@
 uid: SRC-0001
 type: source
-status: proposed
+status: ratified
 title: The project brief for the reconcile skill
 text: 'Records the design conversation of 2026-10-11: the skill is a check that reports
   disagreements between code and graph and asks which side moves, named reconcile;
@@ -13,3 +13,16 @@ attrs:
   path: skills/reconcile/references/brief.md
   read: '2026-10-11'
   origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:c7721cfa4613f36e43906f1372fd70e470bdd29d468befcc2cf18524615902ce
+  ratified_content:
+    type: source
+    text: 'Records the design conversation of 2026-10-11: the skill is a check that
+      reports disagreements between code and graph and asks which side moves, named
+      reconcile; one skill holding a citation notation and the reconciliation that
+      reads it; a script for the deterministic checks; graphify optional; no change
+      to tl. A citation names its graph only in a repository holding more than one;
+      whether citations carry fingerprint stamps is open.'
+    normative: true
+    derived: false
+    attrs: {}

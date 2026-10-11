@@ -1,6 +1,6 @@
 uid: REQ-0008
 type: requirement
-status: proposed
+status: ratified
 title: A stamp is written or refreshed only for the citations of one named item
 text: A restamp command sets the stamp on the citations of one named UID, or of one
   file and line, to the item's current fingerprint, adding a stamp where there was
@@ -14,3 +14,14 @@ links:
 attrs:
   priority: must
   origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:6f63bce2f150bfabe673d717f8a894b676b5b5ce94786ad681b13a455e625b6a
+  ratified_content:
+    type: requirement
+    text: A restamp command sets the stamp on the citations of one named UID, or
+      of one file and line, to the item's current fingerprint, adding a stamp where
+      there was none. No command restamps every stale citation at once.
+    normative: true
+    derived: false
+    attrs:
+      priority: must

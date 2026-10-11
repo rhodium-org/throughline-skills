@@ -1,6 +1,6 @@
 uid: REQ-0007
 type: requirement
-status: proposed
+status: ratified
 title: A stamped citation whose item has changed since it was stamped is reported,
   with the edition it was stamped against
 text: A citation whose stamp is not a prefix of its item's current fingerprint is
@@ -17,3 +17,15 @@ links:
 attrs:
   priority: must
   origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:6a1d3a105819342010c5d56d673817a66ff812fca07e11d1a45e7b9086948c48
+  ratified_content:
+    type: requirement
+    text: A citation whose stamp is not a prefix of its item's current fingerprint
+      is reported as stale. Where the item file's git history holds an edition whose
+      fingerprint the stamp prefixes, the report names that commit so the two editions
+      can be compared. An unstamped citation is counted and never reported as a finding.
+    normative: true
+    derived: false
+    attrs:
+      priority: must

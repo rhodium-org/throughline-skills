@@ -1,6 +1,6 @@
 uid: REQ-0009
 type: requirement
-status: proposed
+status: ratified
 title: Unstamped citations are ordered for review by whether their item changed after
   the code did
 text: For each unstamped citation, the scanner compares the last commit touching
@@ -16,3 +16,15 @@ links:
 attrs:
   priority: could
   origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:bb02cd099748acf1cd4c85f8a341fef1a15b66d94d238a0455230a9abc61520f
+  ratified_content:
+    type: requirement
+    text: For each unstamped citation, the scanner compares the last commit touching
+      the cited item's file with the last commit touching the citation's line, and
+      lists first those whose item changed later. The list is a review order, never
+      a finding.
+    normative: true
+    derived: false
+    attrs:
+      priority: could

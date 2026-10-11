@@ -1,6 +1,6 @@
 uid: REQ-0006
 type: requirement
-status: proposed
+status: ratified
 title: An automated test item no test code cites, or a test citation with nothing
   behind it, is reported
 text: Every live test item whose method is automated with no verifies citation is
@@ -14,3 +14,15 @@ links:
 attrs:
   priority: should
   origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:8eb62d5157e5d58293eb0819b503d926c2cc106b373e36945d2513819bf7d08f
+  ratified_content:
+    type: requirement
+    text: Every live test item whose method is automated with no verifies citation
+      is reported as not wired. A verifies citation naming a test item that verifies
+      nothing in its graph, or naming an item that no test item verifies, is reported
+      as a test the graph does not record.
+    normative: true
+    derived: false
+    attrs:
+      priority: should

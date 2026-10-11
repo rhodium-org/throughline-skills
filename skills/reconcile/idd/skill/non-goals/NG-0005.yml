@@ -1,6 +1,6 @@
 uid: NG-0005
 type: non_goal
-status: proposed
+status: ratified
 title: No required code-graph tool
 text: The skill installs nothing but throughline and depends on no structural graph
   of the code.
@@ -8,3 +8,12 @@ rationale: The plugin's skills run in a sandbox that installs only what they nam
 normative: false
 attrs:
   origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:2b9a8bcdcfbe974e018e49f92298286d03af43b65863ecc794022b0d13cefe0e
+  ratified_content:
+    type: non_goal
+    text: The skill installs nothing but throughline and depends on no structural
+      graph of the code.
+    normative: false
+    derived: false
+    attrs: {}

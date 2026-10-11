@@ -1,6 +1,6 @@
 uid: REQ-0016
 type: requirement
-status: proposed
+status: ratified
 title: A code graph already in the repository may guide the search for an uncited
   item's code
 text: Where the repository already holds a structural graph of its code, the agent
@@ -15,3 +15,14 @@ links:
 attrs:
   priority: could
   origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:3769fec4f714bb65983c84d73001333fb98251ea743c1a8f4c6f15f70ff27cb8
+  ratified_content:
+    type: requirement
+    text: Where the repository already holds a structural graph of its code, the
+      agent may use it to find likely implementers of an uncited item. The skill
+      installs no such tool, and nothing the script reports depends on one.
+    normative: true
+    derived: false
+    attrs:
+      priority: could
