@@ -14,4 +14,14 @@ attrs:
   priority: must
   origin: ai
   ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:af081387414c8272dc1409605eb309db76e4157f5fe1d628ea0a49e4010ab976
+  ratified_fingerprint: sha256:66333a6c6d38bee1b20a2f87a75c1dc804e3be86175057ce5661e2bcedad7cb6
+  ratified_content:
+    type: requirement
+    text: Every register considered and rejected is a non_goal or constraint item
+      in the shape graph with a rationale and a link to the need or domain reading
+      that ruled it out, never omitted silently. The five registers tl init would
+      have created are always among those considered.
+    normative: true
+    derived: false
+    attrs:
+      priority: must

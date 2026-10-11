@@ -23,4 +23,18 @@ attrs:
   priority: must
   origin: ai
   ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:d00c0cf36f47c0f6a696159059664d7e32aded958aca7e52b97316ba2e6089ac
+  ratified_fingerprint: sha256:1da7cc6bf70c92439b831c4f1c7692c91e9d5ca86f42949152d5a971bd3b25dd
+  ratified_content:
+    type: requirement
+    text: Each shaping's reasoning graph is created at idd/shape/, or at the first
+      free idd/shape-2/, idd/shape-3/ and onward when shaping in progress holds that
+      name, and holds sources, domain reading, needs, decisions, rejected registers
+      and inherited standards. When the second graph is written, the reasoning graph's
+      directory becomes the second graph's directory name followed by -shape, and
+      its project name the second graph's project name followed by -shape, so a repository
+      shaped for several graphs holds one reasoning graph beside each, named for
+      the graph it produced.
+    normative: true
+    derived: false
+    attrs:
+      priority: must

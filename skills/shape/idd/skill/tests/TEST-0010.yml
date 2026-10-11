@@ -1,6 +1,6 @@
 uid: TEST-0010
 type: test
-status: proposed
+status: ratified
 title: A command given no shaping picks the one in progress or refuses, and status
   lists them all
 text: 'tests/test_shape.py, test_commands_act_on_the_shaping_they_are_given: with
@@ -16,3 +16,16 @@ links:
 attrs:
   method: automated
   origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:ee7034d3e4cde3ce1211efa5b8fbf1b8d52cd9eaa88d2560a26ce0800405e158
+  ratified_content:
+    type: test
+    text: 'tests/test_shape.py, test_commands_act_on_the_shaping_they_are_given:
+      with estate-shape written and shape-2 in progress, asserts new with no shaping
+      named writes into shape-2; with a second in-progress shaping beside it, asserts
+      new, write and check exit 2 naming both and change nothing, that --shape selects
+      either, and that status with none named lists estate-shape with estate written
+      and both in progress.'
+    normative: true
+    derived: false
+    attrs: {}

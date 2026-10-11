@@ -17,4 +17,16 @@ attrs:
   priority: must
   origin: ai
   ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:48668c76e132609c9d2375acc5348d0df886c58038f5efc131ce34a56823b49d
+  ratified_fingerprint: sha256:f949d8dcb4c7a6b83655485a628e75d43e39d64b55d25e814b592c4bbc32b7cf
+  ratified_content:
+    type: requirement
+    text: On a repo that already holds a shape graph, the skill reads the prior reasoning
+      back and, for the work that graph shaped, puts it to the person stage by stage,
+      amending, adding or rejecting items; it never starts that work from a blank
+      sheet, never overwrites, and never renames the second graph. A shaping for
+      other work in the same repository is started beside the existing ones only
+      when asked for explicitly.
+    normative: true
+    derived: false
+    attrs:
+      priority: must

@@ -15,4 +15,13 @@ links:
 attrs:
   origin: ai
   ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:3cb3a8afc4d0512ba0031a5f16393512a83f19ffc6c837c4e1ed08c18ec3dcc9
+  ratified_fingerprint: sha256:154e726df309f6a87fb5d8d6d8e406bce87cc2bd4e57d1f89dce047fb326d80f
+  ratified_content:
+    type: non_goal
+    text: The brief's six settled design decisions are what the requirements say;
+      holding them again as constraints would state one thing in two places. The
+      one standard the skill inherits lives here in the shape graph, where it grounds
+      the register decisions it mandates.
+    normative: true
+    derived: false
+    attrs: {}

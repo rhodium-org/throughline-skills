@@ -14,4 +14,12 @@ links:
 attrs:
   origin: ai
   ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:659bc603f1455f98ff9e4d87c1076dce83472bbc2977cc72711534845b63d9ab
+  ratified_fingerprint: sha256:cc69a0fe8a5a3400256cb9119fab098f1d93e73aeee56862847c519c9718f703
+  ratified_content:
+    type: non_goal
+    text: Provenance is the shape graph's job. The skill graph reaches the brief
+      through the shape graph, which cites it; copying the sources across would give
+      the same document two identities.
+    normative: true
+    derived: false
+    attrs: {}
