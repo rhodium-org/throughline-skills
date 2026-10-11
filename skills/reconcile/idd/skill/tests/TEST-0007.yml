@@ -1,0 +1,16 @@
+uid: TEST-0007
+type: test
+status: proposed
+title: A stamp goes stale on a change to the item's text and not on a retitle, and
+  names its edition
+text: Stamp a citation, commit, retitle the item and commit; pass if the citation
+  is not stale. Amend the item's text and commit; pass if it is stale and the report
+  names the commit holding the stamped edition. Pass if an unstamped citation is
+  counted and not reported. The fixture is tests/test_reconcile.py.
+normative: false
+links:
+- target: REQ-0007
+  type: verifies
+attrs:
+  method: automated
+  origin: ai

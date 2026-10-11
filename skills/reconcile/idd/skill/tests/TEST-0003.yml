@@ -1,0 +1,15 @@
+uid: TEST-0003
+type: test
+status: proposed
+title: Every way a citation can fail to resolve is reported with its file and line
+text: Cite an absent UID, a deleted item, a rejected item, an unknown link type,
+  an unknown qualifier, and a qualifier two graphs share. Pass if each is reported
+  once with its file and line and a citation to a live item is not. The fixture is
+  tests/test_reconcile.py.
+normative: false
+links:
+- target: REQ-0003
+  type: verifies
+attrs:
+  method: automated
+  origin: ai

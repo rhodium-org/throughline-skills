@@ -1,0 +1,18 @@
+uid: REQ-0014
+type: requirement
+status: proposed
+title: An agent writing code under throughline cites the items it serves as it writes
+text: When writing or changing code in a repository holding a throughline graph,
+  the agent writes a citation at the smallest unit that realises the item (the function,
+  class, test or block, not a file header listing everything) at the time it writes
+  the code, and names the graph and UIDs at the end of the commit subject, as in
+  (tl-challenge REQ-0007, TEST-0007).
+rationale: A citation added afterwards records what someone believes the code does;
+  one written with the code records what it was written for.
+normative: true
+links:
+- target: INT-0001
+  type: derives_from
+attrs:
+  priority: must
+  origin: ai

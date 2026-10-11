@@ -1,0 +1,13 @@
+uid: TEST-0015
+type: test
+status: proposed
+title: SKILL.md gives the standing-instruction paragraph and adds it only when asked
+text: Read SKILL.md. Pass if it holds a paragraph stating the notation and the rule
+  to cite while writing, and says to add it to a repository only when asked.
+normative: false
+links:
+- target: REQ-0015
+  type: verifies
+attrs:
+  method: document
+  origin: ai

@@ -1,0 +1,17 @@
+uid: INT-0001
+type: intent
+status: proposed
+title: Code and its graph are reconciled, and where they disagree a human settles
+  which is wrong
+text: 'Code written under throughline cites the graph items it serves, in one notation
+  a single scanner reads in any language. The skill compares a codebase with its
+  graphs through those citations and reports every disagreement: code citing what
+  the graph does not hold, items nothing implements, statuses the code contradicts,
+  citations written against an item that has since changed. Each is put to a human
+  as the question of which side moves. The skill settles only the mechanical itself.'
+rationale: 'Either record can be the wrong one: the code drifted from a ratified
+  item, or the item is out of date. A check that made the code match would hide the
+  second case. Rejected: naming it align, which reads as that imperative.'
+normative: false
+attrs:
+  origin: ai

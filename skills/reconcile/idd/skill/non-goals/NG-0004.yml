@@ -1,0 +1,10 @@
+uid: NG-0004
+type: non_goal
+status: proposed
+title: No inferred links
+text: The script never reports an item as built by code that does not cite it, however
+  plausible the match. Only a written citation is a link.
+rationale: An inferred link is a guess the report would present as a fact.
+normative: false
+attrs:
+  origin: ai

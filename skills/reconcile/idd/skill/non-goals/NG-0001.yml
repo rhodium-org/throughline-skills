@@ -1,0 +1,11 @@
+uid: NG-0001
+type: non_goal
+status: proposed
+title: Reconcile does not align
+text: Beyond repairing a citation's form and confirming a stamp against code it has
+  re-read, it never changes the code or the graph to make a disagreement go away.
+  Making the two agree is the human's choice of which is wrong, carried out afterwards.
+rationale: The name was chosen against align for this reason.
+normative: false
+attrs:
+  origin: ai

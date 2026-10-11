@@ -1,0 +1,15 @@
+uid: REQ-0015
+type: requirement
+status: proposed
+title: The skill offers a repository a standing instruction to cite, and adds it
+  only when asked
+text: The skill can give a short paragraph stating the notation and the rule to cite
+  while writing, for the repository's CLAUDE.md or equivalent, so an agent cites
+  without the skill loaded. It adds the paragraph only when asked.
+normative: true
+links:
+- target: INT-0001
+  type: derives_from
+attrs:
+  priority: could
+  origin: ai

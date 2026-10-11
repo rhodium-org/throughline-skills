@@ -1,0 +1,16 @@
+uid: REQ-0008
+type: requirement
+status: proposed
+title: A stamp is written or refreshed only for the citations of one named item
+text: A restamp command sets the stamp on the citations of one named UID, or of one
+  file and line, to the item's current fingerprint, adding a stamp where there was
+  none. No command restamps every stale citation at once.
+rationale: Restamping records that someone re-read the code against the item as it
+  now stands; a bulk restamp would record that without anyone having done it.
+normative: true
+links:
+- target: REQ-0001
+  type: derives_from
+attrs:
+  priority: must
+  origin: ai

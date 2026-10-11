@@ -1,0 +1,15 @@
+uid: TEST-0013
+type: test
+status: proposed
+title: SKILL.md directs the reading of each cited location against its item and of
+  uncited code
+text: Read SKILL.md. Pass if it directs the agent to read each cited location against
+  the item's text and priority and to report less, more or other, and to ask of uncited
+  code in scope what item justifies it.
+normative: false
+links:
+- target: REQ-0013
+  type: verifies
+attrs:
+  method: document
+  origin: ai

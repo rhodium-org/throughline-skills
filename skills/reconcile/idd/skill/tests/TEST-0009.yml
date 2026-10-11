@@ -1,0 +1,15 @@
+uid: TEST-0009
+type: test
+status: proposed
+title: An unstamped citation whose item changed after its code is listed first, and
+  is no finding
+text: Commit two cited items and their code, then amend the first item and commit.
+  Pass if the first citation is listed before the second, and the run reports no
+  finding for either. The fixture is tests/test_reconcile.py.
+normative: false
+links:
+- target: REQ-0009
+  type: verifies
+attrs:
+  method: automated
+  origin: ai

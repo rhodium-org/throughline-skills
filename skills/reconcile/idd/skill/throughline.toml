@@ -1,5 +1,5 @@
 [project]
-name = "skill"
+name = "tl-reconcile"
 format_version = 3
 
 # Root item types may exist ungrounded; everything else must reach a root
@@ -32,6 +32,9 @@ attrs.origin = { type = "enum", values = ["human", "ai", "hybrid"] }
 normative = false
 # throughline shape: every item records where it came from
 attrs.origin = { type = "enum", values = ["human", "ai", "hybrid"] }
+# a test says how it is run, as the other skills' test registers do (reconcile
+# shape DEC-0004)
+attrs.method = { type = "enum", values = ["automated", "manual", "document"] }
 
 # A non_goal records deliberately-excluded scope — the object a human points at
 # to reject a category of proposed work. Passive by design: throughline surfaces

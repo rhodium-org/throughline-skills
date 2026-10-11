@@ -1,0 +1,17 @@
+uid: TEST-0011
+type: test
+status: proposed
+title: The script imports only the standard library, refuses an old tl and gates
+  only when asked
+text: Pass if every import in scripts/reconcile.py names a standard-library module;
+  if, run against a graph with a stub tl reporting 3.10.0, it exits 2; if a fixture
+  with a dangling citation exits 0 without the gate option and 1 with it; and if
+  the table's check form exits 1 on a stale table without the gate option. The fixture
+  is tests/test_reconcile.py.
+normative: false
+links:
+- target: REQ-0011
+  type: verifies
+attrs:
+  method: automated
+  origin: ai

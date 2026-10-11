@@ -1,0 +1,16 @@
+uid: TEST-0006
+type: test
+status: proposed
+title: An unwired automated test and a test citation with nothing behind it are reported
+text: Build a graph with an automated test item no code cites, a manual one no code
+  cites, a test item verifying nothing, and a requirement no test item verifies.
+  Cite the last two with verifies. Pass if the automated item is reported not wired,
+  the manual one is not, and both citations are reported as tests the graph does
+  not record. The fixture is tests/test_reconcile.py.
+normative: false
+links:
+- target: REQ-0006
+  type: verifies
+attrs:
+  method: automated
+  origin: ai

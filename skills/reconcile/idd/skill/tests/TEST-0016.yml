@@ -1,0 +1,15 @@
+uid: TEST-0016
+type: test
+status: proposed
+title: SKILL.md installs no code-graph tool and lets one narrow a search but never
+  close a finding
+text: Read SKILL.md. Pass if no command in it installs anything but throughline,
+  and it says a code graph already present may suggest where an uncited item is built
+  but never resolves a finding.
+normative: false
+links:
+- target: REQ-0016
+  type: verifies
+attrs:
+  method: document
+  origin: ai

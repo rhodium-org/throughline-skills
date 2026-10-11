@@ -1,0 +1,18 @@
+uid: REQ-0009
+type: requirement
+status: proposed
+title: Unstamped citations are ordered for review by whether their item changed after
+  the code did
+text: For each unstamped citation, the scanner compares the last commit touching
+  the cited item's file with the last commit touching the citation's line, and lists
+  first those whose item changed later. The list is a review order, never a finding.
+rationale: 'A weak signal: code changed for an unrelated reason after the item''s
+  amendment hides the drift. It costs nothing to compute and tells the reader where
+  to start.'
+normative: true
+links:
+- target: REQ-0001
+  type: derives_from
+attrs:
+  priority: could
+  origin: ai

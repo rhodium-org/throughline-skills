@@ -1,0 +1,20 @@
+uid: REQ-0011
+type: requirement
+status: proposed
+title: The script needs only the standard library and a tl that composes, and gates
+  only when asked
+text: The script imports nothing beyond the Python standard library and reads the
+  graph through tl dump. Run against a graph, it exits 2 on a tl older than 3.11.0
+  rather than reconcile half a graph. Its reports exit 0 with findings unless asked
+  to gate, when any finding exits 1; the table's check form, which exists to gate,
+  exits 1 whenever the table is stale.
+rationale: The plugin's skills install nothing but throughline. A review list by
+  default matches tl:challenge; the gate form lets a repository put dangling citations
+  under CI once it is ready to.
+normative: true
+links:
+- target: INT-0001
+  type: derives_from
+attrs:
+  priority: must
+  origin: ai

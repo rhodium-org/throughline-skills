@@ -1,0 +1,17 @@
+uid: REQ-0004
+type: requirement
+status: proposed
+title: An accepted item of an implementable type that no code cites is listed
+text: Every live item of the implementable types (requirement by default; others
+  by option) at an accepted status (approved, ratified, implemented or verified by
+  default; others by option) with no implements or satisfies citation is listed.
+  An item none of whose descendants by refines or derives_from is cited either is
+  listed apart from one whose descendants are, so a parent realised through its children
+  reads differently from work nothing has touched.
+normative: true
+links:
+- target: REQ-0001
+  type: derives_from
+attrs:
+  priority: must
+  origin: ai
