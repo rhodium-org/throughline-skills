@@ -76,7 +76,7 @@ def host(url):
     return parts.hostname if parts.scheme in ("http", "https") or url.startswith("//") else None
 
 
-# tl: verifies throughline-skills/TEST-0004
+# tl: verifies throughline-skills/TEST-0004@117e23f5e8fe
 def test_no_script_no_cookie_and_nothing_loaded_from_another_origin_but_the_fonts():
     p = page()
     assert "script" not in p.tags
@@ -91,7 +91,7 @@ def test_no_script_no_cookie_and_nothing_loaded_from_another_origin_but_the_font
     assert FONTS <= loaded
 
 
-# tl: verifies throughline-skills/TEST-0005
+# tl: verifies throughline-skills/TEST-0005@999ba8709529
 def test_the_install_section_names_one_route_and_the_remove_command():
     text = re.sub(r"\s+", " ", "".join(page().install))
     assert "Pick one route" in text
