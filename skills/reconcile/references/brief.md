@@ -60,8 +60,9 @@ its own traceability and that traceability can be documented from the graph.
 
 ## Open questions
 
-- Is the graph qualifier on a citation required always, or only in a
-  repository holding more than one graph? (This repository holds five, and
+- ~~Is the graph qualifier on a citation required always, or only in a
+  repository holding more than one graph?~~ Answered the same day: only in a
+  repository holding more than one graph. (This repository holds five, and
   `REQ-0001` exists in each.)
 - Are fingerprint stamps on citations in the first version, or later?
 

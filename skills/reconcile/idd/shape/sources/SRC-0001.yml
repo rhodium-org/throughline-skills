@@ -5,8 +5,9 @@ title: The project brief for the reconcile skill
 text: 'Records the design conversation of 2026-10-11: the skill is a check that reports
   disagreements between code and graph and asks which side moves, named reconcile;
   one skill holding a citation notation and the reconciliation that reads it; a script
-  for the deterministic checks; graphify optional; no change to tl; two open questions
-  on qualifiers and stamps.'
+  for the deterministic checks; graphify optional; no change to tl. A citation names
+  its graph only in a repository holding more than one; whether citations carry fingerprint
+  stamps is open.'
 normative: true
 attrs:
   path: skills/reconcile/references/brief.md
