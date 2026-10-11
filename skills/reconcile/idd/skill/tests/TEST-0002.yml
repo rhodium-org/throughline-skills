@@ -6,7 +6,9 @@ title: Untracked files, graph roots and excluded paths are not read, and the cou
 text: In a throwaway repository, cite a UID from a tracked file, an untracked file,
   a file under a graph root and a file matched by an exclude pattern. Pass if only
   the tracked, unexcluded citation is read and the report's file and citation counts
-  match. The fixture is tests/test_reconcile.py.
+  match. In a second repository whose root is the graph, cite from a source file
+  and from a file in a register directory, and pass if only the source file is read.
+  The fixture is tests/test_reconcile.py.
 normative: false
 links:
 - target: REQ-0002
@@ -15,13 +17,15 @@ attrs:
   method: automated
   origin: ai
   ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:32a77603295f71baf6d3e25d4adccb154e2b710fd89b6c5387157133640f4d6c
+  ratified_fingerprint: sha256:6bb8dfe77b9ab8efecbae15718e1e8c98a81ac4053f1f597f6b8d30ec4f1dd5a
   ratified_content:
     type: test
     text: In a throwaway repository, cite a UID from a tracked file, an untracked
       file, a file under a graph root and a file matched by an exclude pattern. Pass
       if only the tracked, unexcluded citation is read and the report's file and
-      citation counts match. The fixture is tests/test_reconcile.py.
+      citation counts match. In a second repository whose root is the graph, cite
+      from a source file and from a file in a register directory, and pass if only
+      the source file is read. The fixture is tests/test_reconcile.py.
     normative: false
     derived: false
     attrs: {}
