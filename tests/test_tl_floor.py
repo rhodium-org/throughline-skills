@@ -1,6 +1,7 @@
 """The scripts drive tl from throughline 3.11.0 or later and refuse an older one.
 
-skill TEST-0009 (shape), tl-challenge TEST-0008 and tl-assess TEST-0010. From
+skill TEST-0009 (shape), tl-challenge TEST-0008, tl-assess TEST-0010 and
+tl-reconcile TEST-0011. From
 3.11.0 tl composes a graph's sources itself; an older tl reads a sourced graph
 without them, so each script exits 2 naming the floor before it reads anything.
 A stand-in tl on PATH plays the older release.
@@ -19,6 +20,7 @@ COMMANDS = {
     "shape skill TEST-0009": ("shape.py", ["-C", "{root}", "init"]),
     "tl-challenge TEST-0008": ("challenge.py", ["-C", "{root}", "all"]),
     "tl-assess TEST-0010": ("assess.py", ["graph", "-C", "{root}"]),
+    "tl-reconcile TEST-0011": ("reconcile.py", ["-C", "{root}", "scan"]),
 }
 
 

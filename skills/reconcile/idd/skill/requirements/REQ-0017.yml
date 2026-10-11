@@ -1,0 +1,22 @@
+uid: REQ-0017
+type: requirement
+status: proposed
+title: The script's fingerprint agrees with tl's, or the script refuses to run
+text: tl dump carries every input of an item's fingerprint but not the fingerprint,
+  so the script computes it. Before it compares a stamp, it checks its computation
+  against every local ratification in the graphs it reads that tl check does not
+  report as ratified-stale; on any disagreement it exits 2 naming the item, and reports
+  nothing.
+rationale: 'Found while building the scanner: REQ-0001 had said the fingerprint is
+  as tl dump reports it, and tl dump reports none. Recomputing from what the dump
+  carries keeps the script on the standard library; checking the computation against
+  tl''s own ratifications on every run means a change to tl''s algorithm stops the
+  script instead of making every stamp read as stale. Rejected: importing throughline''s
+  fingerprint module, which would break the standard-library rule.'
+normative: true
+links:
+- target: REQ-0001
+  type: derives_from
+attrs:
+  priority: must
+  origin: ai
