@@ -26,6 +26,7 @@ hand-off. **Part B** re-checks an implementation graph against the specification
 it composes, after that specification moved.
 
 ## First: is there a graph?
+<!-- tl: implements tl-challenge/REQ-0006 -->
 
 ```sh
 find . -name throughline.toml -not -path '*/.venv/*' -not -path '*/.git/*'
@@ -109,6 +110,7 @@ if you want a source's own dangling mentions; they belong to the source's owner,
 not to you.
 
 ### 3. Put the semantic questions
+<!-- tl: implements tl-challenge/REQ-0002, tl-challenge/challenger:REQ-0001, tl-challenge/challenger:REQ-0003, tl-challenge/challenger:REQ-0006 -->
 
 For each touched item, with its `siblings` output open:
 
@@ -131,6 +133,7 @@ For each touched item, with its `siblings` output open:
   ratified sibling says that actor never does is the commonest finding.
 
 ### 4. Fix through the CLI, never by hand
+<!-- tl: implements tl-challenge/REQ-0003 -->
 
 - An AI-origin item still `proposed` is yours to fix: `tl amend`, `tl link`,
   `tl unlink`. Rewrite the claim in the fewest words that bind — never append
@@ -147,6 +150,7 @@ For each touched item, with its `siblings` output open:
 - Never allocate a UID, edit a `.register.yml`, or hand-edit a link.
 
 ### 5. Re-gate and hand off
+<!-- tl: implements tl-challenge/REQ-0003 -->
 
 ```sh
 python3 "$S" -C idd all                      # the findings you fixed are gone
@@ -194,6 +198,7 @@ restamps the existing link in place (`restamped REQ-0007 --implements-->
 spec:SR-0032`) and adds no second one.
 
 ### 2. Repin and read the suspects
+<!-- tl: implements tl-challenge/REQ-0002, tl-challenge/challenger:REQ-0012 -->
 
 Point the source's `ref` at the new tag (never at a branch you intend to stay
 on), then:
@@ -224,6 +229,7 @@ implementer, or a recorded decision that it is outside this implementation, as
 a non-goal that `relates` to it. Silence is neither.
 
 ### 4. What the consumer check shows that it cannot fix
+<!-- tl: implements tl-challenge/REQ-0005 -->
 
 A consumer's `check` also prints the spec's own `ratified-stale` and
 `unratified` findings on borrowed items (`spec:SR-0004 ratified-stale …`). Those
