@@ -1,6 +1,6 @@
 uid: REQ-0013
 type: requirement
-status: proposed
+status: ratified
 title: A merge stopped on a UID collision is resolved in every graph, and siblings'
   links to a moved item are repointed
 text: When a merge stops on add/add conflicts for item files, the skill runs tl resolve
@@ -20,3 +20,17 @@ links:
 attrs:
   priority: must
   origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:a52c7f6723963967044b13b1727cf72877e4ab669651d625ee5e7bbdc3140955
+  ratified_content:
+    type: requirement
+    text: When a merge stops on add/add conflicts for item files, the skill runs
+      tl resolve in every graph and lets no refusal mask another. Because resolve
+      rewrites links only inside the graph it runs in, the skill then lists the links
+      the moved side added in other graphs to namespace:OLD for each moved item,
+      and repoints each in the graph that owns it, linking the new UID before unlinking
+      the old.
+    normative: true
+    derived: false
+    attrs:
+      priority: must
