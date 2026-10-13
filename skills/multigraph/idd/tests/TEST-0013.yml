@@ -9,8 +9,10 @@ text: 'tests/test_multigraph.py, test_resolve_collision_across_graphs: builds an
   anchor item under the same UID; merges main into the branch. Runs the resolve loop
   read out of the skill text and confirms it exits zero and renumbers the branch''s
   anchor item; runs the listing read out of the skill text and confirms it names
-  the consumer item''s link to the old UID; repoints it with link-then-unlink and
-  confirms the consumer item now traces to the renumbered anchor item.'
+  the consumer item''s link to the old UID. With tl 3.17.0 or later it confirms resolve
+  already repointed that link and reported the relink; with an older tl it repoints
+  it with link-then-unlink. Either way the consumer item then traces to the renumbered
+  anchor item.'
 normative: true
 links:
 - target: REQ-0013

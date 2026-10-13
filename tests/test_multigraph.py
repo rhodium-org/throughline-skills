@@ -168,7 +168,13 @@ def skill_shells(heading):
     return re.findall(r"```sh\n(.*?)```", section, re.S)
 
 
-# tl: verifies tl-multigraph/TEST-0013@3fa513732046
+def tl_version():
+    """The installed tl's version as a tuple, e.g. (3, 17, 0)."""
+    out = run("tl", "--version").stdout
+    return tuple(int(n) for n in re.search(r"(\d+)\.(\d+)\.(\d+)", out).groups())
+
+
+# tl: verifies tl-multigraph/TEST-0013@69ed5a4383d7
 def test_resolve_collision_across_graphs(tmp_path):
     anchor = init(tmp_path / "anchor", "anchor")
     assert new(anchor, "INT", "The shared subject").returncode == 0
@@ -192,7 +198,7 @@ def test_resolve_collision_across_graphs(tmp_path):
     assert merge.returncode != 0 and "CONFLICT (add/add)" in merge.stdout
 
     resolve, listing, repoint = skill_shells("## A merge stopped on a UID collision")
-    r = sh(resolve, cwd=tmp_path)
+    r = r_resolve = sh(resolve, cwd=tmp_path)
     assert r.returncode == 0, r.stdout + r.stderr
     assert "move REQ-0001 -> REQ-0002  (ours)" in r.stdout
     assert "title: Feat subject" in item_file(anchor, "REQ-0002").read_text()
@@ -204,9 +210,14 @@ def test_resolve_collision_across_graphs(tmp_path):
     assert r.stdout.strip() == "consumer/requirements/REQ-0001.yml: - target: anchor:REQ-0001"
 
     assert "link " in repoint and "unlink " in repoint
-    assert run("tl", "-C", str(consumer), "link", "REQ-0001", "anchor:REQ-0002",
-               "--type", "derives_from").returncode == 0
-    assert run("tl", "-C", str(consumer), "unlink", "REQ-0001",
-               "anchor:REQ-0001").returncode == 0
+    if tl_version() >= (3, 17, 0):
+        # resolve followed the move into the consumer; the manual step is not run
+        assert "relink REQ-0001 in consumer: 1 link(s)" in r_resolve.stdout
+        assert "target: anchor:REQ-0002" in item_file(consumer, "REQ-0001").read_text()
+    else:
+        assert run("tl", "-C", str(consumer), "link", "REQ-0001", "anchor:REQ-0002",
+                   "--type", "derives_from").returncode == 0
+        assert run("tl", "-C", str(consumer), "unlink", "REQ-0001",
+                   "anchor:REQ-0001").returncode == 0
     trace = run("tl", "-C", str(consumer), "trace", "REQ-0001").stdout
     assert "anchor:REQ-0002" in trace and "Feat subject" in trace
