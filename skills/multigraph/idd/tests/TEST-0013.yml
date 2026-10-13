@@ -21,7 +21,7 @@ attrs:
   method: automated
   origin: ai
   ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:3fa51373204630ffc4ead5f65fc19e2ebeff6628e00872fcc22bc75b60c93833
+  ratified_fingerprint: sha256:69ed5a4383d730f0d1988de16bd3e37ec6f2a4d59663ea95066af7dca18c0f4a
   ratified_content:
     type: test
     text: 'tests/test_multigraph.py, test_resolve_collision_across_graphs: builds
@@ -30,8 +30,10 @@ attrs:
       anchor item under the same UID; merges main into the branch. Runs the resolve
       loop read out of the skill text and confirms it exits zero and renumbers the
       branch''s anchor item; runs the listing read out of the skill text and confirms
-      it names the consumer item''s link to the old UID; repoints it with link-then-unlink
-      and confirms the consumer item now traces to the renumbered anchor item.'
+      it names the consumer item''s link to the old UID. With tl 3.17.0 or later
+      it confirms resolve already repointed that link and reported the relink; with
+      an older tl it repoints it with link-then-unlink. Either way the consumer item
+      then traces to the renumbered anchor item.'
     normative: true
     derived: false
     attrs: {}
