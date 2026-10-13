@@ -121,10 +121,10 @@ Every graph allocates UIDs on its own, so two branches can collide in several
 graphs at once, and the merge stops with `CONFLICT (add/add)` on each item file.
 **Never settle one by picking a side**: that silently drops an item. `tl
 resolve` (throughline ≥ 3.16.0) fixes a collision inside the stopped merge, but
-only in the graph `-C` names, so run it in every graph and do not let one
-refusal mask another:
+only in the graph `-C` names, so run it in every graph, in any order, and do not
+let one refusal mask another:
 
-<!-- tl: implements tl-multigraph/REQ-0013@a52c7f672396 -->
+<!-- tl: implements tl-multigraph/REQ-0013@5f9d31b5bc6a -->
 ```sh
 rc=0
 for cfg in $(find . -name throughline.toml -not -path '*/.venv/*'); do
@@ -136,12 +136,17 @@ exit $rc
 A graph with nothing to resolve says so. Where one refuses, read why: it
 changes nothing and names what to do.
 
-**Then repair what `resolve` cannot see: a sibling's link to a moved item.**
-`resolve` rewrites the links inside its own graph. A graph that sources this
-one names the item `namespace:UID`, and a link the moved side added there still
-names the old UID, which now means the item that kept it. `tl check` cannot
-tell. For each `move OLD -> NEW (ours|theirs)` line, list those links (`moved`
-is `HEAD` for ours, `MERGE_HEAD` for theirs):
+**A sibling's link to a moved item.** A graph that sources the resolved one
+names the item `namespace:UID`, and a link the moved side added there still
+names the old UID, which after the move means the item that kept it. `tl check`
+cannot tell. **From throughline 3.17.0 `resolve` follows the move into those
+graphs itself**, whichever graph you resolve first, and reports each as `relink
+<UID> in <graph>`; nothing more is needed. Upgrade if you can
+(`pip install --upgrade 'throughline>=3.17.0'`).
+
+With an older `tl`, repair them by hand. For each `move OLD -> NEW
+(ours|theirs)` line, list those links (`moved` is `HEAD` for ours,
+`MERGE_HEAD` for theirs):
 
 ```sh
 moved=HEAD OLD=REQ-0002
