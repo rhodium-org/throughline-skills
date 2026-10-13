@@ -1,0 +1,35 @@
+uid: TEST-0013
+type: test
+status: ratified
+title: The resolve loop fixes a collision in each graph and the listing finds a sibling's
+  link to the moved item
+text: 'tests/test_multigraph.py, test_resolve_collision_across_graphs: builds an
+  anchor and a consumer sourcing it by path in one git repository; a branch adds
+  an anchor item and a consumer item grounded on it, while main adds a different
+  anchor item under the same UID; merges main into the branch. Runs the resolve loop
+  read out of the skill text and confirms it exits zero and renumbers the branch''s
+  anchor item; runs the listing read out of the skill text and confirms it names
+  the consumer item''s link to the old UID; repoints it with link-then-unlink and
+  confirms the consumer item now traces to the renumbered anchor item.'
+normative: true
+links:
+- target: REQ-0013
+  type: verifies
+attrs:
+  method: automated
+  origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:3fa51373204630ffc4ead5f65fc19e2ebeff6628e00872fcc22bc75b60c93833
+  ratified_content:
+    type: test
+    text: 'tests/test_multigraph.py, test_resolve_collision_across_graphs: builds
+      an anchor and a consumer sourcing it by path in one git repository; a branch
+      adds an anchor item and a consumer item grounded on it, while main adds a different
+      anchor item under the same UID; merges main into the branch. Runs the resolve
+      loop read out of the skill text and confirms it exits zero and renumbers the
+      branch''s anchor item; runs the listing read out of the skill text and confirms
+      it names the consumer item''s link to the old UID; repoints it with link-then-unlink
+      and confirms the consumer item now traces to the renumbered anchor item.'
+    normative: true
+    derived: false
+    attrs: {}
