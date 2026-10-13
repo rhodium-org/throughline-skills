@@ -187,7 +187,8 @@ def test_resolve_collision_across_graphs(tmp_path):
     git(tmp_path, "add", "-A")
     git(tmp_path, "commit", "-qm", "main")
     git(tmp_path, "checkout", "-q", "feat")
-    merge = run("git", "-C", str(tmp_path), "merge", "main")
+    merge = run("git", "-C", str(tmp_path), "-c", "user.email=t@t", "-c", "user.name=t",
+                "merge", "main")
     assert merge.returncode != 0 and "CONFLICT (add/add)" in merge.stdout
 
     resolve, listing, repoint = skill_shells("## A merge stopped on a UID collision")
