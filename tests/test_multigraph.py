@@ -150,3 +150,62 @@ def test_skill_defers_composition_to_tl_context():
     for mechanic in ("alias =", "reexport", "TL_OFFLINE", "--local", "~/.cache/throughline",
                      "to any depth"):
         assert mechanic not in text, mechanic
+
+
+# ── TEST-0013: a merge collision is resolved in every graph ─────────────────
+
+def git(root, *args):
+    r = run("git", "-C", str(root), "-c", "user.email=t@t", "-c", "user.name=t", *args)
+    assert r.returncode == 0, r.stderr
+    return r
+
+
+def skill_shells(heading):
+    """Every ```sh fence under a heading of SKILL.md, up to the next heading."""
+    text = SKILL.read_text()
+    tail = text[text.index(heading) + len(heading):]
+    section = tail[:tail.find("\n## ")] if "\n## " in tail else tail
+    return re.findall(r"```sh\n(.*?)```", section, re.S)
+
+
+# tl: verifies tl-multigraph/TEST-0013@3fa513732046
+def test_resolve_collision_across_graphs(tmp_path):
+    anchor = init(tmp_path / "anchor", "anchor")
+    assert new(anchor, "INT", "The shared subject").returncode == 0
+    consumer = init(tmp_path / "consumer", "consumer")
+    add_source(consumer, "anchor", "../anchor")
+    git(tmp_path, "init", "-q", "-b", "main")
+    git(tmp_path, "add", "-A")
+    git(tmp_path, "commit", "-qm", "base")
+    git(tmp_path, "checkout", "-q", "-b", "feat")
+    assert new(anchor, "REQ", "Feat subject", ground="INT-0001").returncode == 0
+    assert new(consumer, "REQ", "Feat team", ground="anchor:REQ-0001").returncode == 0
+    git(tmp_path, "add", "-A")
+    git(tmp_path, "commit", "-qm", "feat")
+    git(tmp_path, "checkout", "-q", "main")
+    assert new(anchor, "REQ", "Main subject", ground="INT-0001").returncode == 0
+    git(tmp_path, "add", "-A")
+    git(tmp_path, "commit", "-qm", "main")
+    git(tmp_path, "checkout", "-q", "feat")
+    merge = run("git", "-C", str(tmp_path), "merge", "main")
+    assert merge.returncode != 0 and "CONFLICT (add/add)" in merge.stdout
+
+    resolve, listing, repoint = skill_shells("## A merge stopped on a UID collision")
+    r = sh(resolve, cwd=tmp_path)
+    assert r.returncode == 0, r.stdout + r.stderr
+    assert "move REQ-0001 -> REQ-0002  (ours)" in r.stdout
+    assert "title: Feat subject" in item_file(anchor, "REQ-0002").read_text()
+
+    # The consumer's link still names the old UID, which now means main's item.
+    listing = re.sub(r"^moved=\S+ OLD=\S+", "moved=HEAD OLD=REQ-0001", listing, flags=re.M)
+    r = sh(listing, cwd=tmp_path)
+    assert r.returncode == 0, r.stderr
+    assert r.stdout.strip() == "consumer/requirements/REQ-0001.yml: - target: anchor:REQ-0001"
+
+    assert "link " in repoint and "unlink " in repoint
+    assert run("tl", "-C", str(consumer), "link", "REQ-0001", "anchor:REQ-0002",
+               "--type", "derives_from").returncode == 0
+    assert run("tl", "-C", str(consumer), "unlink", "REQ-0001",
+               "anchor:REQ-0001").returncode == 0
+    trace = run("tl", "-C", str(consumer), "trace", "REQ-0001").stdout
+    assert "anchor:REQ-0002" in trace and "Feat subject" in trace

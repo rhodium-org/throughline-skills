@@ -1,0 +1,22 @@
+uid: REQ-0013
+type: requirement
+status: proposed
+title: A merge stopped on a UID collision is resolved in every graph, and siblings'
+  links to a moved item are repointed
+text: When a merge stops on add/add conflicts for item files, the skill runs tl resolve
+  in every graph and lets no refusal mask another. Because resolve rewrites links
+  only inside the graph it runs in, the skill then lists the links the moved side
+  added in other graphs to namespace:OLD for each moved item, and repoints each in
+  the graph that owns it, linking the new UID before unlinking the old.
+rationale: tl resolve fixes a collision only in the graph -C names, and a repository
+  of several graphs can collide in several at once. A sibling that sources the resolved
+  graph cites its items as namespace:UID, which resolve does not rewrite, so a link
+  the moved side added there silently comes to mean the item that kept the UID, and
+  no check can see it.
+normative: true
+links:
+- target: INT-0001
+  type: derives_from
+attrs:
+  priority: must
+  origin: ai

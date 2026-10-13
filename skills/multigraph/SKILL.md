@@ -1,6 +1,6 @@
 ---
 name: multigraph
-description: Work in a repository that holds MORE THAN ONE throughline IDD graph — several `throughline.toml` files, wired to each other by `path` sources (an anchor graph and one graph per role or rendering, or a graph and the `<name>-shape` graph tl:shape lays beside it). Use when a repo has multiple `throughline.toml` files, when adding a graph to such a repo, when wiring one in-repo graph to borrow from another, when gating every graph, or when ratifying items whose grounding chain crosses graphs. How composition itself works is in `tl context`; this skill covers what no single graph's brief can see. For a single-graph repo, follow the graph's own `tl context` brief instead.
+description: Work in a repository that holds MORE THAN ONE throughline IDD graph — several `throughline.toml` files, wired to each other by `path` sources (an anchor graph and one graph per role or rendering, or a graph and the `<name>-shape` graph tl:shape lays beside it). Use when a repo has multiple `throughline.toml` files, when adding a graph to such a repo, when wiring one in-repo graph to borrow from another, when gating every graph, when ratifying items whose grounding chain crosses graphs, or when a merge stops on a UID collision (CONFLICT (add/add) on an item file). How composition itself works is in `tl context`; this skill covers what no single graph's brief can see. For a single-graph repo, follow the graph's own `tl context` brief instead.
 user-invocable: true
 ---
 
@@ -114,6 +114,53 @@ exit $rc
 Which graphs take `--strict` is the repository's decision; read its CI
 workflow rather than assuming. A graph waiting on a human's ratification
 cannot pass strict.
+
+## A merge stopped on a UID collision
+
+Every graph allocates UIDs on its own, so two branches can collide in several
+graphs at once, and the merge stops with `CONFLICT (add/add)` on each item file.
+**Never settle one by picking a side**: that silently drops an item. `tl
+resolve` (throughline ≥ 3.16.0) fixes a collision inside the stopped merge, but
+only in the graph `-C` names, so run it in every graph and do not let one
+refusal mask another:
+
+<!-- tl: implements tl-multigraph/REQ-0013@a52c7f672396 -->
+```sh
+rc=0
+for cfg in $(find . -name throughline.toml -not -path '*/.venv/*'); do
+  tl -C "$(dirname "$cfg")" resolve || rc=1
+done
+exit $rc
+```
+
+A graph with nothing to resolve says so. Where one refuses, read why: it
+changes nothing and names what to do.
+
+**Then repair what `resolve` cannot see: a sibling's link to a moved item.**
+`resolve` rewrites the links inside its own graph. A graph that sources this
+one names the item `namespace:UID`, and a link the moved side added there still
+names the old UID, which now means the item that kept it. `tl check` cannot
+tell. For each `move OLD -> NEW (ours|theirs)` line, list those links (`moved`
+is `HEAD` for ours, `MERGE_HEAD` for theirs):
+
+```sh
+moved=HEAD OLD=REQ-0002
+git diff -U0 "$(git merge-base HEAD MERGE_HEAD)" "$moved" -- . |
+  awk -v old=":$OLD" '/^\+\+\+ /{f=substr($0,7)}
+    /^\+.*target: / && substr($0, length($0)-length(old)+1) == old {print f ": " substr($0,2)}'
+```
+
+Keep only links whose namespace is the resolved graph (read the consumer's
+`[[sources]]`), then repoint each in the graph that owns it, linking the new
+UID before unlinking the old so the item is never left ungrounded:
+
+```sh
+tl -C teams/developer/idd link   SREQ-0009 subject:REQ-0005 --type derives_from
+tl -C teams/developer/idd unlink SREQ-0009 subject:REQ-0002
+```
+
+Run the `tl check` each `resolve` suggested in every graph, then commit the
+merge.
 
 ## In a cloud sandbox
 
