@@ -58,12 +58,14 @@ beside this file's plugin.
 
 1. **Graph root.** The directory holding `throughline.toml`.
 2. **Repository, and the paths the work lives in.** The repository is found
-   from the graph root; pass `--repo` if the graph is not in the repository it
-   describes. When the repository holds more than this piece of work (a plugin
-   with one graph per skill, a repository with several graphs), pass `--paths`
-   with the repository-relative directories and files that are this work, so
-   the git measure counts only the commits that touched them. The scope is
-   recorded; without it the whole repository is measured.
+   from the graph root; pass `--repo` when git finds the wrong one, such as a
+   graph in a nested checkout. The graph root must lie inside the repository:
+   the record names it relative to the root and refuses one outside. When the
+   repository holds more than this piece of work (a plugin with one graph per
+   skill, a repository with several graphs), pass `--paths` with the
+   repository-relative directories and files that are this work, so the git
+   measure counts only the commits that touched them. The scope is recorded;
+   without it the whole repository is measured.
 3. **Session transcripts.** Claude Code writes one `.jsonl` per session under
    `~/.claude/projects/<slugified working directory>/`. Find the sessions that
    did this work: grep the transcripts for the project's name and keep the
@@ -101,6 +103,15 @@ followed by the narrative sections to fill in) under the repository, copies
 both into `<collection>/<name>/`, and regenerates the collection's `README.md`
 index. Commit the two files in the work's repository citing the item that
 grounds the assessment; commit the copies in the collection.
+
+A record holds no absolute path, because it is committed to a repository that
+may be public and read on other machines: the graph root is named relative to
+the repository; the repository by its origin URL, with any credentials and a
+trailing `.git` removed, or by its directory name when it has no origin; a
+transcript by its file name; a session's working directory relative to the
+repository (`.` or a subdirectory inside it, `..` or `../..` above it, absent
+when it sat elsewhere); and the script relative to the plugin. A measuring
+command run alone prints what it measured.
 
 Each measuring command can also be run alone (`graph`, `git`, `docs`, `tests`,
 `sessions`, `done`) and prints JSON.
@@ -141,6 +152,18 @@ corrected.
 The same work reaches "done" more than once as its specification moves. Record
 again under the same name; the date and time in the file name keep the records apart
 and the collection's index shows the trend. Never overwrite an earlier record.
+
+A record written by a plugin before 1.7.0 names the paths of the machine it
+was taken on. Bring it to the current form in place, numbers untouched and
+narrative kept:
+
+```sh
+python3 "$S" migrate docs/assessment/*.json          # and the collection's copies
+python3 "$S" migrate <records> --repo <where the repository is now>
+```
+
+`--repo` is needed only when the repository is no longer at the path the
+record names. A record already in the current form is left alone.
 
 ## What this skill is not
 

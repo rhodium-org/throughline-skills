@@ -26,6 +26,13 @@ Usage:
   assess.py record   -C ROOT --name NAME [--repo DIR] [--sessions FILE...]
                      [--tests-glob PATTERN] [--results FILE] [--out DIR]
                      [--collection DIR] [--label TEXT] [--paths PATH...]
+  assess.py migrate  FILE.json... [--repo DIR]
+
+A record holds no absolute path: the graph root is named relative to the
+repository, the repository by its origin, a transcript by its file name, a
+session's working directory relative to the repository and the script relative
+to the plugin. `migrate` brings a record written before that rule to the same
+form in place, its numbers untouched.
 """
 from __future__ import annotations
 
@@ -79,11 +86,87 @@ def is_local(uid: str) -> bool:
 
 def repo_of(root: str | None, repo: str | None) -> str:
     if repo:
-        return repo
+        return os.path.realpath(repo)
     out = run(["git", "-C", root or ".", "rev-parse", "--show-toplevel"])
     if out.returncode != 0:
         raise SystemExit(f"not a git repository: {root}")
     return out.stdout.strip()
+
+
+# ── portability ─────────────────────────────────────────────────────────────
+# A record is committed to a repository that may be public and copied into a
+# collection read on other machines, so it names nothing by where one machine
+# kept it. The measuring commands print what they measured; the record is made
+# portable once, just before it is written, and migrate does the same to a
+# record written before this rule.
+
+# tl: implements tl-assess/REQ-0010@22d2f73d74d9
+def relative_to_repo(path: str, repo: str) -> str:
+    """PATH relative to the repository root, as a POSIX path. A path outside
+    the repository has no such name and is refused."""
+    rel = os.path.relpath(os.path.realpath(path), os.path.realpath(repo))
+    if rel == os.pardir or rel.startswith(os.pardir + os.sep):
+        raise SystemExit(f"{path} is not inside the repository {repo}; "
+                         "a record names the graph root relative to the repository")
+    return rel.replace(os.sep, "/")
+
+
+# tl: implements tl-assess/REQ-0010@22d2f73d74d9
+def session_cwd(cwd: str | None, repo: str) -> str | None:
+    """A session's working directory relative to the repository: '.' or a
+    subdirectory when it sat inside, a run of '..' when it sat above, None when
+    it sat elsewhere, since naming that would name the machine's layout."""
+    if not cwd:
+        return None
+    rel = os.path.relpath(os.path.realpath(cwd), os.path.realpath(repo))
+    parts = rel.split(os.sep)
+    if os.pardir in parts and any(part != os.pardir for part in parts):
+        return None
+    return rel.replace(os.sep, "/")
+
+
+# tl: implements tl-assess/REQ-0010@22d2f73d74d9
+def repository_identity(repo: str) -> str:
+    """The origin URL with any credentials and a trailing .git removed, or the
+    directory's name when the repository has no origin."""
+    if not os.path.isdir(repo):
+        raise SystemExit(f"the repository {repo} is not on this machine; give --repo")
+    out = run(["git", "-C", repo, "remote", "get-url", "origin"])
+    url = out.stdout.strip() if out.returncode == 0 else ""
+    if not url:
+        return Path(repo).name
+    url = re.sub(r"://[^/@]+@", "://", url)
+    return url[:-4] if url.endswith(".git") else url
+
+
+# tl: implements tl-assess/REQ-0010@22d2f73d74d9
+def portable(rec: dict, repo: str | None = None) -> dict:
+    """The record with every path made relative: the graph root and each
+    session's working directory to the repository the record names, each
+    transcript to its file name, the script to the plugin root above its own
+    directory; and the repository named by its identity, read from REPO or
+    from the directory the record names. A record already portable is
+    returned as it is. A record from before the repository was named, or that
+    named it as a dot, finds it from the graph root, as record does."""
+    if not os.path.isabs(rec["graph_root"]):
+        return rec
+    base = rec.get("repository") or ""
+    if not os.path.isabs(base):
+        base = repo_of(rec["graph_root"], repo)
+    out: dict = {}
+    for key, value in rec.items():
+        if key == "repository":
+            continue  # written beside the graph root, whichever form the record had
+        out[key] = value
+        if key == "graph_root":
+            out["graph_root"] = relative_to_repo(value, base)
+            out["repository"] = repository_identity(repo or base)
+    for s in out["sessions"]["sessions"]:
+        s["file"] = os.path.basename(s["file"])
+        s["cwd"] = session_cwd(s.get("cwd"), base)
+    script = Path(out["provenance"]["script"])
+    out["provenance"]["script"] = script.relative_to(script.parent.parent).as_posix()
+    return out
 
 
 # ── graph ───────────────────────────────────────────────────────────────────
@@ -447,16 +530,17 @@ def record(args) -> dict:
         "name": args.name,
         "label": args.label,
         "recorded_at": dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds"),
-        "graph_root": os.path.abspath(root),
+        "graph_root": os.path.realpath(root),
         "repository": repo,
         "graph": measure_graph(dumped),
-        "git": measure_git(repo, os.path.relpath(root, repo), args.paths),
+        "git": measure_git(repo, relative_to_repo(root, repo), args.paths),
         "docs": measure_docs(root),
         "tests": measure_tests(args.tests_glob, args.results, repo),
         "sessions": measure_sessions(args.sessions or [], args.idle_gap, args.since, args.until),
         "done": measure_done(root, repo, args.results),
         "provenance": measure_provenance(root, repo),
     }
+    rec = portable(rec)
     out_dir = Path(args.out or os.path.join(repo, "docs", "assessment"))
     out_dir.mkdir(parents=True, exist_ok=True)
     # Date and time in the name: a second record on the same day never overwrites the first.
@@ -484,8 +568,13 @@ def hours(x: float) -> str:
     return f"{x:.1f} h"
 
 
+NARRATIVE_START = "## What was built"
+
+
 # tl: implements tl-assess/REQ-0006@de9d5e7acb9e
-def markdown(rec: dict) -> str:
+def measured_head(rec: dict) -> list[str]:
+    """The Markdown's measured part: the title, the label, where the record was
+    taken from, and the numbers as one table. Everything below is narrative."""
     g, git, d, t, s, done = rec["graph"], rec["git"], rec["docs"], rec["tests"], rec["sessions"], rec["done"]
     prov = rec.get("provenance", {})
     tot = s["totals"]
@@ -497,7 +586,8 @@ def markdown(rec: dict) -> str:
         ("Sources composed", ", ".join(f"{k} ({v} items)" for k, v in g["sources_composed"].items()) or "none"),
         ("Links into sources", f"{g['citations']} ({g['citations_stamped']} stamped, {g['citations_unstamped']} not)"),
         ("Tests by method", ", ".join(f"{k} {v}" for k, v in g["tests_by_method"].items()) or "none"),
-        ("Git scope", "whole repository" if git.get("scope") == "repository" else ", ".join(git.get("scope") or [])),
+        # A record from before the measure could be scoped was measured repository-wide and carries no scope.
+        ("Git scope", "whole repository" if git.get("scope", "repository") == "repository" else ", ".join(git["scope"])),
         ("Commits", f"{git.get('commits', 0)} over {git.get('span_days', 0)} days, {git.get('editions', 0)} tags"),
         ("Commits naming an item", f"{git.get('commits_citing_an_item', 0)} ({git.get('citing_ratio', 0)})"),
         ("Items amended after ratification", f"{git.get('items_amended_after_ratification', 0)} of {git.get('items_ratified', 0)}"),
@@ -518,41 +608,79 @@ def markdown(rec: dict) -> str:
         ("Skill", f"tl:assess {prov.get('plugin_version') or '?'} at {(prov.get('plugin_commit') or '')[:12]}, Python {prov.get('python')}"),
     ]
     table = "| Measure | Value |\n|---|---|\n" + "\n".join(f"| {k} | {v} |" for k, v in rows)
-    lines = [
+    return [
         f"# Assessment: {rec['name']}",
         "",
         f"{rec['label'] or ''}".strip(),
         "",
-        f"Recorded {rec['recorded_at']} from `{rec['graph_root']}`.",
+        f"Recorded {rec['recorded_at']} from `{rec['graph_root']}` in {rec['repository']}.",
         "",
         "## Measured",
         "",
         table,
         "",
-        "## What was built",
-        "",
-        "(One paragraph: the input, the output, and what a person can now use.)",
-        "",
-        "## Defects found after the first \"done\"",
-        "",
-        "| Defect | Found by | Would a gate have caught it? | Which |",
-        "|---|---|---|---|",
-        "| | | | |",
-        "",
-        "## What the graph caught before a person did",
-        "",
-        "(Findings from `tl check`, the challenger, stamps and document gates that stopped a defect.)",
-        "",
-        "## Human effort",
-        "",
-        "(Turns, ratifications, decisions and corrections. What only the human could do.)",
-        "",
-        "## Verdict",
-        "",
-        "(Did the graph earn its keep here? Benefits and costs in the measured terms above, then a judgement.)",
-        "",
     ]
-    return "\n".join(lines)
+
+
+NARRATIVE_SKELETON = [
+    NARRATIVE_START,
+    "",
+    "(One paragraph: the input, the output, and what a person can now use.)",
+    "",
+    "## Defects found after the first \"done\"",
+    "",
+    "| Defect | Found by | Would a gate have caught it? | Which |",
+    "|---|---|---|---|",
+    "| | | | |",
+    "",
+    "## What the graph caught before a person did",
+    "",
+    "(Findings from `tl check`, the challenger, stamps and document gates that stopped a defect.)",
+    "",
+    "## Human effort",
+    "",
+    "(Turns, ratifications, decisions and corrections. What only the human could do.)",
+    "",
+    "## Verdict",
+    "",
+    "(Did the graph earn its keep here? Benefits and costs in the measured terms above, then a judgement.)",
+    "",
+]
+
+
+# tl: implements tl-assess/REQ-0006@de9d5e7acb9e
+def markdown(rec: dict) -> str:
+    return "\n".join(measured_head(rec) + NARRATIVE_SKELETON)
+
+
+# tl: implements tl-assess/REQ-0010@22d2f73d74d9
+def migrate(files: list[str], repo: str | None) -> dict:
+    """Bring records written before the portability rule to the current form,
+    in place: the JSON through portable, its numbers untouched; the Markdown's
+    measured head re-rendered from it above the narrative, which is kept as
+    written. A record already in the current form is left alone."""
+    migrated, unchanged = [], []
+    for f in files:
+        p = Path(f)
+        rec = json.loads(p.read_text())
+        if not os.path.isabs(rec["graph_root"]):
+            unchanged.append(str(p))
+            continue
+        rec = portable(rec, repo)
+        md = p.with_suffix(".md")
+        narrative = None
+        if md.exists():
+            text = md.read_text()
+            at = text.find("\n" + NARRATIVE_START + "\n")
+            if at < 0:
+                raise SystemExit(f"{md}: no '{NARRATIVE_START}' heading, so the measured head "
+                                 "cannot be told from the narrative")
+            narrative = text[at:]
+        p.write_text(json.dumps(rec, indent=2) + "\n")
+        if narrative is not None:
+            md.write_text("\n".join(measured_head(rec)) + narrative)
+        migrated.append(str(p))
+    return {"migrated": migrated, "unchanged": unchanged}
 
 
 # tl: implements tl-assess/REQ-0006@de9d5e7acb9e
@@ -601,6 +729,8 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--since"); p.add_argument("--until")
     p.add_argument("--paths", nargs="*", help="repository-relative paths the work lives in, for the git measure")
     p.add_argument("--tests-glob"); p.add_argument("--results"); p.add_argument("--out"); p.add_argument("--collection")
+    p = sub.add_parser("migrate"); p.add_argument("files", nargs="+", help="record .json files; the .md beside each gets its measured head re-rendered")
+    p.add_argument("--repo", help="the repository the records describe, when it is no longer at the path they name")
     args = ap.parse_args(argv)
 
     if args.cmd == "graph":
@@ -620,6 +750,8 @@ def main(argv: list[str] | None = None) -> int:
         out = measure_done(args.path, repo_of(args.path, args.repo), args.results)
         print(json.dumps(out, indent=2))
         return 0 if out["done"] else 1
+    elif args.cmd == "migrate":
+        out = migrate(args.files, args.repo)
     else:
         out = record(args)
     print(json.dumps(out, indent=2))

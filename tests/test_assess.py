@@ -1,11 +1,13 @@
 """Fixture tests for the assess skill's script.
 
-tl-assess TEST-0001 to TEST-0009; TEST-0010 is in test_tl_floor.py. Each test
+tl-assess TEST-0001 to TEST-0009, TEST-0011 and TEST-0012; TEST-0010 is in
+test_tl_floor.py. Each test
 builds a throwaway graph or repository with the real CLI, or a synthetic
 transcript, and asserts the numbers the script reports. Needs tl from
 throughline 3.11.0 or later on PATH: pip install 'throughline>=3.11.0'.
 """
 import json
+import os
 import shutil
 import subprocess
 import sys
@@ -166,13 +168,13 @@ def test_docs_and_tests_are_measured_not_invented(repo, tmp_path):  # TEST-0003
     assert "passed" not in t2
 
 
-def transcript(path: Path):
+def transcript(path: Path, cwd: str = "/w"):
     def ts(minutes):
         return f"2026-09-01T10:{minutes:02d}:00.000Z"
     usage = {"input_tokens": 10, "output_tokens": 100, "cache_creation_input_tokens": 1000,
              "cache_read_input_tokens": 5000, "output_tokens_details": {"thinking_tokens": 40}}
     lines = [
-        {"type": "user", "sessionId": "s1", "cwd": "/w", "timestamp": ts(0), "message": {"role": "user", "content": "start"}},
+        {"type": "user", "sessionId": "s1", "cwd": cwd, "timestamp": ts(0), "message": {"role": "user", "content": "start"}},
         {"type": "assistant", "timestamp": ts(1), "message": {"role": "assistant", "model": "m", "usage": usage,
                                                               "content": [{"type": "tool_use", "name": "Bash", "input": {}}]}},
         {"type": "user", "timestamp": ts(2), "toolUseResult": {"stdout": ""}, "message": {"role": "user", "content": [{"type": "tool_result"}]}},
@@ -295,3 +297,81 @@ def test_git_measure_scoped_to_paths(repo):  # TEST-0008
     whole = assess("git", "-C", str(idd))
     assert whole["scope"] == "repository" and whole["commits"] == 3 and whole["editions"] == 2
 
+
+def strings_in(value):
+    """Every string in a JSON value, however deep."""
+    if isinstance(value, str):
+        yield value
+    elif isinstance(value, dict):
+        for v in value.values():
+            yield from strings_in(v)
+    elif isinstance(value, list):
+        for v in value:
+            yield from strings_in(v)
+
+
+# tl: verifies tl-assess/TEST-0011@23b00d29b823
+def test_record_holds_no_absolute_path(repo, tmp_path):  # TEST-0011
+    idd = graph_with_items(repo)
+    git(repo, "add", "-A")
+    git(repo, "commit", "-q", "-m", "A graph (INT-0001)")
+    git(repo, "remote", "add", "origin", "https://ada:s3cret@example.org/org/work.git")
+    inside, above = tmp_path / "inside.jsonl", tmp_path / "above.jsonl"
+    transcript(inside, cwd=str(repo))
+    transcript(above, cwd=str(tmp_path))
+    rec = assess("record", "-C", str(idd), "--name", "portable", "--sessions", str(inside), str(above))
+    assert rec["graph_root"] == "idd"
+    assert rec["repository"] == "https://example.org/org/work"
+    assert [s["file"] for s in rec["sessions"]["sessions"]] == ["inside.jsonl", "above.jsonl"]
+    assert [s["cwd"] for s in rec["sessions"]["sessions"]] == [".", ".."]
+    assert rec["provenance"]["script"] == "scripts/assess.py"
+    written = json.loads(Path(rec["written"][0]).read_text())
+    assert [s for s in strings_in(written) if os.path.isabs(s)] == []
+    md = Path(rec["written"][1]).read_text()
+    assert "from `idd` in https://example.org/org/work." in md and str(repo.resolve()) not in md
+    # A session that sat elsewhere is not placed: placing it would name the machine's layout.
+    elsewhere = tmp_path / "elsewhere.jsonl"
+    transcript(elsewhere, cwd=str(tmp_path / "other" / "work"))
+    rec = assess("record", "-C", str(idd), "--name", "portable", "--sessions", str(elsewhere))
+    assert rec["sessions"]["sessions"][0]["cwd"] is None
+    # A graph outside the repository has no repository-relative name, so the record is refused.
+    outside = tmp_path / "outside" / "idd"
+    outside.mkdir(parents=True)
+    run("tl", "init", "--no-demo", cwd=outside)
+    r = run(sys.executable, str(SCRIPT), "record", "-C", str(outside), "--name", "x", "--repo", str(repo), check=False)
+    assert r.returncode == 1 and "not inside the repository" in r.stderr
+
+
+# tl: verifies tl-assess/TEST-0012@978d95d456d5
+def test_migrate_rewrites_an_earlier_record(repo, tmp_path):  # TEST-0012
+    idd = graph_with_items(repo)
+    git(repo, "add", "-A")
+    git(repo, "commit", "-q", "-m", "A graph (INT-0001)")
+    t = tmp_path / "s1.jsonl"
+    transcript(t, cwd=str(tmp_path))
+    rec = assess("record", "-C", str(idd), "--name", "earlier", "--sessions", str(t))
+    jp, mp = Path(rec["written"][0]), Path(rec["written"][1])
+    today_json, today_md = jp.read_text(), mp.read_text()
+    head_today = today_md[:today_md.index("\n## What was built\n")]
+    # Age both files to the form written before the rule: the machine's own paths, and a narrative a person wrote.
+    base = str(repo.resolve())
+    aged = json.loads(today_json)
+    aged["graph_root"], aged["repository"] = base + "/idd", base
+    aged["sessions"]["sessions"][0]["file"], aged["sessions"]["sessions"][0]["cwd"] = str(t), str(tmp_path.resolve())
+    aged["provenance"]["script"] = str(SCRIPT)
+    jp.write_text(json.dumps(aged, indent=2) + "\n")
+    narrative = today_md[len(head_today):].replace(
+        "(One paragraph: the input, the output, and what a person can now use.)", "A fixture graph, built in a test.")
+    mp.write_text(head_today.replace("from `idd` in work.", f"from `{base}/idd`.") + narrative)
+    assert base in jp.read_text() and base in mp.read_text()
+    assert assess("migrate", str(jp)) == {"migrated": [str(jp)], "unchanged": []}
+    assert jp.read_text() == today_json
+    assert mp.read_text() == head_today + narrative
+    # Migrating again changes nothing: a record already in the current form is left alone.
+    assert assess("migrate", str(jp)) == {"migrated": [], "unchanged": [str(jp)]}
+    assert jp.read_text() == today_json and mp.read_text() == head_today + narrative
+    # A record from before the repository was named finds it from the graph root, as record does.
+    del aged["repository"]
+    jp.write_text(json.dumps(aged, indent=2) + "\n")
+    assert assess("migrate", str(jp))["migrated"] == [str(jp)]
+    assert jp.read_text() == today_json

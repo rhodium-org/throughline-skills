@@ -1,0 +1,21 @@
+uid: TEST-0011
+type: test
+status: proposed
+title: A record names every path relative to the repository and a transcript by its
+  name
+text: 'tests/test_assess.py, test_record_holds_no_absolute_path: in a throwaway repository
+  whose origin URL carries credentials, record a fixture graph with two transcripts,
+  one whose session sat in the repository and one above it; assert the graph root
+  is its directory name, the repository is the origin without credentials or .git,
+  each transcript is its file name, the working directories are a dot and a run of
+  double dots, the script is relative to the plugin, the Markdown names the root
+  and the repository so, and no string in the written JSON is an absolute path; assert
+  a session that sat elsewhere has no working directory, and that a graph root outside
+  the repository is refused with exit 1.'
+normative: true
+links:
+- target: REQ-0010
+  type: verifies
+attrs:
+  method: automated
+  origin: ai
