@@ -2,8 +2,8 @@
   "name": "tl-assess-skill",
   "label": "The tl:assess skill, recorded a third time after its git measure learned to follow an item through a rename: a script, a skill text, a graph of eighteen items, nine fixture tests and a collection of seven records, 13 September 2026.",
   "recorded_at": "2026-09-13T18:37:23+00:00",
-  "graph_root": "/home/henry/Projects/01-applications/throughline-skills/skills/assess/idd",
-  "repository": "/home/henry/Projects/01-applications/throughline-skills",
+  "graph_root": "skills/assess/idd",
+  "repository": "https://github.com/rhodium-org/throughline-skills",
   "graph": {
     "items_local": 18,
     "items_live": 18,
@@ -73,9 +73,9 @@
   "sessions": {
     "sessions": [
       {
-        "file": "/home/henry/.claude/projects/-home-henry-Projects/a0bc2492-467f-448a-ae77-553b7861275b.jsonl",
+        "file": "a0bc2492-467f-448a-ae77-553b7861275b.jsonl",
         "session_id": "a0bc2492-467f-448a-ae77-553b7861275b",
-        "cwd": "/home/henry/Projects",
+        "cwd": "../..",
         "first": "2026-09-13T14:39:01.011000+00:00",
         "last": "2026-09-13T15:41:16.719000+00:00",
         "wall_clock_hours": 1.04,
@@ -150,7 +150,7 @@
     },
     "plugin_version": "1.3.0",
     "plugin_commit": "16dffbd2c03793f1b30a16789741b67c6875cc7a",
-    "script": "/home/henry/Projects/01-applications/throughline-skills/scripts/assess.py",
+    "script": "scripts/assess.py",
     "python": "3.12.3"
   }
 }

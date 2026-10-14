@@ -2,7 +2,7 @@
 
 The tl:challenge skill: the hand-run challenge pass over a graph before hand-off and against a moved specification, composing the throughline-challenger graph at a pinned tag, built 9 to 13 September 2026.
 
-Recorded 2026-09-13T18:49:12+00:00 from `/home/henry/Projects/01-applications/throughline-skills/skills/challenge/idd`.
+Recorded 2026-09-13T18:49:12+00:00 from `skills/challenge/idd` in https://github.com/rhodium-org/throughline-skills.
 
 ## Measured
 

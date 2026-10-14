@@ -2,8 +2,8 @@
   "name": "tl-challenge-skill",
   "label": "The tl:challenge skill: the hand-run challenge pass over a graph before hand-off and against a moved specification, composing the throughline-challenger graph at a pinned tag, built 9 to 13 September 2026.",
   "recorded_at": "2026-09-13T18:49:12+00:00",
-  "graph_root": "/home/henry/Projects/01-applications/throughline-skills/skills/challenge/idd",
-  "repository": "/home/henry/Projects/01-applications/throughline-skills",
+  "graph_root": "skills/challenge/idd",
+  "repository": "https://github.com/rhodium-org/throughline-skills",
   "graph": {
     "items_local": 13,
     "items_live": 11,
@@ -76,9 +76,9 @@
   "sessions": {
     "sessions": [
       {
-        "file": "/home/henry/.claude/projects/-home-henry-Projects/2ba0d9d0-da60-4322-8a7b-c9d22987a077.jsonl",
+        "file": "2ba0d9d0-da60-4322-8a7b-c9d22987a077.jsonl",
         "session_id": "2ba0d9d0-da60-4322-8a7b-c9d22987a077",
-        "cwd": "/home/henry/Projects",
+        "cwd": "../..",
         "first": "2026-09-11T17:21:08.414000+00:00",
         "last": "2026-09-13T16:28:27.787000+00:00",
         "wall_clock_hours": 47.12,
@@ -164,7 +164,7 @@
     },
     "plugin_version": "1.3.0",
     "plugin_commit": "ebd0c54f4e41bc56993bd27b68a6d98fa88f0fbe",
-    "script": "/home/henry/Projects/01-applications/throughline-skills/scripts/assess.py",
+    "script": "scripts/assess.py",
     "python": "3.12.3"
   }
 }

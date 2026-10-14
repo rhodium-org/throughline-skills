@@ -2,8 +2,8 @@
   "name": "tl-assess-skill",
   "label": "The tl:assess skill itself, re-recorded with the git measure scoped to its own paths after REQ-0008: a script, a skill text, a graph of seventeen items, eight fixture tests and a collection repository, built and used on its own build, 13 September 2026.",
   "recorded_at": "2026-09-13T15:40:29+00:00",
-  "graph_root": "/home/henry/Projects/01-applications/throughline-skills/skills/assess/idd",
-  "repository": ".",
+  "graph_root": "skills/assess/idd",
+  "repository": "https://github.com/rhodium-org/throughline-skills",
   "graph": {
     "items_local": 17,
     "items_live": 17,
@@ -73,9 +73,9 @@
   "sessions": {
     "sessions": [
       {
-        "file": "/home/henry/.claude/projects/-home-henry-Projects/a0bc2492-467f-448a-ae77-553b7861275b.jsonl",
+        "file": "a0bc2492-467f-448a-ae77-553b7861275b.jsonl",
         "session_id": "a0bc2492-467f-448a-ae77-553b7861275b",
-        "cwd": "/home/henry/Projects",
+        "cwd": "../..",
         "first": "2026-09-13T14:39:01.011000+00:00",
         "last": "2026-09-13T15:39:04.013000+00:00",
         "wall_clock_hours": 1.0,
@@ -150,7 +150,7 @@
     },
     "plugin_version": "1.2.0",
     "plugin_commit": "c9c0aebd623530fd9caf06e17d964953acdd1d2a",
-    "script": "/home/henry/Projects/01-applications/throughline-skills/scripts/assess.py",
+    "script": "scripts/assess.py",
     "python": "3.12.3"
   }
 }
