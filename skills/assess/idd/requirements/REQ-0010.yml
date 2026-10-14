@@ -1,6 +1,6 @@
 uid: REQ-0010
 type: requirement
-status: proposed
+status: ratified
 title: A record holds no absolute path, so the layout of one machine never enters
   a repository that may be public
 text: The record names the graph root relative to the repository root and refuses
@@ -28,3 +28,23 @@ links:
 attrs:
   priority: must
   origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:22d2f73d74d9fc2e0c700cf63f35139d75443355f918d42327b4fd63a946c411
+  ratified_content:
+    type: requirement
+    text: The record names the graph root relative to the repository root and refuses
+      a root outside it; the repository by its origin URL with any credentials and
+      a trailing .git removed, or by its directory name when it has no origin; each
+      transcript by its file name alone; each session's working directory relative
+      to the repository, a dot or a subdirectory when the session sat inside it,
+      a run of double dots when it sat above it, and absent when it sat elsewhere;
+      and the script relative to the plugin root. A measuring command run alone prints
+      what it measured; the record command makes the record portable once, before
+      writing it. A migrate command brings a record written before this rule to the
+      same form in place, its numbers untouched and the Markdown's measured head
+      re-rendered above the narrative it keeps, and leaves a record already in this
+      form alone.
+    normative: true
+    derived: false
+    attrs:
+      priority: must

@@ -1,6 +1,6 @@
 uid: TEST-0012
 type: test
-status: proposed
+status: ratified
 title: Migrate brings an earlier record to the current form and keeps its narrative
 text: 'tests/test_assess.py, test_migrate_rewrites_an_earlier_record: record a fixture
   graph, then age the JSON to the earlier form with the machine''s absolute paths
@@ -17,3 +17,19 @@ links:
 attrs:
   method: automated
   origin: ai
+  ratified_by: Henry Grech-Cini
+  ratified_fingerprint: sha256:978d95d456d5355e4b34ded3095a7382564dd2d1fff934c9c93ac81aab1068aa
+  ratified_content:
+    type: test
+    text: 'tests/test_assess.py, test_migrate_rewrites_an_earlier_record: record
+      a fixture graph, then age the JSON to the earlier form with the machine''s
+      absolute paths and the Markdown''s head to match, with a narrative written
+      under its headings; run migrate and assert the JSON is byte for byte the record
+      as written today, the Markdown''s head is re-rendered and the narrative is
+      untouched; run migrate again and assert it reports the record unchanged and
+      both files are the same; age the JSON once more without the repository field
+      and assert migrate finds the repository from the graph root and writes the
+      same record.'
+    normative: true
+    derived: false
+    attrs: {}
