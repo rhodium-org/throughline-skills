@@ -19,5 +19,22 @@ links:
 attrs:
   priority: must
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:87bbcfd6893972afd7e1c62321415ce1a6c14da22c847fc76d87c875bad194c7
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:87bbcfd6893972afd7e1c62321415ce1a6c14da22c847fc76d87c875bad194c7
+  content:
+    type: requirement
+    text: |-
+      Given transcript files the script reports, per session and in total, the
+      first and last timestamps, the wall-clock hours between them, the active hours
+      as the sum of gaps between entries no longer than an idle gap that defaults to
+      ten minutes and is stated in the output, the human turns, the assistant turns,
+      the tool results, the tool calls by tool name, the API calls, the models used,
+      the compactions, and the tokens as input, output, cache written, cache read and
+      thinking, summed from each assistant message's usage. It reads the format Claude
+      Code writes and skips lines it cannot parse.
+    normative: true
+    derived: false
+    attrs:
+      priority: must
+  revision: 7cffc42785349ec63b7488e17469fc7c323ecf31

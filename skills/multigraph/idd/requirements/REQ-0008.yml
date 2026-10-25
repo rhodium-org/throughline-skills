@@ -15,5 +15,19 @@ links:
 attrs:
   priority: should
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:aab4dcb417e0a20d081a1e4fb5acbe9a09bf8080b96566c575c6c5f6d54fbda3
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:aab4dcb417e0a20d081a1e4fb5acbe9a09bf8080b96566c575c6c5f6d54fbda3
+  content:
+    type: requirement
+    text: A fresh sandbox has no personal SSH configuration, no source cache and
+      only the authentication the session was given. An SSH-alias url, a private
+      https url without credentials, or a slow first fetch is reported as an environment
+      failure and confirmed before any graph defect is hunted. In-repo path sources
+      always resolve in the clone, which is a further reason to wire siblings by
+      path.
+    normative: true
+    derived: false
+    attrs:
+      priority: should
+  revision: 27eb17ad7ecbe90285d396b2e8756239996b4368

@@ -18,9 +18,10 @@ links:
 attrs:
   priority: must
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:31cf438bda2165ec2a0094437e438eab6c5a31d9874e103304a7bdaa8e6a9a97
-  ratified_content:
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:31cf438bda2165ec2a0094437e438eab6c5a31d9874e103304a7bdaa8e6a9a97
+  content:
     type: requirement
     text: A live local item other than a test at implemented or verified (by default;
       others by option) that no implements or satisfies citation names is reported
@@ -33,3 +34,4 @@ attrs:
     derived: false
     attrs:
       priority: must
+  revision: 8af49ecc5c0a3e268756492b5f0d14adea230e95

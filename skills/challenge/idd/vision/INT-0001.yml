@@ -13,5 +13,19 @@ text: Structural validation proves that every item reaches a root. It cannot see
 normative: true
 attrs:
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:9d186622863ad0ec377f86629b4d86c7121b3c5e8579fcb9f95e5c7f0842189b
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:9d186622863ad0ec377f86629b4d86c7121b3c5e8579fcb9f95e5c7f0842189b
+  content:
+    type: intent
+    text: Structural validation proves that every item reaches a root. It cannot
+      see a child that claims more than its parent grants, siblings that name one
+      thing two ways, prose that cites an item the links never record, a branch no
+      machine verifies, or a new item that contradicts a ratified one. This skill
+      runs that pass by hand, with a script for the checks that need no judgement,
+      before proposed items are handed to a human, and again for an implementation
+      graph whenever the specification it composes has moved.
+    normative: true
+    derived: false
+    attrs: {}
+  revision: 4e750b7b8563eda45b55e5bce28abf9defbb655a

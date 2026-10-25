@@ -13,5 +13,16 @@ links:
 attrs:
   method: document
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:3383316798d108559fce687bb6f386cb44593a1820ffc7a691dc98601b090d92
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:3383316798d108559fce687bb6f386cb44593a1820ffc7a691dc98601b090d92
+  content:
+    type: test
+    text: Read the add-a-graph section and confirm its steps initialise at the scope's
+      idd folder, declare sources, ground each item at creation with qualified citations,
+      add the graph to the check loop and graph table, leave items proposed for a
+      named human, and cite owning-graph-qualified UIDs in the commit.
+    normative: true
+    derived: false
+    attrs: {}
+  revision: 27eb17ad7ecbe90285d396b2e8756239996b4368

@@ -15,5 +15,18 @@ links:
 attrs:
   method: automated
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:d29b9c79be0e472f2dc78a63e4a8a1d90afaf9434646ac9a9aed0ddfb67de390
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:d29b9c79be0e472f2dc78a63e4a8a1d90afaf9434646ac9a9aed0ddfb67de390
+  content:
+    type: test
+    text: 'tests/test_shape.py, test_every_item_is_ai_and_proposed_and_the_script_cannot_ratify:
+      after the discovery and write, asserts all seven items in the shape graph and
+      an intent authored into the second graph with --graph carry origin ai and status
+      proposed, that the script rejects a ratify subcommand and its source contains
+      no ratify call, and that SKILL.md tells the agent to decline when asked to
+      ratify.'
+    normative: true
+    derived: false
+    attrs: {}
+  revision: 996c21ce7c48acc3187b4a6300189589dba9da0f

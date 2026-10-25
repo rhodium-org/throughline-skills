@@ -24,9 +24,10 @@ links:
 attrs:
   priority: must
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:d089f63d78e9cc55c4a744afe44914440e6781b86647742e5764fee39fe64d94
-  ratified_content:
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:d089f63d78e9cc55c4a744afe44914440e6781b86647742e5764fee39fe64d94
+  content:
     type: requirement
     text: 'The skill text tells the reader to read the composition section of tl
       context in the sourced graph it is about to touch, and states nothing that
@@ -39,3 +40,4 @@ attrs:
     derived: false
     attrs:
       priority: must
+  revision: 01ccaaa3d74ad5383644644a7abf9f4f2e295e08

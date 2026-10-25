@@ -13,9 +13,10 @@ links:
 attrs:
   priority: must
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:66333a6c6d38bee1b20a2f87a75c1dc804e3be86175057ce5661e2bcedad7cb6
-  ratified_content:
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:66333a6c6d38bee1b20a2f87a75c1dc804e3be86175057ce5661e2bcedad7cb6
+  content:
     type: requirement
     text: Every register considered and rejected is a non_goal or constraint item
       in the shape graph with a rationale and a link to the need or domain reading
@@ -25,3 +26,4 @@ attrs:
     derived: false
     attrs:
       priority: must
+  revision: 77bd131fdfaada21b2f552c27faa5557fc934605

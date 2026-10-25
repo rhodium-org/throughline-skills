@@ -26,5 +26,22 @@ links:
 attrs:
   priority: must
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:017bcd6c17c09b377be7a7c8ac13d60339d2fd7d8c1d61e404ef3544aa51bd34
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:017bcd6c17c09b377be7a7c8ac13d60339d2fd7d8c1d61e404ef3544aa51bd34
+  content:
+    type: requirement
+    text: |-
+      The git command and the record take a list of repository-relative paths. When
+      given, the commit count, the first and last commit dates and the span, the
+      authors, the share of commits naming an item, and the lines added and removed
+      are taken over the commits that touched at least one of those paths, and the
+      tags are those whose commit touched one. Items amended after ratification are
+      always taken from the graph root, which lies inside the scope. The scope is
+      recorded with the measures and shown in the Markdown table, as the paths or
+      as the whole repository when none were given.
+    normative: true
+    derived: false
+    attrs:
+      priority: must
+  revision: c9c0aebd623530fd9caf06e17d964953acdd1d2a

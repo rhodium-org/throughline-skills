@@ -28,9 +28,10 @@ links:
 attrs:
   priority: must
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:22d2f73d74d9fc2e0c700cf63f35139d75443355f918d42327b4fd63a946c411
-  ratified_content:
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:22d2f73d74d9fc2e0c700cf63f35139d75443355f918d42327b4fd63a946c411
+  content:
     type: requirement
     text: The record names the graph root relative to the repository root and refuses
       a root outside it; the repository by its origin URL with any credentials and
@@ -48,3 +49,4 @@ attrs:
     derived: false
     attrs:
       priority: must
+  revision: 66f059a8dd94e536fa2735829a77becc80a1959b

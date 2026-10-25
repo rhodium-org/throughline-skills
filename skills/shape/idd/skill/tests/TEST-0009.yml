@@ -14,9 +14,10 @@ links:
 attrs:
   method: automated
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:fc336132e98cab5429eba557b447bf653f2142553274c8370865b97a0235fd58
-  ratified_content:
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:fc336132e98cab5429eba557b447bf653f2142553274c8370865b97a0235fd58
+  content:
     type: test
     text: 'tests/test_tl_floor.py, the skill TEST-0009 cases: with a stand-in tl
       reporting 3.10.2 first on the path, the script''s init command exits 2, names
@@ -26,3 +27,4 @@ attrs:
     normative: true
     derived: false
     attrs: {}
+  revision: fff3334e4ffd96e3e423a2d2ba30c67958b2b926

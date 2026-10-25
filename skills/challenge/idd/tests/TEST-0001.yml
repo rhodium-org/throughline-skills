@@ -16,9 +16,10 @@ links:
 attrs:
   origin: ai
   method: automated
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:f7759bc6dcafcfd288d917db5ff788845c5c8e6bfbdc0d5ab966a325aa4ded6e
-  ratified_content:
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:f7759bc6dcafcfd288d917db5ff788845c5c8e6bfbdc0d5ab966a325aa4ded6e
+  content:
     type: test
     text: In a Python interpreter with no third-party packages, run the script on
       a saved dump and confirm it runs. Run it on a graph root with tl from throughline
@@ -29,3 +30,4 @@ attrs:
     normative: true
     derived: false
     attrs: {}
+  revision: fff3334e4ffd96e3e423a2d2ba30c67958b2b926

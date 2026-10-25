@@ -14,9 +14,10 @@ links:
   type: derives_from
 attrs:
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:5bf93baea78da27eca862af8f2122c038c7dd87b3968c54a5dbc546e22357cd5
-  ratified_content:
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:5bf93baea78da27eca862af8f2122c038c7dd87b3968c54a5dbc546e22357cd5
+  content:
     type: need
     text: The notation, each deterministic check, the report-and-ask stance and the
       optional use of a code graph must each be one requirement grounded in one intent,

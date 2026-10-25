@@ -23,9 +23,10 @@ links:
 attrs:
   priority: must
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:5b6447e9b12b3847ff8cd54ddaf01f99ec31efb2fb21b3f311ccae843a6da364
-  ratified_content:
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:5b6447e9b12b3847ff8cd54ddaf01f99ec31efb2fb21b3f311ccae843a6da364
+  content:
     type: requirement
     text: 'Colours resolve through the same tokens the iddn.uk splash declares, in
       both the dark and the light palette, chosen by the visitor''s system preference.
@@ -39,4 +40,4 @@ attrs:
     derived: false
     attrs:
       priority: must
-  ratified_revision: 8c4a03ce33181b12522970373682375e3ea4b470
+  revision: 8c4a03ce33181b12522970373682375e3ea4b470

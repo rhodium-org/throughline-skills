@@ -16,5 +16,19 @@ links:
 attrs:
   priority: must
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:a052f99c8c73d9aaac7f49bdb1e2c64173876f1ef8921d04d9bf8b2dec052411
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:a052f99c8c73d9aaac7f49bdb1e2c64173876f1ef8921d04d9bf8b2dec052411
+  content:
+    type: requirement
+    text: |-
+      The script counts the words of every Markdown document under the graph's
+      docs directory and runs the tool's docs check to say whether they are current.
+      Given a file pattern it counts test files; given the suite's own result file,
+      TAP-style pass and fail lines or JSON with passed and failed, it reports those
+      counts. It never runs the suite and never invents a count.
+    normative: true
+    derived: false
+    attrs:
+      priority: must
+  revision: 7cffc42785349ec63b7488e17469fc7c323ecf31

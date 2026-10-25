@@ -13,5 +13,16 @@ links:
   type: derives_from
 attrs:
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:fc9a81452af104d6a931072a402c8c5bd9a05032855e484c8b6f3e54823e83c3
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:fc9a81452af104d6a931072a402c8c5bd9a05032855e484c8b6f3e54823e83c3
+  content:
+    type: non_goal
+    text: tl init would have created one. The limits the brief sets, SKILL.md under
+      500 lines and a script that needs nothing beyond the standard library, are
+      requirements of the skill with a test each, not a separate class of item; a
+      second register would split one list in two.
+    normative: true
+    derived: false
+    attrs: {}
+  revision: bebf885e147f2cbf25b04a239a8697dcecd5e297

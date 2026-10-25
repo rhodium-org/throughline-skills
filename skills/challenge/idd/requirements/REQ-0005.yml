@@ -13,5 +13,17 @@ links:
 attrs:
   priority: should
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:b2deade1faabfcee7cff549376fe6185309054b09d232b597bee3baf7bdc6d0e
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:b2deade1faabfcee7cff549376fe6185309054b09d232b597bee3baf7bdc6d0e
+  content:
+    type: requirement
+    text: A consumer's composed check prints the specification's own ratified-stale
+      and unratified findings on borrowed items. The skill says these are remedied
+      only in the specification repository by its ratifier, and that the consumer
+      reports them rather than pinning a branch to hide them.
+    normative: true
+    derived: false
+    attrs:
+      priority: should
+  revision: 4e750b7b8563eda45b55e5bce28abf9defbb655a

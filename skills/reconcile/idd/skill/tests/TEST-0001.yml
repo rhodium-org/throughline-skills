@@ -18,9 +18,10 @@ links:
 attrs:
   method: automated
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:965dd8a603d3ade8f8c3870b5d5acb48414106ba07992aeba704db2063e0aa48
-  ratified_content:
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:965dd8a603d3ade8f8c3870b5d5acb48414106ba07992aeba704db2063e0aa48
+  content:
     type: test
     text: Build a throwaway repository with one graph and files citing in each comment
       opener, one with several references, one borrowed reference, one stamped, one
@@ -34,3 +35,4 @@ attrs:
     normative: false
     derived: false
     attrs: {}
+  revision: 8af49ecc5c0a3e268756492b5f0d14adea230e95

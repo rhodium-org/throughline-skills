@@ -22,9 +22,10 @@ links:
 attrs:
   method: automated
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:046b9849fa1c641fe66b26f2970786d8bb767d7c66d6b011e8c2d5640898532e
-  ratified_content:
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:046b9849fa1c641fe66b26f2970786d8bb767d7c66d6b011e8c2d5640898532e
+  content:
     type: test
     text: 'tests/test_multigraph.py: test_transitive_namespace builds an external
       graph, an anchor that implements one of its items by path, and a consumer wired
@@ -39,3 +40,4 @@ attrs:
     normative: true
     derived: false
     attrs: {}
+  revision: fa43066fc80066fdfc70017c4cb536d5c345e5b9

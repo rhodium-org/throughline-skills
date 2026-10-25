@@ -1,3 +1,4 @@
 prefix: NG
 digits: 4
 title: Registers considered and not created
+type: non_goal

@@ -16,9 +16,10 @@ links:
 attrs:
   method: automated
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:2739e1d3ef095a4d782b8ac9c0589e41798047dd85d0c35d8adc0e1702fc98af
-  ratified_content:
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:2739e1d3ef095a4d782b8ac9c0589e41798047dd85d0c35d8adc0e1702fc98af
+  content:
     type: test
     text: 'tests/test_shape.py, test_rerun_reconfirms_and_never_overwrites: on a
       written repo, runs the init shell read out of SKILL.md and asserts it exits
@@ -30,3 +31,4 @@ attrs:
     normative: true
     derived: false
     attrs: {}
+  revision: 77bd131fdfaada21b2f552c27faa5557fc934605

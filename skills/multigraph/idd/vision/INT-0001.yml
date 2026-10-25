@@ -19,9 +19,10 @@ rationale: 'One command drives every graph because throughline 3.11.0 composes i
 normative: true
 attrs:
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:f62a737d1db0f6de8f678931604de8dba527215bff5d611711544534d22c46ce
-  ratified_content:
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:f62a737d1db0f6de8f678931604de8dba527215bff5d611711544534d22c46ce
+  content:
     type: intent
     text: 'Composition lets one throughline graph borrow from another; it never merges
       them. Each graph in such a repository keeps its own model, its own UID space
@@ -36,3 +37,4 @@ attrs:
     normative: true
     derived: false
     attrs: {}
+  revision: 01ccaaa3d74ad5383644644a7abf9f4f2e295e08

@@ -27,7 +27,7 @@ jobs:
           python-version: "3.12"
 
       - name: Install throughline (tl composes sources from 3.11.0)
-        run: pip install 'throughline>=3.11.0'
+        run: pip install 'throughline>=4.0.0'
 
       - name: Gate every graph
         run: |

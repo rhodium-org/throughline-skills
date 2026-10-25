@@ -6,5 +6,13 @@ text: Once the second graph exists, what runs its work is not the skill's concer
 normative: true
 attrs:
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:8f20ad661b4344b538675a9401780baf6e9be503774464f3b38adfe60610986b
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:8f20ad661b4344b538675a9401780baf6e9be503774464f3b38adfe60610986b
+  content:
+    type: non_goal
+    text: Once the second graph exists, what runs its work is not the skill's concern.
+    normative: true
+    derived: false
+    attrs: {}
+  revision: 75efa3f73defd1db5030284dda98be8c95e0dfc0

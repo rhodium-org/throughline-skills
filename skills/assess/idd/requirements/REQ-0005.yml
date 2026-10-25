@@ -14,5 +14,18 @@ links:
 attrs:
   priority: must
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:6bda53c41f1055212ae42378119cde7863c7c8df9bc90033a4b7706a459a7931
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:6bda53c41f1055212ae42378119cde7863c7c8df9bc90033a4b7706a459a7931
+  content:
+    type: requirement
+    text: |-
+      The done command reports whether the strict check has no error, the
+      generated documents are current, no live item is proposed or draft, the working
+      tree is clean, and, when a result file is given, no test failed. It exits zero
+      only when every criterion holds, so it can gate a release or a hand-off.
+    normative: true
+    derived: false
+    attrs:
+      priority: must
+  revision: 7cffc42785349ec63b7488e17469fc7c323ecf31

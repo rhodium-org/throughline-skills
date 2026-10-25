@@ -10,6 +10,17 @@ normative: true
 attrs:
   path: skills/shape/references/brief.md
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:632a16cfcce42ed769b65e027f2ea7456e0388dcd31b153cf58d81fdc2675d55
   read: '2026-09-12'
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:632a16cfcce42ed769b65e027f2ea7456e0388dcd31b153cf58d81fdc2675d55
+  content:
+    type: source
+    text: Sets the mission (initialising a graph is a judgement, so it belongs to
+      intelligence, not to a scaffold), six settled design decisions, the five-stage
+      discovery flow, eight requirements R1 to R8, three open questions, six acceptance
+      checks and three non-goals.
+    normative: true
+    derived: false
+    attrs: {}
+  revision: bebf885e147f2cbf25b04a239a8697dcecd5e297

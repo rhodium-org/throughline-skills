@@ -12,9 +12,10 @@ links:
   type: derives_from
 attrs:
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:b4c0a80758332093293314df875cd2b73dcde2a862f7a8327d23e7c6ba32ef40
-  ratified_content:
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:b4c0a80758332093293314df875cd2b73dcde2a862f7a8327d23e7c6ba32ef40
+  content:
     type: non_goal
     text: The brief's settled decisions are what the requirements say; holding them
       again as constraints would state one thing in two places. The one standard

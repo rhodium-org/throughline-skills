@@ -13,9 +13,10 @@ links:
 attrs:
   method: document
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:528d09b7db05b48ac7dd83993c0062bc7ad2603c3b0d8f2622c8ed3a9eae824e
-  ratified_content:
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:528d09b7db05b48ac7dd83993c0062bc7ad2603c3b0d8f2622c8ed3a9eae824e
+  content:
     type: test
     text: Read SKILL.md. Pass if no command in it installs anything but throughline,
       and it says a code graph already present may suggest where an uncited item
@@ -23,3 +24,4 @@ attrs:
     normative: false
     derived: false
     attrs: {}
+  revision: 0928274ba89a3e09050fb6dbc4ee5fbdd25c88ac

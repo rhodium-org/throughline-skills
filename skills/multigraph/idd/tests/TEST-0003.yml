@@ -19,9 +19,10 @@ links:
 attrs:
   method: automated
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:7132be8c3feaaf34df1021e0062387f710d3d87380ef6af3d5700a6a421c083e
-  ratified_content:
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:7132be8c3feaaf34df1021e0062387f710d3d87380ef6af3d5700a6a421c083e
+  content:
     type: test
     text: 'tests/test_multigraph.py, test_tl_sees_the_seam: builds an anchor graph
       and a consumer wired to it by path with one item grounded on the anchor root;
@@ -33,3 +34,4 @@ attrs:
     normative: true
     derived: false
     attrs: {}
+  revision: fa43066fc80066fdfc70017c4cb536d5c345e5b9

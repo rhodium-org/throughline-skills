@@ -14,9 +14,10 @@ links:
 attrs:
   priority: must
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:4787b37ff6d9d5f5cb329b21a6f202efb15caa975606de34281355669f34dad4
-  ratified_content:
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:4787b37ff6d9d5f5cb329b21a6f202efb15caa975606de34281355669f34dad4
+  content:
     type: requirement
     text: Before acting, the skill confirms tl --version reports throughline 3.11.0
       or later, and otherwise installs or upgrades throughline. It needs Python 3.11
@@ -27,3 +28,4 @@ attrs:
     derived: false
     attrs:
       priority: must
+  revision: fff3334e4ffd96e3e423a2d2ba30c67958b2b926

@@ -16,5 +16,18 @@ links:
 attrs:
   method: manual
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:c54508ae413ee75cbe91666eb30316cd5770da653664773f093c760167f56381
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:c54508ae413ee75cbe91666eb30316cd5770da653664773f093c760167f56381
+  content:
+    type: test
+    text: Invoke the skill in a directory with no throughline.toml anywhere below
+      it, with a design proposal in the conversation. Pass if the reply says there
+      is nothing to challenge, names the command that creates a graph, and contains
+      no numbered challenge finding and no report-shape table. Invoke it in a directory
+      whose only graph sits under idd/ and pass if the skill finds that graph, or
+      asks which root to use, rather than declaring there is none.
+    normative: true
+    derived: false
+    attrs: {}
+  revision: 1b7b47b112409b845789b902828c025706237e9b

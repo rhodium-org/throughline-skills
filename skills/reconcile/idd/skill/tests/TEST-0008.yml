@@ -14,9 +14,10 @@ links:
 attrs:
   method: automated
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:a2f1ba181157eefe13f2050be2665c89992ca7728692cdb01efd3b70aa1dcc26
-  ratified_content:
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:a2f1ba181157eefe13f2050be2665c89992ca7728692cdb01efd3b70aa1dcc26
+  content:
     type: test
     text: Make two items' citations stale, one of them unstamped elsewhere. Restamp
       the first UID; pass if all its citations, the unstamped one included, carry
@@ -25,3 +26,4 @@ attrs:
     normative: false
     derived: false
     attrs: {}
+  revision: 0928274ba89a3e09050fb6dbc4ee5fbdd25c88ac

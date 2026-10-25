@@ -17,9 +17,10 @@ links:
 attrs:
   priority: should
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:03b6f6ba7aeb92f897cbaff2d6688d2741ecf8aab5f649f3a7b98a3f6e4fea92
-  ratified_content:
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:03b6f6ba7aeb92f897cbaff2d6688d2741ecf8aab5f649f3a7b98a3f6e4fea92
+  content:
     type: requirement
     text: The scanner renders a Markdown table of every cited item with each citation's
       link type, file and line, in a stable order, and can write it between begin
@@ -29,3 +30,4 @@ attrs:
     derived: false
     attrs:
       priority: should
+  revision: 0928274ba89a3e09050fb6dbc4ee5fbdd25c88ac

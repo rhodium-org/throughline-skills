@@ -15,9 +15,10 @@ rationale: 'Either record can be the wrong one: the code drifted from a ratified
 normative: false
 attrs:
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:81701440bd6feca257b4beec77192709a37319e8efa62bca4fde55a48646646c
-  ratified_content:
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:81701440bd6feca257b4beec77192709a37319e8efa62bca4fde55a48646646c
+  content:
     type: intent
     text: 'Code written under throughline cites the graph items it serves, in one
       notation a single scanner reads in any language. The skill compares a codebase
@@ -29,3 +30,4 @@ attrs:
     normative: false
     derived: false
     attrs: {}
+  revision: 0928274ba89a3e09050fb6dbc4ee5fbdd25c88ac

@@ -30,5 +30,23 @@ links:
 attrs:
   priority: must
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:3488aa525204fe661bd186f2e1b7c6d7464bb4534cc775431002010b23ad0738
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:3488aa525204fe661bd186f2e1b7c6d7464bb4534cc775431002010b23ad0738
+  content:
+    type: requirement
+    text: 'Link strength in both directions, siblings that name the same things differently,
+      and a rationale narrower than its family cannot be settled by a script. The
+      skill gives a siblings command that prints every parent of an item and the
+      other children under each, and states the three questions to put while holding
+      them together, plus a collision sweep over the siblings'' absolute clauses.
+      A satisfies link into a standard is treated as a claim the clause was read;
+      a knowing deviation is relates with the reason. A stamped link whose target
+      has changed is read the same way: the target as it was stamped beside the target
+      as it now stands, and the question whether the item still holds is put to the
+      reader rather than decided.'
+    normative: true
+    derived: false
+    attrs:
+      priority: must
+  revision: 4e750b7b8563eda45b55e5bce28abf9defbb655a

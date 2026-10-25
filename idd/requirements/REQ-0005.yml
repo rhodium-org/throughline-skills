@@ -14,9 +14,10 @@ links:
 attrs:
   priority: should
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:18eee1c50190050a3ac6eb3b9b37bc8bc7bff32b2ff1626cf172c9a487ee819f
-  ratified_content:
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:18eee1c50190050a3ac6eb3b9b37bc8bc7bff32b2ff1626cf172c9a487ee819f
+  content:
     type: requirement
     text: The install section says that the hosted and GitHub routes register the
       same marketplace name, so a reader runs one of them, not both. It gives the
@@ -27,4 +28,4 @@ attrs:
     derived: false
     attrs:
       priority: should
-  ratified_revision: 640a09f8359b9fe889e8ddf58bbc9a86a3b05dd4
+  revision: 640a09f8359b9fe889e8ddf58bbc9a86a3b05dd4

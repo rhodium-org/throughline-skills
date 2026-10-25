@@ -19,9 +19,10 @@ links:
 attrs:
   method: automated
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:23b00d29b8235427fc4fba06fd40e268c07b13a9e2094f0c11bbbf87a8d79e90
-  ratified_content:
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:23b00d29b8235427fc4fba06fd40e268c07b13a9e2094f0c11bbbf87a8d79e90
+  content:
     type: test
     text: 'tests/test_assess.py, test_record_holds_no_absolute_path: in a throwaway
       repository whose origin URL carries credentials, record a fixture graph with
@@ -36,3 +37,4 @@ attrs:
     normative: true
     derived: false
     attrs: {}
+  revision: 66f059a8dd94e536fa2735829a77becc80a1959b

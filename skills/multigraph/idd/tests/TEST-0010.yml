@@ -13,5 +13,15 @@ links:
 attrs:
   method: document
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:64153d175b891e87ff2ca28b31ab88bdbb23ffbd1642b29de4f3c69573a31056
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:64153d175b891e87ff2ca28b31ab88bdbb23ffbd1642b29de4f3c69573a31056
+  content:
+    type: test
+    text: Read the skill and confirm it names new, link, amend and ratify as the
+      routes for structure, forbids hand-editing item and register files, and names
+      the sources block as the one hand-edited thing.
+    normative: true
+    derived: false
+    attrs: {}
+  revision: fa43066fc80066fdfc70017c4cb536d5c345e5b9

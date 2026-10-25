@@ -30,9 +30,10 @@ links:
 attrs:
   priority: must
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:027a084f9b7f5e7489e74113d64252f6d35589b025932bf395e4da04f187a5a1
-  ratified_content:
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:027a084f9b7f5e7489e74113d64252f6d35589b025932bf395e4da04f187a5a1
+  content:
     type: requirement
     text: Each link and control shows a visible focus ring when reached by keyboard.
       Standalone links are at least 24 CSS pixels tall; links inside a sentence rely
@@ -43,4 +44,4 @@ attrs:
     derived: false
     attrs:
       priority: must
-  ratified_revision: 8c4a03ce33181b12522970373682375e3ea4b470
+  revision: 8c4a03ce33181b12522970373682375e3ea4b470

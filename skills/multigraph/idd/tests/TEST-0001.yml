@@ -14,9 +14,10 @@ links:
 attrs:
   method: manual
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:8241eb327d211ef6db0faef6e02fdff8d84c8d33a97138c7c4749aecaf4d1d28
-  ratified_content:
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:8241eb327d211ef6db0faef6e02fdff8d84c8d33a97138c7c4749aecaf4d1d28
+  content:
     type: test
     text: 'In an interpreter with no throughline installed, follow the skill: confirm
       the version check fails, that one pip install of throughline makes tl answer
@@ -25,3 +26,4 @@ attrs:
     normative: true
     derived: false
     attrs: {}
+  revision: fff3334e4ffd96e3e423a2d2ba30c67958b2b926

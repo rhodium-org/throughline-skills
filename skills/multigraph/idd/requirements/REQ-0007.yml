@@ -14,9 +14,10 @@ links:
 attrs:
   priority: must
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:90852af829d256ae92ef7bb23c3d677ca307da01c31a83fb8a8c27b039b78c9f
-  ratified_content:
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:90852af829d256ae92ef7bb23c3d677ca307da01c31a83fb8a8c27b039b78c9f
+  content:
     type: requirement
     text: There is no whole-repository check. The skill loops over every graph, runs
       tl check in each, and exits non-zero if any graph failed while still running
@@ -26,3 +27,4 @@ attrs:
     derived: false
     attrs:
       priority: must
+  revision: fa43066fc80066fdfc70017c4cb536d5c345e5b9

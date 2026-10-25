@@ -13,9 +13,10 @@ links:
 attrs:
   method: automated
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:9299864330151e578568841bfd9404ea59ba7aee79c559b3c8a07c65318477a9
-  ratified_content:
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:9299864330151e578568841bfd9404ea59ba7aee79c559b3c8a07c65318477a9
+  content:
     type: test
     text: Render the table twice and pass if the outputs are identical. Write it
       into a file between markers, add a citation, and pass if the check form exits
@@ -23,3 +24,4 @@ attrs:
     normative: false
     derived: false
     attrs: {}
+  revision: 0928274ba89a3e09050fb6dbc4ee5fbdd25c88ac

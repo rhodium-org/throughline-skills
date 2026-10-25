@@ -13,9 +13,10 @@ attrs:
   path: skills/reconcile/references/brief.md
   read: '2026-10-11'
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:c7721cfa4613f36e43906f1372fd70e470bdd29d468befcc2cf18524615902ce
-  ratified_content:
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:c7721cfa4613f36e43906f1372fd70e470bdd29d468befcc2cf18524615902ce
+  content:
     type: source
     text: 'Records the design conversation of 2026-10-11: the skill is a check that
       reports disagreements between code and graph and asks which side moves, named

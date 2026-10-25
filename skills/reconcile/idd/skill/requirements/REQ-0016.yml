@@ -15,9 +15,10 @@ links:
 attrs:
   priority: could
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:3769fec4f714bb65983c84d73001333fb98251ea743c1a8f4c6f15f70ff27cb8
-  ratified_content:
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:3769fec4f714bb65983c84d73001333fb98251ea743c1a8f4c6f15f70ff27cb8
+  content:
     type: requirement
     text: Where the repository already holds a structural graph of its code, the
       agent may use it to find likely implementers of an uncited item. The skill
@@ -26,3 +27,4 @@ attrs:
     derived: false
     attrs:
       priority: could
+  revision: 0928274ba89a3e09050fb6dbc4ee5fbdd25c88ac

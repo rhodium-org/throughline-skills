@@ -1,3 +1,4 @@
 prefix: CON
 digits: 4
 title: Inherited standards
+type: constraint

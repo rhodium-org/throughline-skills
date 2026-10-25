@@ -13,9 +13,10 @@ links:
 attrs:
   method: document
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:30e6408f110d14a7ac0ff8a3efcdd5eacfc29e4876897c8e733ba130c54750fe
-  ratified_content:
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:30e6408f110d14a7ac0ff8a3efcdd5eacfc29e4876897c8e733ba130c54750fe
+  content:
     type: test
     text: Read SKILL.md. Pass if it directs an agent writing code under a graph to
       cite as it writes, at the function, class, test or block that realises the
@@ -24,3 +25,4 @@ attrs:
     normative: false
     derived: false
     attrs: {}
+  revision: 0928274ba89a3e09050fb6dbc4ee5fbdd25c88ac

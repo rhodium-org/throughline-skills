@@ -16,9 +16,10 @@ links:
 attrs:
   priority: must
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:df9a4a3c2bdc1460a34b3feef4c5ea398ff9fd8899cd8b388b68609ec0f3753b
-  ratified_content:
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:df9a4a3c2bdc1460a34b3feef4c5ea398ff9fd8899cd8b388b68609ec0f3753b
+  content:
     type: requirement
     text: When writing or changing code in a repository holding a throughline graph,
       the agent writes a citation at the smallest unit that realises the item (the
@@ -29,3 +30,4 @@ attrs:
     derived: false
     attrs:
       priority: must
+  revision: 0928274ba89a3e09050fb6dbc4ee5fbdd25c88ac

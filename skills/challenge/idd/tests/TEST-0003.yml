@@ -14,9 +14,10 @@ links:
 attrs:
   origin: ai
   method: document
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:a68410ab3b5efbdcfde8d6ef60f7c6f316298a0078d1e3fd3eef291126f1ae6b
-  ratified_content:
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:a68410ab3b5efbdcfde8d6ef60f7c6f316298a0078d1e3fd3eef291126f1ae6b
+  content:
     type: test
     text: Amend a ratified item in a scratch copy and confirm it stays ratified with
       a ratified-stale finding, which is what the skill says. Confirm the skill forbids
@@ -26,3 +27,4 @@ attrs:
     normative: true
     derived: false
     attrs: {}
+  revision: fff3334e4ffd96e3e423a2d2ba30c67958b2b926

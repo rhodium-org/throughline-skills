@@ -17,9 +17,10 @@ links:
 attrs:
   priority: must
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:d46c90a84b983771972fcf5a8d13aab33df7187ed228d5ffeb54b865f77dd520
-  ratified_content:
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:d46c90a84b983771972fcf5a8d13aab33df7187ed228d5ffeb54b865f77dd520
+  content:
     type: requirement
     text: A command that reads or writes a shape graph acts on the shaping it is
       given by name. Given none, it acts on the one shaping in progress, or on the
@@ -30,3 +31,4 @@ attrs:
     derived: false
     attrs:
       priority: must
+  revision: 77bd131fdfaada21b2f552c27faa5557fc934605

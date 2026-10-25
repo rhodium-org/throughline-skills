@@ -14,5 +14,16 @@ links:
   type: derives_from
 attrs:
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:6266baa70e860ed0832b4987a55031da1b687938220202fc51f3d4b694f3d37e
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:6266baa70e860ed0832b4987a55031da1b687938220202fc51f3d4b694f3d37e
+  content:
+    type: need
+    text: The brief's eight requirements, its rewording where the installed tool
+      disagreed, and its settled decisions must each be one requirement grounded
+      in one intent, so that a change to SKILL.md or the script can cite the item
+      it serves and a reviewer can reject one behaviour without rejecting the skill.
+    normative: true
+    derived: false
+    attrs: {}
+  revision: bebf885e147f2cbf25b04a239a8697dcecd5e297

@@ -14,9 +14,10 @@ links:
 attrs:
   priority: must
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:bd066e472f8a3ef3740f3af2b50c2d630f1dc990cbfaa859c694b49519c76a40
-  ratified_content:
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:bd066e472f8a3ef3740f3af2b50c2d630f1dc990cbfaa859c694b49519c76a40
+  content:
     type: requirement
     text: 'The skill reports each finding with both sides: the item as it stands
       and the code as it stands. It never amends an item, reverts a ratification
@@ -27,3 +28,4 @@ attrs:
     derived: false
     attrs:
       priority: must
+  revision: 0928274ba89a3e09050fb6dbc4ee5fbdd25c88ac

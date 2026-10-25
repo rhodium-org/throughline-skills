@@ -12,5 +12,19 @@ text: tl init lays down one fixed register set because that was the first idea, 
 normative: true
 attrs:
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:30238aeb08bbd0cfccdce30ea072c0c1b525a70b3f678835b5a1c11833d7604b
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:30238aeb08bbd0cfccdce30ea072c0c1b525a70b3f678835b5a1c11833d7604b
+  content:
+    type: intent
+    text: tl init lays down one fixed register set because that was the first idea,
+      and a scaffold cannot know whether a piece of work needs a risk register, a
+      constraints register, or something the tool has never seen. This skill replaces
+      that guess with a structured discovery conversation, run in a fixed order,
+      that records its own reasoning in a graph beside the one it produces, so the
+      register set is as ratifiable as anything in it. tl init is untouched and stays
+      the command-line route.
+    normative: true
+    derived: false
+    attrs: {}
+  revision: 75efa3f73defd1db5030284dda98be8c95e0dfc0

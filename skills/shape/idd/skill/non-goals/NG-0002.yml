@@ -8,9 +8,10 @@ text: The shape graph records what produced the second graph; it does not watch 
 normative: true
 attrs:
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:7039c7542bcadc99aebd3deef62fd4dd007b98c6d5345746a7c2e6fd14e4bf02
-  ratified_content:
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:7039c7542bcadc99aebd3deef62fd4dd007b98c6d5345746a7c2e6fd14e4bf02
+  content:
     type: non_goal
     text: The shape graph records what produced the second graph; it does not watch
       the second graph afterwards, and the second graph does not write back. A new
@@ -19,3 +20,4 @@ attrs:
     normative: true
     derived: false
     attrs: {}
+  revision: 77bd131fdfaada21b2f552c27faa5557fc934605

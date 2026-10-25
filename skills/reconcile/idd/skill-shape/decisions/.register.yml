@@ -1,3 +1,4 @@
 prefix: DEC
 digits: 4
 title: Register and naming decisions
+type: decision

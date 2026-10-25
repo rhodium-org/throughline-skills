@@ -8,12 +8,14 @@ rationale: An inferred link is a guess the report would present as a fact.
 normative: false
 attrs:
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:497d5ef9ee831007959606cc83c67d84a6fc0782155c3c219ded3baf12e1287a
-  ratified_content:
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:497d5ef9ee831007959606cc83c67d84a6fc0782155c3c219ded3baf12e1287a
+  content:
     type: non_goal
     text: The script never reports an item as built by code that does not cite it,
       however plausible the match. Only a written citation is a link.
     normative: false
     derived: false
     attrs: {}
+  revision: 0928274ba89a3e09050fb6dbc4ee5fbdd25c88ac

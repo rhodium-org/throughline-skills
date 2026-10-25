@@ -14,9 +14,10 @@ links:
 attrs:
   method: automated
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:0c0604e5a23d21831a129c3a2b33db4ac683b9550e9e011599ab461a0585cb39
-  ratified_content:
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:0c0604e5a23d21831a129c3a2b33db4ac683b9550e9e011599ab461a0585cb39
+  content:
     type: test
     text: 'tests/test_multigraph.py, test_skill_defers_composition_to_tl_context:
       confirms the skill text tells the reader to run tl context in the graph about
@@ -26,3 +27,4 @@ attrs:
     normative: true
     derived: false
     attrs: {}
+  revision: 01ccaaa3d74ad5383644644a7abf9f4f2e295e08

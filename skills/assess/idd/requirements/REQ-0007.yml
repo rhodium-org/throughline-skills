@@ -20,9 +20,10 @@ links:
 attrs:
   priority: must
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:66eebc854fe7dc7aeaadfb98fb8652c43b6d95a1b6a285640960b4a44293246b
-  ratified_content:
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:66eebc854fe7dc7aeaadfb98fb8652c43b6d95a1b6a285640960b4a44293246b
+  content:
     type: requirement
     text: |-
       Every record carries its provenance: the commit the repository stood at and
@@ -38,3 +39,4 @@ attrs:
     derived: false
     attrs:
       priority: must
+  revision: fff3334e4ffd96e3e423a2d2ba30c67958b2b926

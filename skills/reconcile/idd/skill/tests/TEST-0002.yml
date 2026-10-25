@@ -16,9 +16,10 @@ links:
 attrs:
   method: automated
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:f16df4bef57d4e09c1d63e1aaf917f228e8b9ee7cc3cfa4a3699694efd8914c0
-  ratified_content:
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:f16df4bef57d4e09c1d63e1aaf917f228e8b9ee7cc3cfa4a3699694efd8914c0
+  content:
     type: test
     text: In a throwaway repository, cite a UID from a tracked file, an untracked
       file, a file under a graph root, a file matched by an exclude pattern and a
@@ -30,3 +31,4 @@ attrs:
     normative: false
     derived: false
     attrs: {}
+  revision: 8af49ecc5c0a3e268756492b5f0d14adea230e95

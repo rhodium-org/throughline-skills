@@ -22,9 +22,10 @@ links:
 attrs:
   priority: must
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:1da7cc6bf70c92439b831c4f1c7692c91e9d5ca86f42949152d5a971bd3b25dd
-  ratified_content:
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:1da7cc6bf70c92439b831c4f1c7692c91e9d5ca86f42949152d5a971bd3b25dd
+  content:
     type: requirement
     text: Each shaping's reasoning graph is created at idd/shape/, or at the first
       free idd/shape-2/, idd/shape-3/ and onward when shaping in progress holds that
@@ -38,3 +39,4 @@ attrs:
     derived: false
     attrs:
       priority: must
+  revision: 77bd131fdfaada21b2f552c27faa5557fc934605

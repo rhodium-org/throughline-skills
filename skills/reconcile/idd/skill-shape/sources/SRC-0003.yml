@@ -15,9 +15,10 @@ attrs:
     log
   read: '2026-10-11'
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:91de9fd7f228463f8c01385e0a1311b4640940aa74c9c6989f37ec23d8f0400e
-  ratified_content:
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:91de9fd7f228463f8c01385e0a1311b4640940aa74c9c6989f37ec23d8f0400e
+  content:
     type: source
     text: 'shape, challenge, multigraph and assess, read for the conventions a fifth
       follows: the SKILL.md shape, a standard-library script reached through the

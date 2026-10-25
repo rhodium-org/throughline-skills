@@ -16,9 +16,10 @@ links:
 attrs:
   priority: must
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:2ac4d01b8322fb435a741496e97bbd0a0be838511ea3e3f3bba99cf38854880e
-  ratified_content:
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:2ac4d01b8322fb435a741496e97bbd0a0be838511ea3e3f3bba99cf38854880e
+  content:
     type: requirement
     text: For each citation in scope, the agent reads the cited code against its
       item's text and priority and reports where the code does less, more or other
@@ -28,3 +29,4 @@ attrs:
     derived: false
     attrs:
       priority: must
+  revision: 0928274ba89a3e09050fb6dbc4ee5fbdd25c88ac

@@ -20,9 +20,10 @@ links:
 attrs:
   priority: must
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:14bac9f5d8ac0246c3aa6466b345fb721aff6f17cf096883baf26311ffcf804d
-  ratified_content:
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:14bac9f5d8ac0246c3aa6466b345fb721aff6f17cf096883baf26311ffcf804d
+  content:
     type: requirement
     text: The skill hands back only when the shape graph and the second graph both
       report zero errors under tl check. The second graph holds registers and no
@@ -33,3 +34,4 @@ attrs:
     derived: false
     attrs:
       priority: must
+  revision: 77bd131fdfaada21b2f552c27faa5557fc934605

@@ -13,9 +13,10 @@ links:
   type: derives_from
 attrs:
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:01452aad588ec3aa31a85a6a7f0dea0fe59f2234e470a36194aca233eb8865aa
-  ratified_content:
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:01452aad588ec3aa31a85a6a7f0dea0fe59f2234e470a36194aca233eb8865aa
+  content:
     type: non_goal
     text: The risk worth naming, that a check tempts an agent to edit whichever side
       is easier, is answered by a requirement and its test, not tracked as an operational

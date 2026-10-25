@@ -14,5 +14,16 @@ links:
 attrs:
   origin: ai
   method: document
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:13de7d178d040345cbffabbc99779d06e4263d61fb7d0d94b35cbcc6e6833103
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:13de7d178d040345cbffabbc99779d06e4263d61fb7d0d94b35cbcc6e6833103
+  content:
+    type: test
+    text: Read the skill and confirm it says a consumer's check prints the specification's
+      own ratified-stale and unratified findings, that they are fixed in the specification
+      repository, and that a branch is not pinned to hide them. Confirm on a scratch
+      consumer pinned to a moved ref that such findings do appear.
+    normative: true
+    derived: false
+    attrs: {}
+  revision: 4e750b7b8563eda45b55e5bce28abf9defbb655a

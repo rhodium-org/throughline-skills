@@ -8,5 +8,15 @@ text: The skill loops over graphs with the tools that exist; it does not invent 
 normative: true
 attrs:
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:095db064fc98bc0b5ce4fdd719426ac94048fe2c2f07832e2929f0ed2616680a
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:095db064fc98bc0b5ce4fdd719426ac94048fe2c2f07832e2929f0ed2616680a
+  content:
+    type: non_goal
+    text: The skill loops over graphs with the tools that exist; it does not invent
+      a repository-level check, and it never merges sibling graphs into one project.
+      Each graph stays a separate project with its own config, UID space and accountability.
+    normative: true
+    derived: false
+    attrs: {}
+  revision: 27eb17ad7ecbe90285d396b2e8756239996b4368

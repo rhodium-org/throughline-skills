@@ -15,9 +15,10 @@ links:
 attrs:
   method: automated
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:ebdf614d4ad105cf3decf1b5d5ce094dc3d4f0e8adc79734d2efb915fe291f66
-  ratified_content:
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:ebdf614d4ad105cf3decf1b5d5ce094dc3d4f0e8adc79734d2efb915fe291f66
+  content:
     type: test
     text: Pass if every import in scripts/reconcile.py names a standard-library module;
       if, run against a graph with a stub tl reporting 3.10.0, it exits 2; if a fixture
@@ -27,3 +28,4 @@ attrs:
     normative: false
     derived: false
     attrs: {}
+  revision: 0928274ba89a3e09050fb6dbc4ee5fbdd25c88ac

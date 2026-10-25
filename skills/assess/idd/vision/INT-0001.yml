@@ -17,5 +17,22 @@ text: |-
 normative: true
 attrs:
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:cfaa9cd9fb9080b5a01898622a9217e2e9aa5c19b57ba3091db3c1a21ce1369b
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:cfaa9cd9fb9080b5a01898622a9217e2e9aa5c19b57ba3091db3c1a21ce1369b
+  content:
+    type: intent
+    text: |-
+      A graph promises fewer errors and documents that cannot drift, at the cost of
+      items to write, ratifications to make and gates to keep green. Whether that
+      trade pays is an empirical question, answered only by cases measured the same
+      way each time. This skill records one case when a piece of work reaches done:
+      numbers a person did not choose, taken from the graph, the git history, the
+      generated documents, the tests and the session transcripts; a narrative beside
+      them; and a copy in a collection whose index compares cases. The skill takes no
+      side. A case that shows the graph adding cost and letting errors through is
+      recorded as fully as one that shows the opposite.
+    normative: true
+    derived: false
+    attrs: {}
+  revision: 7cffc42785349ec63b7488e17469fc7c323ecf31

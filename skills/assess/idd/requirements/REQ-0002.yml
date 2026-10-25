@@ -18,5 +18,21 @@ links:
 attrs:
   priority: must
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:8886c117c6c061e7180b7aeded3bf5bcdbc7ee32c227ea42050ab12475125fd6
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:8886c117c6c061e7180b7aeded3bf5bcdbc7ee32c227ea42050ab12475125fd6
+  content:
+    type: requirement
+    text: |-
+      From the repository holding the graph the script reports the commit count,
+      the first and last commit dates and the days between them, commits per author,
+      the tags with their dates as the editions, the share of commits whose message
+      names an item by UID, lines added and removed, and, for every item file that
+      has ever carried a ratification, whether any commit touched it after the commit
+      that first ratified it, as the count of items amended after ratification and
+      the count of amending commits.
+    normative: true
+    derived: false
+    attrs:
+      priority: must
+  revision: 7cffc42785349ec63b7488e17469fc7c323ecf31

@@ -41,9 +41,10 @@ links:
 attrs:
   priority: must
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:a8fb401176b27547876d508c960b6ddcb379310b6b09b3ba002ce0fd37c45777
-  ratified_content:
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:a8fb401176b27547876d508c960b6ddcb379310b6b09b3ba002ce0fd37c45777
+  content:
     type: requirement
     text: The skill ships a script that reads the JSON that tl dump emits and performs
       every challenger requirement that needs no judgement. It depends on nothing
@@ -56,3 +57,4 @@ attrs:
     derived: false
     attrs:
       priority: must
+  revision: fff3334e4ffd96e3e423a2d2ba30c67958b2b926

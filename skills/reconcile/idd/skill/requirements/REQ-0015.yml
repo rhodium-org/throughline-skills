@@ -13,9 +13,10 @@ links:
 attrs:
   priority: could
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:bde2b631629860ecfe86d1fe7613c2b6482fe8a3d5a965c8153e872817014481
-  ratified_content:
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:bde2b631629860ecfe86d1fe7613c2b6482fe8a3d5a965c8153e872817014481
+  content:
     type: requirement
     text: The skill can give a short paragraph stating the notation and the rule
       to cite while writing, for the repository's CLAUDE.md or equivalent, so an
@@ -24,3 +25,4 @@ attrs:
     derived: false
     attrs:
       priority: could
+  revision: 0928274ba89a3e09050fb6dbc4ee5fbdd25c88ac

@@ -24,9 +24,10 @@ links:
 attrs:
   priority: must
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:5a6a39e8eb895e75299ae9187cbafdd6383cfc57a1f77f6bf4f761730c607994
-  ratified_content:
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:5a6a39e8eb895e75299ae9187cbafdd6383cfc57a1f77f6bf4f761730c607994
+  content:
     type: requirement
     text: 'A namespace-qualified UID is never the item a writing command acts on:
       a source is read-only and composition widens the view, not the authority, so
@@ -42,3 +43,4 @@ attrs:
     derived: false
     attrs:
       priority: must
+  revision: fff3334e4ffd96e3e423a2d2ba30c67958b2b926

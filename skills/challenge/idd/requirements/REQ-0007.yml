@@ -30,5 +30,21 @@ links:
 attrs:
   priority: must
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:5d6090438460cb00ea2754bf7702c703eb7f0abb577a8fb598b046431239d1dd
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:5d6090438460cb00ea2754bf7702c703eb7f0abb577a8fb598b046431239d1dd
+  content:
+    type: requirement
+    text: The verification check walks a branch from its head through the live items
+      grounded below it. The branch's members are the non-test items in it, the head
+      included, less root types and less the types given as ignored. Its tests are
+      the live tests with a verifies link into any member or into the head, tallied
+      by method. A branch headed by a requirement that a test verifies directly therefore
+      reports that test; a branch whose members have no live automated test is flagged,
+      and each member with no live test at all is listed as untested. A test grounded
+      outside the branch, or a deleted test, is not counted.
+    normative: true
+    derived: false
+    attrs:
+      priority: must
+  revision: 5832453001bd688ceb6e86b22d9946406e9414a1

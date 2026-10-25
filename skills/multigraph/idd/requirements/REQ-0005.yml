@@ -21,9 +21,10 @@ links:
 attrs:
   priority: must
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:b6991bb8f23a1f544af06f9423447f0eaa05b3fe0313078723d007f55056a299
-  ratified_content:
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:b6991bb8f23a1f544af06f9423447f0eaa05b3fe0313078723d007f55056a299
+  content:
     type: requirement
     text: Borrowed items are cited as namespace:UID; a bare UID is always local.
       A source's own sources are composed with it, to any depth, and the consumer
@@ -37,3 +38,4 @@ attrs:
     derived: false
     attrs:
       priority: must
+  revision: fa43066fc80066fdfc70017c4cb536d5c345e5b9

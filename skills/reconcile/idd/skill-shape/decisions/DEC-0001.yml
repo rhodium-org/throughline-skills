@@ -12,9 +12,10 @@ attrs:
   kind: name
   dir: skill
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:1a9fb99c5ddcb313cd211eaf081de407d0cc25f7fdef5fbf85b35a85bc7dc128
-  ratified_content:
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:1a9fb99c5ddcb313cd211eaf081de407d0cc25f7fdef5fbf85b35a85bc7dc128
+  content:
     type: decision
     text: The thing being built is a skill, so its graph is idd/skill/ under skills/reconcile/,
       as the shape skill's is under skills/shape/.

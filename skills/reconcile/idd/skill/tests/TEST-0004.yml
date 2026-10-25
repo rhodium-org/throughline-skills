@@ -15,9 +15,10 @@ links:
 attrs:
   method: automated
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:101c4399f265fe2e45211c98d14ba23aa5417359ac116f95e394acb084f0102b
-  ratified_content:
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:101c4399f265fe2e45211c98d14ba23aa5417359ac116f95e394acb084f0102b
+  content:
     type: test
     text: Build a graph with a ratified requirement cited by code, a ratified one
       uncited, a ratified parent whose refining child is cited, and a proposed one
@@ -28,3 +29,4 @@ attrs:
     normative: false
     derived: false
     attrs: {}
+  revision: 0928274ba89a3e09050fb6dbc4ee5fbdd25c88ac

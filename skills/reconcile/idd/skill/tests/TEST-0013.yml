@@ -13,9 +13,10 @@ links:
 attrs:
   method: document
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:8c84f3c7b83309341f14429c93bd2e1562a16c43cdf9479f0bcd9aeb418a1114
-  ratified_content:
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:8c84f3c7b83309341f14429c93bd2e1562a16c43cdf9479f0bcd9aeb418a1114
+  content:
     type: test
     text: Read SKILL.md. Pass if it directs the agent to read each cited location
       against the item's text and priority and to report less, more or other, and
@@ -23,3 +24,4 @@ attrs:
     normative: false
     derived: false
     attrs: {}
+  revision: 0928274ba89a3e09050fb6dbc4ee5fbdd25c88ac

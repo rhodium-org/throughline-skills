@@ -15,5 +15,18 @@ links:
 attrs:
   priority: must
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:1d07d5f112ead3151a6f22617a778cb0b14e41d9d277d4b08793e3bdda39a279
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:1d07d5f112ead3151a6f22617a778cb0b14e41d9d277d4b08793e3bdda39a279
+  content:
+    type: requirement
+    text: The skill lists every throughline.toml in the repository, excluding virtual
+      environments and the git directory, and runs the context command of the graph
+      it is about to change. That generated brief is authoritative over the skill
+      text. Because each graph has its own types, statuses and link vocabulary, a
+      brief read in one graph is never applied to a sibling.
+    normative: true
+    derived: false
+    attrs:
+      priority: must
+  revision: 27eb17ad7ecbe90285d396b2e8756239996b4368

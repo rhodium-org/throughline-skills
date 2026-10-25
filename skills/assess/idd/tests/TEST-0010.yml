@@ -14,9 +14,10 @@ links:
 attrs:
   method: automated
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:964649e979f4c25bcf4257bd76bb165a9070227b16774d75229d91affd86bf9b
-  ratified_content:
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:964649e979f4c25bcf4257bd76bb165a9070227b16774d75229d91affd86bf9b
+  content:
     type: test
     text: 'tests/test_tl_floor.py, the tl-assess TEST-0010 cases: with a stand-in
       tl reporting 3.10.2 first on the path, the graph command on a graph root exits
@@ -26,3 +27,4 @@ attrs:
     normative: true
     derived: false
     attrs: {}
+  revision: fff3334e4ffd96e3e423a2d2ba30c67958b2b926

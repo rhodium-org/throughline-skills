@@ -18,9 +18,10 @@ attrs:
   item_type: test
   grounding: grounded
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:31f09cdd7c2d13700daf5525825181d69155b0564f262afb5d436368830a5194
-  ratified_content:
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:31f09cdd7c2d13700daf5525825181d69155b0564f262afb5d436368830a5194
+  content:
     type: decision
     text: One acceptance test per requirement, each verifying the requirement it
       is written against, with a method attribute saying how it is run. Created now

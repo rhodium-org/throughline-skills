@@ -14,5 +14,16 @@ links:
 attrs:
   origin: ai
   method: automated
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:797486ae00bb6ea7e88e373d777f040710edb3f6f256bf9e1049a0c7c7b20931
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:797486ae00bb6ea7e88e373d777f040710edb3f6f256bf9e1049a0c7c7b20931
+  content:
+    type: test
+    text: Run record twice under the same name into a temporary collection; assert
+      two dated JSON and Markdown pairs exist in the repository and the collection,
+      the Markdown carries the table and every narrative heading, and the collection
+      README lists both rows.
+    normative: true
+    derived: false
+    attrs: {}
+  revision: 7cffc42785349ec63b7488e17469fc7c323ecf31

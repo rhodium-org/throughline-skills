@@ -19,9 +19,10 @@ links:
   type: derives_from
 attrs:
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:451d9c76d4397cca44079f5c17d9dcef9f1317fa205e87680f0e6aafd4e08228
-  ratified_content:
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:451d9c76d4397cca44079f5c17d9dcef9f1317fa205e87680f0e6aafd4e08228
+  content:
     type: domain
     text: 'The thing being built is an Agent Skill: a SKILL.md holding the judgement
       and a standard-library script holding the mechanics, shipped as the fifth skill

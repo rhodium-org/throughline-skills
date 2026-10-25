@@ -12,5 +12,14 @@ attrs:
   kind: name
   dir: skill
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:a150972ece1218ca46e7966bbcae13764128ca334c254866aead690632aa65a6
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:a150972ece1218ca46e7966bbcae13764128ca334c254866aead690632aa65a6
+  content:
+    type: decision
+    text: 'The thing being built is a skill, so its graph is idd/skill/ under skills/shape/.
+      Not product, not subject: the name says what the graph is a graph of.'
+    normative: true
+    derived: false
+    attrs: {}
+  revision: bebf885e147f2cbf25b04a239a8697dcecd5e297

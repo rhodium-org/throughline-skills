@@ -16,5 +16,19 @@ links:
 attrs:
   priority: must
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:3064e76b871fbeaaed38ebd976e7d95eeade4e4e48f4bf57c90979269ed919bf
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:3064e76b871fbeaaed38ebd976e7d95eeade4e4e48f4bf57c90979269ed919bf
+  content:
+    type: requirement
+    text: A new graph is initialised at <scope>/idd, its sources are declared (the
+      in-repo anchor by path, any external standard by pinned url), its own roots
+      and items are authored and grounded at creation with namespace-qualified citations
+      where the chain leaves the graph, and it is added to the repository's check
+      loop and to any table of graphs. Items enter proposed and are handed to a named
+      human. The commit cites each UID qualified by the graph that owns it.
+    normative: true
+    derived: false
+    attrs:
+      priority: must
+  revision: 27eb17ad7ecbe90285d396b2e8756239996b4368

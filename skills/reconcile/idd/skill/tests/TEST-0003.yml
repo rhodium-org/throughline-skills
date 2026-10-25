@@ -13,9 +13,10 @@ links:
 attrs:
   method: automated
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:2e939f78d53368c86ca109486098db51e2e1788265f1556b546dc938ce04b886
-  ratified_content:
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:2e939f78d53368c86ca109486098db51e2e1788265f1556b546dc938ce04b886
+  content:
     type: test
     text: Cite an absent UID, a deleted item, a rejected item, a link type another
       graph declares but the cited graph does not, an unknown qualifier, and a qualifier
@@ -24,3 +25,4 @@ attrs:
     normative: false
     derived: false
     attrs: {}
+  revision: 8af49ecc5c0a3e268756492b5f0d14adea230e95

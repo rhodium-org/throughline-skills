@@ -15,9 +15,10 @@ links:
 attrs:
   method: automated
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:2514120795cb228ab09c7518aa9329a39856bd0fa343ceefdc7a7b9af3909f5f
-  ratified_content:
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:2514120795cb228ab09c7518aa9329a39856bd0fa343ceefdc7a7b9af3909f5f
+  content:
     type: test
     text: 'tests/test_shape.py, test_hands_back_on_zero_errors_in_both_graphs: runs
       the check shell read out of SKILL.md after write and asserts it exits zero,
@@ -28,3 +29,4 @@ attrs:
     normative: true
     derived: false
     attrs: {}
+  revision: 77bd131fdfaada21b2f552c27faa5557fc934605

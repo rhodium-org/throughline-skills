@@ -12,5 +12,15 @@ links:
 attrs:
   origin: ai
   method: automated
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:1ef21dc350ceada74e90c51c766575078e940d1fb0e4aaf3f0ddc31a80701dc3
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:1ef21dc350ceada74e90c51c766575078e940d1fb0e4aaf3f0ddc31a80701dc3
+  content:
+    type: test
+    text: Write two Markdown documents under docs and a result file with pass and
+      fail lines; assert the word count, the docs check result and the pass and fail
+      counts; assert that with no result file the counts are absent.
+    normative: true
+    derived: false
+    attrs: {}
+  revision: 7cffc42785349ec63b7488e17469fc7c323ecf31

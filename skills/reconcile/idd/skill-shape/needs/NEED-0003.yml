@@ -13,9 +13,10 @@ links:
   type: derives_from
 attrs:
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:0352614eb4e6e95580dfcefb7f5c77b3f227c575d530a3879df972b3a250e0fe
-  ratified_content:
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:0352614eb4e6e95580dfcefb7f5c77b3f227c575d530a3879df972b3a250e0fe
+  content:
     type: need
     text: Code in other repositories will carry the notation, so its grammar is a
       contract. It must live in one item whose amendment marks the scanner's requirements

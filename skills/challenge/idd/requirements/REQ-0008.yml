@@ -17,9 +17,10 @@ links:
 attrs:
   priority: must
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:0a8cc6e25509245ac7c2a3559903f2c7abbd23db2d7294b72c336b582b3a8c99
-  ratified_content:
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:0a8cc6e25509245ac7c2a3559903f2c7abbd23db2d7294b72c336b582b3a8c99
+  content:
     type: requirement
     text: 'Before it runs tl on a graph root, the script reads tl --version. When
       tl is missing, or older than throughline 3.11.0, the first release that composes
@@ -31,3 +32,4 @@ attrs:
     derived: false
     attrs:
       priority: must
+  revision: fff3334e4ffd96e3e423a2d2ba30c67958b2b926

@@ -18,5 +18,15 @@ attrs:
   item_type: intent
   grounding: delivery-root
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:f8a1416335f34c1c32c3b1faf6c33e45541b3327d3c969fe6a1e7953a46da3e9
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:f8a1416335f34c1c32c3b1faf6c33e45541b3327d3c969fe6a1e7953a46da3e9
+  content:
+    type: decision
+    text: 'Holds the one intent the skill is grounded in: initialising a graph is
+      a judgement that belongs to intelligence, not to a scaffold. An intent is a
+      delivery root, so every requirement must derive from it.'
+    normative: true
+    derived: false
+    attrs: {}
+  revision: bebf885e147f2cbf25b04a239a8697dcecd5e297

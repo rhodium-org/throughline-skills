@@ -14,9 +14,10 @@ links:
 attrs:
   method: document
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:937db1dd279cbdc71d30f68bb48a792671fe1ce1f59078763f2ae155f95f1931
-  ratified_content:
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:937db1dd279cbdc71d30f68bb48a792671fe1ce1f59078763f2ae155f95f1931
+  content:
     type: test
     text: Read the skill text and confirm it states throughline 3.11.0 as the floor,
       tells the reader to read tl --version and upgrade an older release, names no
@@ -26,3 +27,4 @@ attrs:
     normative: true
     derived: false
     attrs: {}
+  revision: fa43066fc80066fdfc70017c4cb536d5c345e5b9

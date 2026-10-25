@@ -12,9 +12,10 @@ links:
 attrs:
   priority: must
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:df754ec5b91b834b4305ffc899a8ad9928ca9a9fbc72236803e72f8c6fad1e9d
-  ratified_content:
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:df754ec5b91b834b4305ffc899a8ad9928ca9a9fbc72236803e72f8c6fad1e9d
+  content:
     type: requirement
     text: On a platform whose signal module has no SIGPIPE (Windows), the script
       starts and runs its checks instead of exiting on an AttributeError; where SIGPIPE
@@ -24,3 +25,4 @@ attrs:
     derived: false
     attrs:
       priority: must
+  revision: b82a3b43d08b0b2b099084acde37700483d7e4c9

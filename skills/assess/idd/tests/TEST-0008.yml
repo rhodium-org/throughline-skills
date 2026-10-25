@@ -15,5 +15,18 @@ links:
 attrs:
   origin: ai
   method: automated
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:ccb7a46d4a49d811579a081264651f714f677de69816aade80a314c9c02efc7d
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:ccb7a46d4a49d811579a081264651f714f677de69816aade80a314c9c02efc7d
+  content:
+    type: test
+    text: |-
+      In a throwaway repository commit files under two directories in separate
+      commits, tag one commit in each, and run the git command scoped to one
+      directory; assert the commit count, dates, authors, citing share, lines and
+      tags cover only that directory's commits, that the scope is reported, and
+      that without paths the whole repository is measured as before.
+    normative: true
+    derived: false
+    attrs: {}
+  revision: c9c0aebd623530fd9caf06e17d964953acdd1d2a

@@ -12,9 +12,10 @@ links:
   type: derives_from
 attrs:
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:61a58f54347ee03e460b759856f856972ae51909643350205dfd383b45427bbc
-  ratified_content:
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:61a58f54347ee03e460b759856f856972ae51909643350205dfd383b45427bbc
+  content:
     type: non_goal
     text: tl init would have created one. The limits the skill keeps, a script needing
       nothing beyond the standard library and a SKILL.md of the plugin's usual length,

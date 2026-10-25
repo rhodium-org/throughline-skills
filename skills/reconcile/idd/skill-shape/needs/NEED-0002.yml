@@ -13,9 +13,10 @@ links:
   type: derives_from
 attrs:
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:d6df6e4299457010ebea90063cb8ef7779e6b92dcf4f8ab41aa55b669d90f990
-  ratified_content:
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:d6df6e4299457010ebea90063cb8ef7779e6b92dcf4f8ab41aa55b669d90f990
+  content:
     type: need
     text: Each check must be recordable against a fixture repository whose code and
       graph disagree in a known way, run by the real CLI in CI as the other skills'

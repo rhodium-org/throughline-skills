@@ -11,5 +11,16 @@ links:
 attrs:
   priority: must
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:a8eb459a52e894884671ffed8eb8d6e78fb6c92ff487b1c7dfa55a20a53cebc1
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:a8eb459a52e894884671ffed8eb8d6e78fb6c92ff487b1c7dfa55a20a53cebc1
+  content:
+    type: requirement
+    text: The stages run in that order and each is confirmed with the person before
+      the next begins. No register is proposed, named or written before the needs
+      are confirmed.
+    normative: true
+    derived: false
+    attrs:
+      priority: must
+  revision: 75efa3f73defd1db5030284dda98be8c95e0dfc0

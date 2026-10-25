@@ -12,5 +12,15 @@ links:
 attrs:
   origin: ai
   method: automated
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:42136a1e4c1f935f5d0a9168bda371cdd535e05da0b90590b43bcef8e24162f2
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:42136a1e4c1f935f5d0a9168bda371cdd535e05da0b90590b43bcef8e24162f2
+  content:
+    type: test
+    text: On a throwaway graph assert done exits 1 with a proposed item, with a dirty
+      working tree, and with a result file showing a failure, and exits 0 once each
+      is put right.
+    normative: true
+    derived: false
+    attrs: {}
+  revision: 7cffc42785349ec63b7488e17469fc7c323ecf31

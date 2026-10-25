@@ -13,5 +13,16 @@ links:
 attrs:
   method: document
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:26bd05a0060b56845446d0d0a893b4468d8dcdfa89cfecc3114ec7de00359e60
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:26bd05a0060b56845446d0d0a893b4468d8dcdfa89cfecc3114ec7de00359e60
+  content:
+    type: test
+    text: Read the skill and confirm it lists every throughline.toml before acting,
+      runs the context command in the graph about to be touched, states that the
+      brief overrides the skill, and warns that a brief read in one graph does not
+      describe a sibling.
+    normative: true
+    derived: false
+    attrs: {}
+  revision: 27eb17ad7ecbe90285d396b2e8756239996b4368

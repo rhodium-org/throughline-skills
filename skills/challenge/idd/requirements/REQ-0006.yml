@@ -26,5 +26,22 @@ links:
 attrs:
   priority: must
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:e28c7b9e600c7cfc169b41d28bbac8418396a46f08a99c201df7a24bc62bfdad
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:e28c7b9e600c7cfc169b41d28bbac8418396a46f08a99c201df7a24bc62bfdad
+  content:
+    type: requirement
+    text: Before anything else the skill looks for a throughline.toml at the graph
+      root it was given, or below the working tree. If there is none, the skill says
+      that there is nothing to challenge, names the command that creates a graph,
+      and stops. It does not put the challenges to a proposal, a schema, a document
+      or the conversation, and it does not present a review of such prose in the
+      challenge report shape or under the challenge numbers, because every challenge
+      is defined over items, links and stamps, and none of those exist until a graph
+      does. A design opinion offered in that situation is given as a design opinion,
+      labelled as one, outside the report shape.
+    normative: true
+    derived: false
+    attrs:
+      priority: must
+  revision: 1b7b47b112409b845789b902828c025706237e9b

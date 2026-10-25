@@ -19,9 +19,10 @@ links:
 attrs:
   priority: must
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:45cc4507dcfd161ea21e6fdef79b9cd9a6aa35cfae94e13748b0fe17dad3a96f
-  ratified_content:
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:45cc4507dcfd161ea21e6fdef79b9cd9a6aa35cfae94e13748b0fe17dad3a96f
+  content:
     type: requirement
     text: |-
       The script reads the JSON that tl dump emits and reports for the local items:
@@ -36,3 +37,4 @@ attrs:
     derived: false
     attrs:
       priority: must
+  revision: fff3334e4ffd96e3e423a2d2ba30c67958b2b926

@@ -14,9 +14,10 @@ links:
 attrs:
   method: automated
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:e505ccb16ab3a27a77c247478857368a19b1a1d30b232b0391312df9fa9796a7
-  ratified_content:
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:e505ccb16ab3a27a77c247478857368a19b1a1d30b232b0391312df9fa9796a7
+  content:
     type: test
     text: Build a graph with an automated test item no code cites, a manual one no
       code cites, a test item verifying nothing, and a requirement no test item verifies.
@@ -26,3 +27,4 @@ attrs:
     normative: false
     derived: false
     attrs: {}
+  revision: 0928274ba89a3e09050fb6dbc4ee5fbdd25c88ac

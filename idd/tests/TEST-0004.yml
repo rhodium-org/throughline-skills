@@ -20,9 +20,10 @@ links:
 attrs:
   method: automated
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:117e23f5e8fede65ad9de07a29b9b837063397e016470084bfa142613549adc5
-  ratified_content:
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:117e23f5e8fede65ad9de07a29b9b837063397e016470084bfa142613549adc5
+  content:
     type: test
     text: 'Read site/index.html, the file the host serves, and pass if it holds no
       script element, no event-handler attribute and no javascript: URL, sets no
@@ -34,4 +35,4 @@ attrs:
     normative: true
     derived: false
     attrs: {}
-  ratified_revision: 8c4a03ce33181b12522970373682375e3ea4b470
+  revision: b418fb2db5289a71df714fb8258b4669b3bd759e

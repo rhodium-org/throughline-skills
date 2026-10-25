@@ -16,9 +16,10 @@ links:
 attrs:
   priority: could
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:bb02cd099748acf1cd4c85f8a341fef1a15b66d94d238a0455230a9abc61520f
-  ratified_content:
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:bb02cd099748acf1cd4c85f8a341fef1a15b66d94d238a0455230a9abc61520f
+  content:
     type: requirement
     text: For each unstamped citation, the scanner compares the last commit touching
       the cited item's file with the last commit touching the citation's line, and
@@ -28,3 +29,4 @@ attrs:
     derived: false
     attrs:
       priority: could
+  revision: 0928274ba89a3e09050fb6dbc4ee5fbdd25c88ac

@@ -7,5 +7,14 @@ text: In a repository with one throughline.toml the graph's own generated contex
 normative: true
 attrs:
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:7af04bbed3711059718347f9ad3ba17805e0ba398f39e8fe21134680db5f9c4f
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:7af04bbed3711059718347f9ad3ba17805e0ba398f39e8fe21134680db5f9c4f
+  content:
+    type: non_goal
+    text: In a repository with one throughline.toml the graph's own generated context
+      brief governs and this skill does not apply.
+    normative: true
+    derived: false
+    attrs: {}
+  revision: 27eb17ad7ecbe90285d396b2e8756239996b4368

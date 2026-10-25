@@ -9,9 +9,10 @@ rationale: The name was chosen against align for this reason.
 normative: false
 attrs:
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:48daafd0d18fa22cc0ed94e0c75e093e4ad58f7e601b698b8327fc70f8a1dae5
-  ratified_content:
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:48daafd0d18fa22cc0ed94e0c75e093e4ad58f7e601b698b8327fc70f8a1dae5
+  content:
     type: non_goal
     text: Beyond repairing a citation's form and confirming a stamp against code
       it has re-read, it never changes the code or the graph to make a disagreement
@@ -20,3 +21,4 @@ attrs:
     normative: false
     derived: false
     attrs: {}
+  revision: 0928274ba89a3e09050fb6dbc4ee5fbdd25c88ac

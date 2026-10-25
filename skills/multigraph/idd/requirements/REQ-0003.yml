@@ -17,9 +17,10 @@ links:
 attrs:
   priority: must
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:c6ef3bd44d14b53c3d887d307fb7aebd4b3da65f1e0e8314c944cf522ec7439f
-  ratified_content:
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:c6ef3bd44d14b53c3d887d307fb7aebd4b3da65f1e0e8314c944cf522ec7439f
+  content:
     type: requirement
     text: 'One command drives every graph in the repository, sourced or not: tl,
       which composes every [[sources]] block its config declares. Nothing is chosen
@@ -31,3 +32,4 @@ attrs:
     derived: false
     attrs:
       priority: must
+  revision: fa43066fc80066fdfc70017c4cb536d5c345e5b9

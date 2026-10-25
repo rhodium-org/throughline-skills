@@ -14,9 +14,10 @@ links:
 attrs:
   method: automated
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:41c15dc62ff59dc0c5faebf143c937625b0a7144ea69f996399e124ed9b3c2d9
-  ratified_content:
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:41c15dc62ff59dc0c5faebf143c937625b0a7144ea69f996399e124ed9b3c2d9
+  content:
     type: test
     text: Mark one item implemented and one test verified, neither cited; cite a
       proposed item, a deferred item and a suspect item from code. Pass if the item
@@ -25,3 +26,4 @@ attrs:
     normative: false
     derived: false
     attrs: {}
+  revision: 8af49ecc5c0a3e268756492b5f0d14adea230e95

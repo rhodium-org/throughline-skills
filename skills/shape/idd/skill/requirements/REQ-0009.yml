@@ -17,9 +17,10 @@ links:
 attrs:
   priority: must
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:e43dcbfe112be3620851628ec624666d6f635ff59521e9c1a44658833659f995
-  ratified_content:
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:e43dcbfe112be3620851628ec624666d6f635ff59521e9c1a44658833659f995
+  content:
     type: requirement
     text: Every call the script makes goes to tl, which from throughline 3.11.0 composes
       the pointer from the shape graph to the second graph itself. Before its first
@@ -29,3 +30,4 @@ attrs:
     derived: false
     attrs:
       priority: must
+  revision: 77bd131fdfaada21b2f552c27faa5557fc934605

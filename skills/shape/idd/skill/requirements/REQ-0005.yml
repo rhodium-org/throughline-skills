@@ -13,5 +13,16 @@ links:
 attrs:
   priority: must
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:2733b556d7a49dfbfc6374f5e38b882e4bb1751b4cbbbbccc98ae42dd8371f86
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:2733b556d7a49dfbfc6374f5e38b882e4bb1751b4cbbbbccc98ae42dd8371f86
+  content:
+    type: requirement
+    text: Every item authored in either graph carries origin ai and enters as proposed.
+      The skill does not ratify, does not pass --strict by ratifying, and declines
+      if asked to.
+    normative: true
+    derived: false
+    attrs:
+      priority: must
+  revision: 75efa3f73defd1db5030284dda98be8c95e0dfc0

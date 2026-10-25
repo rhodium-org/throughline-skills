@@ -20,9 +20,10 @@ links:
 attrs:
   method: automated
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:69ed5a4383d730f0d1988de16bd3e37ec6f2a4d59663ea95066af7dca18c0f4a
-  ratified_content:
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:69ed5a4383d730f0d1988de16bd3e37ec6f2a4d59663ea95066af7dca18c0f4a
+  content:
     type: test
     text: 'tests/test_multigraph.py, test_resolve_collision_across_graphs: builds
       an anchor and a consumer sourcing it by path in one git repository; a branch
@@ -37,3 +38,4 @@ attrs:
     normative: true
     derived: false
     attrs: {}
+  revision: bd7dd0b075da9429a3302ed63df20aa2c44b0441

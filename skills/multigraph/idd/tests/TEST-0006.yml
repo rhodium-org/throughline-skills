@@ -21,9 +21,10 @@ links:
 attrs:
   method: automated
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:56dab54d3632170712afb2d3706291990205b34519234c6be861e8c501e7f772
-  ratified_content:
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:56dab54d3632170712afb2d3706291990205b34519234c6be861e8c501e7f772
+  content:
     type: test
     text: 'tests/test_multigraph.py, test_ratify_owning_graph_over_union: in the
       two-graph fixture with the consumer item at proposed and grounded only through
@@ -37,3 +38,4 @@ attrs:
     normative: true
     derived: false
     attrs: {}
+  revision: fff3334e4ffd96e3e423a2d2ba30c67958b2b926

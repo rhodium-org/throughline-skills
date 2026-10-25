@@ -11,9 +11,10 @@ attrs:
   path: tl --help; tl context
   read: '2026-10-11'
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:123e2437548c5a8d39f35a250a24e570ab9992c1280430d1c9f9440562579205
-  ratified_content:
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:123e2437548c5a8d39f35a250a24e570ab9992c1280430d1c9f9440562579205
+  content:
     type: source
     text: 'tl --help and tl context read that day. Nothing in tl links an item to
       a line of code: no code scan, no annotation format, no code reference attribute.

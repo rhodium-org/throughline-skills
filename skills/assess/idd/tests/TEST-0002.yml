@@ -13,5 +13,16 @@ links:
 attrs:
   origin: ai
   method: automated
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:0193c71f7faefb39c9069540f2ca9f811c190d9832fcd6fa4671b014f65b9740
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:0193c71f7faefb39c9069540f2ca9f811c190d9832fcd6fa4671b014f65b9740
+  content:
+    type: test
+    text: In a throwaway repository commit an item file, commit its ratification,
+      commit a later amendment, tag twice, and commit one message naming a UID and
+      one not; assert the counts, the editions, the citing ratio and one item amended
+      after ratification.
+    normative: true
+    derived: false
+    attrs: {}
+  revision: 7cffc42785349ec63b7488e17469fc7c323ecf31

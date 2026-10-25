@@ -14,9 +14,10 @@ links:
 attrs:
   priority: must
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:349d841068d497c70f9548702a8c04b1253931531e34e03ba1ca85cf70765fe3
-  ratified_content:
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:349d841068d497c70f9548702a8c04b1253931531e34e03ba1ca85cf70765fe3
+  content:
     type: requirement
     text: Each citation is resolved against the repository's graphs as tl dump gives
       them. A malformed citation, a link type outside the vocabulary, a qualifier
@@ -27,3 +28,4 @@ attrs:
     derived: false
     attrs:
       priority: must
+  revision: 0928274ba89a3e09050fb6dbc4ee5fbdd25c88ac

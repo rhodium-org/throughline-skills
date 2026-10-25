@@ -22,9 +22,10 @@ links:
 attrs:
   priority: must
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:5f9d31b5bc6a2020258a5bfdde64678d3e84b4b621d33af89f8b0766b5c9ada6
-  ratified_content:
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:5f9d31b5bc6a2020258a5bfdde64678d3e84b4b621d33af89f8b0766b5c9ada6
+  content:
     type: requirement
     text: When a merge stops on add/add conflicts for item files, the skill runs
       tl resolve in every graph, in any order, and lets no refusal mask another.
@@ -37,3 +38,4 @@ attrs:
     derived: false
     attrs:
       priority: must
+  revision: bd7dd0b075da9429a3302ed63df20aa2c44b0441

@@ -8,12 +8,14 @@ rationale: Tests passing is already measured by tl:assess from a test result fil
 normative: false
 attrs:
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:f5b3b4b4630d96beb8ea28e7635db39cbd08a3e0d7f949b7f4809f814286befb
-  ratified_content:
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:f5b3b4b4630d96beb8ea28e7635db39cbd08a3e0d7f949b7f4809f814286befb
+  content:
     type: non_goal
     text: A verifies citation says a test is meant to verify an item, not that it
       passes or reaches the code. Whether tests pass is the test runner's report.
     normative: false
     derived: false
     attrs: {}
+  revision: 0928274ba89a3e09050fb6dbc4ee5fbdd25c88ac

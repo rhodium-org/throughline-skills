@@ -20,9 +20,10 @@ links:
 attrs:
   priority: must
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:3f30a1e93c0bf956f4b553baa9ea86b65a537d3d8690c30f7bef8811fe76a076
-  ratified_content:
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:3f30a1e93c0bf956f4b553baa9ea86b65a537d3d8690c30f7bef8811fe76a076
+  content:
     type: requirement
     text: tl dump carries every input of an item's fingerprint but not the fingerprint,
       so the script computes it. Before it compares a stamp, it checks its computation
@@ -33,3 +34,4 @@ attrs:
     derived: false
     attrs:
       priority: must
+  revision: e04252cd711862c6e07f89dc56e160238f266740

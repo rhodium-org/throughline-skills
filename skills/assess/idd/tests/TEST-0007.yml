@@ -16,9 +16,10 @@ links:
 attrs:
   origin: ai
   method: automated
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:eaacde118d2efa0c8419858c58973702936bcaaa2a75816677d828eb7daf1362
-  ratified_content:
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:eaacde118d2efa0c8419858c58973702936bcaaa2a75816677d828eb7daf1362
+  content:
     type: test
     text: In a throwaway repository with a graph that composes one source, run the
       provenance command and assert the head commit equals git's, the clean flag
@@ -31,3 +32,4 @@ attrs:
     normative: true
     derived: false
     attrs: {}
+  revision: fff3334e4ffd96e3e423a2d2ba30c67958b2b926

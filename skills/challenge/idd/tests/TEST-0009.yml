@@ -12,9 +12,10 @@ links:
 attrs:
   method: automated
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:34755facc37d6cc7892606e6fc4c33e56eeebd9cc6e3692617223024c2ea988f
-  ratified_content:
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:34755facc37d6cc7892606e6fc4c33e56eeebd9cc6e3692617223024c2ea988f
+  content:
     type: test
     text: 'tests/test_challenge.py, test_script_starts_without_sigpipe: runs the
       script as __main__ with signal.SIGPIPE deleted and --help, and confirms it
@@ -22,3 +23,4 @@ attrs:
     normative: true
     derived: false
     attrs: {}
+  revision: b82a3b43d08b0b2b099084acde37700483d7e4c9

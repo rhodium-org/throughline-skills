@@ -14,9 +14,10 @@ links:
 attrs:
   priority: should
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:3ddd98e35ec8d7a0cdc119a830caa3a42540c6e9eaeda97c71b923f461ffcf2b
-  ratified_content:
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:3ddd98e35ec8d7a0cdc119a830caa3a42540c6e9eaeda97c71b923f461ffcf2b
+  content:
     type: requirement
     text: Every live local test item whose method is automated with no verifies citation
       is reported as not wired. A verifies citation naming a test item that verifies
@@ -26,3 +27,4 @@ attrs:
     derived: false
     attrs:
       priority: should
+  revision: 8af49ecc5c0a3e268756492b5f0d14adea230e95

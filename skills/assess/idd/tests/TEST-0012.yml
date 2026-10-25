@@ -17,9 +17,10 @@ links:
 attrs:
   method: automated
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:978d95d456d5355e4b34ded3095a7382564dd2d1fff934c9c93ac81aab1068aa
-  ratified_content:
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:978d95d456d5355e4b34ded3095a7382564dd2d1fff934c9c93ac81aab1068aa
+  content:
     type: test
     text: 'tests/test_assess.py, test_migrate_rewrites_an_earlier_record: record
       a fixture graph, then age the JSON to the earlier form with the machine''s
@@ -33,3 +34,4 @@ attrs:
     normative: true
     derived: false
     attrs: {}
+  revision: 66f059a8dd94e536fa2735829a77becc80a1959b

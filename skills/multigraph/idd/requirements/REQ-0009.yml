@@ -17,9 +17,10 @@ links:
 attrs:
   priority: must
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:954ca2aff39092552456729af8f4af5081f95ae85a435563d379dc2284438bb4
-  ratified_content:
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:954ca2aff39092552456729af8f4af5081f95ae85a435563d379dc2284438bb4
+  content:
     type: requirement
     text: The skill states throughline 3.11.0 as its one floor and names no release
       threshold below it. From that release tl refetches a remote source whose tag
@@ -31,3 +32,4 @@ attrs:
     derived: false
     attrs:
       priority: must
+  revision: fa43066fc80066fdfc70017c4cb536d5c345e5b9

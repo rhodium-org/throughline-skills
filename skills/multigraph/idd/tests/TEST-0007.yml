@@ -17,9 +17,10 @@ links:
 attrs:
   method: automated
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:65b0e264a17aebe68e0c237d6cf7309883cb4dabd064c7972cf7a09971e81a03
-  ratified_content:
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:65b0e264a17aebe68e0c237d6cf7309883cb4dabd064c7972cf7a09971e81a03
+  content:
     type: test
     text: 'tests/test_multigraph.py, test_gate_loop: runs the loop read out of the
       skill text over a tree of three graphs where the consumer''s anchor item has
@@ -30,3 +31,4 @@ attrs:
     normative: true
     derived: false
     attrs: {}
+  revision: fff3334e4ffd96e3e423a2d2ba30c67958b2b926

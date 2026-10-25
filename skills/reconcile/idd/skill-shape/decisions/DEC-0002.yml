@@ -18,9 +18,10 @@ attrs:
   item_type: intent
   grounding: delivery-root
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:a4ab247a333aec7de24a3d3427793d3adf006fbc85498421d6fac7d692de7402
-  ratified_content:
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:a4ab247a333aec7de24a3d3427793d3adf006fbc85498421d6fac7d692de7402
+  content:
     type: decision
     text: 'Holds the one intent the skill is grounded in: code and its graph are
       two records of one thing, and where they disagree a human settles which is

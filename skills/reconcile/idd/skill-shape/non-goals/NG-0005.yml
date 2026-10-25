@@ -13,9 +13,10 @@ links:
   type: derives_from
 attrs:
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:9a7006d32281ba7a6501378c451edd95ca9d7db8886f299b7b65c1fde9c75041
-  ratified_content:
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:9a7006d32281ba7a6501378c451edd95ca9d7db8886f299b7b65c1fde9c75041
+  content:
     type: non_goal
     text: The notation is one requirement, not a class of items. Its grammar fits
       in one item's text, and the scanner's requirements derive from it, which is

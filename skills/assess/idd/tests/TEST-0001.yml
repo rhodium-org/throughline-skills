@@ -12,5 +12,15 @@ links:
 attrs:
   origin: ai
   method: automated
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:59f051e4a8e0cad2d3f74f37114bd62c845f41e507eb9acf3eb10195447de435
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:59f051e4a8e0cad2d3f74f37114bd62c845f41e507eb9acf3eb10195447de435
+  content:
+    type: test
+    text: Build a throwaway graph with tl containing items of several types, statuses
+      and origins, two ratified by a named person, and a link into a composed source;
+      run the graph command from its dump and assert every count.
+    normative: true
+    derived: false
+    attrs: {}
+  revision: 7cffc42785349ec63b7488e17469fc7c323ecf31

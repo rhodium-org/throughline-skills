@@ -16,5 +16,18 @@ links:
 attrs:
   method: automated
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:10e5caee5a2707c527130523200a76744412ac96bf4146acb782c5e5360fece7
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:10e5caee5a2707c527130523200a76744412ac96bf4146acb782c5e5360fece7
+  content:
+    type: test
+    text: 'tests/test_shape.py, test_registers_come_after_needs: asserts the five
+      stage headings of SKILL.md appear in order and that the sentence withholding
+      the word register until the needs are confirmed sits before the registers stage;
+      then, with a register decision grounded only in the domain, asserts write exits
+      2 naming that decision and creates nothing, and that linking the decision to
+      a need lets write proceed.'
+    normative: true
+    derived: false
+    attrs: {}
+  revision: 996c21ce7c48acc3187b4a6300189589dba9da0f

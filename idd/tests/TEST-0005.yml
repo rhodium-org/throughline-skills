@@ -12,9 +12,10 @@ links:
 attrs:
   method: automated
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:999ba87095296e44ba5c5c4c2e4b505cc36f98f29ccab33b63f9dfcaca7a545d
-  ratified_content:
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:999ba87095296e44ba5c5c4c2e4b505cc36f98f29ccab33b63f9dfcaca7a545d
+  content:
     type: test
     text: Read the install section of site/index.html and pass if it says to pick
       one route, contains /plugin marketplace remove throughline-skills, and contains
@@ -22,4 +23,4 @@ attrs:
     normative: true
     derived: false
     attrs: {}
-  ratified_revision: 640a09f8359b9fe889e8ddf58bbc9a86a3b05dd4
+  revision: b418fb2db5289a71df714fb8258b4669b3bd759e

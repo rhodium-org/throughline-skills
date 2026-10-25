@@ -14,5 +14,16 @@ links:
 attrs:
   method: automated
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:9683363450d95da2abca172694cd54c808fce5a592700478ffc24553b8b93504
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:9683363450d95da2abca172694cd54c808fce5a592700478ffc24553b8b93504
+  content:
+    type: test
+    text: 'tests/test_shape.py, test_rejected_register_is_recorded_with_its_rationale:
+      asserts the non_goal recorded during the discovery holds the rationale given,
+      derives from the need that made it unnecessary, sits in the non-goals register
+      of idd/shape/, and is listed by status under registers considered and not created.'
+    normative: true
+    derived: false
+    attrs: {}
+  revision: 996c21ce7c48acc3187b4a6300189589dba9da0f

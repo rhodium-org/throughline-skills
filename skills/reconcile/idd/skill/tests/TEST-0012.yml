@@ -15,9 +15,10 @@ links:
 attrs:
   method: document
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:6515d1e54e7cbabacd4b993a166522ea2aadb6aec262ff3aa4e5efbf248be241
-  ratified_content:
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:6515d1e54e7cbabacd4b993a166522ea2aadb6aec262ff3aa4e5efbf248be241
+  content:
     type: test
     text: Read SKILL.md. Pass if it tells the agent to report each finding with the
       item and the code as they stand, forbids amending an item, reverting a ratification
@@ -27,3 +28,4 @@ attrs:
     normative: false
     derived: false
     attrs: {}
+  revision: 0928274ba89a3e09050fb6dbc4ee5fbdd25c88ac

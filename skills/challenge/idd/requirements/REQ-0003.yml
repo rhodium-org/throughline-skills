@@ -25,9 +25,10 @@ links:
 attrs:
   priority: must
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:f943e8e09cee88b2c5f1b2fcd55b9bf1881a1ed6bdc35c4d9d8cb14743fd3da0
-  ratified_content:
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:f943e8e09cee88b2c5f1b2fcd55b9bf1881a1ed6bdc35c4d9d8cb14743fd3da0
+  content:
     type: requirement
     text: A proposed AI-origin item is fixed with amend, link and unlink. A fix rewrites
       the claim in the fewest words that bind; if the decision changed, the rationale
@@ -45,3 +46,4 @@ attrs:
     derived: false
     attrs:
       priority: must
+  revision: fff3334e4ffd96e3e423a2d2ba30c67958b2b926

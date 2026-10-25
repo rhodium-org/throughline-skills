@@ -19,9 +19,10 @@ links:
 attrs:
   priority: must
   origin: ai
-  ratified_by: Henry Grech-Cini
-  ratified_fingerprint: sha256:2a17db5c57439c692443672006403de3b58aaabe163ee045cc292f69393a5862
-  ratified_content:
+ratifications:
+- by: Henry Grech-Cini
+  fingerprint: sha256:2a17db5c57439c692443672006403de3b58aaabe163ee045cc292f69393a5862
+  content:
     type: requirement
     text: 'Before a measuring command runs tl on a graph root, the script reads tl
       --version. When tl is missing, or older than throughline 3.11.0, the first
@@ -34,3 +35,4 @@ attrs:
     derived: false
     attrs:
       priority: must
+  revision: fff3334e4ffd96e3e423a2d2ba30c67958b2b926
