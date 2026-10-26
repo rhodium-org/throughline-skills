@@ -131,7 +131,7 @@ def test_each_comment_form_parses_and_a_broken_marker_is_reported(repo, tmp_path
     r1, r2 = g.req("One"), g.req("Two")
     with (g.root / "throughline.toml").open("a") as fh:
         fh.write(f'\n[[sources]]\nnamespace = "spec"\npath = "{spec.root}"\n')
-    stamp = g.item(r1)["attrs"]["ratified_fingerprint"].split(":")[1][:8]
+    stamp = g.item(r1)["ratifications"][-1]["fingerprint"].split(":")[1][:8]
     write(repo, "src/forms.txt",
           cite("implements", r1, "#"), cite("implements", r1, "//"), cite("implements", r1, "--"),
           cite("implements", r1, ";"), cite("implements", r1, "%"),
@@ -282,7 +282,7 @@ def test_a_stamp_goes_stale_on_text_not_title_and_names_its_edition(repo):
     g = Graph(repo, "g", "app")
     r1 = g.req("Stamped", text="Does one thing.")
     r2 = g.req("Unstamped")
-    stamp = g.item(r1)["attrs"]["ratified_fingerprint"].split(":")[1][:12]
+    stamp = g.item(r1)["ratifications"][-1]["fingerprint"].split(":")[1][:12]
     write(repo, "src/x.py", cite("implements", f"{r1}@{stamp}"), cite("implements", r2))
     commit(repo)
     g.tl("amend", r1, "--title", "Stamped, retitled")
@@ -309,7 +309,7 @@ def test_restamp_touches_only_the_named_items_citations(repo):
     commit(repo)
     r = reconcile(repo, "restamp", r1)
     assert r.returncode == 0, r.stdout + r.stderr
-    fp = g.item(r1)["attrs"]["ratified_fingerprint"].split(":")[1][:12]
+    fp = g.item(r1)["ratifications"][-1]["fingerprint"].split(":")[1][:12]
     assert (repo / "src/a.py").read_text().strip() == cite("implements", f"{r1}@{fp}")
     assert (repo / "src/b.py").read_text().strip() == cite("implements", f"{r1}@{fp}")
     assert "deadbeef" in (repo / "src/c.py").read_text()
@@ -388,7 +388,7 @@ def test_standard_library_only_old_tl_refused_gate_only_when_asked(repo, tmp_pat
 def test_a_fingerprint_disagreeing_with_tl_stops_the_run(repo, tmp_path):
     g = Graph(repo, "g", "app")
     r1 = g.req("Stamped")
-    fp = g.item(r1)["attrs"]["ratified_fingerprint"]
+    fp = g.item(r1)["ratifications"][-1]["fingerprint"]
     write(repo, "src/a.py", cite("implements", f"{r1}@{fp.split(':')[1][:12]}"))
     commit(repo)
     report = scan(repo)
