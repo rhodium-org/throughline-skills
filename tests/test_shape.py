@@ -222,6 +222,32 @@ def test_second_graph_named_in_discovery_never_defaulted(repo):  # TEST-0003 / R
     assert status["name"] == "estate" and status["shaped_exists"] and status["pointer_recorded"]
 
 
+# tl: verifies skill/TEST-0011
+def test_written_graph_records_where_it_was_shaped(repo):  # TEST-0011 / REQ-0011
+    """REQ-0011: write records, in the second graph's own throughline.toml, the
+    shape graph it came from and the decision behind each register; tl reads
+    past the table, and a second write never overwrites it."""
+    import tomllib
+    assert shape(repo, "init").returncode == 0
+    dom = new(repo, "DOM", "domain", "A hosting estate run for tenants")
+    need = new(repo, "NEED", "need", "Traceability", ground=[dom])
+    vis = new(repo, "DEC", "decision", "Vision register", ground=[need],
+              attrs=["kind=register", "prefix=INT", "dir=vision", "item_type=intent"])
+    thr = new(repo, "DEC", "decision", "Threats register", ground=[need],
+              attrs=["kind=register", "prefix=THR", "dir=threats", "item_type=threat", "grounding=delivery-root"])
+    new(repo, "DEC", "decision", "Name the graph estate", ground=[dom], attrs=["kind=name", "dir=estate"])
+    r = shape(repo, "write")
+    assert r.returncode == 0, r.stdout + r.stderr
+    cfg = tomllib.loads((repo / "idd" / "estate" / "throughline.toml").read_text())
+    assert cfg["shaped_by"] == {"graph": "../estate-shape", "registers": {"INT": vis, "THR": thr}}
+    assert (repo / "idd" / "estate" / cfg["shaped_by"]["graph"] / "throughline.toml").resolve().exists()
+    # tl reads past the table: the second graph still checks
+    assert run("tl", "-C", str(repo / "idd" / "estate"), "check").returncode == 0
+    before = (repo / "idd" / "estate" / "throughline.toml").read_text()
+    shape(repo, "write")
+    assert (repo / "idd" / "estate" / "throughline.toml").read_text() == before, "written once"
+
+
 # tl: verifies skill/TEST-0004@10e5caee5a27
 def test_registers_come_after_needs(repo):  # TEST-0004 / REQ-0004
     text = SKILL.read_text()

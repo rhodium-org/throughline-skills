@@ -240,7 +240,7 @@ and why, or out and why. Their absence from the set is a decision, not an
 oversight.
 
 ### 5. Write, gate, hand off
-<!-- tl: implements skill/REQ-0005@2733b556d7a4, skill/REQ-0007@14bac9f5d8ac -->
+<!-- tl: implements skill/REQ-0005@2733b556d7a4, skill/REQ-0007@14bac9f5d8ac, skill/REQ-0011 -->
 
 ```sh
 python3 "$S" -C <repo> write
@@ -250,6 +250,30 @@ This creates `idd/<name>/` from `--bare`, declares each item type, root and
 `origin` attribute the decisions call for (every change carries a `--because`
 naming the decision), creates the registers, and records the pointer: a
 `path` source in the shape graph's `throughline.toml` naming the second graph.
+It also records, in the second graph's own `throughline.toml`, where it was
+shaped: a `[shaped_by]` table naming the shape graph by its path and, for each
+register, the decision that made it. `tl` reads past a table it does not know, so
+this is configuration only, and a reader such as history.iddn.uk draws the
+lineage from the second graph alone:
+
+```toml
+[shaped_by]
+graph = "../estate-shape"
+registers = { INT = "DEC-0002", THR = "DEC-0003" }
+```
+
+A source the second graph declares later, for a reason the shape graph records
+(a standard among its `sources`, a decision to adopt it), carries its own key
+naming those items, so that link is data too and not a comment:
+
+```toml
+[[sources]]
+namespace = "stride"
+url = "https://github.com/rhodium-org/throughline-stride"
+ref = "v2026-09"
+shaped_by = ["SRC-0008", "DEC-0011"]
+```
+
 Then it renames the shape graph, directory and project, to `<name>-shape`, so
 the reasoning sits beside the graph it produced under that graph's name. The
 name changes here and not at the name decision because until the second graph

@@ -1,0 +1,25 @@
+uid: REQ-0011
+type: requirement
+status: proposed
+title: The second graph records where it was shaped, in its own configuration
+text: 'When it writes the second graph, the script records in that graph''s throughline.toml
+  a [shaped_by] table naming the shape graph by its path from the second graph and,
+  for each register, the decision that made it; it writes the table once and never
+  over one already there, and on a graph written before this it adds the table when
+  it names the shape graph. A source declared later for a reason the shape graph
+  records carries shaped_by naming those items. It is configuration only: no tl command
+  reads or checks it.'
+rationale: 'The operator, 26 October 2026: history.iddn.uk should show how a shape
+  graph gave rise to the graphs it shaped and how they link, and that lineage lived
+  only in configuration comments such as ''shape SRC-0008 and shape DEC-0011: ...
+  the threat register''. Decided as an update to the configuration and to this skill,
+  not to throughline''s commands: tl already reads past a table it does not know.
+  The register decisions already hold prefix and dir in the shape graph; recording
+  the pairing in the second graph lets a reader that holds only that graph draw it.
+  Who pays: nobody new; a graph shaped before this gains the table on its next write.'
+normative: true
+links:
+- target: INT-0001
+  type: derives_from
+attrs:
+  origin: ai

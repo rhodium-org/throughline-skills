@@ -1,0 +1,15 @@
+uid: TEST-0011
+type: test
+status: proposed
+title: write records the shape graph and each register's decision, once
+text: 'tests/test_shape.py, test_written_graph_records_where_it_was_shaped: a shaping
+  with two register decisions and a name decision writes estate/, whose throughline.toml
+  holds [shaped_by] graph ../estate-shape and registers INT and THR mapped to their
+  decisions; the path reaches the shape graph; tl check passes on estate/; a second
+  write leaves the file unchanged.'
+normative: true
+links:
+- target: REQ-0011
+  type: verifies
+attrs:
+  origin: ai
