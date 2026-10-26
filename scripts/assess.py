@@ -171,6 +171,41 @@ def portable(rec: dict, repo: str | None = None) -> dict:
 
 # ── graph ───────────────────────────────────────────────────────────────────
 
+# A format-4 item file carries its signatures, and any withdrawals, as top-level
+# lists; format 3 carried them as flat attributes. Either is the human's record of
+# a signature, never a change to the item.
+SIGNATURE_BLOCKS = ("ratifications", "withdrawals")
+
+
+def is_signed(text: str) -> bool:
+    """Whether an item file, as committed, carries a signature in either format."""
+    return bool(re.search(r"^ratifications:\s*$", text, re.M)) or "ratified_by:" in text
+
+
+def unsigned(text: str) -> list[str]:
+    """The item file's lines without its signature and withdrawal lists, which
+    run from their top-level key to the next top-level key."""
+    out, skipping = [], False
+    for line in text.splitlines():
+        top = bool(line) and not line[0].isspace() and not line.startswith("-")
+        if top:
+            skipping = line.split(":", 1)[0] in SIGNATURE_BLOCKS
+        if not skipping:
+            out.append(line)
+    return out
+
+
+def signers(item: dict) -> list[str]:
+    """Who has signed the item, each name once. Format 4 keeps the signatures in a
+    list beside the item, a withdrawn one taken out of it; format 3 kept one name in
+    the item's attributes."""
+    entries = item.get("ratifications")
+    if entries is None:
+        name = (item.get("attrs") or {}).get("ratified_by")
+        return [name] if name else []
+    return list(dict.fromkeys(e["by"] for e in entries if e.get("by")))
+
+
 # tl: implements tl-assess/REQ-0001@45cc4507dcfd
 def measure_graph(dumped: dict) -> dict:
     items = items_of(dumped)
@@ -179,8 +214,7 @@ def measure_graph(dumped: dict) -> dict:
     by_type = Counter(i.get("type", "?") for i in local)
     by_status = Counter(i.get("status", "?") for i in local)
     by_origin = Counter((i.get("attrs") or {}).get("origin", "unset") for i in local)
-    ratifiers = Counter((i.get("attrs") or {}).get("ratified_by") for i in local
-                        if (i.get("attrs") or {}).get("ratified_by"))
+    ratifiers = Counter(name for i in local for name in signers(i))
     test_methods = Counter((i.get("attrs") or {}).get("method", "unset") for i in local if i.get("type") == "test")
     normative = sum(1 for i in local if i.get("normative"))
     sources: dict[str, int] = Counter(str(i["uid"]).split(":", 1)[0] for i in borrowed)
@@ -264,7 +298,7 @@ def measure_git(repo: str, items_dir: str | None, paths: list[str] | None = None
                     states.append((lines[0], lines[-1]))
             states.reverse()
             contents = [run(["git", "-C", repo, "show", f"{c}:{path}"]).stdout for c, path in states]
-            first_ratified = next((i for i, c in enumerate(contents) if "ratified_by" in c), None)
+            first_ratified = next((i for i, c in enumerate(contents) if is_signed(c)), None)
             if first_ratified is None:
                 continue
             amended["items_ratified"] += 1
@@ -273,7 +307,7 @@ def measure_git(repo: str, items_dir: str | None, paths: list[str] | None = None
             # not a change to the item, and a move alone changes no line at all.
             amending = 0
             for i in range(first_ratified + 1, len(contents)):
-                diff = difflib.unified_diff(contents[i - 1].splitlines(), contents[i].splitlines(), lineterm="", n=0)
+                diff = difflib.unified_diff(unsigned(contents[i - 1]), unsigned(contents[i]), lineterm="", n=0)
                 changed = [l for l in diff if (l.startswith("+") or l.startswith("-"))
                            and not l.startswith(("+++", "---"))
                            and not re.match(r"[+-]\s*(ratified_by|ratified_fingerprint|ratified_id|status):", l)]

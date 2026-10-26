@@ -176,14 +176,24 @@ def find_graphs(repo: Path) -> list[Path]:
     return roots
 
 
+def signed_fingerprints(item: dict) -> list[str]:
+    """The fingerprints the item's signatures recorded: format 4 keeps one on each
+    signature in a list beside the item, format 3 one in its attributes."""
+    entries = item.get("ratifications")
+    if entries is None:
+        legacy = item.get("attrs", {}).get("ratified_fingerprint")
+        return [legacy] if legacy else []
+    return [e["fingerprint"] for e in entries if e.get("fingerprint")]
+
+
 # tl: implements tl-reconcile/REQ-0017@3f30a1e93c0b
 def check_fingerprints(graph: Graph) -> None:
     """Refuse to run when this script's fingerprint disagrees with a
     ratification tl check accepts: tl's algorithm has moved, and every stamp
     would otherwise read as stale."""
     differ = [i for i in graph.local()
-              if i.get("attrs", {}).get("ratified_fingerprint")
-              and fingerprint(i, graph.config) != i["attrs"]["ratified_fingerprint"]]
+              if signed_fingerprints(i)
+              and fingerprint(i, graph.config) not in signed_fingerprints(i)]
     if not differ:
         return
     stale = {f.get("uid") for f in tl_json(graph.root, "check", "--format", "json")

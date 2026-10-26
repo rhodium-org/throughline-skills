@@ -107,14 +107,14 @@ def test_ratify_owning_graph_over_union(two_graphs):
     unsourced = run("tl", "-C", c, "ratify", "REQ-0001", "--by", RATIFIER)
     assert unsourced.returncode == 2
     assert "not grounded" in unsourced.stderr
-    assert "ratified_by" not in local.read_text()
+    assert "ratifications:" not in local.read_text()
     toml.write_text(config)
 
     composed = run("tl", "-C", c, "ratify", "REQ-0001", "--by", RATIFIER)
     assert composed.returncode == 0, composed.stderr
     text = local.read_text()
     assert "status: ratified" in text
-    assert f"ratified_by: {RATIFIER}" in text
+    assert f"ratifications:\n- by: {RATIFIER}" in text
 
     skill = re.sub(r"\s+", " ", SKILL.read_text())
     assert "use exactly what they give you" in skill
