@@ -1,0 +1,29 @@
+uid: TEST-0011
+type: test
+status: ratified
+title: write records the shape graph and each register's decision, once
+text: 'tests/test_shape.py, test_written_graph_records_where_it_was_shaped: a shaping
+  with two register decisions and a name decision writes estate/, whose throughline.toml
+  holds [shaped_by] graph ../estate-shape and registers INT and THR mapped to their
+  decisions; the path reaches the shape graph; tl check passes on estate/; a second
+  write leaves the file unchanged.'
+normative: true
+links:
+- target: REQ-0011
+  type: verifies
+attrs:
+  origin: ai
+ratifications:
+- by: Henry Grech-Cini
+  at: '2026-10-26T18:18:32Z'
+  fingerprint: sha256:4aa7d2dc5d902bdb941008608860889c7e632bbd412fe6b316a61451625763e8
+  content:
+    type: test
+    text: 'tests/test_shape.py, test_written_graph_records_where_it_was_shaped: a
+      shaping with two register decisions and a name decision writes estate/, whose
+      throughline.toml holds [shaped_by] graph ../estate-shape and registers INT
+      and THR mapped to their decisions; the path reaches the shape graph; tl check
+      passes on estate/; a second write leaves the file unchanged.'
+    normative: true
+    derived: false
+    attrs: {}

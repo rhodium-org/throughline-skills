@@ -357,6 +357,32 @@ def cmd_new(repo: Path, a) -> None:
 
 
 # tl: implements skill/REQ-0001@7f04bbb468ac, skill/REQ-0002@1da7cc6bf70c, skill/REQ-0003@0f49b897c80f, skill/REQ-0004@a8eb459a52e8
+
+# tl: implements skill/REQ-0011
+def record_lineage(repo: Path, shape: Path, target: Path) -> None:
+    """Write, into the second graph's throughline.toml, where it was shaped: the
+    shape graph (by its path from the second graph) and, for each register, the
+    decision that made it. tl reads past a table it does not know, so this is
+    configuration and nothing else; a reader such as history.iddn.uk draws the
+    lineage from it without opening the shape graph. Written once, and never
+    over a [shaped_by] already there."""
+    cfg = target / "throughline.toml"
+    if "shaped_by" in config(target):
+        return
+    regs = {i["attrs"]["prefix"]: i["uid"] for i in local_items(shape)
+            if i["type"] == "decision" and i.get("attrs", {}).get("kind") == "register"
+            and i.get("attrs", {}).get("prefix")}
+    pairs = ", ".join(f'{prefix} = "{uid}"' for prefix, uid in sorted(regs.items()))
+    with cfg.open("a") as f:
+        f.write(
+            "\n# Where this graph was shaped (tl:shape): the shape graph holding the\n"
+            "# reasoning behind its name and registers, and the decision that made each\n"
+            "# register. A source declared later for a reason the shape graph records\n"
+            "# carries its own `shaped_by = [\"<UID>\", ...]`, naming items there.\n"
+            "[shaped_by]\n"
+            f'graph = "../{shape.name}"\n'
+            f"registers = {{ {pairs} }}\n")
+
 def cmd_write(repo: Path, a) -> None:
     shape = resolve(repo, a)
     name = shaped_name(shape)
@@ -374,7 +400,9 @@ def cmd_write(repo: Path, a) -> None:
         if pointer and shape.name != name + SUFFIX:
             # Written before shape graphs were named after their graph: name it now.
             final = name_shaping(repo, shape, name)
-            print(f"{target} was written from this shaping; renamed {shape.name} to {final.name}")
+            record_lineage(repo, final, target)
+            print(f"{target} was written from this shaping; renamed {shape.name} to {final.name}"
+                  " and recorded its lineage")
             return
         die(f"{target} already exists — the second graph has been written; add "
             "registers to it with `tl register new` by hand if a new decision "
@@ -430,8 +458,9 @@ def cmd_write(repo: Path, a) -> None:
                 f'namespace = "{name}"\n'
                 f'path = "../{name}"\n')
     final = name_shaping(repo, shape, name)
-    print(f"wrote {target} with {len(regs)} register(s), recorded the pointer, and "
-          f"named the shape graph {final}\nnext: run `check`; the new graph reports "
+    record_lineage(repo, final, target)
+    print(f"wrote {target} with {len(regs)} register(s), recorded the pointer and the "
+          f"lineage, and named the shape graph {final}\nnext: run `check`; the new graph reports "
           "empty-registers as a warning until its first layer is authored")
 
 
