@@ -1,0 +1,31 @@
+uid: REQ-0010
+type: requirement
+status: ratified
+title: The report prints on a console that cannot encode it
+text: The script writes its report as UTF-8 whatever the platform's default encoding
+  is, so on Windows, where piped output defaults to a code page such as cp1252 that
+  has no box-drawing or arrow characters, a run of any check prints its whole report
+  instead of exiting on a UnicodeEncodeError at the first such character in a heading
+  or an item's title.
+normative: true
+links:
+- target: INT-0001
+  type: derives_from
+attrs:
+  priority: must
+  origin: ai
+ratifications:
+- by: Henry Grech-Cini
+  at: '2026-10-28T19:23:28Z'
+  fingerprint: sha256:2e1655469e2214506f5f808b8069b0c4668c01e2fb693bd2f0adcfaf6bbeff98
+  content:
+    type: requirement
+    text: The script writes its report as UTF-8 whatever the platform's default encoding
+      is, so on Windows, where piped output defaults to a code page such as cp1252
+      that has no box-drawing or arrow characters, a run of any check prints its
+      whole report instead of exiting on a UnicodeEncodeError at the first such character
+      in a heading or an item's title.
+    normative: true
+    derived: false
+    attrs:
+      priority: must

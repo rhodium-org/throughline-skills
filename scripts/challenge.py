@@ -414,4 +414,7 @@ if __name__ == "__main__":
     # tl: implements tl-challenge/REQ-0009@df754ec5b91b
     if hasattr(signal, "SIGPIPE"):  # POSIX only; Windows has no SIGPIPE
         signal.signal(signal.SIGPIPE, signal.SIG_DFL)
+    # tl: implements tl-challenge/REQ-0010@2e1655469e22
+    for stream in (sys.stdout, sys.stderr):  # Windows pipes default to a code page
+        stream.reconfigure(encoding="utf-8")
     sys.exit(main())

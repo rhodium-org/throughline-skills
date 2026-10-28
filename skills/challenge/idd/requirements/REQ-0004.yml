@@ -19,6 +19,15 @@ links:
 attrs:
   priority: must
   origin: ai
+ratifications:
+- by: Henry Grech-Cini
+  at: '2026-10-28T19:23:28Z'
+  fingerprint: sha256:b97c2ab3dd01562fdf8a11525843c84982ca1f32f0431f24a870d4e293e0d7e6
+  content:
+    deleted:
+      reason: 'Moved upstream: throughline-challenger REQ-0010, REQ-0011 and REQ-0012
+        own this behaviour from v0.2.0; the skill''s procedure for it now sits in
+        REQ-0002 and REQ-0003.'
 deleted:
   reason: 'Moved upstream: throughline-challenger REQ-0010, REQ-0011 and REQ-0012
     own this behaviour from v0.2.0; the skill''s procedure for it now sits in REQ-0002

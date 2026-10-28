@@ -16,6 +16,14 @@ links:
 attrs:
   origin: ai
   method: automated
+ratifications:
+- by: Henry Grech-Cini
+  at: '2026-10-28T19:23:29Z'
+  fingerprint: sha256:13cc4a54a157d9ae4fc3cb6167904eaef430b3fa0cb170236e5f9e2d089ccc90
+  content:
+    deleted:
+      reason: Verified requirement REQ-0004 moved upstream to throughline-challenger
+        REQ-0010..0012, whose tests TEST-0010..0012 replace this one.
 deleted:
   reason: Verified requirement REQ-0004 moved upstream to throughline-challenger
     REQ-0010..0012, whose tests TEST-0010..0012 replace this one.

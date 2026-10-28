@@ -1,10 +1,11 @@
 """Fixture tests for the challenge skill's script.
 
-tl-challenge TEST-0001, TEST-0007 and TEST-0009; TEST-0008 is in
+tl-challenge TEST-0001, TEST-0007, TEST-0009 and TEST-0010; TEST-0008 is in
 test_tl_floor.py. Each test builds a throwaway graph with the real CLI and
 asserts what the script's commands report for it. Needs tl from throughline 3.11.0 or later on PATH:
 pip install 'throughline>=3.11.0'.
 """
+import os
 import re
 import shutil
 import subprocess
@@ -131,6 +132,25 @@ def test_script_starts_without_sigpipe():
     r = subprocess.run([sys.executable, "-c", code], text=True, capture_output=True)
     assert "SIGPIPE" not in r.stderr, r.stderr
     assert r.returncode == 0, r.stderr
+
+
+# tl: verifies tl-challenge/TEST-0010@c9fde9e5c3ce
+def test_report_prints_under_a_code_page_without_box_drawing(tmp_path):
+    """tl-challenge REQ-0010 / TEST-0010: Windows pipes default to cp1252."""
+    root = tmp_path / "graph"
+    run("tl", "-C", str(root), "init", "--no-demo", "--name", "fixture")
+    new(root, "INT", "The subject", type_="intent")
+    new(root, "REQ", "Every input → one output", type_="requirement",
+        attrs=["priority=must"], ground="INT-0001")
+    dump = tmp_path / "dump.json"
+    dump.write_text(run("tl", "-C", str(root), "dump").stdout)
+    env = {**os.environ, "PYTHONIOENCODING": "cp1252"}
+    r = subprocess.run([sys.executable, str(SCRIPT), "--dump", str(dump), "all"],
+                       text=True, encoding="utf-8", capture_output=True, env=env)
+    assert "UnicodeEncodeError" not in r.stderr, r.stderr
+    assert r.returncode == 0, r.stderr
+    assert "── universal ──" in r.stdout
+    assert "Every input → one output" in r.stdout
 
 
 # ── TEST-0001: from a dump, in a clean interpreter, every deterministic check ──
