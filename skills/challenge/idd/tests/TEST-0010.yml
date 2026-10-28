@@ -1,0 +1,15 @@
+uid: TEST-0010
+type: test
+status: proposed
+title: The report prints with cp1252 as the output encoding
+text: 'tests/test_challenge.py, test_report_prints_under_a_code_page_without_box_drawing:
+  runs `all` from a dump whose item title holds a character cp1252 cannot encode,
+  with PYTHONIOENCODING=cp1252 and output piped, and confirms it exits 0, prints
+  the section headings and the title, and raises no UnicodeEncodeError.'
+normative: true
+links:
+- target: REQ-0010
+  type: verifies
+attrs:
+  method: automated
+  origin: ai
