@@ -375,3 +375,47 @@ def test_migrate_rewrites_an_earlier_record(repo, tmp_path):  # TEST-0012
     jp.write_text(json.dumps(aged, indent=2) + "\n")
     assert assess("migrate", str(jp))["migrated"] == [str(jp)]
     assert jp.read_text() == today_json
+
+
+# tl: verifies tl-assess/TEST-0013@f174c7e322ce
+def test_record_at_an_earlier_commit_rebuilds_the_record_of_that_day(repo, tmp_path):  # TEST-0013
+    idd = graph_with_items(repo)
+    git(repo, "add", "-A")
+    git(repo, "commit", "-q", "-m", "A graph (INT-0001)")
+    first = git(repo, "rev-parse", "HEAD").stdout.strip()
+    git(repo, "tag", "v0.1")
+    item(idd / "requirements" / "REQ-0003.yml", "REQ-0003", "requirement", "A later requirement",
+         links=[("INT-0001", "derives_from")], attrs={"priority": "could", "origin": "ai"})
+    git(repo, "add", "-A")
+    git(repo, "commit", "-q", "-m", "A later item (REQ-0003)")
+    git(repo, "tag", "v0.2")
+    t = tmp_path / "s1.jsonl"
+    transcript(t)
+    coll = tmp_path / "collection"
+    now = assess("record", "-C", str(idd), "--name", "fixture", "--sessions", str(t), "--collection", str(coll))
+    then = assess("record", "-C", str(idd), "--name", "fixture", "--at", first, "--sessions", str(t), "--collection", str(coll))
+    # The graph, the history and the editions as they stood at the first commit.
+    assert now["graph"]["items_local"] == 6 and then["graph"]["items_local"] == 5
+    assert now["git"]["commits"] == 2 and then["git"]["commits"] == 1
+    assert [x["tag"] for x in now["git"]["tags"]] == ["v0.1", "v0.2"] and [x["tag"] for x in then["git"]["tags"]] == ["v0.1"]
+    assert then["provenance"]["repository_commit"] == first and then["provenance"]["working_tree_clean"] is True
+    assert then["done"]["criteria"]["working_tree_clean"] is True
+    # Dated by the commit, in UTC, and named by that date; marked as rebuilt and by what.
+    when = git(repo, "log", "-1", "--format=%cI", first).stdout.strip()
+    from datetime import datetime, timezone
+    assert then["recorded_at"] == datetime.fromisoformat(when).astimezone(timezone.utc).isoformat(timespec="seconds")
+    assert Path(then["written"][0]).name.startswith(then["recorded_at"][:10])
+    assert then["reconstructed"]["at"] == first and then["reconstructed"]["migrated_for_measurement"] is False
+    assert then["reconstructed"]["sessions_until"] == then["recorded_at"]
+    assert "reconstructed" not in now
+    # A transcript from before the commit still counts; the record stays portable.
+    assert then["sessions"]["count"] == 1 and not os.path.isabs(then["graph_root"])
+    md = Path(then["written"][1]).read_text()
+    assert "| Reconstructed | yes, on " in md and "| Reconstructed | no, taken at the time |" in Path(now["written"][1]).read_text()
+    # The index sorts the rebuilt record into the history and marks it; the checkout is gone.
+    index = (coll / "README.md").read_text()
+    assert index.index(then["recorded_at"][:10] + " †") < index.index(now["recorded_at"][:10] + " |") and "† Reconstructed" in index
+    assert git(repo, "worktree", "list").stdout.strip().count("\n") == 0
+    # A name that is no commit, and a commit without the graph, are refused.
+    r = assess("record", "-C", str(idd), "--name", "fixture", "--at", "no-such-ref", "--collection", str(coll), check=False)
+    assert r.returncode != 0 and "names no commit" in r.stderr

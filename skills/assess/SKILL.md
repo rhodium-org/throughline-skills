@@ -165,6 +165,37 @@ python3 "$S" migrate <records> --repo <where the repository is now>
 `--repo` is needed only when the repository is no longer at the path the
 record names. A record already in the current form is left alone.
 
+## Rebuilding the history
+
+A piece of work assessed once, at the end, has no trend. `record --at COMMIT`
+rebuilds the record as it would have been taken at that commit, so a series of
+them is the history of the work:
+
+```sh
+for c in $(git log --reverse --format=%H -- <graph root>); do
+  python3 "$S" record -C <graph root> --name <slug> --label "<one line>" \
+    --at "$c" --paths <paths> --sessions <transcripts...> --collection <collection>
+done
+```
+
+Each is measured in a throwaway checkout of the commit, which is removed however
+the measuring ends and never touches the repository. Its history and tags are
+counted up to that commit only, its transcripts up to the commit's time (or
+`--until`), and it is dated and named by the commit, so it sorts into the
+collection where it belongs. A graph at a format older than today's `tl` is
+migrated inside the checkout alone.
+
+The record says it was rebuilt: `reconstructed` in the JSON names the commit,
+the day it was measured and whether the graph was migrated; the Markdown's
+table and the index's `†` carry the same. Read such a record for what it is:
+the graph and the history exactly as they stood, measured with the tools of the
+day it was rebuilt, and the sessions up to then. Never edit `recorded_at` by
+hand to the same end; the record would then claim to have been taken at the
+time.
+
+One commit per day the graph changed is usually the right grain; every commit
+is right when the day held several editions.
+
 ## What this skill is not
 
 It does not judge the work's quality by reading the code or the items; the
