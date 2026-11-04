@@ -203,16 +203,34 @@ def is_signed(text: str) -> bool:
     return bool(re.search(r"^ratifications:\s*$", text, re.M)) or "ratified_by:" in text
 
 
+FORMAT3_SIGNATURE_RE = re.compile(r"^(\s+)(ratified_by|ratified_fingerprint|ratified_id|ratified_content):")
+
+
 def unsigned(text: str) -> list[str]:
-    """The item file's lines without its signature and withdrawal lists, which
-    run from their top-level key to the next top-level key."""
-    out, skipping = [], False
+    """The item file's lines without its signature: the format-4 ratification
+    and withdrawal lists, which run from their top-level key to the next
+    top-level key, and the format-3 ratified_* attributes with the block
+    nested under ratified_content. A signature moved from one form to the
+    other by `tl migrate` then reads as no change at all."""
+    out, skipping, nested = [], False, None
     for line in text.splitlines():
+        if nested is not None:
+            indent = len(line) - len(line.lstrip())
+            if line.strip() and indent <= nested:
+                nested = None
+            else:
+                continue
         top = bool(line) and not line[0].isspace() and not line.startswith("-")
         if top:
             skipping = line.split(":", 1)[0] in SIGNATURE_BLOCKS
-        if not skipping:
-            out.append(line)
+        if skipping:
+            continue
+        m = FORMAT3_SIGNATURE_RE.match(line)
+        if m:
+            if m.group(2) == "ratified_content":
+                nested = len(m.group(1))
+            continue
+        out.append(line)
     return out
 
 
@@ -278,7 +296,7 @@ def measure_graph(dumped: dict) -> dict:
 
 # ── git ─────────────────────────────────────────────────────────────────────
 
-# tl: implements tl-assess/REQ-0002@8886c117c6c0, tl-assess/REQ-0008@017bcd6c17c0
+# tl: implements tl-assess/REQ-0002@fbd9c85b75a5, tl-assess/REQ-0008@017bcd6c17c0
 def measure_git(repo: str, items_dir: str | None, paths: list[str] | None = None) -> dict:
     scope = ["--", *paths] if paths else []
     log = run(["git", "-C", repo, "log", "--format=%H%x1f%aI%x1f%an%x1f%s", "--reverse", *scope], check=True).stdout

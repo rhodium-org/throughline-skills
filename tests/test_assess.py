@@ -98,7 +98,7 @@ def test_graph_measure_counts_the_fixture(repo):  # TEST-0001
     assert g["citations"] == 0 and g["local_links"] == 4
 
 
-# tl: verifies tl-assess/TEST-0002@0193c71f7fae
+# tl: verifies tl-assess/TEST-0002@0c30c0ab16a5
 def test_git_measure_counts_commits_tags_citations_and_amendments(repo):  # TEST-0002
     idd = graph_with_items(repo)
     git(repo, "add", "-A")
@@ -122,6 +122,21 @@ def test_git_measure_counts_commits_tags_citations_and_amendments(repo):  # TEST
     assert g["items_ratified"] >= 1
     assert g["items_amended_after_ratification"] == 1 and g["amending_commits"] == 1
     assert g["authors"] == {"Tester": 4}
+    # A signature carried from the format-3 attributes to the format-4 list, as tl migrate
+    # does, changes nothing about the item and is not an amendment.
+    q = idd / "requirements" / "REQ-0002.yml"
+    q.write_text(q.read_text() + "  ratified_by: Ada Lovelace\n  ratified_fingerprint: sha256:00\n"
+                 "  ratified_content:\n    type: requirement\n    text: A proposed requirement.\n    normative: true\n")
+    git(repo, "add", "-A")
+    git(repo, "commit", "-q", "-m", "REQ-0002 signed in the format-3 shape")
+    lines = [l for l in q.read_text().splitlines() if not l.startswith(("  ratified_", "    "))]
+    q.write_text("\n".join(lines) + "\nratifications:\n- by: Ada Lovelace\n  fingerprint: sha256:00\n"
+                 "  content:\n    type: requirement\n    text: A proposed requirement.\n    normative: true\n  revision: abc\n")
+    git(repo, "add", "-A")
+    git(repo, "commit", "-q", "-m", "REQ-0002 migrated to the format-4 shape")
+    h = assess("git", "-C", str(idd))
+    assert h["items_ratified"] == g["items_ratified"] + 1
+    assert h["items_amended_after_ratification"] == 1 and h["amending_commits"] == 1
 
 
 # tl: verifies tl-assess/TEST-0009@fb5cb4b78fe3
