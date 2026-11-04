@@ -8,7 +8,8 @@ text: In a throwaway repository commit an item file, commit its ratification, co
   assert the counts, the editions, the citing ratio and one item amended after ratification.
   Then sign a second item in the format-3 attribute shape, commit, rewrite that signature
   in the format-4 list shape as tl migrate does, commit, and assert the amended count
-  is unchanged.
+  is unchanged; then retire a signed item with tl delete, commit, and assert it is
+  unchanged again.
 normative: true
 links:
 - target: REQ-0002

@@ -98,7 +98,7 @@ def test_graph_measure_counts_the_fixture(repo):  # TEST-0001
     assert g["citations"] == 0 and g["local_links"] == 4
 
 
-# tl: verifies tl-assess/TEST-0002@0c30c0ab16a5
+# tl: verifies tl-assess/TEST-0002@23a25d39f043
 def test_git_measure_counts_commits_tags_citations_and_amendments(repo):  # TEST-0002
     idd = graph_with_items(repo)
     git(repo, "add", "-A")
@@ -137,6 +137,12 @@ def test_git_measure_counts_commits_tags_citations_and_amendments(repo):  # TEST
     h = assess("git", "-C", str(idd))
     assert h["items_ratified"] == g["items_ratified"] + 1
     assert h["items_amended_after_ratification"] == 1 and h["amending_commits"] == 1
+    # Retiring a signed item is a status move with its tombstone, not an amendment.
+    run("tl", "-C", str(idd), "delete", "TEST-0001", "--reason", "Retired in a test", check=False)
+    git(repo, "add", "-A")
+    git(repo, "commit", "-q", "-m", "TEST-0001 retired")
+    k = assess("git", "-C", str(idd))
+    assert k["items_amended_after_ratification"] == 1 and k["amending_commits"] == 1
 
 
 # tl: verifies tl-assess/TEST-0009@fb5cb4b78fe3

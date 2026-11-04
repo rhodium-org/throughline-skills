@@ -9,9 +9,10 @@ text: 'From the repository holding the graph the script reports the commit count
   whose message names an item by UID, lines added and removed, and, for every item
   file that has ever carried a ratification, whether any commit touched it after
   the commit that first ratified it, as the count of items amended after ratification
-  and the count of amending commits. A change to the signature alone is not an amendment:
-  a re-ratification, a status move, or a signature carried from the format-3 attributes
-  to the format-4 list by tl migrate.'
+  and the count of amending commits. A change to the signature or the status alone
+  is not an amendment: a re-ratification, a status move, the tombstone block tl delete
+  writes with it, or a signature carried from the format-3 attributes to the format-4
+  list by tl migrate.'
 normative: true
 links:
 - target: INT-0001

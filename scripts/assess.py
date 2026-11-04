@@ -194,8 +194,9 @@ def portable(rec: dict, repo: str | None = None) -> dict:
 
 # A format-4 item file carries its signatures, and any withdrawals, as top-level
 # lists; format 3 carried them as flat attributes. Either is the human's record of
-# a signature, never a change to the item.
-SIGNATURE_BLOCKS = ("ratifications", "withdrawals")
+# a signature, never a change to the item. The `deleted` block tl delete writes is
+# the record of a status move, read the same way.
+SIGNATURE_BLOCKS = ("ratifications", "withdrawals", "deleted")
 
 
 def is_signed(text: str) -> bool:
@@ -210,8 +211,9 @@ def unsigned(text: str) -> list[str]:
     """The item file's lines without its signature: the format-4 ratification
     and withdrawal lists, which run from their top-level key to the next
     top-level key, and the format-3 ratified_* attributes with the block
-    nested under ratified_content. A signature moved from one form to the
-    other by `tl migrate` then reads as no change at all."""
+    nested under ratified_content; and the tombstone block tl delete writes,
+    which belongs to the status move. A signature moved from one form to the
+    other by `tl migrate`, or an item retired, then reads as no change at all."""
     out, skipping, nested = [], False, None
     for line in text.splitlines():
         if nested is not None:
@@ -296,7 +298,7 @@ def measure_graph(dumped: dict) -> dict:
 
 # ── git ─────────────────────────────────────────────────────────────────────
 
-# tl: implements tl-assess/REQ-0002@fbd9c85b75a5, tl-assess/REQ-0008@017bcd6c17c0
+# tl: implements tl-assess/REQ-0002@f8882ddd911d, tl-assess/REQ-0008@017bcd6c17c0
 def measure_git(repo: str, items_dir: str | None, paths: list[str] | None = None) -> dict:
     scope = ["--", *paths] if paths else []
     log = run(["git", "-C", repo, "log", "--format=%H%x1f%aI%x1f%an%x1f%s", "--reverse", *scope], check=True).stdout
