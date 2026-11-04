@@ -93,6 +93,18 @@ def is_local(uid: str) -> bool:
     return ":" not in uid
 
 
+RECORDS_DIR = "docs/assessment"
+
+
+# tl: implements tl-assess/REQ-0005@08049277a4ec
+def tree_clean(repo: str) -> bool:
+    """Whether the working tree is clean, not counting the records this script
+    writes under docs/assessment: a record of the work is not a change to it,
+    and the second graph recorded in a repository would otherwise never be done."""
+    out = run(["git", "-C", repo, "status", "--porcelain", "--", ".", f":(exclude){RECORDS_DIR}"], cwd=repo)
+    return out.stdout.strip() == ""
+
+
 def repo_of(root: str | None, repo: str | None) -> str:
     if repo:
         return os.path.realpath(repo)
@@ -510,7 +522,7 @@ def plugin_root() -> Path:
 def measure_provenance(root: str, repo: str, clean: bool | None = None) -> dict:
     head = run(["git", "-C", repo, "rev-parse", "HEAD"]).stdout.strip() or None
     if clean is None:
-        clean = run(["git", "-C", repo, "status", "--porcelain"]).stdout.strip() == ""
+        clean = tree_clean(repo)
     sources = []
     toml = Path(root) / "throughline.toml"
     if toml.exists():
@@ -544,7 +556,7 @@ def measure_provenance(root: str, repo: str, clean: bool | None = None) -> dict:
 
 # ── done ────────────────────────────────────────────────────────────────────
 
-# tl: implements tl-assess/REQ-0005@6bda53c41f10
+# tl: implements tl-assess/REQ-0005@08049277a4ec
 def measure_done(root: str, repo: str, results: str | None, clean: bool | None = None) -> dict:
     check = run([require_tl(), "-C", root, "check", "--strict"])
     m = re.search(r"(\d+) error\(s\), (\d+) warning\(s\)", check.stdout + check.stderr)
@@ -553,7 +565,7 @@ def measure_done(root: str, repo: str, results: str | None, clean: bool | None =
     dumped = load_dump(root, None)
     proposed = sum(1 for i in items_of(dumped) if is_local(str(i.get("uid", ""))) and i.get("status") in ("proposed", "draft"))
     if clean is None:
-        clean = run(["git", "-C", repo, "status", "--porcelain"]).stdout.strip() == ""
+        clean = tree_clean(repo)
     res = parse_results(results)
     criteria = {
         "strict_check_clean": errors == 0,
@@ -572,17 +584,20 @@ def utc(iso: str) -> str:
     return dt.datetime.fromisoformat(iso).astimezone(dt.timezone.utc).isoformat(timespec="seconds")
 
 
-# tl: implements tl-assess/REQ-0011@6f1cb4644d37
+# tl: implements tl-assess/REQ-0011@a432dd5c2c67
 class Checkout:
     """A throwaway checkout of one commit of the repository, as a git worktree
-    under a temporary directory, removed however the measuring ends. Nothing
-    done inside it reaches the repository."""
+    beside the repository (so a `path` source that points outside it resolves
+    as it does from the repository), or under the system's temporary directory
+    when nothing can be written beside it; removed however the measuring ends.
+    Nothing done inside it reaches the repository."""
 
     def __init__(self, repo: str, commit: str):
         self.repo, self.commit, self.path = repo, commit, None
 
     def __enter__(self) -> str:
-        self.path = tempfile.mkdtemp(prefix="assess-at-")
+        beside = os.path.dirname(os.path.realpath(self.repo))
+        self.path = tempfile.mkdtemp(prefix=".assess-at-", dir=beside if os.access(beside, os.W_OK) else None)
         out = run(["git", "-C", self.repo, "worktree", "add", "--detach", self.path, self.commit])
         if out.returncode != 0:
             shutil.rmtree(self.path, ignore_errors=True)
@@ -595,7 +610,7 @@ class Checkout:
         shutil.rmtree(self.path, ignore_errors=True)
 
 
-# tl: implements tl-assess/REQ-0011@6f1cb4644d37
+# tl: implements tl-assess/REQ-0011@a432dd5c2c67
 def readable(root: str) -> bool:
     """Make a checkout's graph readable by this tl: a graph at an older format
     is migrated in place, which is lossless and touches only the throwaway
@@ -606,7 +621,10 @@ def readable(root: str) -> bool:
         return False
     if "format version" not in (probe.stderr + probe.stdout):
         raise SystemExit((probe.stderr or probe.stdout).strip())
-    run([require_tl(), "-C", root, "migrate"], check=True)
+    migrated = run([require_tl(), "-C", root, "migrate"])
+    if migrated.returncode != 0:
+        raise SystemExit("the graph at that commit could not be migrated to read it:\n"
+                         + (migrated.stderr or migrated.stdout).strip())
     return True
 
 
@@ -623,7 +641,7 @@ def measure_all(args, root: str, repo: str, clean: bool | None, until: str | Non
     }
 
 
-# tl: implements tl-assess/REQ-0006@de9d5e7acb9e, tl-assess/REQ-0011@6f1cb4644d37
+# tl: implements tl-assess/REQ-0006@de9d5e7acb9e, tl-assess/REQ-0011@a432dd5c2c67
 def record(args) -> dict:
     root = os.path.realpath(args.path)
     repo = repo_of(root, args.repo)
@@ -651,7 +669,7 @@ def record(args) -> dict:
         rec = {**head, "recorded_at": now, "graph_root": root, "repository": repo,
                **measure_all(args, root, repo, clean=None, until=args.until)}
     rec = portable(rec)
-    out_dir = Path(args.out or os.path.join(repo, "docs", "assessment"))
+    out_dir = Path(args.out or os.path.join(repo, RECORDS_DIR))
     out_dir.mkdir(parents=True, exist_ok=True)
     # Date and time in the name: a second record on the same day never overwrites the first.
     stem = f"{rec['recorded_at'][:19].replace(':', '')}-{args.name}"

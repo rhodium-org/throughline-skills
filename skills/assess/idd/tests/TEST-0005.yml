@@ -4,7 +4,7 @@ status: ratified
 title: Done fails on each criterion and passes when all hold
 text: On a throwaway graph assert done exits 1 with a proposed item, with a dirty
   working tree, and with a result file showing a failure, and exits 0 once each is
-  put right.
+  put right; and that a stray file under docs/assessment alone leaves the tree clean.
 normative: true
 links:
 - target: REQ-0005

@@ -205,7 +205,7 @@ def test_sessions_measure_a_synthetic_transcript(tmp_path):  # TEST-0004
     assert windowed["sessions"][0]["user_turns"] == 1 and windowed["sessions"][0]["api_calls"] == 2
 
 
-# tl: verifies tl-assess/TEST-0005@42136a1e4c1f
+# tl: verifies tl-assess/TEST-0005@a9c7b70122a2
 def test_done_fails_per_criterion_then_passes(repo, tmp_path):  # TEST-0005
     idd = graph_with_items(repo)
     git(repo, "add", "-A")
@@ -218,6 +218,11 @@ def test_done_fails_per_criterion_then_passes(repo, tmp_path):  # TEST-0005
     assert json.loads(r.stdout)["criteria"]["working_tree_clean"] is False
     git(repo, "add", "-A")
     git(repo, "commit", "-q", "-m", "Ratified (REQ-0001)")
+    # A record of the work under docs/assessment is not a change to the work.
+    (repo / "docs" / "assessment").mkdir(parents=True)
+    (repo / "docs" / "assessment" / "earlier.json").write_text("{}")
+    r = run(sys.executable, str(SCRIPT), "done", "-C", str(idd), check=False)
+    assert json.loads(r.stdout)["criteria"]["working_tree_clean"] is True
     results = tmp_path / "r.txt"
     results.write_text("# pass 1\n# fail 1\n")
     r = run(sys.executable, str(SCRIPT), "done", "-C", str(idd), "--results", str(results), check=False)
