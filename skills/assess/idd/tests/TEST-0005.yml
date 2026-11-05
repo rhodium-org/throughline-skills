@@ -4,7 +4,7 @@ status: ratified
 title: Done fails on each criterion and passes when all hold
 text: On a throwaway graph assert done exits 1 with a proposed item, with a dirty
   working tree, and with a result file showing a failure, and exits 0 once each is
-  put right.
+  put right; and that a stray file under docs/assessment alone leaves the tree clean.
 normative: true
 links:
 - target: REQ-0005
@@ -14,13 +14,14 @@ attrs:
   method: automated
 ratifications:
 - by: Henry Grech-Cini
-  fingerprint: sha256:42136a1e4c1f935f5d0a9168bda371cdd535e05da0b90590b43bcef8e24162f2
+  at: '2026-11-05T07:35:20Z'
+  fingerprint: sha256:a9c7b70122a2ad031fc0a73d386d3bf4ae1c3cadaf2257ff2bbcfd6c66283ce1
   content:
     type: test
     text: On a throwaway graph assert done exits 1 with a proposed item, with a dirty
       working tree, and with a result file showing a failure, and exits 0 once each
-      is put right.
+      is put right; and that a stray file under docs/assessment alone leaves the
+      tree clean.
     normative: true
     derived: false
     attrs: {}
-  revision: 7cffc42785349ec63b7488e17469fc7c323ecf31

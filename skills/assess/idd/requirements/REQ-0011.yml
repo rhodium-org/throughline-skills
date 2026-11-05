@@ -1,0 +1,62 @@
+uid: REQ-0011
+type: requirement
+status: ratified
+title: A record can be taken as of an earlier commit, so the history of a piece of
+  work can be rebuilt as a series of records
+text: record --at COMMIT measures the graph, the repository, the documents, the tests
+  and the done criteria in a throwaway checkout of that commit, made beside the repository
+  so that a path source pointing outside it resolves as it does from the repository
+  (or under the system's temporary directory when nothing can be written beside it),
+  removed however the measuring ends and never touching the repository; counts the
+  repository's history, and only the tags on it, up to that commit; counts transcript
+  entries only up to the commit's time unless --until is given; migrates the checkout's
+  graph when it is at a format older than this tl reads, and reports a migrate that
+  fails in tl's own words; dates the record by the commit's time in UTC and names
+  its files by it, so the records sort into the history; names the graph root and
+  the repository as a record taken today does; and marks the record as reconstructed,
+  with the commit, the day it was measured, the instant the transcripts were cut
+  at and whether the graph was migrated, in the JSON, in the Markdown's measured
+  table and in the collection's index. A name that is no commit, and a commit in
+  which the graph does not exist, are refused.
+rationale: 'The collection shows a trend only where records exist, and a piece of
+  work assessed once at the end has none. presentation-manager held eight graphs
+  and 464 commits over 26 days with one record among them (17 October 2026), so whether
+  its exploration was settling could not be read from the collection. The repository
+  holds the graph at every commit and the tools of today read it, so the record of
+  any day can be rebuilt from what a person did not choose after the fact. Rejected:
+  editing recorded_at by hand, which the skill forbids because the record would then
+  claim to have been taken at the time; and a script beside the tool that would re-implement
+  its measures, unwatched.'
+normative: true
+links:
+- target: INT-0001
+  type: derives_from
+attrs:
+  priority: should
+  origin: ai
+ratifications:
+- by: Henry Grech-Cini
+  at: '2026-11-05T07:35:04Z'
+  fingerprint: sha256:a432dd5c2c672b798ef7e480b194cb7fd606319d03ebdd5c4b5cbfea7ae49557
+  content:
+    type: requirement
+    text: record --at COMMIT measures the graph, the repository, the documents, the
+      tests and the done criteria in a throwaway checkout of that commit, made beside
+      the repository so that a path source pointing outside it resolves as it does
+      from the repository (or under the system's temporary directory when nothing
+      can be written beside it), removed however the measuring ends and never touching
+      the repository; counts the repository's history, and only the tags on it, up
+      to that commit; counts transcript entries only up to the commit's time unless
+      --until is given; migrates the checkout's graph when it is at a format older
+      than this tl reads, and reports a migrate that fails in tl's own words; dates
+      the record by the commit's time in UTC and names its files by it, so the records
+      sort into the history; names the graph root and the repository as a record
+      taken today does; and marks the record as reconstructed, with the commit, the
+      day it was measured, the instant the transcripts were cut at and whether the
+      graph was migrated, in the JSON, in the Markdown's measured table and in the
+      collection's index. A name that is no commit, and a commit in which the graph
+      does not exist, are refused.
+    normative: true
+    derived: false
+    attrs:
+      priority: should

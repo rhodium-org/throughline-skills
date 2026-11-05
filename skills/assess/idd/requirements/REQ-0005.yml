@@ -2,11 +2,13 @@ uid: REQ-0005
 type: requirement
 status: ratified
 title: Done is a fixed point the script checks and can gate on
-text: |-
-  The done command reports whether the strict check has no error, the
-  generated documents are current, no live item is proposed or draft, the working
-  tree is clean, and, when a result file is given, no test failed. It exits zero
-  only when every criterion holds, so it can gate a release or a hand-off.
+text: 'The done command reports whether the strict check has no error, the generated
+  documents are current, no live item is proposed or draft, the working tree is clean,
+  and, when a result file is given, no test failed. It exits zero only when every
+  criterion holds, so it can gate a release or a hand-off. The records this script
+  writes under docs/assessment do not count against a clean tree: a record of the
+  work is not a change to it, and the second graph recorded in a repository would
+  otherwise never be done.'
 normative: true
 links:
 - target: INT-0001
@@ -16,16 +18,18 @@ attrs:
   origin: ai
 ratifications:
 - by: Henry Grech-Cini
-  fingerprint: sha256:6bda53c41f1055212ae42378119cde7863c7c8df9bc90033a4b7706a459a7931
+  at: '2026-11-05T07:35:19Z'
+  fingerprint: sha256:08049277a4ec2e0b99f6bb8b01c3d3047d66bc22fb4c9c89c261a87fc9e860ad
   content:
     type: requirement
-    text: |-
-      The done command reports whether the strict check has no error, the
-      generated documents are current, no live item is proposed or draft, the working
-      tree is clean, and, when a result file is given, no test failed. It exits zero
-      only when every criterion holds, so it can gate a release or a hand-off.
+    text: 'The done command reports whether the strict check has no error, the generated
+      documents are current, no live item is proposed or draft, the working tree
+      is clean, and, when a result file is given, no test failed. It exits zero only
+      when every criterion holds, so it can gate a release or a hand-off. The records
+      this script writes under docs/assessment do not count against a clean tree:
+      a record of the work is not a change to it, and the second graph recorded in
+      a repository would otherwise never be done.'
     normative: true
     derived: false
     attrs:
       priority: must
-  revision: 7cffc42785349ec63b7488e17469fc7c323ecf31

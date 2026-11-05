@@ -1,0 +1,45 @@
+uid: TEST-0013
+type: test
+status: ratified
+title: A record taken at an earlier commit is that commit's graph, history and editions,
+  dated and marked as rebuilt
+text: 'tests/test_assess.py, test_record_at_an_earlier_commit_rebuilds_the_record_of_that_day:
+  build a fixture graph, commit and tag it, add an item, commit and tag again; record
+  at HEAD and at the first commit into one collection. Assert the earlier record
+  counts the first commit''s five items, one commit and one tag where the later counts
+  six, two and two; names the first commit with a clean tree; is dated by the commit''s
+  time in UTC, with its files named by that date and the transcripts cut at it; carries
+  reconstructed with the commit and no migration, where the record taken now carries
+  none; counts a transcript from before the commit and names no absolute path; says
+  in its Markdown table that it was rebuilt, where the other says it was taken at
+  the time; sorts before the later record in the index under the dagger with its
+  note; and leaves no worktree behind. A name that is no commit is refused with the
+  reason.'
+normative: true
+links:
+- target: REQ-0011
+  type: verifies
+attrs:
+  method: automated
+  origin: ai
+ratifications:
+- by: Henry Grech-Cini
+  at: '2026-11-05T07:35:06Z'
+  fingerprint: sha256:f174c7e322cee9427cde3767fd1b62c77f8ef028e7d5b213950bd8156c7e9d7c
+  content:
+    type: test
+    text: 'tests/test_assess.py, test_record_at_an_earlier_commit_rebuilds_the_record_of_that_day:
+      build a fixture graph, commit and tag it, add an item, commit and tag again;
+      record at HEAD and at the first commit into one collection. Assert the earlier
+      record counts the first commit''s five items, one commit and one tag where
+      the later counts six, two and two; names the first commit with a clean tree;
+      is dated by the commit''s time in UTC, with its files named by that date and
+      the transcripts cut at it; carries reconstructed with the commit and no migration,
+      where the record taken now carries none; counts a transcript from before the
+      commit and names no absolute path; says in its Markdown table that it was rebuilt,
+      where the other says it was taken at the time; sorts before the later record
+      in the index under the dagger with its note; and leaves no worktree behind.
+      A name that is no commit is refused with the reason.'
+    normative: true
+    derived: false
+    attrs: {}

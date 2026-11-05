@@ -26,6 +26,7 @@ Usage:
   assess.py record   -C ROOT --name NAME [--repo DIR] [--sessions FILE...]
                      [--tests-glob PATTERN] [--results FILE] [--out DIR]
                      [--collection DIR] [--label TEXT] [--paths PATH...]
+                     [--at COMMIT]
   assess.py migrate  FILE.json... [--repo DIR]
 
 A record holds no absolute path: the graph root is named relative to the
@@ -33,6 +34,13 @@ repository, the repository by its origin, a transcript by its file name, a
 session's working directory relative to the repository and the script relative
 to the plugin. `migrate` brings a record written before that rule to the same
 form in place, its numbers untouched.
+
+`record --at COMMIT` rebuilds the record as it would have been taken at that
+commit: the graph, repository, documents, tests and done criteria are measured
+in a throwaway checkout of the commit, the history and tags only up to it, the
+transcripts only up to its time, and the record is dated by the commit and
+marked as reconstructed. A graph older than this tl reads is migrated in the
+checkout alone. A series of such records is the history of a piece of work.
 """
 from __future__ import annotations
 
@@ -47,6 +55,7 @@ import shutil
 import platform
 import subprocess
 import sys
+import tempfile
 import tomllib
 from collections import Counter, defaultdict
 from pathlib import Path
@@ -82,6 +91,18 @@ def items_of(dumped: dict) -> list[dict]:
 
 def is_local(uid: str) -> bool:
     return ":" not in uid
+
+
+RECORDS_DIR = "docs/assessment"
+
+
+# tl: implements tl-assess/REQ-0005@08049277a4ec
+def tree_clean(repo: str) -> bool:
+    """Whether the working tree is clean, not counting the records this script
+    writes under docs/assessment: a record of the work is not a change to it,
+    and the second graph recorded in a repository would otherwise never be done."""
+    out = run(["git", "-C", repo, "status", "--porcelain", "--", ".", f":(exclude){RECORDS_DIR}"], cwd=repo)
+    return out.stdout.strip() == ""
 
 
 def repo_of(root: str | None, repo: str | None) -> str:
@@ -173,8 +194,9 @@ def portable(rec: dict, repo: str | None = None) -> dict:
 
 # A format-4 item file carries its signatures, and any withdrawals, as top-level
 # lists; format 3 carried them as flat attributes. Either is the human's record of
-# a signature, never a change to the item.
-SIGNATURE_BLOCKS = ("ratifications", "withdrawals")
+# a signature, never a change to the item. The `deleted` block tl delete writes is
+# the record of a status move, read the same way.
+SIGNATURE_BLOCKS = ("ratifications", "withdrawals", "deleted")
 
 
 def is_signed(text: str) -> bool:
@@ -182,16 +204,35 @@ def is_signed(text: str) -> bool:
     return bool(re.search(r"^ratifications:\s*$", text, re.M)) or "ratified_by:" in text
 
 
+FORMAT3_SIGNATURE_RE = re.compile(r"^(\s+)(ratified_by|ratified_fingerprint|ratified_id|ratified_content):")
+
+
 def unsigned(text: str) -> list[str]:
-    """The item file's lines without its signature and withdrawal lists, which
-    run from their top-level key to the next top-level key."""
-    out, skipping = [], False
+    """The item file's lines without its signature: the format-4 ratification
+    and withdrawal lists, which run from their top-level key to the next
+    top-level key, and the format-3 ratified_* attributes with the block
+    nested under ratified_content; and the tombstone block tl delete writes,
+    which belongs to the status move. A signature moved from one form to the
+    other by `tl migrate`, or an item retired, then reads as no change at all."""
+    out, skipping, nested = [], False, None
     for line in text.splitlines():
+        if nested is not None:
+            indent = len(line) - len(line.lstrip())
+            if line.strip() and indent <= nested:
+                nested = None
+            else:
+                continue
         top = bool(line) and not line[0].isspace() and not line.startswith("-")
         if top:
             skipping = line.split(":", 1)[0] in SIGNATURE_BLOCKS
-        if not skipping:
-            out.append(line)
+        if skipping:
+            continue
+        m = FORMAT3_SIGNATURE_RE.match(line)
+        if m:
+            if m.group(2) == "ratified_content":
+                nested = len(m.group(1))
+            continue
+        out.append(line)
     return out
 
 
@@ -257,7 +298,7 @@ def measure_graph(dumped: dict) -> dict:
 
 # ── git ─────────────────────────────────────────────────────────────────────
 
-# tl: implements tl-assess/REQ-0002@8886c117c6c0, tl-assess/REQ-0008@017bcd6c17c0
+# tl: implements tl-assess/REQ-0002@f8882ddd911d, tl-assess/REQ-0008@017bcd6c17c0
 def measure_git(repo: str, items_dir: str | None, paths: list[str] | None = None) -> dict:
     scope = ["--", *paths] if paths else []
     log = run(["git", "-C", repo, "log", "--format=%H%x1f%aI%x1f%an%x1f%s", "--reverse", *scope], check=True).stdout
@@ -269,7 +310,9 @@ def measure_git(repo: str, items_dir: str | None, paths: list[str] | None = None
     authors = Counter(c[2] for c in commits)
     citing = sum(1 for c in commits if UID_RE.search(c[3]))
     # A lightweight tag has no creator date of its own; the commit's date serves both kinds.
-    tag_names = run(["git", "-C", repo, "tag", "--sort=creatordate"]).stdout.split()
+    # Only a tag on this history is an edition of it: one on a later or another branch is not,
+    # which is what lets a record taken at an earlier commit see only the editions up to it.
+    tag_names = run(["git", "-C", repo, "tag", "--merged", "HEAD", "--sort=creatordate"]).stdout.split()
     in_scope = {c[0] for c in commits}
     tags = []
     for t in tag_names:
@@ -496,9 +539,10 @@ def plugin_root() -> Path:
 
 
 # tl: implements tl-assess/REQ-0007@66eebc854fe7
-def measure_provenance(root: str, repo: str) -> dict:
+def measure_provenance(root: str, repo: str, clean: bool | None = None) -> dict:
     head = run(["git", "-C", repo, "rev-parse", "HEAD"]).stdout.strip() or None
-    clean = run(["git", "-C", repo, "status", "--porcelain"]).stdout.strip() == ""
+    if clean is None:
+        clean = tree_clean(repo)
     sources = []
     toml = Path(root) / "throughline.toml"
     if toml.exists():
@@ -532,15 +576,16 @@ def measure_provenance(root: str, repo: str) -> dict:
 
 # ── done ────────────────────────────────────────────────────────────────────
 
-# tl: implements tl-assess/REQ-0005@6bda53c41f10
-def measure_done(root: str, repo: str, results: str | None) -> dict:
+# tl: implements tl-assess/REQ-0005@08049277a4ec
+def measure_done(root: str, repo: str, results: str | None, clean: bool | None = None) -> dict:
     check = run([require_tl(), "-C", root, "check", "--strict"])
     m = re.search(r"(\d+) error\(s\), (\d+) warning\(s\)", check.stdout + check.stderr)
     errors = int(m.group(1)) if m else (0 if check.returncode == 0 else -1)
     docs = run([require_tl(), "-C", root, "docs", "--check"])
     dumped = load_dump(root, None)
     proposed = sum(1 for i in items_of(dumped) if is_local(str(i.get("uid", ""))) and i.get("status") in ("proposed", "draft"))
-    clean = run(["git", "-C", repo, "status", "--porcelain"]).stdout.strip() == ""
+    if clean is None:
+        clean = tree_clean(repo)
     res = parse_results(results)
     criteria = {
         "strict_check_clean": errors == 0,
@@ -555,27 +600,96 @@ def measure_done(root: str, repo: str, results: str | None) -> dict:
 
 # ── record ──────────────────────────────────────────────────────────────────
 
-# tl: implements tl-assess/REQ-0006@de9d5e7acb9e
-def record(args) -> dict:
-    root = args.path
-    repo = repo_of(root, args.repo)
-    dumped = load_dump(root, None)
-    rec = {
-        "name": args.name,
-        "label": args.label,
-        "recorded_at": dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds"),
-        "graph_root": os.path.realpath(root),
-        "repository": repo,
-        "graph": measure_graph(dumped),
+def utc(iso: str) -> str:
+    return dt.datetime.fromisoformat(iso).astimezone(dt.timezone.utc).isoformat(timespec="seconds")
+
+
+# tl: implements tl-assess/REQ-0011@a432dd5c2c67
+class Checkout:
+    """A throwaway checkout of one commit of the repository, as a git worktree
+    beside the repository (so a `path` source that points outside it resolves
+    as it does from the repository), or under the system's temporary directory
+    when nothing can be written beside it; removed however the measuring ends.
+    Nothing done inside it reaches the repository."""
+
+    def __init__(self, repo: str, commit: str):
+        self.repo, self.commit, self.path = repo, commit, None
+
+    def __enter__(self) -> str:
+        beside = os.path.dirname(os.path.realpath(self.repo))
+        self.path = tempfile.mkdtemp(prefix=".assess-at-", dir=beside if os.access(beside, os.W_OK) else None)
+        out = run(["git", "-C", self.repo, "worktree", "add", "--detach", self.path, self.commit])
+        if out.returncode != 0:
+            shutil.rmtree(self.path, ignore_errors=True)
+            raise SystemExit(f"cannot check out {self.commit[:12]}: {out.stderr.strip()}")
+        return self.path
+
+    def __exit__(self, *exc) -> None:
+        run(["git", "-C", self.repo, "worktree", "remove", "--force", self.path])
+        run(["git", "-C", self.repo, "worktree", "prune"])
+        shutil.rmtree(self.path, ignore_errors=True)
+
+
+# tl: implements tl-assess/REQ-0011@a432dd5c2c67
+def readable(root: str) -> bool:
+    """Make a checkout's graph readable by this tl: a graph at an older format
+    is migrated in place, which is lossless and touches only the throwaway
+    checkout. Returns whether that was needed. Any other reason the graph
+    cannot be read is reported and stops the record."""
+    probe = run([require_tl(), "-C", root, "dump"])
+    if probe.returncode == 0:
+        return False
+    if "format version" not in (probe.stderr + probe.stdout):
+        raise SystemExit((probe.stderr or probe.stdout).strip())
+    migrated = run([require_tl(), "-C", root, "migrate"])
+    if migrated.returncode != 0:
+        raise SystemExit("the graph at that commit could not be migrated to read it:\n"
+                         + (migrated.stderr or migrated.stdout).strip())
+    return True
+
+
+def measure_all(args, root: str, repo: str, clean: bool | None, until: str | None) -> dict:
+    """Every measure of the graph at ROOT in REPO, in the order the record keeps them."""
+    return {
+        "graph": measure_graph(load_dump(root, None)),
         "git": measure_git(repo, relative_to_repo(root, repo), args.paths),
         "docs": measure_docs(root),
         "tests": measure_tests(args.tests_glob, args.results, repo),
-        "sessions": measure_sessions(args.sessions or [], args.idle_gap, args.since, args.until),
-        "done": measure_done(root, repo, args.results),
-        "provenance": measure_provenance(root, repo),
+        "sessions": measure_sessions(args.sessions or [], args.idle_gap, args.since, until),
+        "done": measure_done(root, repo, args.results, clean),
+        "provenance": measure_provenance(root, repo, clean),
     }
+
+
+# tl: implements tl-assess/REQ-0006@de9d5e7acb9e, tl-assess/REQ-0011@a432dd5c2c67
+def record(args) -> dict:
+    root = os.path.realpath(args.path)
+    repo = repo_of(root, args.repo)
+    now = dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds")
+    head = {"name": args.name, "label": args.label}
+    if args.at:
+        # The record as it would have been taken at that commit: measured in a checkout of
+        # it, dated by it, its history and transcripts cut at it, and marked as rebuilt.
+        sha = run(["git", "-C", repo, "rev-parse", "--verify", "--quiet", f"{args.at}^{{commit}}"]).stdout.strip()
+        if not sha:
+            raise SystemExit(f"{args.at} names no commit in {repo}")
+        when = run(["git", "-C", repo, "log", "-1", "--format=%cI", sha]).stdout.strip()
+        rel = relative_to_repo(root, repo)
+        with Checkout(repo, sha) as checkout:
+            at_root = os.path.join(checkout, rel)
+            if not os.path.exists(os.path.join(at_root, "throughline.toml")):
+                raise SystemExit(f"no graph at {rel} in commit {sha[:12]} ({when[:10]})")
+            migrated = readable(at_root)
+            measured = measure_all(args, at_root, checkout, clean=True, until=args.until or when)
+        rec = {**head, "recorded_at": utc(when),
+               "reconstructed": {"at": sha, "measured_on": now, "sessions_until": utc(args.until or when),
+                                 "migrated_for_measurement": migrated},
+               "graph_root": root, "repository": repo, **measured}
+    else:
+        rec = {**head, "recorded_at": now, "graph_root": root, "repository": repo,
+               **measure_all(args, root, repo, clean=None, until=args.until)}
     rec = portable(rec)
-    out_dir = Path(args.out or os.path.join(repo, "docs", "assessment"))
+    out_dir = Path(args.out or os.path.join(repo, RECORDS_DIR))
     out_dir.mkdir(parents=True, exist_ok=True)
     # Date and time in the name: a second record on the same day never overwrites the first.
     stem = f"{rec['recorded_at'][:19].replace(':', '')}-{args.name}"
@@ -637,6 +751,9 @@ def measured_head(rec: dict) -> list[str]:
          f"{int(tot.get('tokens_input_tokens', 0)):,} / {int(tot.get('tokens_cache_creation_input_tokens', 0)):,} / {int(tot.get('tokens_cache_read_input_tokens', 0)):,}"),
         ("Done", "yes" if done["done"] else "NO: " + ", ".join(k for k, v in done["criteria"].items() if not v)),
         ("Measured at commit", f"{(prov.get('repository_commit') or '')[:12]}{'' if prov.get('working_tree_clean', True) else ' (tree not clean)'}"),
+        ("Reconstructed", (f"yes, on {rebuilt['measured_on'][:10]} with today's tools; sessions counted up to {rebuilt['sessions_until']}"
+                           + ("; the graph was migrated to read it" if rebuilt.get("migrated_for_measurement") else ""))
+         if (rebuilt := rec.get("reconstructed")) else "no, taken at the time"),
         ("Source pins", "; ".join(f"{x.get('namespace') or x.get('name')} {x.get('ref') or x.get('path') or ''}".strip() for x in prov.get("sources", [])) or "none"),
         ("Tools", "; ".join(f"{k}: {v or 'absent'}" for k, v in (prov.get("tools") or {}).items())),
         ("Skill", f"tl:assess {prov.get('plugin_version') or '?'} at {(prov.get('plugin_commit') or '')[:12]}, Python {prov.get('python')}"),
@@ -726,7 +843,7 @@ def write_index(collection: Path) -> None:
         except json.JSONDecodeError:
             continue
         tot = r["sessions"]["totals"]
-        rows.append((r["recorded_at"][:10], r["name"], r["graph"]["items_live"], r["graph"]["acceptance_ratio"],
+        rows.append((r["recorded_at"][:10] + (" †" if r.get("reconstructed") else ""), r["name"], r["graph"]["items_live"], r["graph"]["acceptance_ratio"],
                      r["git"].get("editions", 0), hours(tot.get("active_hours", 0)),
                      f"{int(tot.get('tokens_output_tokens', 0)):,}", "yes" if r["done"]["done"] else "no",
                      p.with_suffix(".md").relative_to(collection)))
@@ -734,7 +851,10 @@ def write_index(collection: Path) -> None:
             "written assessment (`.md`). Produced by the `tl:assess` skill.\n\n"
             "| Recorded | Work | Live items | Accepted | Editions | Active time | Tokens out | Done | Assessment |\n|---|---|---|---|---|---|---|---|---|\n")
     body = "\n".join(f"| {a} | {b} | {c} | {d} | {e} | {f} | {g} | {h} | [{i}]({i}) |" for a, b, c, d, e, f, g, h, i in rows)
-    (collection / "README.md").write_text(head + body + "\n")
+    note = ("\n\n† Reconstructed later from the repository at that commit (`record --at`): dated by the commit, "
+            "its history and transcripts cut there, measured with the tools of the day it was rebuilt.\n"
+            if any(a.endswith("†") for a, *_ in rows) else "\n")
+    (collection / "README.md").write_text(head + body + note)
 
 
 # ── cli ─────────────────────────────────────────────────────────────────────
@@ -763,6 +883,7 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--since"); p.add_argument("--until")
     p.add_argument("--paths", nargs="*", help="repository-relative paths the work lives in, for the git measure")
     p.add_argument("--tests-glob"); p.add_argument("--results"); p.add_argument("--out"); p.add_argument("--collection")
+    p.add_argument("--at", help="rebuild the record as of this commit: measured in a throwaway checkout, dated by it, history and transcripts cut there")
     p = sub.add_parser("migrate"); p.add_argument("files", nargs="+", help="record .json files; the .md beside each gets its measured head re-rendered")
     p.add_argument("--repo", help="the repository the records describe, when it is no longer at the path they name")
     args = ap.parse_args(argv)

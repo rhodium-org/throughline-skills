@@ -98,7 +98,7 @@ def test_graph_measure_counts_the_fixture(repo):  # TEST-0001
     assert g["citations"] == 0 and g["local_links"] == 4
 
 
-# tl: verifies tl-assess/TEST-0002@0193c71f7fae
+# tl: verifies tl-assess/TEST-0002@23a25d39f043
 def test_git_measure_counts_commits_tags_citations_and_amendments(repo):  # TEST-0002
     idd = graph_with_items(repo)
     git(repo, "add", "-A")
@@ -122,6 +122,27 @@ def test_git_measure_counts_commits_tags_citations_and_amendments(repo):  # TEST
     assert g["items_ratified"] >= 1
     assert g["items_amended_after_ratification"] == 1 and g["amending_commits"] == 1
     assert g["authors"] == {"Tester": 4}
+    # A signature carried from the format-3 attributes to the format-4 list, as tl migrate
+    # does, changes nothing about the item and is not an amendment.
+    q = idd / "requirements" / "REQ-0002.yml"
+    q.write_text(q.read_text() + "  ratified_by: Ada Lovelace\n  ratified_fingerprint: sha256:00\n"
+                 "  ratified_content:\n    type: requirement\n    text: A proposed requirement.\n    normative: true\n")
+    git(repo, "add", "-A")
+    git(repo, "commit", "-q", "-m", "REQ-0002 signed in the format-3 shape")
+    lines = [l for l in q.read_text().splitlines() if not l.startswith(("  ratified_", "    "))]
+    q.write_text("\n".join(lines) + "\nratifications:\n- by: Ada Lovelace\n  fingerprint: sha256:00\n"
+                 "  content:\n    type: requirement\n    text: A proposed requirement.\n    normative: true\n  revision: abc\n")
+    git(repo, "add", "-A")
+    git(repo, "commit", "-q", "-m", "REQ-0002 migrated to the format-4 shape")
+    h = assess("git", "-C", str(idd))
+    assert h["items_ratified"] == g["items_ratified"] + 1
+    assert h["items_amended_after_ratification"] == 1 and h["amending_commits"] == 1
+    # Retiring a signed item is a status move with its tombstone, not an amendment.
+    run("tl", "-C", str(idd), "delete", "TEST-0001", "--reason", "Retired in a test", check=False)
+    git(repo, "add", "-A")
+    git(repo, "commit", "-q", "-m", "TEST-0001 retired")
+    k = assess("git", "-C", str(idd))
+    assert k["items_amended_after_ratification"] == 1 and k["amending_commits"] == 1
 
 
 # tl: verifies tl-assess/TEST-0009@fb5cb4b78fe3
@@ -205,7 +226,7 @@ def test_sessions_measure_a_synthetic_transcript(tmp_path):  # TEST-0004
     assert windowed["sessions"][0]["user_turns"] == 1 and windowed["sessions"][0]["api_calls"] == 2
 
 
-# tl: verifies tl-assess/TEST-0005@42136a1e4c1f
+# tl: verifies tl-assess/TEST-0005@a9c7b70122a2
 def test_done_fails_per_criterion_then_passes(repo, tmp_path):  # TEST-0005
     idd = graph_with_items(repo)
     git(repo, "add", "-A")
@@ -218,6 +239,11 @@ def test_done_fails_per_criterion_then_passes(repo, tmp_path):  # TEST-0005
     assert json.loads(r.stdout)["criteria"]["working_tree_clean"] is False
     git(repo, "add", "-A")
     git(repo, "commit", "-q", "-m", "Ratified (REQ-0001)")
+    # A record of the work under docs/assessment is not a change to the work.
+    (repo / "docs" / "assessment").mkdir(parents=True)
+    (repo / "docs" / "assessment" / "earlier.json").write_text("{}")
+    r = run(sys.executable, str(SCRIPT), "done", "-C", str(idd), check=False)
+    assert json.loads(r.stdout)["criteria"]["working_tree_clean"] is True
     results = tmp_path / "r.txt"
     results.write_text("# pass 1\n# fail 1\n")
     r = run(sys.executable, str(SCRIPT), "done", "-C", str(idd), "--results", str(results), check=False)
@@ -375,3 +401,47 @@ def test_migrate_rewrites_an_earlier_record(repo, tmp_path):  # TEST-0012
     jp.write_text(json.dumps(aged, indent=2) + "\n")
     assert assess("migrate", str(jp))["migrated"] == [str(jp)]
     assert jp.read_text() == today_json
+
+
+# tl: verifies tl-assess/TEST-0013@f174c7e322ce
+def test_record_at_an_earlier_commit_rebuilds_the_record_of_that_day(repo, tmp_path):  # TEST-0013
+    idd = graph_with_items(repo)
+    git(repo, "add", "-A")
+    git(repo, "commit", "-q", "-m", "A graph (INT-0001)")
+    first = git(repo, "rev-parse", "HEAD").stdout.strip()
+    git(repo, "tag", "v0.1")
+    item(idd / "requirements" / "REQ-0003.yml", "REQ-0003", "requirement", "A later requirement",
+         links=[("INT-0001", "derives_from")], attrs={"priority": "could", "origin": "ai"})
+    git(repo, "add", "-A")
+    git(repo, "commit", "-q", "-m", "A later item (REQ-0003)")
+    git(repo, "tag", "v0.2")
+    t = tmp_path / "s1.jsonl"
+    transcript(t)
+    coll = tmp_path / "collection"
+    now = assess("record", "-C", str(idd), "--name", "fixture", "--sessions", str(t), "--collection", str(coll))
+    then = assess("record", "-C", str(idd), "--name", "fixture", "--at", first, "--sessions", str(t), "--collection", str(coll))
+    # The graph, the history and the editions as they stood at the first commit.
+    assert now["graph"]["items_local"] == 6 and then["graph"]["items_local"] == 5
+    assert now["git"]["commits"] == 2 and then["git"]["commits"] == 1
+    assert [x["tag"] for x in now["git"]["tags"]] == ["v0.1", "v0.2"] and [x["tag"] for x in then["git"]["tags"]] == ["v0.1"]
+    assert then["provenance"]["repository_commit"] == first and then["provenance"]["working_tree_clean"] is True
+    assert then["done"]["criteria"]["working_tree_clean"] is True
+    # Dated by the commit, in UTC, and named by that date; marked as rebuilt and by what.
+    when = git(repo, "log", "-1", "--format=%cI", first).stdout.strip()
+    from datetime import datetime, timezone
+    assert then["recorded_at"] == datetime.fromisoformat(when).astimezone(timezone.utc).isoformat(timespec="seconds")
+    assert Path(then["written"][0]).name.startswith(then["recorded_at"][:10])
+    assert then["reconstructed"]["at"] == first and then["reconstructed"]["migrated_for_measurement"] is False
+    assert then["reconstructed"]["sessions_until"] == then["recorded_at"]
+    assert "reconstructed" not in now
+    # A transcript from before the commit still counts; the record stays portable.
+    assert then["sessions"]["count"] == 1 and not os.path.isabs(then["graph_root"])
+    md = Path(then["written"][1]).read_text()
+    assert "| Reconstructed | yes, on " in md and "| Reconstructed | no, taken at the time |" in Path(now["written"][1]).read_text()
+    # The index sorts the rebuilt record into the history and marks it; the checkout is gone.
+    index = (coll / "README.md").read_text()
+    assert index.index(then["recorded_at"][:10] + " †") < index.index(now["recorded_at"][:10] + " |") and "† Reconstructed" in index
+    assert git(repo, "worktree", "list").stdout.strip().count("\n") == 0
+    # A name that is no commit, and a commit without the graph, are refused.
+    r = assess("record", "-C", str(idd), "--name", "fixture", "--at", "no-such-ref", "--collection", str(coll), check=False)
+    assert r.returncode != 0 and "names no commit" in r.stderr
