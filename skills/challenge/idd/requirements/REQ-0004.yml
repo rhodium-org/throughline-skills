@@ -28,6 +28,7 @@ ratifications:
       reason: 'Moved upstream: throughline-challenger REQ-0010, REQ-0011 and REQ-0012
         own this behaviour from v0.2.0; the skill''s procedure for it now sits in
         REQ-0002 and REQ-0003.'
+  revision: 202b2d52851fdc6294f479156368c47fbaefc68a
 deleted:
   reason: 'Moved upstream: throughline-challenger REQ-0010, REQ-0011 and REQ-0012
     own this behaviour from v0.2.0; the skill''s procedure for it now sits in REQ-0002

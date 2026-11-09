@@ -24,6 +24,7 @@ ratifications:
     deleted:
       reason: Verified requirement REQ-0004 moved upstream to throughline-challenger
         REQ-0010..0012, whose tests TEST-0010..0012 replace this one.
+  revision: 202b2d52851fdc6294f479156368c47fbaefc68a
 deleted:
   reason: Verified requirement REQ-0004 moved upstream to throughline-challenger
     REQ-0010..0012, whose tests TEST-0010..0012 replace this one.
