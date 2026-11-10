@@ -1,6 +1,6 @@
 uid: TEST-0005
 type: test
-status: proposed
+status: ratified
 title: The instructions show every change before applying it
 text: 'Read SKILL.md: assert that on a glossary already holding terms the steps run
   review, present each touched term with what moved and the proposed change, and
@@ -13,4 +13,17 @@ links:
 attrs:
   method: inspection
   origin: ai
+ratifications:
+- by: Henry Grech-Cini
+  at: '2026-11-10T22:28:13Z'
+  fingerprint: sha256:e57c3d4e431f26918f156e6ba638fb899c66617f58b351b69430640e407e9201
+  content:
+    type: test
+    text: 'Read SKILL.md: assert that on a glossary already holding terms the steps
+      run review, present each touched term with what moved and the proposed change,
+      and apply only accepted changes, and that no step amends or restamps before
+      the person has answered.'
+    normative: true
+    derived: false
+    attrs: {}
 key: 5e0a1b2c-3d4e-4f50-8a61-72b3c4d5e615

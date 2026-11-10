@@ -1,6 +1,6 @@
 uid: TEST-0008
 type: test
-status: proposed
+status: ratified
 title: Render writes the same document twice and its check catches a stale one
 text: Render a fixture glossary twice and assert the bytes match, that each term's
   definition, why, how it works with its driving item's title, example, aliases and
@@ -13,4 +13,18 @@ links:
 attrs:
   method: automated
   origin: ai
+ratifications:
+- by: Henry Grech-Cini
+  at: '2026-11-10T22:28:14Z'
+  fingerprint: sha256:4f30e7bd628d120fe1948d13d12f28bd013b18ee5d2db787945a518c965893be
+  content:
+    type: test
+    text: Render a fixture glossary twice and assert the bytes match, that each term's
+      definition, why, how it works with its driving item's title, example, aliases
+      and sources appear, and that a moved source puts the notice on its term; then
+      change a term and assert render --check exits 1 without writing, and 0 once
+      rendered again.
+    normative: true
+    derived: false
+    attrs: {}
 key: 5e0a1b2c-3d4e-4f50-8a61-72b3c4d5e618

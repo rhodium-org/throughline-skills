@@ -1,6 +1,6 @@
 uid: TEST-0007
 type: test
-status: proposed
+status: ratified
 title: Review reports a name two terms share
 text: Give one term the alias Look and another the title look; assert review reports
   the name look with both terms.
@@ -11,4 +11,15 @@ links:
 attrs:
   method: automated
   origin: ai
+ratifications:
+- by: Henry Grech-Cini
+  at: '2026-11-10T22:28:13Z'
+  fingerprint: sha256:177ae187b3eebb01a8eaf04952e0a65850a0debc12e7e908771146b06ed3e65d
+  content:
+    type: test
+    text: Give one term the alias Look and another the title look; assert review
+      reports the name look with both terms.
+    normative: true
+    derived: false
+    attrs: {}
 key: 5e0a1b2c-3d4e-4f50-8a61-72b3c4d5e617

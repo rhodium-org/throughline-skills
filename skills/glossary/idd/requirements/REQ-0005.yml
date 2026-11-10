@@ -1,6 +1,6 @@
 uid: REQ-0005
 type: requirement
-status: proposed
+status: ratified
 title: A later run advises every change before it makes it
 text: When the glossary already holds terms, the skill writes nothing until it has
   shown the person, for each term the review reports as touched, the term as it stands,
@@ -14,4 +14,20 @@ links:
 attrs:
   priority: must
   origin: ai
+ratifications:
+- by: Henry Grech-Cini
+  at: '2026-11-10T22:28:10Z'
+  fingerprint: sha256:f6a0ae5afaf9f305d35fcff875dbef2a5adebeba287bdd64ae0bce46f9fdaad6
+  content:
+    type: requirement
+    text: When the glossary already holds terms, the skill writes nothing until it
+      has shown the person, for each term the review reports as touched, the term
+      as it stands, what moved in its sources, and the change it proposes, and for
+      each new term the entry it proposes. It applies only the changes the person
+      accepts, and refreshes a stamp only on a link whose term it has re-read against
+      the moved target.
+    normative: true
+    derived: false
+    attrs:
+      priority: must
 key: 5e0a1b2c-3d4e-4f50-8a61-72b3c4d5e606

@@ -1,6 +1,6 @@
 uid: REQ-0011
 type: requirement
-status: proposed
+status: ratified
 title: The script reports where this glossary's names and a glossary it maps onto
   disagree
 text: 'Where the glossary composes another glossary, the script reports: each term
@@ -15,4 +15,19 @@ links:
 attrs:
   priority: must
   origin: ai
+ratifications:
+- by: Henry Grech-Cini
+  at: '2026-11-10T22:28:11Z'
+  fingerprint: sha256:41e6e99ea9c47273a0311e28d5eaa7fe64a8ff4550647db531e73494de175e20
+  content:
+    type: requirement
+    text: 'Where the glossary composes another glossary, the script reports: each
+      term the same as a term there whose preferred name differs; each term matched
+      to nothing there that is not marked local; each name a term here carries that
+      a term there also carries, with no match between the two; and each match to
+      an item that is not a term. It renames and relinks nothing.'
+    normative: true
+    derived: false
+    attrs:
+      priority: must
 key: 5e0a1b2c-3d4e-4f50-8a61-72b3c4d5e621

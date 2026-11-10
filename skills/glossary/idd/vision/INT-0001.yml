@@ -1,6 +1,6 @@
 uid: INT-0001
 type: intent
-status: proposed
+status: ratified
 title: A person who did not build a graph can ask what a thing in it is and how it
   knows, and get an answer that leads back to the graph
 text: 'A graph a person and an AI build together grows a vocabulary nobody designed
@@ -14,4 +14,21 @@ text: 'A graph a person and an AI build together grows a vocabulary nobody desig
 normative: true
 attrs:
   origin: ai
+ratifications:
+- by: Henry Grech-Cini
+  at: '2026-11-10T22:27:59Z'
+  fingerprint: sha256:2e540a82748742a917b67fe2d35a3f4d8401a81be7a9bb82bd23646bda82918b
+  content:
+    type: intent
+    text: 'A graph a person and an AI build together grows a vocabulary nobody designed
+      and nobody holds whole, so explaining it to a newcomer turns into what is an
+      X and how does it know. This skill writes a glossary of such a graph as a graph
+      of its own that follows throughline-glossary-standard: the concepts that recur,
+      each defined in one line, why it exists, what decides how it behaves and one
+      example, every entry linked by stamped links to the items it was written from.
+      It renders the glossary as documentation the same way every time, and on each
+      later run says what has changed before it changes anything.'
+    normative: true
+    derived: false
+    attrs: {}
 key: 5e0a1b2c-3d4e-4f50-8a61-72b3c4d5e601

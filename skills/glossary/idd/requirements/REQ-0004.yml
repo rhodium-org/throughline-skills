@@ -1,6 +1,6 @@
 uid: REQ-0004
 type: requirement
-status: proposed
+status: ratified
 title: The script says which terms a change to the explained graph has touched
 text: Given a glossary graph, the script reports, for each term, every stamped link
   whose target's fingerprint is no longer the one it was stamped with, naming the
@@ -14,4 +14,19 @@ links:
 attrs:
   priority: must
   origin: ai
+ratifications:
+- by: Henry Grech-Cini
+  at: '2026-11-10T22:28:10Z'
+  fingerprint: sha256:b76040f975829658824c0ee09e7aa50cae329a52f19143e1bd4ae88ca4a4d3f7
+  content:
+    type: requirement
+    text: Given a glossary graph, the script reports, for each term, every stamped
+      link whose target's fingerprint is no longer the one it was stamped with, naming
+      the term, the link type and the target with its title as it stands; every link
+      to the explained graph that carries no stamp; every target that no longer exists;
+      and, as settled, every term none of whose links has moved. It changes nothing.
+    normative: true
+    derived: false
+    attrs:
+      priority: must
 key: 5e0a1b2c-3d4e-4f50-8a61-72b3c4d5e605

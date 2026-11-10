@@ -1,6 +1,6 @@
 uid: TEST-0002
 type: test
-status: proposed
+status: ratified
 title: A glossary written as the skill writes it passes tl check
 text: Apply to a fresh glossary graph a change set of the shape the skill's instructions
   give, with list aliases and stamped links into the explained graph; assert tl check
@@ -12,4 +12,17 @@ links:
 attrs:
   method: automated
   origin: ai
+ratifications:
+- by: Henry Grech-Cini
+  at: '2026-11-10T22:28:12Z'
+  fingerprint: sha256:52b7b49a2015a79b3d7371f67d089dc0ffbc5e06c753954e9d0c07b589157b85
+  content:
+    type: test
+    text: Apply to a fresh glossary graph a change set of the shape the skill's instructions
+      give, with list aliases and stamped links into the explained graph; assert
+      tl check reports no error and every link into the explained graph carries a
+      stamp.
+    normative: true
+    derived: false
+    attrs: {}
 key: 5e0a1b2c-3d4e-4f50-8a61-72b3c4d5e612

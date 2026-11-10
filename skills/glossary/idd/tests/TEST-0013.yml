@@ -1,6 +1,6 @@
 uid: TEST-0013
 type: test
-status: proposed
+status: ratified
 title: The instructions put every finding about names to the person and rename nothing
 text: 'Read SKILL.md: assert it maps terms onto the shared glossary, marks a term
   local only on the person''s word, presents each finding with what would put it
@@ -13,4 +13,17 @@ links:
 attrs:
   method: inspection
   origin: ai
+ratifications:
+- by: Henry Grech-Cini
+  at: '2026-11-10T22:28:15Z'
+  fingerprint: sha256:14f7490df0deedda14c0dcba0887ade945b4a83ca64791dd5fc0a86c39c46f76
+  content:
+    type: test
+    text: 'Read SKILL.md: assert it maps terms onto the shared glossary, marks a
+      term local only on the person''s word, presents each finding with what would
+      put it right and in which graph, and makes no rename, match or relink before
+      the person has answered.'
+    normative: true
+    derived: false
+    attrs: {}
 key: 5e0a1b2c-3d4e-4f50-8a61-72b3c4d5e627
