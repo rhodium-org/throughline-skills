@@ -26,7 +26,7 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Install throughline (the glossary script needs 5.2.0: links declared outside the graph, list attributes)
+      - name: Install throughline (the glossary script needs 5.2.0 for links declared outside the graph and list attributes)
         run: pip install 'throughline>=5.2.0'
 
       - name: Gate every graph
