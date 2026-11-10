@@ -1,0 +1,17 @@
+uid: REQ-0005
+type: requirement
+status: proposed
+title: A later run advises every change before it makes it
+text: When the glossary already holds terms, the skill writes nothing until it has
+  shown the person, for each term the review reports as touched, the term as it stands,
+  what moved in its sources, and the change it proposes, and for each new term the
+  entry it proposes. It applies only the changes the person accepts, and refreshes
+  a stamp only on a link whose term it has re-read against the moved target.
+normative: true
+links:
+- target: INT-0001
+  type: derives_from
+attrs:
+  priority: must
+  origin: ai
+key: 5e0a1b2c-3d4e-4f50-8a61-72b3c4d5e606

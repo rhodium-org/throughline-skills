@@ -1,0 +1,16 @@
+uid: TEST-0013
+type: test
+status: proposed
+title: The instructions put every finding about names to the person and rename nothing
+text: 'Read SKILL.md: assert it maps terms onto the shared glossary, marks a term
+  local only on the person''s word, presents each finding with what would put it
+  right and in which graph, and makes no rename, match or relink before the person
+  has answered.'
+normative: true
+links:
+- target: REQ-0013
+  type: verifies
+attrs:
+  method: inspection
+  origin: ai
+key: 5e0a1b2c-3d4e-4f50-8a61-72b3c4d5e627

@@ -1,0 +1,16 @@
+uid: TEST-0005
+type: test
+status: proposed
+title: The instructions show every change before applying it
+text: 'Read SKILL.md: assert that on a glossary already holding terms the steps run
+  review, present each touched term with what moved and the proposed change, and
+  apply only accepted changes, and that no step amends or restamps before the person
+  has answered.'
+normative: true
+links:
+- target: REQ-0005
+  type: verifies
+attrs:
+  method: inspection
+  origin: ai
+key: 5e0a1b2c-3d4e-4f50-8a61-72b3c4d5e615

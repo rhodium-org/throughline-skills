@@ -1,0 +1,16 @@
+uid: TEST-0004
+type: test
+status: proposed
+title: Review names the term whose source moved and leaves the rest settled
+text: Amend the text of one explained item a term is defined from, add an unstamped
+  link from another term, and leave a third term untouched; assert review reports
+  the first as touched through that link, the second's link as unstamped, the third
+  as settled, and that no file changed.
+normative: true
+links:
+- target: REQ-0004
+  type: verifies
+attrs:
+  method: automated
+  origin: ai
+key: 5e0a1b2c-3d4e-4f50-8a61-72b3c4d5e614

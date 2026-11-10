@@ -1,0 +1,15 @@
+uid: REQ-0012
+type: requirement
+status: proposed
+title: The script reports a retired name still used in an explained graph
+text: For each deprecated name of each term, the script reports every item of an
+  explained graph whose title, text or rationale uses it as a whole word, in any
+  case, naming the term and the item. It changes neither graph.
+normative: true
+links:
+- target: INT-0001
+  type: derives_from
+attrs:
+  priority: must
+  origin: ai
+key: 5e0a1b2c-3d4e-4f50-8a61-72b3c4d5e622

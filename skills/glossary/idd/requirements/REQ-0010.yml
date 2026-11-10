@@ -1,0 +1,21 @@
+uid: REQ-0010
+type: requirement
+status: proposed
+title: A glossary is published for one audience as the subset of terms for it, in
+  its glosses
+text: Given an audience, by its UID or title, the script renders only the terms linked
+  for it, in name order, each in the gloss that words it for that audience where
+  there is one (the gloss's text in place of the definition, and any of its why,
+  how it works and example in place of the term's), under the audience's title and
+  what it knows, to docs/glossary-<audience>.md by default. Without an audience it
+  renders every term and names each audience with how many terms are for it. Review
+  reports a gloss whose stamped term has moved, and two glosses of one term for one
+  audience.
+normative: true
+links:
+- target: INT-0001
+  type: derives_from
+attrs:
+  priority: must
+  origin: ai
+key: 5e0a1b2c-3d4e-4f50-8a61-72b3c4d5e620

@@ -20,6 +20,7 @@ then run `python3 scripts/reconcile.py -C . scan` and expect no findings.
 |---|---|
 | `idd` | `throughline-skills` |
 | `skills/assess/idd` | `tl-assess` |
+| `skills/glossary/idd` | `tl-glossary` |
 | `skills/challenge/idd` | `tl-challenge` |
 | `skills/multigraph/idd` | `tl-multigraph` |
 | `skills/reconcile/idd/skill` | `tl-reconcile` |

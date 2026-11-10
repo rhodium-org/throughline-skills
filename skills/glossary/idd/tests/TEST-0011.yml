@@ -1,0 +1,17 @@
+uid: TEST-0011
+type: test
+status: proposed
+title: Review reports names that differ, terms with no match, one name with two meanings,
+  and a match that is not a term
+text: 'Give a fixture glossary a shared glossary to map onto: one term same as a
+  shared term of another name, one unmatched term, one unmatched local term, one
+  term sharing a name with a shared term it is not matched to, and one match to a
+  requirement; assert review reports each of the four and nothing for the local term.'
+normative: true
+links:
+- target: REQ-0011
+  type: verifies
+attrs:
+  method: automated
+  origin: ai
+key: 5e0a1b2c-3d4e-4f50-8a61-72b3c4d5e625

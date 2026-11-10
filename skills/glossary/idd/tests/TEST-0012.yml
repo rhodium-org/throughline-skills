@@ -1,0 +1,14 @@
+uid: TEST-0012
+type: test
+status: proposed
+title: Review finds a retired name as a whole word in an explained item
+text: Give a term the deprecated name skin and explained items using Skin, skins
+  and skin-deep; assert review reports the first alone.
+normative: true
+links:
+- target: REQ-0012
+  type: verifies
+attrs:
+  method: automated
+  origin: ai
+key: 5e0a1b2c-3d4e-4f50-8a61-72b3c4d5e626

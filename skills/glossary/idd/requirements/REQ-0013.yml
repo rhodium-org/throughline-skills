@@ -1,0 +1,19 @@
+uid: REQ-0013
+type: requirement
+status: proposed
+title: Every finding about names is put to a person, and is put right in the graph
+  that owns the name
+text: 'The skill maps each term onto the shared glossary the person names, or marks
+  it local on their word, and puts every finding of review about names to the person
+  with what would put it right and where: a rename in the explained graph that uses
+  a retired name, a new term or a match in the shared glossary, or a change of preferred
+  name in one glossary or the other. It makes a change only on the person''s word,
+  through tl, in the graph that owns the name, and never renames on its own.'
+normative: true
+links:
+- target: INT-0001
+  type: derives_from
+attrs:
+  priority: must
+  origin: ai
+key: 5e0a1b2c-3d4e-4f50-8a61-72b3c4d5e623

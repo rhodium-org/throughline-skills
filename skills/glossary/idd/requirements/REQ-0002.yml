@@ -1,0 +1,24 @@
+uid: REQ-0002
+type: requirement
+status: proposed
+title: Terms are written into a glossary graph that follows the standard, through
+  tl, proposed and stamped
+text: 'The skill writes each term it decides on into a glossary graph that follows
+  throughline-glossary-standard and composes the graphs it explains, through a tl
+  apply change set, never by editing an item file: its title the concept''s preferred
+  name, its text a one-line definition in neutral words, its why, how_it_works and
+  example, its aliases and deprecated names, its defined_from, driven_by and shown_by
+  links to the explained items, and its for links to the audiences whose glossary
+  should hold it. Where a term''s words do not serve an audience it writes a gloss
+  for that audience. Every link into another graph, and a gloss''s link to its term,
+  is stamped. Everything it writes is origin ai and proposed; a person ratifies.
+  A term restates no item''s text: it says what the reader needs that no single item
+  says.'
+normative: true
+links:
+- target: INT-0001
+  type: derives_from
+attrs:
+  priority: must
+  origin: ai
+key: 5e0a1b2c-3d4e-4f50-8a61-72b3c4d5e603

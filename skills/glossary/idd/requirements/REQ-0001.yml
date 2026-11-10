@@ -1,0 +1,21 @@
+uid: REQ-0001
+type: requirement
+status: proposed
+title: The script lists the concepts a glossary should consider, from the explained
+  graph alone
+text: Given a glossary graph, the script reads the items of every graph it composes
+  other than its schema source, and lists as candidates the phrases of one to three
+  words that recur across their titles, texts and rationales, counting a plural with
+  its singular and leaving out code, file names and paths, each with how many items
+  use it and which, most used first, leaving out common words and every name a term
+  of the glossary already carries as its title or an alias. It lists beside them
+  the explained items most linked to and from, which are the graph's centres. It
+  writes nothing.
+normative: true
+links:
+- target: INT-0001
+  type: derives_from
+attrs:
+  priority: must
+  origin: ai
+key: 5e0a1b2c-3d4e-4f50-8a61-72b3c4d5e602

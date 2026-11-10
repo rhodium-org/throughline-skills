@@ -1,0 +1,21 @@
+uid: REQ-0006
+type: requirement
+status: proposed
+title: A definition that would change while its sources have not is reported, never
+  written
+text: For a term the review reports as settled, the skill does not amend it. Where
+  its own reading of the unchanged sources says something materially different from
+  the term (a different claim about what the thing is, why it exists or what decides
+  it, not different wording), it reports the term, its sources and the two readings
+  as a reading that moved without a change, and asks the person whether the term
+  was wrong, whether the source is ambiguous, or whether the new reading is wrong.
+  Only on the person's word does it propose an amendment, or record the ambiguity
+  on the source item with tl flag.
+normative: true
+links:
+- target: INT-0001
+  type: derives_from
+attrs:
+  priority: must
+  origin: ai
+key: 5e0a1b2c-3d4e-4f50-8a61-72b3c4d5e607

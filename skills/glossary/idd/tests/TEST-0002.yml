@@ -1,0 +1,15 @@
+uid: TEST-0002
+type: test
+status: proposed
+title: A glossary written as the skill writes it passes tl check
+text: Apply to a fresh glossary graph a change set of the shape the skill's instructions
+  give, with list aliases and stamped links into the explained graph; assert tl check
+  reports no error and every link into the explained graph carries a stamp.
+normative: true
+links:
+- target: REQ-0002
+  type: verifies
+attrs:
+  method: automated
+  origin: ai
+key: 5e0a1b2c-3d4e-4f50-8a61-72b3c4d5e612

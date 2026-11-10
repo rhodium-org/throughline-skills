@@ -1,0 +1,14 @@
+uid: TEST-0007
+type: test
+status: proposed
+title: Review reports a name two terms share
+text: Give one term the alias Look and another the title look; assert review reports
+  the name look with both terms.
+normative: true
+links:
+- target: REQ-0007
+  type: verifies
+attrs:
+  method: automated
+  origin: ai
+key: 5e0a1b2c-3d4e-4f50-8a61-72b3c4d5e617
