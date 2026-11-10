@@ -1,0 +1,28 @@
+uid: REQ-0012
+type: requirement
+status: ratified
+title: The script reports a retired name still used in an explained graph
+text: For each deprecated name of each term, the script reports every item of an
+  explained graph whose title, text or rationale uses it as a whole word, in any
+  case, naming the term and the item. It changes neither graph.
+normative: true
+links:
+- target: INT-0001
+  type: derives_from
+attrs:
+  priority: must
+  origin: ai
+ratifications:
+- by: Henry Grech-Cini
+  at: '2026-11-10T22:28:12Z'
+  fingerprint: sha256:ae21a456dea0c420bff6ca371df59aa47cd4407ef32d5f00193a3615c99df82a
+  content:
+    type: requirement
+    text: For each deprecated name of each term, the script reports every item of
+      an explained graph whose title, text or rationale uses it as a whole word,
+      in any case, naming the term and the item. It changes neither graph.
+    normative: true
+    derived: false
+    attrs:
+      priority: must
+key: 5e0a1b2c-3d4e-4f50-8a61-72b3c4d5e622

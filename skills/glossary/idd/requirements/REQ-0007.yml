@@ -1,0 +1,31 @@
+uid: REQ-0007
+type: requirement
+status: ratified
+title: The script reports one name used for several terms
+text: Given a glossary graph, the script reports every name, compared without regard
+  to case, that is the title or an alias of more than one term, naming the terms.
+  The skill reports, from its reading, one concept the explained graph calls by several
+  names, and records the other names as the term's aliases once the person agrees.
+normative: true
+links:
+- target: INT-0001
+  type: derives_from
+attrs:
+  priority: should
+  origin: ai
+ratifications:
+- by: Henry Grech-Cini
+  at: '2026-11-10T22:28:11Z'
+  fingerprint: sha256:7739125cae805250cf274122b3aad3ec491940d0ba4ac918e600b8cfc7aa1acd
+  content:
+    type: requirement
+    text: Given a glossary graph, the script reports every name, compared without
+      regard to case, that is the title or an alias of more than one term, naming
+      the terms. The skill reports, from its reading, one concept the explained graph
+      calls by several names, and records the other names as the term's aliases once
+      the person agrees.
+    normative: true
+    derived: false
+    attrs:
+      priority: should
+key: 5e0a1b2c-3d4e-4f50-8a61-72b3c4d5e608

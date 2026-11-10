@@ -1,0 +1,28 @@
+uid: TEST-0006
+type: test
+status: ratified
+title: The instructions never amend a settled term on a fresh reading
+text: 'Read SKILL.md: assert that a settled term is never amended, that a materially
+  different reading of its unchanged sources is reported with both readings and the
+  three questions, and that tl flag and any amendment follow only the person''s answer.'
+normative: true
+links:
+- target: REQ-0006
+  type: verifies
+attrs:
+  method: inspection
+  origin: ai
+ratifications:
+- by: Henry Grech-Cini
+  at: '2026-11-10T22:28:13Z'
+  fingerprint: sha256:63a8cbe46fe20f12802a30498cd81eec27fc92c12291b5e2f1f13d7afde7a33b
+  content:
+    type: test
+    text: 'Read SKILL.md: assert that a settled term is never amended, that a materially
+      different reading of its unchanged sources is reported with both readings and
+      the three questions, and that tl flag and any amendment follow only the person''s
+      answer.'
+    normative: true
+    derived: false
+    attrs: {}
+key: 5e0a1b2c-3d4e-4f50-8a61-72b3c4d5e616

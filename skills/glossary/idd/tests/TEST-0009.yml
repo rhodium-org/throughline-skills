@@ -1,0 +1,25 @@
+uid: TEST-0009
+type: test
+status: ratified
+title: The script refuses a tl older than 5.2.0
+text: Put a stand-in tl that reports 5.1.0 first on PATH; assert every command exits
+  2 and names 5.2.0 and the upgrade command.
+normative: true
+links:
+- target: REQ-0009
+  type: verifies
+attrs:
+  method: automated
+  origin: ai
+ratifications:
+- by: Henry Grech-Cini
+  at: '2026-11-10T22:28:14Z'
+  fingerprint: sha256:b81e8d2ba7f58a6a4f0fbe61e2cdeebef3607d460f107b5f8c292bf89af9c5b7
+  content:
+    type: test
+    text: Put a stand-in tl that reports 5.1.0 first on PATH; assert every command
+      exits 2 and names 5.2.0 and the upgrade command.
+    normative: true
+    derived: false
+    attrs: {}
+key: 5e0a1b2c-3d4e-4f50-8a61-72b3c4d5e619

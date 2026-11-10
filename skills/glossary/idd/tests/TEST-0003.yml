@@ -1,0 +1,29 @@
+uid: TEST-0003
+type: test
+status: ratified
+title: The glossary graph is made beside the explained graph
+text: Run the script's init command against a repository whose graph is at idd/;
+  assert the glossary graph's throughline.toml is written outside idd/, names idd
+  as a path source and the standard as its schema source at a tag, and that the command
+  refuses a target inside idd/.
+normative: true
+links:
+- target: REQ-0003
+  type: verifies
+attrs:
+  method: automated
+  origin: ai
+ratifications:
+- by: Henry Grech-Cini
+  at: '2026-11-10T22:28:12Z'
+  fingerprint: sha256:ef557c66c2fefa56fd408835f2f652ab295988a2c18dd859eca34cc14197cdc8
+  content:
+    type: test
+    text: Run the script's init command against a repository whose graph is at idd/;
+      assert the glossary graph's throughline.toml is written outside idd/, names
+      idd as a path source and the standard as its schema source at a tag, and that
+      the command refuses a target inside idd/.
+    normative: true
+    derived: false
+    attrs: {}
+key: 5e0a1b2c-3d4e-4f50-8a61-72b3c4d5e613

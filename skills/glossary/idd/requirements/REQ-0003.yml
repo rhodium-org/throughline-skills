@@ -1,0 +1,32 @@
+uid: REQ-0003
+type: requirement
+status: ratified
+title: The glossary graph sits beside the graph it explains, never inside it
+text: The skill creates the glossary graph in a folder of its own beside the graph
+  it explains, never inside that graph's root or any other graph's, and names the
+  explained graph as a path source and the standard as its schema source at a tagged
+  version. Where the repository holds several graphs it asks which the glossary explains,
+  and composes each one it names.
+normative: true
+links:
+- target: INT-0001
+  type: derives_from
+attrs:
+  priority: must
+  origin: ai
+ratifications:
+- by: Henry Grech-Cini
+  at: '2026-11-10T22:28:10Z'
+  fingerprint: sha256:e53584a07fb8396b8b1d6de3387fb1eeb6a5effbf398ef92b29df7d705de215d
+  content:
+    type: requirement
+    text: The skill creates the glossary graph in a folder of its own beside the
+      graph it explains, never inside that graph's root or any other graph's, and
+      names the explained graph as a path source and the standard as its schema source
+      at a tagged version. Where the repository holds several graphs it asks which
+      the glossary explains, and composes each one it names.
+    normative: true
+    derived: false
+    attrs:
+      priority: must
+key: 5e0a1b2c-3d4e-4f50-8a61-72b3c4d5e604

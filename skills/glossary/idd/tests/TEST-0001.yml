@@ -1,0 +1,33 @@
+uid: TEST-0001
+type: test
+status: ratified
+title: Candidates come from the explained graph, most used first, without the glossary's
+  own names
+text: Build an explained graph whose items use one phrase in three items and another
+  in two, and a glossary composing it that already holds a term named by a third
+  recurring phrase; assert candidates lists the first two in that order with their
+  items, leaves out the third, every common word, a file name and a plural counted
+  with its singular, and names the most-linked explained item.
+normative: true
+links:
+- target: REQ-0001
+  type: verifies
+attrs:
+  method: automated
+  origin: ai
+ratifications:
+- by: Henry Grech-Cini
+  at: '2026-11-10T22:28:12Z'
+  fingerprint: sha256:fe751e546c6791c99dae82de0dc474904fdc970d709924c2700969387a9168c7
+  content:
+    type: test
+    text: Build an explained graph whose items use one phrase in three items and
+      another in two, and a glossary composing it that already holds a term named
+      by a third recurring phrase; assert candidates lists the first two in that
+      order with their items, leaves out the third, every common word, a file name
+      and a plural counted with its singular, and names the most-linked explained
+      item.
+    normative: true
+    derived: false
+    attrs: {}
+key: 5e0a1b2c-3d4e-4f50-8a61-72b3c4d5e611

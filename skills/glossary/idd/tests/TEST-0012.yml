@@ -1,0 +1,25 @@
+uid: TEST-0012
+type: test
+status: ratified
+title: Review finds a retired name as a whole word in an explained item
+text: Give a term the deprecated name skin and explained items using Skin, skins
+  and skin-deep; assert review reports the first alone.
+normative: true
+links:
+- target: REQ-0012
+  type: verifies
+attrs:
+  method: automated
+  origin: ai
+ratifications:
+- by: Henry Grech-Cini
+  at: '2026-11-10T22:28:14Z'
+  fingerprint: sha256:4675a02110006fbd87354a41f5f95946a904cd3e31ad447cd2f2a54e0b389d0e
+  content:
+    type: test
+    text: Give a term the deprecated name skin and explained items using Skin, skins
+      and skin-deep; assert review reports the first alone.
+    normative: true
+    derived: false
+    attrs: {}
+key: 5e0a1b2c-3d4e-4f50-8a61-72b3c4d5e626

@@ -26,8 +26,8 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Install throughline (tl composes sources from 3.11.0)
-        run: pip install 'throughline>=4.0.0'
+      - name: Install throughline (the glossary script needs 5.2.0 for links declared outside the graph and list attributes)
+        run: pip install 'throughline>=5.2.0'
 
       - name: Gate every graph
         run: |

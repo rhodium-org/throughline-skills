@@ -1,0 +1,43 @@
+uid: REQ-0008
+type: requirement
+status: ratified
+title: The glossary is rendered as documentation from the graph alone, the same way
+  every time
+text: 'Given a glossary graph, the script writes one Markdown document: the glossary''s
+  title and text and the audiences it is published for; a table of every term with
+  its one-line definition; then for each term in order of its name, its definition,
+  the names it is also called and no longer called, why it exists, how it works with
+  the titles of the items that drive it, its example with the item it is taken from,
+  the terms it is a kind of, is not to be confused with and relates to, the terms
+  of other glossaries it matches, the items it is defined from with their titles,
+  whether it is signed, and a notice where a source has moved since its stamp. The
+  same graph gives the same bytes. With --check it writes nothing and exits 1 when
+  the document on disk differs.'
+normative: true
+links:
+- target: INT-0001
+  type: derives_from
+attrs:
+  priority: must
+  origin: ai
+ratifications:
+- by: Henry Grech-Cini
+  at: '2026-11-10T22:28:11Z'
+  fingerprint: sha256:b8b6b33a2dbaca5f397f61368dc83e368b24f09b0ec3e315ab7fb5aaf5257945
+  content:
+    type: requirement
+    text: 'Given a glossary graph, the script writes one Markdown document: the glossary''s
+      title and text and the audiences it is published for; a table of every term
+      with its one-line definition; then for each term in order of its name, its
+      definition, the names it is also called and no longer called, why it exists,
+      how it works with the titles of the items that drive it, its example with the
+      item it is taken from, the terms it is a kind of, is not to be confused with
+      and relates to, the terms of other glossaries it matches, the items it is defined
+      from with their titles, whether it is signed, and a notice where a source has
+      moved since its stamp. The same graph gives the same bytes. With --check it
+      writes nothing and exits 1 when the document on disk differs.'
+    normative: true
+    derived: false
+    attrs:
+      priority: must
+key: 5e0a1b2c-3d4e-4f50-8a61-72b3c4d5e609

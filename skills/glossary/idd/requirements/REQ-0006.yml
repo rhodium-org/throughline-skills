@@ -1,0 +1,39 @@
+uid: REQ-0006
+type: requirement
+status: ratified
+title: A definition that would change while its sources have not is reported, never
+  written
+text: For a term the review reports as settled, the skill does not amend it. Where
+  its own reading of the unchanged sources says something materially different from
+  the term (a different claim about what the thing is, why it exists or what decides
+  it, not different wording), it reports the term, its sources and the two readings
+  as a reading that moved without a change, and asks the person whether the term
+  was wrong, whether the source is ambiguous, or whether the new reading is wrong.
+  Only on the person's word does it propose an amendment, or record the ambiguity
+  on the source item with tl flag.
+normative: true
+links:
+- target: INT-0001
+  type: derives_from
+attrs:
+  priority: must
+  origin: ai
+ratifications:
+- by: Henry Grech-Cini
+  at: '2026-11-10T22:28:10Z'
+  fingerprint: sha256:363f1c32a428aafe254b87338b0b038f6a372c532d3d5fa344d9357b60dd05d4
+  content:
+    type: requirement
+    text: For a term the review reports as settled, the skill does not amend it.
+      Where its own reading of the unchanged sources says something materially different
+      from the term (a different claim about what the thing is, why it exists or
+      what decides it, not different wording), it reports the term, its sources and
+      the two readings as a reading that moved without a change, and asks the person
+      whether the term was wrong, whether the source is ambiguous, or whether the
+      new reading is wrong. Only on the person's word does it propose an amendment,
+      or record the ambiguity on the source item with tl flag.
+    normative: true
+    derived: false
+    attrs:
+      priority: must
+key: 5e0a1b2c-3d4e-4f50-8a61-72b3c4d5e607

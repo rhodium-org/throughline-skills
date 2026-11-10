@@ -1,0 +1,28 @@
+uid: REQ-0009
+type: requirement
+status: ratified
+title: The script refuses a tl too old to check a glossary
+text: The script runs tl from throughline 5.2.0 or later, the first release that
+  checks a link declared to run outside the follower and writes list attributes,
+  and otherwise exits 2 naming the version it found and the command to upgrade.
+normative: true
+links:
+- target: INT-0001
+  type: derives_from
+attrs:
+  priority: must
+  origin: ai
+ratifications:
+- by: Henry Grech-Cini
+  at: '2026-11-10T22:28:11Z'
+  fingerprint: sha256:3f8b0bbb95e910b28c850ddacffffc4b512fb88c42f6723f4eae82daa243a149
+  content:
+    type: requirement
+    text: The script runs tl from throughline 5.2.0 or later, the first release that
+      checks a link declared to run outside the follower and writes list attributes,
+      and otherwise exits 2 naming the version it found and the command to upgrade.
+    normative: true
+    derived: false
+    attrs:
+      priority: must
+key: 5e0a1b2c-3d4e-4f50-8a61-72b3c4d5e610

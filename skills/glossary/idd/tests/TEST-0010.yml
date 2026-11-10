@@ -1,0 +1,32 @@
+uid: TEST-0010
+type: test
+status: ratified
+title: An audience's glossary holds only its terms, in its glosses
+text: Render a fixture glossary with two audiences, a term for both, a term for one
+  and a gloss of the first term for the second audience; assert each audience's document
+  holds only its terms, that the second shows the gloss's words and the first the
+  term's, that the full document names both audiences with their counts, and that
+  review reports a gloss whose term moved and two glosses of one term for one audience.
+normative: true
+links:
+- target: REQ-0010
+  type: verifies
+attrs:
+  method: automated
+  origin: ai
+ratifications:
+- by: Henry Grech-Cini
+  at: '2026-11-10T22:28:14Z'
+  fingerprint: sha256:d1b88834cc557c26c288eb9c97270e06e45485c7ca5bc83ae940a11b1cef66d5
+  content:
+    type: test
+    text: Render a fixture glossary with two audiences, a term for both, a term for
+      one and a gloss of the first term for the second audience; assert each audience's
+      document holds only its terms, that the second shows the gloss's words and
+      the first the term's, that the full document names both audiences with their
+      counts, and that review reports a gloss whose term moved and two glosses of
+      one term for one audience.
+    normative: true
+    derived: false
+    attrs: {}
+key: 5e0a1b2c-3d4e-4f50-8a61-72b3c4d5e624
