@@ -112,10 +112,11 @@ def _norm(value: object) -> str:
 def fingerprint(item: dict, config: dict) -> str:
     """The SHA-256 tl ratify and tl link --stamp record, recomputed from what
     tl dump carries: the authored UID, type, text, the normative and derived
-    flags, and the attributes the schema marks normative, in schema order."""
+    flags, and the attributes the schema marks normative, in name order as tl
+    reads them."""
     uid = item["uid"].rsplit(":", 1)[-1]
     spec = config.get("types", {}).get(item["type"], {}).get("attrs", {})
-    names = [n for n, s in spec.items() if isinstance(s, dict) and s.get("normative")]
+    names = sorted(n for n, s in spec.items() if isinstance(s, dict) and s.get("normative"))
     parts = [("uid", uid), ("type", item["type"]), ("text", _norm(item.get("text") or "")),
              ("normative", str(item.get("normative", True))),
              ("derived", str(item.get("derived", False)))]
@@ -149,7 +150,10 @@ class Graph:
 
     @property
     def config(self) -> dict:
-        return self.dump["config"]
+        """The config that governs the graph. Where its schema comes from a
+        source its own config declares no types, links or statuses: tl dump
+        carries the one tl formed from that source beside it."""
+        return (self.dump.get("schema_source") or {}).get("formed") or self.dump["config"]
 
     def role(self, name: str, default: str) -> str:
         return self.config.get("status", {}).get("roles", {}).get(name, default)
@@ -538,14 +542,14 @@ def stamped_edition(repo: Path, r: Resolved, cache: dict) -> str | None:
         root = path[: -len(suffix)].rstrip("/")
         key = (commit, root, r.ref.uid)
         if key not in cache:
-            cache[key] = edition_fingerprint(repo, commit, root, r.ref.uid)
+            cache[key] = edition_fingerprint(repo, commit, root, r.ref.uid, r.graph.config)
         fp = cache[key]
         if fp and hexof(fp).startswith(r.ref.stamp):
             return commit[:12]
     return None
 
 
-def edition_fingerprint(repo: Path, commit: str, root: str, uid: str) -> str | None:
+def edition_fingerprint(repo: Path, commit: str, root: str, uid: str, config: dict) -> str | None:
     archive = subprocess.run(["git", "-C", str(repo), "archive", commit, "--", root or "."],
                              capture_output=True)
     if archive.returncode != 0:
@@ -567,7 +571,10 @@ def edition_fingerprint(repo: Path, commit: str, root: str, uid: str) -> str | N
             return None
         dump = json.loads(proc.stdout)
         item = next((i for i in dump["items"] if i["uid"] == uid), None)
-        return fingerprint(item, dump["config"]) if item else None
+        # With its sources stripped, a graph whose schema is a source's has no
+        # types of its own left: read the edition under the schema it has now.
+        own = dump["config"]
+        return fingerprint(item, own if own.get("types") else config) if item else None
 
 
 def stamp_findings(repo: Path, resolved: list[Resolved], graphs: list[Graph]) -> list:
