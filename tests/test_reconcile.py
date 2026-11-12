@@ -419,3 +419,44 @@ def test_a_fingerprint_disagreeing_with_tl_stops_the_run(repo, tmp_path):
     r = reconcile(repo, "scan", env=env)
     assert r.returncode == 2, r.stdout + r.stderr
     assert r1 in r.stderr and "disagrees" in r.stderr
+
+
+# tl: verifies tl-reconcile/TEST-0017@34e449417988
+def test_normative_attributes_are_hashed_in_name_order_whatever_order_declared(repo):
+    g = Graph(repo, "g", "app")
+    for name in ("zeta", "alpha"):                 # declared out of name order
+        g.tl("schema", "attr", "add", "requirement", name, "--kind", "string", "--normative",
+             "--because", "fixture")
+    r1 = g.new("REQ", "Two attributes", ground=["INT-0001"],
+               attrs=["priority=must", "zeta=last", "alpha=first"])
+    g.ratify(r1)
+    fp = g.item(r1)["ratifications"][-1]["fingerprint"]
+    write(repo, "src/a.py", cite("implements", f"{r1}@{fp.split(':')[1][:12]}"))
+    commit(repo)
+    assert not [f for f in scan(repo)["findings"] if f["kind"] == "stale"]
+
+
+# tl: verifies tl-reconcile/TEST-0017@34e449417988
+def test_a_schema_taken_from_a_source_is_the_one_the_fingerprint_reads(repo, tmp_path):
+    std = Graph(tmp_path, "std", "std")            # the standard: declares the types
+    std.tl("schema", "attr", "add", "requirement", "grade", "--kind", "string", "--normative",
+           "--because", "fixture")
+    root = repo / "g"
+    root.mkdir()
+    (root / "throughline.toml").write_text(
+        '[project]\nname = "app"\nformat_version = 4\n\n'
+        f'[[sources]]\nnamespace = "std"\npath = "{std.root}"\nschema = true\n')
+    def tl(*args):
+        return ok(TL, "-C", str(root), *args)
+    tl("register", "new", "REQ", "requirements", "--type", "requirement")
+    tl("register", "new", "INT", "vision", "--type", "intent")
+    tl("new", "INT", "--title", "Root", "--text", "Root.", "--origin", "human", "--no-interactive")
+    out = tl("new", "REQ", "--title", "Graded", "--text", "Graded.", "--origin", "ai", "--no-interactive",
+             "--ground", "INT-0001", "--attr", "priority=must", "--attr", "grade=high")
+    r1 = re.search(r"created ([A-Z]+-\d+)", out).group(1)
+    tl("ratify", r1, "--by", "Tester")
+    item = next(i for i in json.loads(tl("dump", "--local"))["items"] if i["uid"] == r1)
+    fp = item["ratifications"][-1]["fingerprint"]
+    write(repo, "src/a.py", cite("implements", f"{r1}@{fp.split(':')[1][:12]}"))
+    commit(repo)
+    assert not [f for f in scan(repo)["findings"] if f["kind"] == "stale"]
