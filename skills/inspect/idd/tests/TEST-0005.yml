@@ -1,0 +1,29 @@
+uid: TEST-0005
+type: test
+status: ratified
+title: The page names no other host and holds graph text as data, and the fragment
+  is the page without its document
+text: 'The page written for a fixture whose item text holds markup is parsed: it
+  has no element that loads from a URL, the markup in the item''s text appears only
+  inside the page''s data and closes no script element, and the fragment holds the
+  same data with no doctype, head or body.'
+normative: false
+links:
+- target: REQ-0005
+  type: verifies
+attrs:
+  method: automated
+  origin: ai
+ratifications:
+- by: Henry Grech-Cini
+  at: '2026-11-13T23:05:50Z'
+  fingerprint: sha256:0343975d16cef85f018f2396b2a6fdef1bb2bab5d06273dc4699ddf2e7984f88
+  content:
+    type: test
+    text: 'The page written for a fixture whose item text holds markup is parsed:
+      it has no element that loads from a URL, the markup in the item''s text appears
+      only inside the page''s data and closes no script element, and the fragment
+      holds the same data with no doctype, head or body.'
+    normative: false
+    derived: false
+    attrs: {}

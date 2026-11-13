@@ -1,0 +1,27 @@
+uid: TEST-0002
+type: test
+status: ratified
+title: An item's text, rationale, attributes, links and signature reach the view
+  unchanged
+text: A fixture item is given a long text, an attribute and a link, and a second
+  is ratified. The view's entry for each equals what tl dump holds for it, character
+  for character, and the ratified one names its signer.
+normative: false
+links:
+- target: REQ-0002
+  type: verifies
+attrs:
+  method: automated
+  origin: ai
+ratifications:
+- by: Henry Grech-Cini
+  at: '2026-11-13T23:05:50Z'
+  fingerprint: sha256:69385b64fd74580bbe00929b3fbe7e35379e4f360fa901556027d6bec0cab2b8
+  content:
+    type: test
+    text: A fixture item is given a long text, an attribute and a link, and a second
+      is ratified. The view's entry for each equals what tl dump holds for it, character
+      for character, and the ratified one names its signer.
+    normative: false
+    derived: false
+    attrs: {}

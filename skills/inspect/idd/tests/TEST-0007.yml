@@ -1,0 +1,29 @@
+uid: TEST-0007
+type: test
+status: ratified
+title: Running the script changes no file of any graph, and the page and the skill
+  leave signing to a person
+text: The fixture's files are hashed before and after the script writes a page, and
+  are equal. The page holds the words that a tick signs nothing and builds its ratify
+  line as text. The skill's text tells the agent never to run tl ratify and to hand
+  the command over with the graph's path.
+normative: false
+links:
+- target: REQ-0007
+  type: verifies
+attrs:
+  method: automated
+  origin: ai
+ratifications:
+- by: Henry Grech-Cini
+  at: '2026-11-13T23:05:51Z'
+  fingerprint: sha256:fc3bbc0471cdd20ded51c91e02677df423d0611ac5fd427d466a8e5ea1999330
+  content:
+    type: test
+    text: The fixture's files are hashed before and after the script writes a page,
+      and are equal. The page holds the words that a tick signs nothing and builds
+      its ratify line as text. The skill's text tells the agent never to run tl ratify
+      and to hand the command over with the graph's path.
+    normative: false
+    derived: false
+    attrs: {}

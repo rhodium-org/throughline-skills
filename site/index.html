@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>throughline skills for Claude Code — IDDⁿ</title>
-<meta name="description" content="A Claude Code plugin marketplace for working in throughline IDD requirements repositories: /tl:shape, /tl:challenge, /tl:multigraph, /tl:reconcile, /tl:assess and /tl:glossary.">
+<meta name="description" content="A Claude Code plugin marketplace for working in throughline IDD requirements repositories: /tl:shape, /tl:challenge, /tl:multigraph, /tl:reconcile, /tl:inspect, /tl:assess and /tl:glossary.">
 <link rel="canonical" href="https://skills.iddn.uk/">
 <meta name="theme-color" content="#0E1014" media="(prefers-color-scheme: dark)">
 <meta name="theme-color" content="#F2F4F7" media="(prefers-color-scheme: light)">
@@ -220,6 +220,19 @@ footer{border-top:1px solid var(--hairline); padding-top:1.25rem}
       <p>Code and graph are two records of one thing; where they disagree it
       asks which side moves, and never makes them agree on its own. A citation
       table drops into generated documents.</p>
+    </article>
+    <article class="panel">
+      <span class="when">Before signing an item, or changing one</span>
+      <h3>/tl:inspect</h3>
+      <p>One item with everything it rests on above it and everything that rests
+      on it below, as a page: joined across every graph in the repository that
+      path sources connect, where <code>tl trace</code> and <code>tl blast</code>
+      each print a list inside one graph. Every box opens a dialog with the
+      item's whole wording, its links with the state of their stamps, and who
+      signed it.</p>
+      <p>A tick box on each keeps count of what has been read. A tick signs
+      nothing; the page prints the <code>tl ratify</code> line for a person to
+      run.</p>
     </article>
     <article class="panel">
       <span class="when">When a piece of work reaches done</span>

@@ -1,0 +1,27 @@
+uid: REQ-0009
+type: requirement
+status: ratified
+title: The view carries each graph's tl check result
+text: For each graph with an item in the view the script runs tl check and the view
+  carries its count of errors and warnings, shown on the page and in the summary.
+  --no-check leaves them out.
+normative: true
+links:
+- target: INT-0001
+  type: derives_from
+attrs:
+  priority: must
+  origin: ai
+ratifications:
+- by: Henry Grech-Cini
+  at: '2026-11-13T23:05:49Z'
+  fingerprint: sha256:a720ea9e71b55e444d7e43bc30338b50eccac3d6219c73f54dbfcaf1088b51ff
+  content:
+    type: requirement
+    text: For each graph with an item in the view the script runs tl check and the
+      view carries its count of errors and warnings, shown on the page and in the
+      summary. --no-check leaves them out.
+    normative: true
+    derived: false
+    attrs:
+      priority: must

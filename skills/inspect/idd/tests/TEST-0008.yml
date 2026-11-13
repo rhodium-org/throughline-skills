@@ -1,0 +1,27 @@
+uid: TEST-0008
+type: test
+status: ratified
+title: An older or missing tl is refused, naming 5.2.0, before anything is read
+text: With a stand-in tl reporting 5.1.1 first on the path the script exits 2 naming
+  5.2.0 and the upgrade command and writes nothing; with no tl on the path it exits
+  2 naming the install; a stand-in reporting 5.2.0 is not refused by the floor.
+normative: false
+links:
+- target: REQ-0008
+  type: verifies
+attrs:
+  method: automated
+  origin: ai
+ratifications:
+- by: Henry Grech-Cini
+  at: '2026-11-13T23:05:51Z'
+  fingerprint: sha256:5eeee4a550131313cd0aea9af0c374c7fff6c1ec7362c156ed005bcb38b3a395
+  content:
+    type: test
+    text: With a stand-in tl reporting 5.1.1 first on the path the script exits 2
+      naming 5.2.0 and the upgrade command and writes nothing; with no tl on the
+      path it exits 2 naming the install; a stand-in reporting 5.2.0 is not refused
+      by the floor.
+    normative: false
+    derived: false
+    attrs: {}

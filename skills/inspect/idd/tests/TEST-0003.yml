@@ -1,0 +1,29 @@
+uid: TEST-0003
+type: test
+status: ratified
+title: A stamped link reads current, then stale once its target is reworded, and
+  a bare link out of its graph reads unstamped
+text: In the two-graph fixture a link from the second graph into the first is made
+  with a stamp and another without. The view reports the first current and the second
+  unstamped. The target is then amended and the view reports the stamped link stale;
+  the summary lists both.
+normative: false
+links:
+- target: REQ-0003
+  type: verifies
+attrs:
+  method: automated
+  origin: ai
+ratifications:
+- by: Henry Grech-Cini
+  at: '2026-11-13T23:05:50Z'
+  fingerprint: sha256:6193726a7c3ec2bdc5fbd2343c72f40f842dc010084e9b7f79c4cbaf22517ea7
+  content:
+    type: test
+    text: In the two-graph fixture a link from the second graph into the first is
+      made with a stamp and another without. The view reports the first current and
+      the second unstamped. The target is then amended and the view reports the stamped
+      link stale; the summary lists both.
+    normative: false
+    derived: false
+    attrs: {}

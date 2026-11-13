@@ -1,0 +1,145 @@
+<style>
+.ig{--ig-page:var(--surface-0,#f7f6f2);--ig-card:var(--surface-2,#fff);--ig-text:var(--text-primary,#1b1b19);--ig-soft:var(--text-secondary,#5f5e5a);--ig-line:var(--border-strong,#b4b2a9);--ig-warn:#854f0b;--ig-bad:#a32d2d;--ig-ok:#27500a;
+--ig-trace-f:#eeedfe;--ig-trace-s:#534ab7;--ig-trace-t:#26215c;--ig-blast-f:#faece7;--ig-blast-s:#993c1d;--ig-blast-t:#4a1b0c;--ig-focus-f:#f1efe8;--ig-focus-s:#5f5e5a;--ig-focus-t:#2c2c2a;
+color:var(--ig-text);font-size:14px;line-height:1.5}
+@media (prefers-color-scheme:dark){:root:not([data-mode="light"]) .ig{--ig-page:var(--surface-0,#1b1b19);--ig-card:var(--surface-2,#2c2c2a);--ig-text:var(--text-primary,#f1efe8);--ig-soft:var(--text-secondary,#b4b2a9);--ig-line:var(--border-strong,#5f5e5a);--ig-warn:#fac775;--ig-bad:#f09595;--ig-ok:#c0dd97;
+--ig-trace-f:#3c3489;--ig-trace-s:#afa9ec;--ig-trace-t:#eeedfe;--ig-blast-f:#712b13;--ig-blast-s:#f0997b;--ig-blast-t:#faece7;--ig-focus-f:#444441;--ig-focus-s:#b4b2a9;--ig-focus-t:#f1efe8}}
+[data-mode="dark"] .ig{--ig-page:var(--surface-0,#1b1b19);--ig-card:var(--surface-2,#2c2c2a);--ig-text:var(--text-primary,#f1efe8);--ig-soft:var(--text-secondary,#b4b2a9);--ig-line:var(--border-strong,#5f5e5a);--ig-warn:#fac775;--ig-bad:#f09595;--ig-ok:#c0dd97;
+--ig-trace-f:#3c3489;--ig-trace-s:#afa9ec;--ig-trace-t:#eeedfe;--ig-blast-f:#712b13;--ig-blast-s:#f0997b;--ig-blast-t:#faece7;--ig-focus-f:#444441;--ig-focus-s:#b4b2a9;--ig-focus-t:#f1efe8}
+.ig .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.ig .bar{display:flex;flex-wrap:wrap;gap:6px 16px;align-items:center;font-size:13px;color:var(--ig-soft);margin:0 0 8px}
+.ig .sw{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px}
+.ig svg text{font-family:inherit}
+.ig .n{cursor:pointer}.ig .n:focus-visible rect.b{stroke-width:2.5}
+.ig .n.trace rect.b{fill:var(--ig-trace-f);stroke:var(--ig-trace-s)}.ig .n.trace text{fill:var(--ig-trace-t)}
+.ig .n.blast rect.b{fill:var(--ig-blast-f);stroke:var(--ig-blast-s)}.ig .n.blast text{fill:var(--ig-blast-t)}
+.ig .n.focus rect.b{fill:var(--ig-focus-f);stroke:var(--ig-focus-s)}.ig .n.focus text{fill:var(--ig-focus-t)}
+.ig .n.done{opacity:.55}
+.ig .e{stroke:var(--ig-line);stroke-width:1;fill:none}.ig .e.bad{stroke:var(--ig-bad);stroke-dasharray:5 3;stroke-width:1.5}
+.ig button{font:inherit;font-size:13px;padding:6px 12px;border-radius:8px;border:1px solid var(--ig-line);background:transparent;color:var(--ig-text);cursor:pointer;min-height:32px}
+.ig .ov{display:none;position:absolute;inset:0;background:rgba(0,0,0,.45);border-radius:12px;align-items:flex-start;justify-content:center;padding:16px}
+.ig .dlg{background:var(--ig-card);border:1px solid var(--ig-line);border-radius:12px;padding:16px 20px;width:100%;max-width:560px;box-sizing:border-box}
+.ig .dlg p,.ig .dlg ul{margin:0 0 10px;font-size:13px}.ig .dlg ul{padding-left:18px}
+.ig .tag{font-size:12px;padding:2px 10px;border-radius:8px;border:1px solid currentColor}
+.ig pre{font-size:12px;white-space:pre-wrap;margin:4px 0 0;font-family:ui-monospace,monospace}
+.ig .note{font-size:13px;color:var(--ig-soft);margin:8px 0}
+</style>
+<div class="ig" id="ig">
+<h2 class="sr" id="ig-sum"></h2>
+<div class="bar">
+  <span><span class="sw" style="background:var(--ig-trace-s)"></span>What it rests on</span>
+  <span><span class="sw" style="background:var(--ig-blast-s)"></span>What rests on it</span>
+  <span>Dashed box: another graph</span>
+  <span><span class="sw" style="background:var(--ig-warn);border-radius:50%"></span>Not signed</span>
+  <span id="ig-badkey" style="color:var(--ig-bad);display:none">Red dashed link: stamp stale or missing</span>
+  <span id="ig-count" style="margin-left:auto;color:var(--ig-text)"></span>
+</div>
+<p class="note" id="ig-beyond" style="display:none"></p>
+<div id="ig-wrap" style="position:relative">
+  <svg id="ig-svg" width="100%" role="group" aria-labelledby="ig-sum">
+    <defs><marker id="ig-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+  </svg>
+  <!-- tl: implements tl-inspect/REQ-0006@9502b88fea0d -->
+  <div class="ov" id="ig-ov">
+    <div class="dlg" role="dialog" aria-modal="true" aria-labelledby="ig-title" id="ig-dlg">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span id="ig-uid" style="font-family:ui-monospace,monospace;font-size:13px;color:var(--ig-soft)"></span>
+        <span class="tag" id="ig-status"></span>
+      </div>
+      <h3 id="ig-title" style="margin:0 0 10px;font-size:16px;font-weight:500;line-height:1.4"></h3>
+      <p id="ig-text" style="white-space:pre-wrap"></p>
+      <p id="ig-why" style="white-space:pre-wrap;color:var(--ig-soft)"></p>
+      <ul id="ig-attrs" style="color:var(--ig-soft)"></ul>
+      <ul id="ig-links"></ul>
+      <p id="ig-sig" style="color:var(--ig-soft)"></p>
+      <div style="display:flex;gap:8px;justify-content:flex-end">
+        <button id="ig-close">Close</button>
+        <button id="ig-tick"></button>
+      </div>
+    </div>
+  </div>
+</div>
+<p class="note">Open a box to read the item. Tick it from the dialog or from its tick box. A tick records that you have read it; it signs nothing.</p>
+<div style="display:flex;gap:8px;flex-wrap:wrap">
+  <button id="ig-clear">Clear ticks</button>
+  <button id="ig-ask" style="display:none">Discuss the unticked ones</button>
+</div>
+<div id="ig-sign" style="display:none">
+  <p class="note" style="margin-bottom:0">Ticked and not yet signed. Signing is a person's act, done by running:</p>
+  <pre id="ig-cmds"></pre>
+</div>
+<p class="note" id="ig-checks"></p>
+</div>
+<script>
+(function(){
+const V=/*VIEW*/null;
+if(!V)return;
+const NS="http://www.w3.org/2000/svg",$=id=>document.getElementById(id),svg=$("ig-svg");
+const S=V.size,by={},ticked=new Set();let cur=null,opener=null;
+V.nodes.forEach(n=>by[n.id]=n);
+const focus=by[V.focus],name=n=>n.graph+"/"+n.uid;
+function el(t,a,p){const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);(p||svg).appendChild(e);return e}
+function html(t,text,p){const e=document.createElement(t);e.textContent=text;p.appendChild(e);return e}
+svg.setAttribute("viewBox","0 0 "+S.width+" "+S.height);
+const nt=V.nodes.filter(n=>n.role==="trace").length,nb=V.nodes.filter(n=>n.role==="blast").length;
+$("ig-sum").textContent="Trace and blast of "+name(focus)+": it rests on "+nt+" item(s) and "+nb+" item(s) rest on it. Each item opens a dialog with its details and has a tick box.";
+const B=V.beyond,parts=[];
+if(B.trace)parts.push(B.trace+" more item(s) it rests on");
+if(B.blast)parts.push(B.blast+" more item(s) that rest on it");
+if(parts.length){$("ig-beyond").style.display="";$("ig-beyond").textContent="Not shown, beyond "+V.depth+" link(s): "+parts.join(" and ")+". Run again with --depth 0 to see every one."}
+let bad=0;
+V.edges.forEach(e=>{const a=by[e.from],b=by[e.to];if(!a||!b)return;
+  const up=b.y<a.y,isBad=e.stamp==="stale"||e.stamp==="unstamped";if(isBad)bad++;
+  const l=el("line",{x1:a.x+S.box_w/2,y1:up?a.y:a.y+S.box_h,x2:b.x+S.box_w/2,y2:up?b.y+S.box_h+2:b.y-2,class:"e"+(isBad?" bad":""),"marker-end":"url(#ig-arrow)"});
+  el("title",{},l).textContent=a.uid+" "+e.type+" "+b.uid+(e.stamp?" ("+e.stamp+")":"")});
+if(bad)$("ig-badkey").style.display="";
+function fit(s,n){return s.length>n?s.slice(0,n-1)+"…":s}
+function refresh(){
+  $("ig-count").textContent=ticked.size+" of "+V.nodes.length+" ticked";
+  if(cur)$("ig-tick").textContent=ticked.has(cur.id)?"Untick":"Tick as read";
+  const roots={};V.nodes.forEach(n=>{if(ticked.has(n.id)&&n.unsigned&&n.root)(roots[n.root]=roots[n.root]||[]).push(n.uid)});
+  const lines=Object.keys(roots).sort().map(r=>"tl -C "+r+" ratify "+roots[r].join(" "));
+  $("ig-sign").style.display=lines.length?"":"none";$("ig-cmds").textContent=lines.join("\n")}
+function setTick(n,on){on?ticked.add(n.id):ticked.delete(n.id);n.mark.style.display=on?"":"none";n.g.classList.toggle("done",on);n.box.setAttribute("aria-checked",on?"true":"false");refresh()}
+function open(n){cur=n;opener=n.g;
+  $("ig-uid").textContent=name(n)+" · "+n.type;
+  const st=$("ig-status");st.textContent=n.status+(n.unsigned?": not signed":"");st.style.color=n.unsigned?"var(--ig-warn)":"var(--ig-ok)";
+  $("ig-title").textContent=n.title;$("ig-text").textContent=n.text;
+  $("ig-why").textContent=n.rationale?"Rationale: "+n.rationale:"";$("ig-why").style.display=n.rationale?"":"none";
+  const A=$("ig-attrs");A.textContent="";Object.keys(n.attrs).forEach(k=>{const v=n.attrs[k];if(v!==null&&v!=="")html("li",k+": "+(typeof v==="object"?JSON.stringify(v):v),A)});A.style.display=A.children.length?"":"none";
+  const L=$("ig-links");L.textContent="";
+  n.links.forEach(k=>{const li=html("li","",L);html("span",k.type+" → ",li);
+    if(k.shown&&by[k.to]){const b=html("button",k.target,li);b.style.padding="2px 8px";b.style.minHeight="24px";b.onclick=()=>open(by[k.to])}else html("span",k.target,li);
+    if(k.stamp){const s=html("span"," stamp "+k.stamp,li);s.style.color=k.stamp==="current"?"var(--ig-ok)":"var(--ig-bad)"}});
+  if(!n.links.length)html("li","No links out: nothing in the graph sits above it.",L);
+  $("ig-sig").textContent=n.signed.length?"Signed by "+n.signed.map(r=>r.by+(r.as?" as "+r.as:"")+(r.at?", "+r.at.slice(0,10):"")).join("; ")+".":n.external?"Borrowed from a source outside this repository.":"Nobody has signed this item.";
+  refresh();$("ig-ov").style.display="flex";
+  $("ig-wrap").style.minHeight=($("ig-dlg").offsetHeight+32)+"px";$("ig-close").focus()}
+function close(){$("ig-ov").style.display="none";$("ig-wrap").style.minHeight="";cur=null;if(opener)opener.focus()}
+V.nodes.forEach(n=>{
+  const g=el("g",{class:"n "+n.role,tabindex:0,role:"button","aria-label":"Open "+name(n)+", "+n.type+", "+n.status+": "+n.title});
+  const r=el("rect",{class:"b",x:n.x,y:n.y,width:S.box_w,height:S.box_h,rx:8,"stroke-width":n.role==="focus"?2:1},g);
+  if(n.other)r.setAttribute("stroke-dasharray","4 3");
+  n.box=el("rect",{x:n.x+10,y:n.y+21,width:14,height:14,rx:3,"stroke-width":1,style:"fill:var(--ig-card);stroke:var(--ig-soft)",role:"checkbox",tabindex:0,"aria-checked":"false","aria-label":"Tick "+name(n)+" as read"},g);
+  n.mark=el("path",{d:"M"+(n.x+13)+" "+(n.y+28)+"l3 3l5-6",fill:"none","stroke-width":1.8,"stroke-linecap":"round","stroke-linejoin":"round",style:"stroke:var(--ig-text);display:none;pointer-events:none"},g);
+  const t=el("text",{x:n.x+34,y:n.y+19,"dominant-baseline":"central","font-size":14,"font-weight":500},g);t.textContent=fit(n.uid,13);
+  const u=el("text",{x:n.x+34,y:n.y+38,"dominant-baseline":"central","font-size":12},g);u.textContent=fit(n.other?n.graph:n.type,17);
+  if(n.unsigned)el("circle",{cx:n.x+S.box_w-10,cy:n.y+10,r:4,style:"fill:var(--ig-warn)"},g);
+  n.g=g;
+  n.box.addEventListener("click",e=>{e.stopPropagation();setTick(n,!ticked.has(n.id))});
+  n.box.addEventListener("keydown",e=>{if(e.key===" "||e.key==="Enter"){e.preventDefault();e.stopPropagation();setTick(n,!ticked.has(n.id))}});
+  g.addEventListener("click",()=>open(n));
+  g.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();open(n)}})});
+$("ig-close").onclick=close;
+$("ig-tick").onclick=()=>{const n=cur;setTick(n,!ticked.has(n.id));close()};
+$("ig-ov").addEventListener("click",e=>{if(e.target===$("ig-ov"))close()});
+$("ig-dlg").addEventListener("keydown",e=>{if(e.key==="Escape"){e.stopPropagation();close()}
+  if(e.key==="Tab"){const f=$("ig-dlg").querySelectorAll("button");const a=f[0],z=f[f.length-1];
+    if(e.shiftKey&&document.activeElement===a){e.preventDefault();z.focus()}else if(!e.shiftKey&&document.activeElement===z){e.preventDefault();a.focus()}}});
+$("ig-clear").onclick=()=>V.nodes.forEach(n=>setTick(n,false));
+if(typeof sendPrompt==="function"){const b=$("ig-ask");b.style.display="";b.onclick=()=>{const left=V.nodes.filter(n=>!ticked.has(n.id)).map(name);
+  sendPrompt(left.length?"I have not ticked these around "+name(focus)+"; tell me what to check in each: "+left.join(", "):"I have ticked every item around "+name(focus)+". What is left to do?")}}
+$("ig-checks").textContent=V.checks.length?"tl check: "+V.checks.map(c=>c.graph+" "+c.errors+" error(s), "+c.warnings+" warning(s)").join("; ")+".":"";
+refresh();
+})();
+</script>
