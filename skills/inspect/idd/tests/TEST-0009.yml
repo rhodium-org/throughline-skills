@@ -1,6 +1,6 @@
 uid: TEST-0009
 type: test
-status: proposed
+status: ratified
 title: Each graph in the view reports its errors and warnings, and --no-check reports
   none
 text: On the two-graph fixture the view holds one check entry for each graph with
@@ -13,3 +13,15 @@ links:
 attrs:
   method: automated
   origin: ai
+ratifications:
+- by: Henry Grech-Cini
+  at: '2026-11-13T23:05:51Z'
+  fingerprint: sha256:89db7ce0caa4d68b45e160f1c37a449e651594f553ed53356df7c1d79cf29b9a
+  content:
+    type: test
+    text: On the two-graph fixture the view holds one check entry for each graph
+      with an item shown, each with a count of errors and of warnings equal to what
+      tl check prints for that graph. With --no-check the view holds no check entry.
+    normative: false
+    derived: false
+    attrs: {}

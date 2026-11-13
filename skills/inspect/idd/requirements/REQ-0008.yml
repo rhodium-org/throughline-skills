@@ -1,6 +1,6 @@
 uid: REQ-0008
 type: requirement
-status: proposed
+status: ratified
 title: The script refuses a tl older than 5.2.0
 text: Before it reads anything the script checks tl is on PATH at 5.2.0 or later,
   the release whose dump it reads, and otherwise exits 2 naming that release and
@@ -12,3 +12,16 @@ links:
 attrs:
   priority: must
   origin: ai
+ratifications:
+- by: Henry Grech-Cini
+  at: '2026-11-13T23:05:49Z'
+  fingerprint: sha256:dc37b2291c1d2d7291c7af52043e91ec167cc44d5a75a4b49176c24cf8d8dd56
+  content:
+    type: requirement
+    text: Before it reads anything the script checks tl is on PATH at 5.2.0 or later,
+      the release whose dump it reads, and otherwise exits 2 naming that release
+      and the command that upgrades to it.
+    normative: true
+    derived: false
+    attrs:
+      priority: must

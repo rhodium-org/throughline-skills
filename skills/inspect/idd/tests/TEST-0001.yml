@@ -1,6 +1,6 @@
 uid: TEST-0001
 type: test
-status: proposed
+status: ratified
 title: An item's dependents in a second graph appear, once, under the graph that
   owns them
 text: Two throwaway graphs are built with the real CLI, the second borrowing from
@@ -16,3 +16,19 @@ links:
 attrs:
   method: automated
   origin: ai
+ratifications:
+- by: Henry Grech-Cini
+  at: '2026-11-13T23:05:49Z'
+  fingerprint: sha256:00d8aedb6395302aa3d70cd7fa47eb21d545129a2a089aae1d45ad4b75f1e4f3
+  content:
+    type: test
+    text: Two throwaway graphs are built with the real CLI, the second borrowing
+      from the first by a path source, and a third graph that nothing joins. Run
+      on a requirement of the first, the view holds the second graph's item that
+      implements it and the first graph's own test, each named by the graph that
+      owns it and neither twice. Run on the second graph's item, the view holds the
+      first graph's requirement and its intent above it. No item of the third graph
+      appears.
+    normative: false
+    derived: false
+    attrs: {}

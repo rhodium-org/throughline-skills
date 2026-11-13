@@ -1,6 +1,6 @@
 uid: REQ-0007
 type: requirement
-status: proposed
+status: ratified
 title: A tick signs nothing, and the skill never ratifies
 text: A tick records that a person has read an item and changes nothing on disk.
   For ticked items that are not signed the page prints, for each graph, the tl ratify
@@ -13,3 +13,17 @@ links:
 attrs:
   priority: must
   origin: ai
+ratifications:
+- by: Henry Grech-Cini
+  at: '2026-11-13T23:05:48Z'
+  fingerprint: sha256:3a0b88ca363c52ab809eb43fb9e35eeb8c44f252df4861bcd5a00a6000849b00
+  content:
+    type: requirement
+    text: A tick records that a person has read an item and changes nothing on disk.
+      For ticked items that are not signed the page prints, for each graph, the tl
+      ratify command a person would run, as text. The skill tells the agent to hand
+      that command over with the graph's path and never to run it.
+    normative: true
+    derived: false
+    attrs:
+      priority: must

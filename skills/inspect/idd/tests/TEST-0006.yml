@@ -1,6 +1,6 @@
 uid: TEST-0006
 type: test
-status: proposed
+status: ratified
 title: In a browser, a box opens the item, the tick works from dialog and box, and
   the keyboard does all of it
 text: The page for a real item is opened in a browser. Clicking a box opens a dialog
@@ -15,3 +15,18 @@ links:
 attrs:
   method: manual
   origin: ai
+ratifications:
+- by: Henry Grech-Cini
+  at: '2026-11-13T23:05:50Z'
+  fingerprint: sha256:3afcf613f60c7e2223076befee37397e116d4815c5683df6cc4aa85e5c36ba1c
+  content:
+    type: test
+    text: The page for a real item is opened in a browser. Clicking a box opens a
+      dialog with that item's text, links and signer; the dialog's tick control ticks
+      the item, closes the dialog and returns focus to the box; the tick box on a
+      box ticks it without opening the dialog; Enter on a focused box opens the dialog
+      and Escape closes it; the count of ticked items follows each. The console shows
+      no error.
+    normative: false
+    derived: false
+    attrs: {}

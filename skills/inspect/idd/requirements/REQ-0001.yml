@@ -1,6 +1,6 @@
 uid: REQ-0001
 type: requirement
-status: proposed
+status: ratified
 title: The view joins every graph in the repository that path sources connect
 text: Given an item and its graph, the script reads tl dump for that graph and for
   every graph under the repository joined to it by path sources, in either direction.
@@ -15,3 +15,20 @@ links:
 attrs:
   priority: must
   origin: ai
+ratifications:
+- by: Henry Grech-Cini
+  at: '2026-11-13T23:05:43Z'
+  fingerprint: sha256:012865cd6da8390d56f0a6291cfbda90af98b58907018a1385ebfaf50ebd9e76
+  content:
+    type: requirement
+    text: Given an item and its graph, the script reads tl dump for that graph and
+      for every graph under the repository joined to it by path sources, in either
+      direction. The view holds what the item rests on, by following links out, and
+      what rests on it, by following links in, whichever graph each lies in. An item
+      borrowed through a path source appears once, as the item of the graph that
+      owns it. A graph under the repository that no path source joins to the item's
+      graph is not read.
+    normative: true
+    derived: false
+    attrs:
+      priority: must

@@ -1,6 +1,6 @@
 uid: REQ-0002
 type: requirement
-status: proposed
+status: ratified
 title: Every item in the view carries its whole content
 text: 'Each item in the view carries its graph, UID, type, status, title, text, rationale,
   attributes, links and signatures as tl dump gives them. Nothing is shortened or
@@ -13,3 +13,17 @@ links:
 attrs:
   priority: must
   origin: ai
+ratifications:
+- by: Henry Grech-Cini
+  at: '2026-11-13T23:05:46Z'
+  fingerprint: sha256:20a6c4cd589b5bd7296ec082890d843783da511ca48d6302dad244b246e96453
+  content:
+    type: requirement
+    text: 'Each item in the view carries its graph, UID, type, status, title, text,
+      rationale, attributes, links and signatures as tl dump gives them. Nothing
+      is shortened or summarised, and nothing is retyped by the agent: the page is
+      filled from the script''s output.'
+    normative: true
+    derived: false
+    attrs:
+      priority: must
