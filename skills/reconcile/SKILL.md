@@ -29,13 +29,13 @@ one, and every citation must name its graph (below).
 ## Next: tools and the script
 
 ```sh
-tl --version || pip install 'throughline>=3.11.0'
+tl --version || pip install 'throughline>=5.2.0'
 S="${CLAUDE_PLUGIN_ROOT}/scripts/reconcile.py"
 python3 "$S" --help
 ```
 
 The script needs only the Python standard library and `tl` from throughline
-3.11.0, and exits 2 on an older one. Nothing else is installed, ever. If the
+5.2.0 or later, and exits 2 on an older one. Nothing else is installed, ever. If the
 plugin root variable is unset, the script sits at `scripts/reconcile.py`
 beside this file's plugin.
 

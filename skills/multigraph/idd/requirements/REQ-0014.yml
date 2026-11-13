@@ -1,0 +1,23 @@
+uid: REQ-0014
+type: requirement
+status: proposed
+title: A graph that follows a standard takes its schema from a pinned source, and
+  each graph is read by its own brief
+text: The skill says that a source marked schema = true gives a graph its item types,
+  attributes, links, statuses and rules, and shows one beside a sibling carried by
+  path. It tells the reader to pin the schema source to a tag as any external standard,
+  that two graphs in one repository may follow different standards or none, so each
+  is read by its own tl context, and that a graph is never laid inside another graph's
+  root.
+rationale: A standard taken as a schema is now a common way for one graph to depend
+  on another (a glossary follows throughline-glossary-standard and explains a sibling),
+  and the skill described a standard only as something to cite. What a schema source
+  does is in tl context; that a repository's graphs may follow different standards
+  is what no single graph's brief can see.
+normative: true
+links:
+- target: INT-0001
+  type: derives_from
+attrs:
+  priority: should
+  origin: ai

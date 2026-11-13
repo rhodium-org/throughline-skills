@@ -1,0 +1,18 @@
+uid: TEST-0014
+type: test
+status: proposed
+title: The skill's schema example is pinned to a tag beside an unpinned sibling,
+  and says each graph has its own brief
+text: 'tests/test_multigraph.py, test_schema_source_is_pinned_and_the_sibling_is_not:
+  reads the toml example under the skill''s sentence on a graph that follows a standard
+  and confirms the schema source carries a url, a ref that is a tag and schema =
+  true, and the sibling a path and no ref; and that the text says to pin the schema
+  source, that graphs may follow different standards and each is read by its own
+  tl context, and that a graph is never laid inside another graph''s root.'
+normative: true
+links:
+- target: REQ-0014
+  type: verifies
+attrs:
+  method: automated
+  origin: ai

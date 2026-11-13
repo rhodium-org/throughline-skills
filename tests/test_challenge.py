@@ -2,8 +2,8 @@
 
 tl-challenge TEST-0001, TEST-0007, TEST-0009 and TEST-0010; TEST-0008 is in
 test_tl_floor.py. Each test builds a throwaway graph with the real CLI and
-asserts what the script's commands report for it. Needs tl from throughline 3.11.0 or later on PATH:
-pip install 'throughline>=3.11.0'.
+asserts what the script's commands report for it. Needs tl from throughline 5.2.0 or later on PATH:
+pip install 'throughline>=5.2.0'.
 """
 import os
 import re
@@ -17,7 +17,7 @@ import pytest
 SCRIPT = Path(__file__).resolve().parents[1] / "scripts" / "challenge.py"
 
 if shutil.which("tl") is None:
-    raise RuntimeError("tl is not on PATH: pip install 'throughline>=3.11.0'")
+    raise RuntimeError("tl is not on PATH: pip install 'throughline>=5.2.0'")
 
 
 # ── helpers ─────────────────────────────────────────────────────────────────
@@ -248,7 +248,7 @@ def clean(dump, *command):
     return r.stdout
 
 
-# tl: verifies tl-challenge/TEST-0001@f7759bc6dcaf
+# tl: verifies tl-challenge/TEST-0001@acda259d6579
 def test_every_deterministic_challenge_runs_from_a_dump_in_a_clean_interpreter(challenged):
     import ast
     local = {p.stem for p in SCRIPT.parent.glob("*.py")}

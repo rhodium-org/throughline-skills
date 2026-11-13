@@ -1,15 +1,17 @@
 uid: REQ-0009
 type: requirement
 status: ratified
-title: The script drives both graphs with tl from the release that composes and refuses
-  an older one
-text: Every call the script makes goes to tl, which from throughline 3.11.0 composes
-  the pointer from the shape graph to the second graph itself. Before its first call
-  the script reads tl --version and, when tl is missing or older than 3.11.0, exits
-  2 naming the floor and the upgrade command and writes nothing.
-rationale: An older tl reads the shape graph without the second graph, so the gate
-  would pass over half the picture. Refusing was chosen over a second command for
-  the sourced graph, which would be a second name for one tool.
+title: The script drives both graphs with tl and refuses one older than the plugin's
+  floor
+text: Every call the script makes goes to tl, which composes the pointer from the
+  shape graph to the second graph itself. Before its first call the script reads
+  tl --version and, when tl is missing or older than throughline 5.2.0, the oldest
+  release the plugin is tested against, exits 2 naming the floor and the upgrade
+  command and writes nothing.
+rationale: An older tl may read the two graphs differently or only in part, so the
+  gate would pass over something other than what was written. Refusing was chosen
+  over a second command for the sourced graph, which would be a second name for one
+  tool.
 normative: true
 links:
 - target: INT-0001

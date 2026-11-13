@@ -43,7 +43,7 @@ one, labelled as one, outside this skill's report.
 ## Next: tools and the script
 
 ```sh
-tl --version || pip install 'throughline>=3.11.0'
+tl --version || pip install 'throughline>=5.2.0'
 S="${CLAUDE_PLUGIN_ROOT}/scripts/challenge.py"
 python3 "$S" --help
 ```
@@ -51,9 +51,9 @@ python3 "$S" --help
 The script reads the JSON that `tl dump` emits, which covers the graph's
 `[[sources]]` too, and needs nothing beyond the standard library. `-C <graph
 root>` runs the tool for you; `--dump FILE` reads a saved dump. Run on a graph
-root it needs throughline ≥ 3.11.0, the release from which `tl` composes a
-graph's sources, and exits 2 on an older `tl` rather than challenge half a
-graph. Otherwise every command exits 0: the output is a review list, never a
+root it needs throughline ≥ 5.2.0, the oldest release the plugin is tested
+against, and exits 2 on an older `tl` rather than challenge a graph it may read
+differently. Otherwise every command exits 0: the output is a review list, never a
 gate. If the plugin root variable is unset, the script sits at
 `scripts/challenge.py` beside this file's plugin.
 

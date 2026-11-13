@@ -43,14 +43,15 @@ and say so in the label: an abandoned case is evidence too.
 ## Next: tools and the script
 
 ```sh
-tl --version || pip install 'throughline>=3.11.0'
+tl --version || pip install 'throughline>=5.2.0'
 S="${CLAUDE_PLUGIN_ROOT}/scripts/assess.py"
 python3 "$S" --help
 ```
 
 The script needs nothing beyond the Python standard library. A command that
-runs `tl` needs throughline ≥ 3.11.0, the release from which `tl` composes a
-graph's sources, and exits 2 on an older `tl` rather than measure half a graph.
+runs `tl` needs throughline ≥ 5.2.0, the oldest release the plugin is tested
+against, and exits 2 on an older `tl` rather than measure a graph it may read
+differently.
 If the plugin root variable is unset, the script sits at `scripts/assess.py`
 beside this file's plugin.
 

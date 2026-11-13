@@ -1,9 +1,8 @@
-"""The scripts drive tl from throughline 3.11.0 or later and refuse an older one.
+"""The scripts drive tl from throughline 5.2.0 or later and refuse an older one.
 
 skill TEST-0009 (shape), tl-challenge TEST-0008, tl-assess TEST-0010 and
-tl-reconcile TEST-0011. From
-3.11.0 tl composes a graph's sources itself; an older tl reads a sourced graph
-without them, so each script exits 2 naming the floor before it reads anything.
+tl-reconcile TEST-0011. 5.2.0 is the oldest release the plugin is tested
+against, so each script exits 2 naming the floor before it reads anything.
 A stand-in tl on PATH plays the older release.
 """
 import os
@@ -37,21 +36,21 @@ def run(script, args, root, path):
     return subprocess.run(argv, cwd=root, env=env, text=True, capture_output=True)
 
 
-# tl: verifies tl-assess/TEST-0010@964649e979f4, tl-challenge/TEST-0008@395469abced4, skill/TEST-0009@fc336132e98c, tl-reconcile/TEST-0011@ebdf614d4ad1
+# tl: verifies tl-assess/TEST-0010@2d149f4bd96b, tl-challenge/TEST-0008@4b7761f45701, skill/TEST-0009@635e6cc91067, tl-reconcile/TEST-0011@ebdf614d4ad1
 @pytest.mark.parametrize("item", COMMANDS)
 def test_an_older_tl_is_refused_naming_the_floor(item, tmp_path):
     script, args = COMMANDS[item]
-    stand_in(tmp_path / "bin", "3.10.2")
+    stand_in(tmp_path / "bin", "5.1.0")
     root = tmp_path / "work"
     root.mkdir()
     r = run(script, args, root, f"{tmp_path / 'bin'}{os.pathsep}{os.environ['PATH']}")
     assert r.returncode == 2, r.stdout + r.stderr
-    assert "tl 3.10.2 is older than 3.11.0" in r.stderr
-    assert "pip install --upgrade 'throughline>=3.11.0'" in r.stderr
+    assert "tl 5.1.0 is older than 5.2.0" in r.stderr
+    assert "pip install --upgrade 'throughline>=5.2.0'" in r.stderr
     assert list(root.iterdir()) == []            # refused before anything was written
 
 
-# tl: verifies tl-assess/TEST-0010@964649e979f4, tl-challenge/TEST-0008@395469abced4, skill/TEST-0009@fc336132e98c, tl-reconcile/TEST-0011@ebdf614d4ad1
+# tl: verifies tl-assess/TEST-0010@2d149f4bd96b, tl-challenge/TEST-0008@4b7761f45701, skill/TEST-0009@635e6cc91067, tl-reconcile/TEST-0011@ebdf614d4ad1
 @pytest.mark.parametrize("item", COMMANDS)
 def test_no_tl_is_refused_naming_the_install(item, tmp_path):
     script, args = COMMANDS[item]
@@ -60,17 +59,17 @@ def test_no_tl_is_refused_naming_the_install(item, tmp_path):
     root.mkdir()
     r = run(script, args, root, str(tmp_path / "empty"))
     assert r.returncode == 2, r.stdout + r.stderr
-    assert "tl is not on PATH" in r.stderr and "throughline>=3.11.0" in r.stderr
+    assert "tl is not on PATH" in r.stderr and "throughline>=5.2.0" in r.stderr
 
 
-# tl: verifies tl-assess/TEST-0010@964649e979f4, tl-challenge/TEST-0008@395469abced4, skill/TEST-0009@fc336132e98c, tl-reconcile/TEST-0011@ebdf614d4ad1
+# tl: verifies tl-assess/TEST-0010@2d149f4bd96b, tl-challenge/TEST-0008@4b7761f45701, skill/TEST-0009@635e6cc91067, tl-reconcile/TEST-0011@ebdf614d4ad1
 @pytest.mark.parametrize("item", COMMANDS)
 def test_the_floor_itself_is_accepted(item, tmp_path):
     script, args = COMMANDS[item]
-    stand_in(tmp_path / "bin", "3.11.0")
+    stand_in(tmp_path / "bin", "5.2.0")
     root = tmp_path / "work"
     root.mkdir()
     r = run(script, args, root, f"{tmp_path / 'bin'}{os.pathsep}{os.environ['PATH']}")
     # The stand-in answers only --version, so the command fails after the
     # floor check; what matters is that the floor did not refuse it.
-    assert "older than 3.11.0" not in r.stderr and "not on PATH" not in r.stderr
+    assert "older than 5.2.0" not in r.stderr and "not on PATH" not in r.stderr

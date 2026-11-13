@@ -1,13 +1,12 @@
 uid: REQ-0008
 type: requirement
 status: ratified
-title: Run on a graph root, the script refuses a tl older than the release that composes
+title: Run on a graph root, the script refuses a tl older than the plugin's floor
 text: 'Before it runs tl on a graph root, the script reads tl --version. When tl
-  is missing, or older than throughline 3.11.0, the first release that composes a
-  graph''s sources itself, it exits 2 naming the floor and the upgrade command, and
-  challenges nothing: an older tl dumps a sourced graph without its sources, so every
-  borrowed item and every link into one would be missing from the review. Given a
-  saved dump it needs no tl at all.'
+  is missing, or older than throughline 5.2.0, the oldest release the plugin is tested
+  against, it exits 2 naming the floor and the upgrade command, and challenges nothing:
+  an older tl may read the graph differently or only in part, so the review would
+  be of something other than the graph. Given a saved dump it needs no tl at all.'
 rationale: Refusing was chosen over challenging what an older tl returns, since a
   review of half a graph reads as a clean one.
 normative: true

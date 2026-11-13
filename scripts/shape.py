@@ -9,7 +9,7 @@ decisions in the shape graph into a second graph, and running the check
 gate over both. Every structural change goes through the `tl` CLI; nothing
 here writes an item file by hand.
 
-Standard library only. `tl` from throughline 3.11.0 or later must be on PATH;
+Standard library only. `tl` from throughline 5.2.0 or later must be on PATH;
 it composes the pointer from the shape graph to the second graph itself.
 
 Layout it produces, under the repo root, for each piece of work shaped:
@@ -97,7 +97,7 @@ def die(msg: str, code: int = 2) -> None:
     sys.exit(code)
 
 
-# tl: implements skill/REQ-0009@e43dcbfe112b
+# tl: implements skill/REQ-0009@a420ad5b6ca7
 def run(graph: Path, *args: str, quiet: bool = False) -> subprocess.CompletedProcess:
     cmd = [require_tl(), "-C", str(graph), *args]
     proc = subprocess.run(cmd, capture_output=True, text=True)

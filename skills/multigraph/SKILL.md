@@ -22,16 +22,15 @@ cannot see: the repository's other graphs.
 
 ## First: make sure the tool exists
 
-<!-- tl: implements tl-multigraph/REQ-0001@4787b37ff6d9 -->
+<!-- tl: implements tl-multigraph/REQ-0001@01ca07a7081b -->
 ```sh
-tl --version || pip install 'throughline>=3.11.0'
+tl --version || pip install 'throughline>=5.2.0'
 ```
 
-Needs Python ≥ 3.11 and throughline ≥ 3.11.0, the release from which `tl`
-composes a graph's sources itself; honour any higher floor the repository pins.
-Upgrade an older `tl` with `pip install --upgrade 'throughline>=3.11.0'`: it
-reads a sourced graph without its sources and reports every `namespace:UID`
-link as unresolved. If the install fails, stop.
+Needs Python ≥ 3.11 and throughline ≥ 5.2.0, the oldest release the plugin is
+tested against; honour any higher floor the repository pins. Upgrade an older
+`tl` with `pip install --upgrade 'throughline>=5.2.0'`: it may read these
+graphs differently, or not at all. If the install fails, stop.
 
 ## Orient: find every graph, then read the one you touch
 
@@ -71,6 +70,32 @@ ref = "v5.0.0"
   or a clause could change meaning with no commit here to show for it.
 - **Pinning an in-repo sibling is the classic mistake:** it lets a graph go on
   citing last month's description of a subject that has since changed.
+
+<!-- tl: implements tl-multigraph/REQ-0014@18da4f8ad786 -->
+**A graph that follows a standard takes its schema from it.** A source marked
+`schema = true` gives the graph its item types, attributes, links, statuses and
+rules; the graph's own `throughline.toml` declares only what it adds:
+
+```toml
+# glossary/throughline.toml
+[[sources]]
+namespace = "glossary"
+url = "https://github.com/rhodium-org/throughline-glossary-standard"
+ref = "v1.0.0"
+schema = true
+
+[[sources]]
+namespace = "app"
+path = "../idd"                    # the graph this one explains
+```
+
+- **Pin the schema source to a tag**, as any external standard: a moved
+  standard would otherwise change what `tl check` demands with no commit here.
+- **Two graphs in one repository may follow different standards**, or one a
+  standard and the other none. Read each graph's own `tl context`: the brief of
+  a graph that follows a standard is generated from that standard.
+- **A graph is never laid inside another graph's root**, whatever it follows: a
+  graph walks its whole subtree.
 
 Layout convention: each graph lives in a folder named `idd/` under a directory
 naming its scope — `subject/idd/`, `teams/<role>/idd/` — and a shaped graph's
@@ -120,11 +145,11 @@ cannot pass strict.
 Every graph allocates UIDs on its own, so two branches can collide in several
 graphs at once, and the merge stops with `CONFLICT (add/add)` on each item file.
 **Never settle one by picking a side**: that silently drops an item. `tl
-resolve` (throughline ≥ 3.16.0) fixes a collision inside the stopped merge, but
-only in the graph `-C` names, so run it in every graph, in any order, and do not
-let one refusal mask another:
+resolve` fixes a collision inside the stopped merge, but only in the graph `-C`
+names, so run it in every graph, in any order, and do not let one refusal mask
+another:
 
-<!-- tl: implements tl-multigraph/REQ-0013@5f9d31b5bc6a -->
+<!-- tl: implements tl-multigraph/REQ-0013@6e4a9410c2d5 -->
 ```sh
 rc=0
 for cfg in $(find . -name throughline.toml -not -path '*/.venv/*'); do
@@ -136,33 +161,13 @@ exit $rc
 A graph with nothing to resolve says so. Where one refuses, read why: it
 changes nothing and names what to do.
 
-**A sibling's link to a moved item.** A graph that sources the resolved one
-names the item `namespace:UID`, and a link the moved side added there still
-names the old UID, which after the move means the item that kept it. `tl check`
-cannot tell. **From throughline 3.17.0 `resolve` follows the move into those
-graphs itself**, whichever graph you resolve first, and reports each as `relink
-<UID> in <graph>`; nothing more is needed. Upgrade if you can
-(`pip install --upgrade 'throughline>=3.17.0'`).
-
-With an older `tl`, repair them by hand. For each `move OLD -> NEW
-(ours|theirs)` line, list those links (`moved` is `HEAD` for ours,
-`MERGE_HEAD` for theirs):
-
-```sh
-moved=HEAD OLD=REQ-0002
-git diff -U0 "$(git merge-base HEAD MERGE_HEAD)" "$moved" -- . |
-  awk -v old=":$OLD" '/^\+\+\+ /{f=substr($0,7)}
-    /^\+.*target: / && substr($0, length($0)-length(old)+1) == old {print f ": " substr($0,2)}'
-```
-
-Keep only links whose namespace is the resolved graph (read the consumer's
-`[[sources]]`), then repoint each in the graph that owns it, linking the new
-UID before unlinking the old so the item is never left ungrounded:
-
-```sh
-tl -C teams/developer/idd link   SREQ-0009 subject:REQ-0005 --type derives_from
-tl -C teams/developer/idd unlink SREQ-0009 subject:REQ-0002
-```
+**A sibling's link to a moved item follows it.** A graph that sources the
+resolved one names the item `namespace:UID`, and a link the moved side added
+there would otherwise still name the old UID, which after the move means the
+item that kept it. `resolve` rewrites those links in every graph of the
+repository that sources the resolved one by `path`, whichever graph you resolve
+first, and reports each as `relink <UID> in <graph>`. Read those lines: they are
+the only record of which sibling items changed.
 
 Run the `tl check` each `resolve` suggested in every graph, then commit the
 merge.
