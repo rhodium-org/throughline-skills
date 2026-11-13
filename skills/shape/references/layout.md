@@ -14,10 +14,9 @@ authoritative over this file.
   are *siblings* under a directory holding no `throughline.toml` of its own are
   not nested, so `idd/shape/` (or `idd/<name>-shape/`) beside `idd/<name>/` needs
   no override.
-- `tl` composes the `[[sources]]` a graph's `throughline.toml` declares, from
-  throughline 3.11.0. One command drives both graphs, sourced or not; an older
-  `tl` reads a sourced graph without its sources, which is why the skill needs
-  3.11.0 or later.
+- `tl` composes the `[[sources]]` a graph's `throughline.toml` declares, so one
+  command drives both graphs, sourced or not. The skill needs throughline 5.2.0
+  or later, the oldest release the plugin is tested against.
 
 ## What `tl init` produces — and what this skill does not reproduce
 

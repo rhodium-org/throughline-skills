@@ -57,10 +57,10 @@ This is designed for it. Everything runs in the Claude sandbox, not on your
 machine:
 
 - Each skill installs the CLI it needs itself
-  (`pip install 'throughline>=3.11.0'`; from 3.11.0 `tl` composes a graph's
-  sources itself). Nothing is installed on your laptop.
+  (`pip install 'throughline>=5.2.0'`, the oldest release the plugin is tested
+  against). Nothing is installed on your laptop.
 - Requires Python ≥ 3.11 in the session, which cloud sessions have, and
-  throughline ≥ 3.11.0; the scripts refuse an older `tl`.
+  throughline ≥ 5.2.0; the scripts refuse an older `tl`.
 - Graphs wired to each other by `path` need no network at all. Graphs that adopt
   an external standard by `url` need the sandbox to reach that host — use
   `https://` URLs, never an SSH host alias, which will not resolve there.

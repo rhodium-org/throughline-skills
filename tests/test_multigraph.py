@@ -3,8 +3,8 @@
 tl-multigraph TEST-0006, TEST-0007 and TEST-0012. Each test builds
 throwaway graphs with the real CLI, and where the skill text gives shell to
 run, the shell is read out of SKILL.md so that what is tested is what a reader
-follows. Needs tl from throughline 3.11.0 or later on PATH:
-pip install 'throughline>=3.11.0'.
+follows. Needs tl from throughline 5.2.0 or later on PATH:
+pip install 'throughline>=5.2.0'.
 """
 import re
 import shutil
@@ -17,7 +17,7 @@ SKILL = Path(__file__).resolve().parents[1] / "skills" / "multigraph" / "SKILL.m
 RATIFIER = "Ada Lovelace"
 
 if shutil.which("tl") is None:
-    raise RuntimeError("tl is not on PATH: pip install 'throughline>=3.11.0'")
+    raise RuntimeError("tl is not on PATH: pip install 'throughline>=5.2.0'")
 
 
 # ── helpers ─────────────────────────────────────────────────────────────────
@@ -168,13 +168,7 @@ def skill_shells(heading):
     return re.findall(r"```sh\n(.*?)```", section, re.S)
 
 
-def tl_version():
-    """The installed tl's version as a tuple, e.g. (3, 17, 0)."""
-    out = run("tl", "--version").stdout
-    return tuple(int(n) for n in re.search(r"(\d+)\.(\d+)\.(\d+)", out).groups())
-
-
-# tl: verifies tl-multigraph/TEST-0013@69ed5a4383d7
+# tl: verifies tl-multigraph/TEST-0013@1328a7e603c5
 def test_resolve_collision_across_graphs(tmp_path):
     anchor = init(tmp_path / "anchor", "anchor")
     assert new(anchor, "INT", "The shared subject").returncode == 0
@@ -197,27 +191,34 @@ def test_resolve_collision_across_graphs(tmp_path):
                 "merge", "main")
     assert merge.returncode != 0 and "CONFLICT (add/add)" in merge.stdout
 
-    resolve, listing, repoint = skill_shells("## A merge stopped on a UID collision")
-    r = r_resolve = sh(resolve, cwd=tmp_path)
+    (resolve,) = skill_shells("## A merge stopped on a UID collision")
+    r = sh(resolve, cwd=tmp_path)
     assert r.returncode == 0, r.stdout + r.stderr
     assert "move REQ-0001 -> REQ-0002  (ours)" in r.stdout
     assert "title: Feat subject" in item_file(anchor, "REQ-0002").read_text()
 
-    # The consumer's link still names the old UID, which now means main's item.
-    listing = re.sub(r"^moved=\S+ OLD=\S+", "moved=HEAD OLD=REQ-0001", listing, flags=re.M)
-    r = sh(listing, cwd=tmp_path)
-    assert r.returncode == 0, r.stderr
-    assert r.stdout.strip() == "consumer/requirements/REQ-0001.yml: - target: anchor:REQ-0001"
-
-    assert "link " in repoint and "unlink " in repoint
-    if tl_version() >= (3, 17, 0):
-        # resolve followed the move into the consumer; the manual step is not run
-        assert "relink REQ-0001 in consumer: 1 link(s)" in r_resolve.stdout
-        assert "target: anchor:REQ-0002" in item_file(consumer, "REQ-0001").read_text()
-    else:
-        assert run("tl", "-C", str(consumer), "link", "REQ-0001", "anchor:REQ-0002",
-                   "--type", "derives_from").returncode == 0
-        assert run("tl", "-C", str(consumer), "unlink", "REQ-0001",
-                   "anchor:REQ-0001").returncode == 0
+    # resolve followed the move into the consumer, whose link named the old UID,
+    # which after the move means main's item; the skill tells the reader to read
+    # the relink lines.
+    assert "relink REQ-0001 in consumer: 1 link(s)" in r.stdout
+    assert "target: anchor:REQ-0002" in item_file(consumer, "REQ-0001").read_text()
+    assert "relink <UID> in <graph>" in SKILL.read_text()
     trace = run("tl", "-C", str(consumer), "trace", "REQ-0001").stdout
     assert "anchor:REQ-0002" in trace and "Feat subject" in trace
+
+
+# ── TEST-0014: a graph that follows a standard takes its schema from it ─────
+
+# tl: verifies tl-multigraph/TEST-0014@1bf518cf9250
+def test_schema_source_is_pinned_and_the_sibling_is_not():
+    text = SKILL.read_text()
+    tail = text[text.index("takes its schema from it"):]
+    toml = re.search(r"```toml\n(.*?)```", tail, re.S).group(1)
+    schema, sibling = [b for b in toml.split("[[sources]]") if "namespace" in b]
+    assert "schema = true" in schema and re.search(r'^url = "https://', schema, re.M)
+    assert re.search(r'^ref = "v[0-9]', schema, re.M)          # pinned to a tag
+    assert re.search(r"^path = ", sibling, re.M) and "ref =" not in sibling
+    flat = re.sub(r"\s+", " ", tail[:tail.index("Layout convention")])
+    assert "Pin the schema source to a tag" in flat
+    assert "may follow different standards" in flat and "own `tl context`" in flat
+    assert "never laid inside another graph's root" in flat

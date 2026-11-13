@@ -4,7 +4,7 @@ tl-assess TEST-0001 to TEST-0009, TEST-0011 and TEST-0012; TEST-0010 is in
 test_tl_floor.py. Each test
 builds a throwaway graph or repository with the real CLI, or a synthetic
 transcript, and asserts the numbers the script reports. Needs tl from
-throughline 3.11.0 or later on PATH: pip install 'throughline>=3.11.0'.
+throughline 5.2.0 or later on PATH: pip install 'throughline>=5.2.0'.
 """
 import json
 import os
@@ -19,7 +19,7 @@ SCRIPT = Path(__file__).resolve().parents[1] / "scripts" / "assess.py"
 RATIFIER = "Ada Lovelace"
 
 if shutil.which("tl") is None:
-    raise RuntimeError("tl is not on PATH: pip install 'throughline>=3.11.0'")
+    raise RuntimeError("tl is not on PATH: pip install 'throughline>=5.2.0'")
 
 
 def run(*args, cwd=None, check=True):

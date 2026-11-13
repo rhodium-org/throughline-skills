@@ -4,8 +4,8 @@ skill TEST-0001 to TEST-0008 and TEST-0010, one per requirement. Each test drive
 scripts/shape.py over a throwaway repository with the real CLI, and where
 the skill text gives shell to run, the shell is read out of SKILL.md so that
 what is tested is what a reader follows. TEST-0009 is in test_tl_floor.py.
-Needs tl from throughline 3.11.0 or later on PATH:
-pip install 'throughline>=3.11.0'.
+Needs tl from throughline 5.2.0 or later on PATH:
+pip install 'throughline>=5.2.0'.
 """
 import json
 import os
@@ -24,7 +24,7 @@ TL_INIT_REGISTERS = {"vision", "requirements", "nonfunctional", "non-goals", "te
 SHAPE_REGISTERS = {"sources", "domain", "needs", "decisions", "non-goals", "constraints"}
 
 if shutil.which("tl") is None:
-    raise RuntimeError("tl is not on PATH: pip install 'throughline>=3.11.0'")
+    raise RuntimeError("tl is not on PATH: pip install 'throughline>=5.2.0'")
 
 
 # ── helpers ─────────────────────────────────────────────────────────────────

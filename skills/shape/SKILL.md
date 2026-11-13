@@ -49,13 +49,13 @@ Rules that hold throughout:
 ## First: tools and the script
 
 ```sh
-tl --version || pip install 'throughline>=3.11.0'
+tl --version || pip install 'throughline>=5.2.0'
 S="${CLAUDE_PLUGIN_ROOT}/scripts/shape.py"
 python3 "$S" --help
 ```
 
-Needs Python ≥ 3.11 and throughline ≥ 3.11.0, the release from which `tl`
-composes a graph's sources itself; the script exits 2 on an older `tl`. If the
+Needs Python ≥ 3.11 and throughline ≥ 5.2.0, the oldest release the plugin is
+tested against; the script exits 2 on an older `tl`. If the
 plugin root variable is unset, the script sits at
 `scripts/shape.py` beside this file's plugin. `references/layout.md` records
 what was verified about the tool on the date it names; `tl --help` beats both.

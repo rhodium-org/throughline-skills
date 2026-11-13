@@ -1,9 +1,9 @@
-"""The throughline CLI the scripts drive, held to the release that composes.
+"""The throughline CLI the scripts drive, held to the plugin's one floor.
 
-From throughline 3.11.0 `tl` composes the `path` and `url` sources a graph
-declares, so one command drives every graph, sourced or not. An older `tl`
-reads a sourced graph without its sources and reports every namespace:UID link
-as unresolved, so a script refuses it rather than report on half a graph.
+The floor is throughline 5.2.0, the oldest release the plugin's tests run
+against. `tl` composes the `path` and `url` sources a graph declares, so one
+command drives every graph, sourced or not. A script refuses an older `tl`
+rather than report on a graph it may read differently, or only in part.
 
 Standard library only.
 """
@@ -16,7 +16,7 @@ import subprocess
 import sys
 from pathlib import Path
 
-MINIMUM = (3, 11, 0)
+MINIMUM = (5, 2, 0)
 
 
 def refuse(msg: str) -> None:
@@ -24,10 +24,10 @@ def refuse(msg: str) -> None:
     sys.exit(2)
 
 
-# tl: implements tl-assess/REQ-0009@2a17db5c5743, tl-challenge/REQ-0008@0a8cc6e25509, skill/REQ-0009@e43dcbfe112b, tl-reconcile/REQ-0011@2a93748c2549
+# tl: implements tl-assess/REQ-0009@58982b050797, tl-challenge/REQ-0008@f4a711abf8c5, skill/REQ-0009@a420ad5b6ca7, tl-reconcile/REQ-0011@18c3a13c5389
 @functools.cache
 def require_tl(minimum: tuple[int, int, int] = MINIMUM,
-               why: str = "the first release that composes a graph's sources itself") -> str:
+               why: str = "the oldest release these skills are tested against") -> str:
     """`tl`, once it is on PATH at ``minimum`` or later; otherwise exit 2 saying why.
     A script that needs a later release names it and what that release first did."""
     floor = ".".join(str(n) for n in minimum)

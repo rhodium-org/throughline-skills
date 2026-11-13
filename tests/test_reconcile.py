@@ -4,7 +4,7 @@ tl-reconcile TEST-0001 to TEST-0011 and TEST-0017, one per requirement the
 script carries. Each test builds a throwaway git repository holding graphs made
 with the real CLI and code citing their items, and drives scripts/reconcile.py
 over it. TEST-0012 to TEST-0016 are read against SKILL.md by a person.
-Needs tl from throughline 3.11.0 or later on PATH.
+Needs tl from throughline 5.2.0 or later on PATH.
 """
 import ast
 import json
@@ -23,7 +23,7 @@ MARK = "tl:"                       # kept apart so this file's own lines cite no
 TL = shutil.which("tl")
 
 if TL is None:
-    raise RuntimeError("tl is not on PATH: pip install 'throughline>=3.11.0'")
+    raise RuntimeError("tl is not on PATH: pip install 'throughline>=5.2.0'")
 
 
 # ── helpers ─────────────────────────────────────────────────────────────────
@@ -381,7 +381,7 @@ def test_standard_library_only_old_tl_refused_gate_only_when_asked(repo, tmp_pat
     (bin_dir / "tl").chmod(0o755)
     env = dict(os.environ, PATH=f"{bin_dir}{os.pathsep}{os.environ['PATH']}")
     r = reconcile(repo, "scan", env=env)
-    assert r.returncode == 2 and "older than 3.11.0" in r.stderr
+    assert r.returncode == 2 and "older than 5.2.0" in r.stderr
 
 
 # tl: verifies tl-reconcile/TEST-0017@34e449417988

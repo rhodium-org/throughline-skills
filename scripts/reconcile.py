@@ -14,7 +14,7 @@ never changes the graph, and changes code only to write the stamps `restamp`
 is asked for. Which side of a disagreement moves is the human's call, read in
 SKILL.md.
 
-Standard library only. `tl` from throughline 3.11.0 or later must be on PATH.
+Standard library only. `tl` from throughline 5.2.0 or later must be on PATH.
 `scan` exits 0 with findings unless --gate is given; `table --check` exits 1
 on a stale table; 2 is a usage error or a refusal.
 
@@ -642,7 +642,7 @@ def print_finding(f: Finding) -> None:
         print(f"      code: {f.code}")
 
 
-# tl: implements tl-reconcile/REQ-0011@2a93748c2549
+# tl: implements tl-reconcile/REQ-0011@18c3a13c5389
 def cmd_scan(repo: Path, a) -> None:
     graphs, files, citations, findings, resolved = collect(repo, a)
     more, through_children = graph_findings(graphs, resolved, a)

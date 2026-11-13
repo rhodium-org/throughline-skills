@@ -13,7 +13,7 @@ Markdown skeleton whose narrative sections a person fills in.
 
 Standard library only. Every measuring command exits 0; `done` exits 1 when a
 criterion fails, so it can gate. A command that runs `tl` needs throughline
-3.11.0 or later, which composes the graph's sources, and exits 2 on an older one.
+5.2.0 or later, the plugin's floor, and exits 2 on an older one.
 
 Usage:
   assess.py graph    -C ROOT [--dump FILE]
@@ -73,7 +73,7 @@ def run(cmd: list[str], cwd: str | None = None, check: bool = False) -> subproce
     return subprocess.run(cmd, cwd=cwd, text=True, capture_output=True, check=check)
 
 
-# tl: implements tl-assess/REQ-0001@45cc4507dcfd, tl-assess/REQ-0009@2a17db5c5743
+# tl: implements tl-assess/REQ-0001@45cc4507dcfd, tl-assess/REQ-0009@58982b050797
 def load_dump(root: str | None, dump: str | None) -> dict:
     if dump:
         with open(dump) as fh:

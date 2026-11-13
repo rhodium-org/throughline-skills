@@ -8,8 +8,8 @@ sibling naming, a rationale narrower than its family) are left to the reader;
 
 Standard library only. Every command exits 0; the output is a review list, not a
 gate. Run `all` for the graph-wide checks, `siblings UID` for one item. Given a
-graph root it runs `tl` from throughline 3.11.0 or later, which composes the
-graph's sources, and exits 2 on an older one.
+graph root it runs `tl` from throughline 5.2.0 or later, the plugin's floor, and
+exits 2 on an older one.
 
 Usage:
   challenge.py [-C PATH | --dump FILE] <command> [options]
@@ -58,7 +58,7 @@ REPLACEMENT_NAME_RE = re.compile(
     r"supersed|replac|obsolet|deprecat|irrelevant|retire", re.I)
 
 
-# tl: implements tl-challenge/REQ-0008@0a8cc6e25509
+# tl: implements tl-challenge/REQ-0008@f4a711abf8c5
 def load(args) -> dict:
     if args.dump:
         with open(args.dump) as fh:
