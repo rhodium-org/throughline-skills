@@ -1,0 +1,14 @@
+uid: REQ-0010
+type: requirement
+status: proposed
+title: A view bounded by depth says how many items lie beyond it
+text: The script follows two links each way unless --depth gives another number;
+  0 follows every link. When items lie beyond the depth, the view says how many in
+  each direction and the page and the summary say so, naming --depth 0.
+normative: true
+links:
+- target: INT-0001
+  type: derives_from
+attrs:
+  priority: must
+  origin: ai

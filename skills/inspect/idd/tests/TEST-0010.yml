@@ -1,0 +1,16 @@
+uid: TEST-0010
+type: test
+status: proposed
+title: A chain longer than the depth is cut and counted, and --depth 0 shows all
+  of it
+text: A fixture holds a chain of four items resting one on the next. On the first,
+  at the default depth the view shows two of the three that rest on it and says one
+  more lies beyond; with --depth 1 it shows one and counts two; with --depth 0 it
+  shows all three and counts none.
+normative: false
+links:
+- target: REQ-0010
+  type: verifies
+attrs:
+  method: automated
+  origin: ai

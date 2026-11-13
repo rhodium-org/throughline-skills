@@ -1,0 +1,16 @@
+uid: REQ-0004
+type: requirement
+status: proposed
+title: What the item rests on is drawn above it and what rests on it below, with
+  no box over another
+text: The item sits between the two. An item above or below is placed by its longest
+  chain of links to the item, so no link joins two boxes of one layer. A layer wider
+  than the page wraps onto further rows. No two boxes overlap and every box lies
+  within the page's width.
+normative: true
+links:
+- target: INT-0001
+  type: derives_from
+attrs:
+  priority: must
+  origin: ai

@@ -1,0 +1,16 @@
+uid: REQ-0003
+type: requirement
+status: proposed
+title: A link that leaves its graph says whether its stamp holds
+text: 'Each link carries the state of its stamp: current when the stamp equals the
+  fingerprint of the item it points at, stale when it does not, unstamped when the
+  link leaves its graph with no stamp. A link inside one graph with no stamp carries
+  no state. The page draws a stale or unstamped link apart from the others and the
+  summary lists them.'
+normative: true
+links:
+- target: INT-0001
+  type: derives_from
+attrs:
+  priority: must
+  origin: ai

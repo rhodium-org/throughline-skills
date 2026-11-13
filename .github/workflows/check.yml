@@ -54,7 +54,8 @@ jobs:
       # shape skill (skill TEST-0001 to 0010), the challenge skill
       # (tl-challenge TEST-0001, 0007, 0008), the site (throughline-skills
       # TEST-0004, 0005) and the reconcile skill (tl-reconcile
-      # TEST-0001 to 0011, 0017) build throwaway graphs with the real
+      # TEST-0001 to 0011, 0017) and the inspect skill (tl-inspect TEST-0001
+      # to 0005, 0007 to 0010) build throwaway graphs with the real
       # CLI and, where a skill gives shell, run it out of SKILL.md.
       - name: Fixture tests
         run: |

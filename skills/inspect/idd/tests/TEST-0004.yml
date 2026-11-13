@@ -1,0 +1,16 @@
+uid: TEST-0004
+type: test
+status: proposed
+title: No two boxes overlap, every box is within the width, and the item sits between
+  what it rests on and what rests on it
+text: A fixture item is given six items that rest on it, more than one row holds,
+  and a chain of two above it. Every box's rectangle lies inside the page's width,
+  no two rectangles intersect, everything the item rests on is higher than it, everything
+  resting on it is lower, and no link joins two boxes at one height.
+normative: false
+links:
+- target: REQ-0004
+  type: verifies
+attrs:
+  method: automated
+  origin: ai

@@ -1,0 +1,15 @@
+uid: INT-0001
+type: intent
+status: proposed
+title: A person can read one item with everything it rests on and everything that
+  rests on it, across every graph in the repository, before deciding whether to sign
+text: 'tl trace and tl blast each print a list, inside one graph. A person asked
+  to sign an item, or to judge what a change to it would disturb, needs the items
+  themselves in front of them: what the item rests on, what rests on it in every
+  graph of the repository, the whole wording of each, and whether the links between
+  graphs still hold. This skill draws that as one page with a box for each item,
+  a dialog that shows the item, and a tick box to keep count of what has been read.
+  It signs nothing.'
+normative: false
+attrs:
+  origin: ai

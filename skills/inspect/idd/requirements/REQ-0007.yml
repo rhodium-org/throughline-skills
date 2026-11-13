@@ -1,0 +1,15 @@
+uid: REQ-0007
+type: requirement
+status: proposed
+title: A tick signs nothing, and the skill never ratifies
+text: A tick records that a person has read an item and changes nothing on disk.
+  For ticked items that are not signed the page prints, for each graph, the tl ratify
+  command a person would run, as text. The skill tells the agent to hand that command
+  over with the graph's path and never to run it.
+normative: true
+links:
+- target: INT-0001
+  type: derives_from
+attrs:
+  priority: must
+  origin: ai

@@ -1,0 +1,18 @@
+uid: TEST-0001
+type: test
+status: proposed
+title: An item's dependents in a second graph appear, once, under the graph that
+  owns them
+text: Two throwaway graphs are built with the real CLI, the second borrowing from
+  the first by a path source, and a third graph that nothing joins. Run on a requirement
+  of the first, the view holds the second graph's item that implements it and the
+  first graph's own test, each named by the graph that owns it and neither twice.
+  Run on the second graph's item, the view holds the first graph's requirement and
+  its intent above it. No item of the third graph appears.
+normative: false
+links:
+- target: REQ-0001
+  type: verifies
+attrs:
+  method: automated
+  origin: ai

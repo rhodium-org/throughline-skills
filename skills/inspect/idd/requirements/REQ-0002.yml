@@ -1,0 +1,15 @@
+uid: REQ-0002
+type: requirement
+status: proposed
+title: Every item in the view carries its whole content
+text: 'Each item in the view carries its graph, UID, type, status, title, text, rationale,
+  attributes, links and signatures as tl dump gives them. Nothing is shortened or
+  summarised, and nothing is retyped by the agent: the page is filled from the script''s
+  output.'
+normative: true
+links:
+- target: INT-0001
+  type: derives_from
+attrs:
+  priority: must
+  origin: ai

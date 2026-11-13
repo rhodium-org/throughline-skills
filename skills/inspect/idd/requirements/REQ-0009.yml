@@ -1,0 +1,14 @@
+uid: REQ-0009
+type: requirement
+status: proposed
+title: The view carries each graph's tl check result
+text: For each graph with an item in the view the script runs tl check and the view
+  carries its count of errors and warnings, shown on the page and in the summary.
+  --no-check leaves them out.
+normative: true
+links:
+- target: INT-0001
+  type: derives_from
+attrs:
+  priority: must
+  origin: ai

@@ -1,0 +1,15 @@
+uid: TEST-0009
+type: test
+status: proposed
+title: Each graph in the view reports its errors and warnings, and --no-check reports
+  none
+text: On the two-graph fixture the view holds one check entry for each graph with
+  an item shown, each with a count of errors and of warnings equal to what tl check
+  prints for that graph. With --no-check the view holds no check entry.
+normative: false
+links:
+- target: REQ-0009
+  type: verifies
+attrs:
+  method: automated
+  origin: ai

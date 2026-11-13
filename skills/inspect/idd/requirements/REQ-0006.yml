@@ -1,0 +1,18 @@
+uid: REQ-0006
+type: requirement
+status: proposed
+title: A box opens a dialog showing the item, and the item can be ticked from the
+  dialog or the box
+text: Each box is a control that opens a dialog showing the item's content, its links
+  with their stamp states, and who signed it. The dialog has a control to tick the
+  item and one to close it; each box has a tick box that ticks it without opening
+  the dialog. Every one of these works from the keyboard, the dialog closes on Escape,
+  and focus returns to the box it was opened from. The page shows how many items
+  are ticked.
+normative: true
+links:
+- target: INT-0001
+  type: derives_from
+attrs:
+  priority: must
+  origin: ai
