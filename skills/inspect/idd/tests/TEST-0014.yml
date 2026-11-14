@@ -1,6 +1,6 @@
 uid: TEST-0014
 type: test
-status: proposed
+status: ratified
 title: A second run starts tl no times and gives the same view; a changed graph alone
   is read again
 text: 'tl is replaced on the path by a stand-in that records each time it is started
@@ -16,3 +16,19 @@ links:
   type: verifies
 attrs:
   origin: ai
+ratifications:
+- by: Henry Grech-Cini
+  at: '2026-11-14T17:18:00Z'
+  fingerprint: sha256:4f2a40df544fed4302f2c549b62f776705f60ffdf6d3661f5cc460dcf10220a5
+  content:
+    type: test
+    text: 'tl is replaced on the path by a stand-in that records each time it is
+      started and then runs the real one. The view of an item is written twice: the
+      second run starts tl no times and its view is identical to the first. One graph''s
+      item is then reworded: the next run starts tl for that graph and for the graph
+      that borrows from it, not for the graph it borrows from, and the view carries
+      the new wording. Run afresh, tl is started for every graph again. The files
+      of every graph are the same before and after.'
+    normative: false
+    derived: false
+    attrs: {}
