@@ -1,6 +1,6 @@
 uid: REQ-0014
 type: requirement
-status: proposed
+status: ratified
 title: A change set that links terms already written names each by its UID and carries
   its revision
 text: Where the skill's instructions have terms linked to each other after they are
@@ -17,3 +17,20 @@ links:
 attrs:
   priority: must
   origin: ai
+ratifications:
+- by: Henry Grech-Cini
+  at: '2026-11-14T23:07:39Z'
+  fingerprint: sha256:7502a3bbe58f004791b14177dee32f19461ae63b1cbd26f3be933175f841d07d
+  content:
+    type: requirement
+    text: Where the skill's instructions have terms linked to each other after they
+      are written, they say that a change set acting on a term that already exists
+      names it by its UID and carries the revision tl dump gives for that term, show
+      such a set, and say how to read the revisions. They say that a new operation
+      states no origin, because tl apply records it. They say that a few links are
+      made one at a time with tl link, stamped where the link leaves the graph, and
+      that a change set is for many.
+    normative: true
+    derived: false
+    attrs:
+      priority: must
