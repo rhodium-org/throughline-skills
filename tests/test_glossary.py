@@ -1,8 +1,8 @@
 """Tests for the glossary skill's script.
 
-tl-glossary TEST-0001 to TEST-0004 and TEST-0007 to TEST-0009; TEST-0005 and
-TEST-0006 are inspections of SKILL.md. Most tests feed the script a saved dump, so
-they need neither tl nor the network. The two that prove tl check accepts what the
+tl-glossary TEST-0001 to TEST-0004, TEST-0007 to TEST-0012 and TEST-0014; TEST-0005,
+TEST-0006 and TEST-0013 are inspections of SKILL.md. Most tests feed the script a saved
+dump, so they need neither tl nor the network. The three that prove tl accepts what the
 skill writes need tl from throughline 5.2.0 or later and the glossary standard: a
 checkout named by GLOSSARY_STANDARD, else the tagged repository.
 """
@@ -277,6 +277,65 @@ def test_a_glossary_written_as_the_skill_writes_it_passes_tl_check(tmp_path):
     assert item.count("stamp: sha256:") == 2
     out = run("review", "-C", g).stdout
     assert "1 term(s): 0 touched, 1 settled" in out
+
+
+# tl: verifies tl-glossary/TEST-0014@20e8d30ab769
+@needs_tl
+def test_the_set_that_links_written_terms_carries_their_revisions(tmp_path):
+    explained_graph(tmp_path / "idd")
+    run("init", "-C", tmp_path, "--explains", "idd", "--standard", STANDARD)
+    g = tmp_path / "glossary"
+
+    def apply(name, operations):
+        (tmp_path / name).write_text(json.dumps({"change_set_format": 2, "operations": operations}))
+        return subprocess.run(["tl", "-C", str(g), "apply", str(tmp_path / name)], text=True,
+                              capture_output=True)
+
+    def a_term(label, title):
+        return [{"op": "new", "register": "TERM", "label": label, "title": title, "text": "t",
+                 "attrs": {"why": "w", "how_it_works": "h", "example": "e"},
+                 "links": [{"target": "$g", "type": "derives_from"}]},
+                {"op": "link", "uid": f"${label}", "target": "app:REQ-0001", "type": "defined_from",
+                 "stamp": True},
+                {"op": "link", "uid": f"${label}", "target": "app:REQ-0002", "type": "shown_by",
+                 "stamp": True}]
+
+    terms = ([{"op": "new", "register": "GLS", "label": "g", "title": "Concepts", "text": "t"}]
+             + a_term("brand", "Brand") + a_term("content", "Content") + a_term("token", "Token"))
+    stated = [dict(terms[1], origin="ai")] + terms[2:]
+    refused = apply("origin.json", terms[:1] + stated)
+    assert refused.returncode == 1 and "unknown key(s) origin" in refused.stdout + refused.stderr
+    assert not (g / "terms" / "TERM-0001.yml").exists()
+    written = apply("terms.json", terms)
+    assert written.returncode == 0, written.stdout + written.stderr
+
+    # The second set the skill shows, with the revisions tl dump gives.
+    skill = (SCRIPTS.parent / "skills" / "glossary" / "SKILL.md").read_text()
+    shown = [json.loads(b) for b in re.findall(r"```json\n(.*?)```", skill, re.S) if '"revision"' in b]
+    assert len(shown) == 1
+    links = shown[0]["operations"]
+    assert links and all(o["op"] == "link" and o["uid"].startswith("TERM-") for o in links)
+    before = {t: (g / "terms" / f"{t}.yml").read_text() for t in {o["uid"] for o in links}}
+    bare = apply("bare.json", [{k: v for k, v in o.items() if k != "revision"} for o in links])
+    assert bare.returncode == 1
+    assert 'an operation on an existing item carries the "revision"' in bare.stdout + bare.stderr
+    assert all((g / "terms" / f"{t}.yml").read_text() == was for t, was in before.items())
+
+    dump = json.loads(subprocess.run(["tl", "-C", str(g), "dump"], check=True, text=True,
+                                     capture_output=True).stdout)
+    revision = {i["uid"]: i["revision"] for i in dump["items"]}
+    linked = apply("term-links.json", [dict(o, revision=revision[o["uid"]]) for o in links])
+    assert linked.returncode == 0, linked.stdout + linked.stderr
+    for o in links:
+        item = (g / "terms" / f"{o['uid']}.yml").read_text()
+        assert f"- target: {o['target']}\n  type: {o['type']}\n" in item
+
+    one = subprocess.run(["tl", "-C", str(g), "link", "TERM-0003", "TERM-0002", "--type", "relates"],
+                         text=True, capture_output=True)
+    assert one.returncode == 0, one.stdout + one.stderr
+    assert "- target: TERM-0002\n  type: relates\n" in (g / "terms" / "TERM-0003.yml").read_text()
+    check = subprocess.run(["tl", "-C", str(g), "check"], text=True, capture_output=True)
+    assert check.returncode == 0, check.stdout + check.stderr
 
 
 # ── the floor ───────────────────────────────────────────────────────────────
