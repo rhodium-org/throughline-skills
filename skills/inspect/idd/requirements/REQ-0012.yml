@@ -1,0 +1,28 @@
+uid: REQ-0012
+type: requirement
+status: ratified
+title: The script can open the page in the person's browser in one step
+text: Asked to open the view, the script writes the page to the temporary directory
+  under the item's graph and UID, hands it to the person's default browser, prints
+  the summary and names the file. Where no browser can be opened it says so and still
+  names the file.
+normative: true
+links:
+- target: INT-0001
+  type: derives_from
+attrs:
+  origin: ai
+ratifications:
+- by: Henry Grech-Cini
+  at: '2026-11-14T16:34:21Z'
+  fingerprint: sha256:05cfd6f0a0281bae313548b920796d0990f3f8df0baba401388798ee07470b29
+  content:
+    type: requirement
+    text: Asked to open the view, the script writes the page to the temporary directory
+      under the item's graph and UID, hands it to the person's default browser, prints
+      the summary and names the file. Where no browser can be opened it says so and
+      still names the file.
+    normative: true
+    derived: false
+    attrs:
+      priority: ''

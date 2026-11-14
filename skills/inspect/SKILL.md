@@ -40,7 +40,9 @@ python3 "$S" -C <graph root> <UID>
 
 That prints a summary: the item, what it rests on, what rests on it, the links
 out of a graph whose stamp is stale or missing, and each graph's `tl check`
-result. Read it before drawing anything; it tells you how big the view is.
+result. It tells you how big the view is. The commands under "Show the page"
+print the same summary, so when the item is already known, run one of those
+and skip this.
 
 The script reads `tl dump` for the item's graph and for every graph under the
 repository joined to it by `path` sources, in either direction, so an item in
@@ -64,22 +66,53 @@ Always tell the person what the count beyond the depth is. Never describe a
 bounded view as the whole blast.
 
 ## Show the page
-<!-- tl: implements tl-inspect/REQ-0005@29bb2a9376a5, tl-inspect/REQ-0002@20a6c4cd589b -->
+<!-- tl: implements tl-inspect/REQ-0005@29bb2a9376a5, tl-inspect/REQ-0002@20a6c4cd589b, tl-inspect/REQ-0011@1ad5cbe2116c, tl-inspect/REQ-0012@05cfd6f0a028, tl-inspect/REQ-0013@2ae96277802c -->
 
 Write the page with the script and show that. Do not draw the graph yourself
 and do not retype item text into a picture: the script fills the page from the
 dumps, so every word in a dialog is the graph's.
 
-```sh
-python3 "$S" -C <graph root> <UID> --html <file>.html      # a page in one file
-python3 "$S" -C <graph root> <UID> --fragment -            # its body, to show inline
-python3 "$S" -C <graph root> <UID> --json -                # the view as data
-```
+The person should not wait for the picture. Take the first of these the
+session allows. Each prints the summary as well, so one run is enough.
 
-- Where the session can show HTML inline (a widget or an artifact), pass it
-  the fragment as it is.
-- Otherwise write the page to a file the person can open and give them its
-  path. It is one file, loads nothing from any host, and works offline.
+1. **Show the file beside the chat.** Where a tool sends a file to the person
+   and renders HTML (in the Claude desktop app, `SendUserFile` with
+   `display: "render"`), write the page to a temporary file and send it. This
+   takes seconds whatever the size of the view.
+
+   ```sh
+   python3 "$S" -C <graph root> <UID> --html <file>.html
+   ```
+
+2. **Open it in their browser.** In a terminal session, or where no such tool
+   exists:
+
+   ```sh
+   python3 "$S" -C <graph root> <UID> --open
+   ```
+
+   It writes the page to the temporary directory, opens it in the default
+   browser and names the file. The page is one file, loads nothing from any
+   host, and works offline.
+
+3. **Draw it inline in the chat**, only when the person asks for it there.
+   An inline widget is filled by you writing the whole body out again, so the
+   person waits for every character of it.
+
+   ```sh
+   python3 "$S" -C <graph root> <UID> --fragment -
+   ```
+
+   The script prints the body's size, and says when it is too large to be
+   worth it. If it says so, do not draw inline: use one of the routes above,
+   or `--depth 1`, and say why. Otherwise tell the person it will take a
+   minute or so, then pass the body to the widget tool exactly as printed.
+
+If the person sees the line "Nothing is drawn because this viewer runs no
+script", the place the page was shown does not run it: open it in the browser
+with `--open` instead.
+
+`--json -` prints the view as data, for anything else that wants it.
 
 The page shows, for each item: its graph, UID, type and status; the title,
 text and rationale in full; its attributes; each link with the state of its
