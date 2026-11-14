@@ -72,7 +72,7 @@ Always tell the person what the count beyond the depth is. Never describe a
 bounded view as the whole blast.
 
 ## Show the page
-<!-- tl: implements tl-inspect/REQ-0005@29bb2a9376a5, tl-inspect/REQ-0002@20a6c4cd589b, tl-inspect/REQ-0011@1ad5cbe2116c, tl-inspect/REQ-0012@05cfd6f0a028, tl-inspect/REQ-0013@2ae96277802c -->
+<!-- tl: implements tl-inspect/REQ-0005@29bb2a9376a5, tl-inspect/REQ-0002@20a6c4cd589b, tl-inspect/REQ-0011@1ad5cbe2116c, tl-inspect/REQ-0012@05cfd6f0a028, tl-inspect/REQ-0013@2ae96277802c, tl-inspect/REQ-0015@97545fcbfcc6 -->
 
 Write the page with the script and show that. Do not draw the graph yourself
 and do not retype item text into a picture: the script fills the page from the
@@ -81,14 +81,22 @@ dumps, so every word in a dialog is the graph's.
 The person should not wait for the picture. Take the first of these the
 session allows. Each prints the summary as well, so one run is enough.
 
-1. **Show the file beside the chat.** Where a tool sends a file to the person
-   and renders HTML (in the Claude desktop app, `SendUserFile` with
-   `display: "render"`), write the page to a temporary file and send it. This
-   takes seconds whatever the size of the view.
+1. **Publish it beside the chat.** Where the session can publish a page of its
+   own and show it in the app (in the Claude apps, the `Artifact` tool), write
+   the hosted page to a temporary file and publish that file as it stands.
 
    ```sh
-   python3 "$S" -C <graph root> <UID> --html <file>.html
+   python3 "$S" -C <graph root> <UID> --hosted <temporary directory>/inspect-<graph>-<UID>.html
    ```
+
+   The script writes the page as such a host wants it: a title, both themes,
+   no document of its own. Publish the file unchanged, with a one-word icon
+   such as `graph`; do not restyle it or write it out again. The host draws
+   it from the file, so this takes seconds whatever the size of the view.
+   The page is private to the person until they share it. It holds the whole
+   wording of every item shown, so say that it has been published, and leave
+   sharing to them. To show the same item again, write to the same file and
+   publish again: the page keeps its address.
 
 2. **Open it in their browser.** In a terminal session, or where no such tool
    exists:

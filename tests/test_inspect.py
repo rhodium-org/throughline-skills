@@ -444,3 +444,28 @@ def test_an_unchanged_graph_is_not_read_with_tl_again(repo, tmp_path_factory):
 
     _, started = view_now("--fresh")
     assert any(str(repo / "spec") in l for l in started) and any(str(repo / "app") in l for l in started)
+
+
+# ── TEST-0015: the page for a host that publishes it ────────────────────────
+
+# tl: verifies tl-inspect/TEST-0015@cbf16ce6c205
+def test_the_hosted_page_is_titled_themed_and_holds_the_inline_body(repo, tmp_path):
+    out = tmp_path / "hosted.html"
+    r = run(sys.executable, SCRIPT, "--repo", repo, "-C", repo / "spec", "REQ-0001", "--hosted", out)
+    hosted = out.read_text()
+    body = run(sys.executable, SCRIPT, "--repo", repo, "-C", repo / "spec", "REQ-0001", "--fragment", "-").stdout
+    body = body[body.index("<"):].rstrip("\n")
+    assert not re.search(r"<!doctype|<html|<head|<body", hosted, re.I)
+    assert hosted.startswith("<title>spec REQ-0001 inspected</title>")
+    head = hosted[:hosted.index("</style>")]
+    assert ":root{--ig-ground:" in head
+    assert '@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){' in head
+    assert ':root[data-theme="dark"]{' in head
+    assert "body{background:var(--ig-ground)" in head
+    assert "padding-left:max(16px," in head and "padding-right:max(16px," in head
+    assert hosted.rstrip("\n").endswith(body)
+    assert not re.search(r"https?://(?!www\.w3\.org/)", hosted)
+    assert "spec/REQ-0001" in r.stderr
+    script = TEMPLATE.read_text()
+    assert "d.theme||d.mode" in script and '"data-theme"' in script
+

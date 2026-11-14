@@ -1,0 +1,18 @@
+uid: TEST-0015
+type: test
+status: proposed
+title: The hosted page has a title, both themes and the inline body, and no document
+  of its own
+text: The script is asked for a hosted page of a fixture's requirement. What it writes
+  holds no doctype, html, head or body tag; a title naming the graph and UID; a ground
+  set for light, for a reader whose setting is dark unless the host says light, and
+  for a host that says dark; side padding with a floor of sixteen pixels; and, after
+  those, exactly the body the inline route writes for the same item. It names no
+  address of another host, and the script's other output holds the summary. The page's
+  own script reads the host's theme switch before the reader's setting.
+normative: false
+links:
+- target: REQ-0015
+  type: verifies
+attrs:
+  origin: ai
