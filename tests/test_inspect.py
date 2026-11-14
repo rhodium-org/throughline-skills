@@ -12,6 +12,7 @@ import re
 import shutil
 import subprocess
 import sys
+import tempfile
 from html.parser import HTMLParser
 from pathlib import Path
 
@@ -22,6 +23,9 @@ SCRIPT = ROOT / "scripts" / "inspect_graph.py"
 SKILL = ROOT / "skills" / "inspect" / "SKILL.md"
 TEMPLATE = ROOT / "skills" / "inspect" / "page.html"
 SIGNER = "A Person"
+
+# What the script keeps between runs goes to a directory of this test run's own.
+os.environ["XDG_CACHE_HOME"] = tempfile.mkdtemp(prefix="tl-inspect-tests-")
 
 if shutil.which("tl") is None:
     raise RuntimeError("tl is not on PATH: pip install 'throughline>=5.2.0'")
@@ -404,3 +408,39 @@ def test_the_page_says_so_where_no_script_runs(tmp_path):
     markup, script = page.split("<script>", 1)
     assert 'id="ig-still"' in markup and "Open this file in a web browser" in markup
     assert script.index('getElementById("ig-still").remove()') < script.index("createElementNS")
+
+
+# ── TEST-0014: an unchanged graph is not read again ─────────────────────────
+
+# tl: verifies tl-inspect/TEST-0014@4f2a40df544f
+def test_an_unchanged_graph_is_not_read_with_tl_again(repo, tmp_path_factory):
+    work = tmp_path_factory.mktemp("counted")
+    log = work / "started"
+    log.write_text("")
+    stand_in = work / "bin" / "tl"
+    stand_in.parent.mkdir()
+    stand_in.write_text(f'#!/bin/sh\nprintf "%s\\n" "$*" >> "{log}"\nexec "{shutil.which("tl")}" "$@"\n')
+    stand_in.chmod(0o755)
+    env = {**os.environ, "PATH": f"{stand_in.parent}{os.pathsep}{os.environ['PATH']}",
+           "XDG_CACHE_HOME": str(work / "cache")}
+
+    def view_now(*extra):
+        log.write_text("")
+        r = run(sys.executable, SCRIPT, "--repo", repo, "-C", repo / "spec", "REQ-0001", "--json", "-", *extra, env=env)
+        started = [l for l in log.read_text().splitlines() if " dump" in l or " check" in l]
+        return json.loads(r.stdout), started
+
+    before = tree_hash(repo)
+    first, started = view_now()
+    assert any("dump" in l for l in started)
+    second, started = view_now()
+    assert started == [] and second == first
+    assert tree_hash(repo) == before
+
+    run("tl", "-C", repo / "app", "amend", "REQ-0001", "--text", "A new wording of the part.")
+    third, started = view_now()
+    assert node(third, "app", "REQ-0001")["text"] == "A new wording of the part."
+    assert started and all(str(repo / "app") in l for l in started)
+
+    _, started = view_now("--fresh")
+    assert any(str(repo / "spec") in l for l in started) and any(str(repo / "app") in l for l in started)

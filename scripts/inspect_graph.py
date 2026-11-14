@@ -15,6 +15,7 @@ changes a graph. Needs tl from throughline 5.2.0 or later on PATH.
 Usage:
   inspect_graph.py [-C GRAPH] [--repo DIR] [--depth N] [--no-check] UID
                    [--json FILE | --html FILE | --fragment FILE | --open]
+                   [--fresh]
 
 It follows two links each way unless --depth says otherwise (0 follows them
 all) and says how many items lie beyond. With no output option it prints a
@@ -22,18 +23,24 @@ summary. FILE may be - for standard output. --html and --fragment also print
 the summary on standard error; --fragment adds the fragment's size, and says
 when it is too large to be worth showing inline. --open writes the page to the temporary
 directory and opens it in the person's browser.
+
+Reading a graph with tl takes seconds, so what tl said of a graph is kept in
+the user's cache directory and used again until a file of that graph, of a
+graph it borrows from by path, or tl itself changes. --fresh reads every
+graph again.
 """
 from __future__ import annotations
 
 import argparse
+import functools
+import hashlib
 import json
 import os
 import re
+import shutil
 import signal
 import subprocess
 import sys
-import tempfile
-import webbrowser
 from collections import defaultdict
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
@@ -108,22 +115,126 @@ def graph_roots(repo: Path, graph: Path) -> list[Path]:
     return sorted(reached)
 
 
+CACHE = Path(os.environ.get("XDG_CACHE_HOME") or Path.home() / ".cache") / "tl-inspect"
+KEPT = ("uid", "type", "status", "title", "text", "rationale", "attrs", "normative",
+        "fingerprint", "ratifications", "links", "source")
+
+
+@functools.cache
+def tl_stamp() -> str:
+    """Which tl is on PATH, told without running it."""
+    exe = shutil.which("tl")
+    if exe is None:
+        require_tl(FLOOR, FLOOR_WHY)
+    st = Path(exe).resolve().stat()
+    return f"{Path(exe).resolve()}:{st.st_mtime_ns}:{st.st_size}"
+
+
+# tl: implements tl-inspect/REQ-0008@dc37b2291c1d
+def accept_tl() -> None:
+    """Refuse a tl that is missing or too old, before anything is read.
+
+    Asking tl its version takes a second, so a tl that has passed is remembered
+    by its file's path, time of change and size, and is asked again only when
+    one of those differs.
+    """
+    passed = CACHE / "tl-accepted"
+    try:
+        if tl_stamp() in passed.read_text(encoding="utf-8").splitlines():
+            return
+    except OSError:
+        pass
+    require_tl(FLOOR, FLOOR_WHY)
+    try:
+        CACHE.mkdir(parents=True, exist_ok=True)
+        passed.write_text(tl_stamp() + "\n", encoding="utf-8")
+    except OSError:
+        pass
+
+
+@functools.cache
+def files_state(root: Path) -> str:
+    """Every file of one graph by name, time of change and size."""
+    lines, todo = [], [str(root)]
+    while todo:
+        with os.scandir(todo.pop()) as entries:
+            for e in entries:
+                if e.is_dir(follow_symlinks=False):
+                    if e.name not in SKIP_DIRS:
+                        todo.append(e.path)
+                else:
+                    st = e.stat(follow_symlinks=False)
+                    lines.append(f"{e.path}:{st.st_mtime_ns}:{st.st_size}")
+    return hashlib.sha256("\n".join(sorted(lines)).encode()).hexdigest()
+
+
+def state(root: Path, seen: tuple = ()) -> str:
+    """A graph's files as they stand, and those of every graph it borrows from by path."""
+    parts = [files_state(root)]
+    for src in path_sources(root):
+        if src not in seen and (src / "throughline.toml").is_file():
+            parts.append(state(src, (*seen, root)))
+    return hashlib.sha256("\n".join(parts).encode()).hexdigest()
+
+
+# tl: implements tl-inspect/REQ-0014@3f0845166cb0
 class Graph:
-    def __init__(self, root: Path, repo: Path):
+    """What tl says of one graph: read from tl once, then from the cache until the graph changes."""
+
+    def __init__(self, root: Path, repo: Path, fresh: bool = False):
         self.root = root
+        self.rootname = str(root)
         try:
             self.rel = root.relative_to(repo).as_posix() or "."
         except ValueError:
             self.rel = root.as_posix()
-        self.dump = json.loads(tl("-C", str(root), "dump").stdout)
-        cfg = self.dump.get("config", {})
-        self.name = cfg.get("project", {}).get("name") or root.name
-        roles = cfg.get("status", {}).get("roles", {})
-        self.unsigned = {roles.get("initial", "proposed"), roles.get("proposed", "proposed"),
-                         roles.get("suspect", "suspect")}
-        self.path_sources = {s["namespace"]: (root / s["path"]).resolve()
-                             for s in cfg.get("sources", []) if s.get("path")}
-        self.items = self.dump.get("items", [])
+        self.key = hashlib.sha256(f"{tl_stamp()}\n{state(root)}".encode()).hexdigest()
+        self.file = CACHE / (hashlib.sha256(str(root).encode()).hexdigest()[:24] + ".json")
+        kept = None if fresh else self._kept()
+        if kept is None:
+            dump = json.loads(tl("-C", str(root), "dump").stdout)
+            cfg = dump.get("config", {})
+            roles = cfg.get("status", {}).get("roles", {})
+            kept = {
+                "key": self.key,
+                "name": cfg.get("project", {}).get("name") or root.name,
+                "unsigned": sorted({roles.get("initial", "proposed"), roles.get("proposed", "proposed"),
+                                    roles.get("suspect", "suspect")}),
+                "path_sources": {s["namespace"]: s["path"] for s in cfg.get("sources", []) if s.get("path")},
+                "items": [{k: i[k] for k in KEPT if k in i} for i in dump.get("items", [])],
+                "check": None,
+            }
+            self._keep(kept)
+        self.kept = kept
+        self.name = kept["name"]
+        self.unsigned = set(kept["unsigned"])
+        self.path_sources = {ns: (root / p).resolve() for ns, p in kept["path_sources"].items()}
+        self.items = kept["items"]
+
+    def _kept(self) -> dict | None:
+        try:
+            kept = json.loads(self.file.read_text(encoding="utf-8"))
+        except (OSError, ValueError):
+            return None
+        return kept if kept.get("key") == self.key else None
+
+    def _keep(self, kept: dict) -> None:
+        try:
+            CACHE.mkdir(parents=True, exist_ok=True)
+            tmp = self.file.with_suffix(f".{os.getpid()}.tmp")
+            tmp.write_text(json.dumps(kept, ensure_ascii=False), encoding="utf-8")
+            tmp.replace(self.file)
+        except OSError:
+            pass  # a cache that cannot be written costs time, not correctness
+
+    def check(self) -> dict:
+        if self.kept["check"] is None:
+            proc = tl("-C", str(self.root), "check", ok=(0, 1))
+            m = re.search(r"(\d+) error\(s\), (\d+) warning\(s\)", proc.stdout + proc.stderr)
+            self.kept["check"] = [int(m.group(1)) if m else None, int(m.group(2)) if m else None]
+            self._keep(self.kept)
+        errors, warnings = self.kept["check"]
+        return {"graph": self.name, "root": self.rel, "errors": errors, "warnings": warnings}
 
 
 class View:
@@ -132,6 +243,7 @@ class View:
     def __init__(self, repo: Path, graphs: list[Graph]):
         self.repo = repo
         self.graphs = {g.root: g for g in graphs}
+        self.owners: dict[tuple, str] = {}
         self.nodes: dict[tuple, dict] = {}
         self.out: dict[tuple, list[dict]] = defaultdict(list)
         self.inc: dict[tuple, list[tuple]] = defaultdict(list)
@@ -159,12 +271,14 @@ class View:
 
     def key(self, g: Graph, uid: str) -> tuple:
         if ":" not in uid:
-            return (str(g.root), uid)
+            return (g.rootname, uid)
         ns, local = uid.split(":", 1)
-        root = self.home(g, ns)
-        if root is not None and root in self.graphs:
-            return (str(root), local)
-        return (f"source:{ns}", local)
+        owner = self.owners.get((g.rootname, ns))
+        if owner is None:
+            root = self.home(g, ns)
+            owner = self.owners[(g.rootname, ns)] = (
+                str(root) if root is not None and root in self.graphs else f"source:{ns}")
+        return (owner, local)
 
     # tl: implements tl-inspect/REQ-0001@012865cd6da8, tl-inspect/REQ-0002@20a6c4cd589b
     def _add(self, g: Graph, item: dict) -> None:
@@ -262,11 +376,7 @@ def place(order: list[list[tuple]]) -> tuple[dict[tuple, tuple[int, int]], int]:
 
 # tl: implements tl-inspect/REQ-0009@a720ea9e71b5
 def check(g: Graph) -> dict:
-    proc = tl("-C", str(g.root), "check", ok=(0, 1))
-    m = re.search(r"(\d+) error\(s\), (\d+) warning\(s\)", proc.stdout + proc.stderr)
-    return {"graph": g.name, "root": g.rel,
-            "errors": int(m.group(1)) if m else None,
-            "warnings": int(m.group(2)) if m else None}
+    return g.check()
 
 
 def ident(key: tuple) -> str:
@@ -278,9 +388,8 @@ def build(args) -> dict:
     if not (graph / "throughline.toml").is_file():
         fail(f"{graph} holds no throughline.toml: name a graph root with -C")
     repo = Path(args.repo).resolve() if args.repo else repo_of(graph)
-    require_tl(FLOOR, FLOOR_WHY)
     with ThreadPoolExecutor() as pool:
-        graphs = list(pool.map(lambda r: Graph(r, repo), graph_roots(repo, graph)))
+        graphs = list(pool.map(lambda r: Graph(r, repo, args.fresh), graph_roots(repo, graph)))
     view = View(repo, graphs)
     here = view.graphs[graph]
     focus = view.key(here, args.uid)
@@ -320,7 +429,7 @@ def build(args) -> dict:
         nodes.append(n)
     edges = [{"from": ident(k), "to": ident(l["to"]), "type": l["type"],
               "stamp": view.stamp_state(k, l)}
-             for k in shown for l in view.out[k] if l["to"] in shown]
+             for k in (k for layer in order for k in layer) for l in view.out[k] if l["to"] in shown]
 
     used = {k[0] for k in shown}
     with ThreadPoolExecutor() as pool:
@@ -436,6 +545,7 @@ def main(argv=None) -> int:
     ap.add_argument("--repo", help="the directory searched for graphs (default: the repository holding the graph)")
     ap.add_argument("--depth", type=int, default=2, help="links to follow each way (default 2); 0 follows them all")
     ap.add_argument("--no-check", action="store_true", help="leave out each graph's tl check result")
+    ap.add_argument("--fresh", action="store_true", help="read every graph with tl again, ignoring what was kept")
     ap.add_argument("uid", help="the item, as the graph names it: REQ-0014, or service:REQ-0014 for a borrowed one")
     out = ap.add_mutually_exclusive_group()
     out.add_argument("--json", metavar="FILE", help="write the view as JSON")
@@ -445,8 +555,7 @@ def main(argv=None) -> int:
     args = ap.parse_args(argv)
     if args.depth < 0:
         fail("--depth cannot be negative")
-    # tl: implements tl-inspect/REQ-0008@dc37b2291c1d
-    require_tl(FLOOR, FLOOR_WHY)
+    accept_tl()
     data = build(args)
     if args.json:
         emit(json.dumps(data, ensure_ascii=False, indent=1) + "\n", args.json)
@@ -463,6 +572,8 @@ def main(argv=None) -> int:
                   "open the page instead (--open), or draw fewer items (--depth 1).", file=sys.stderr)
     elif args.open:
         # tl: implements tl-inspect/REQ-0012@05cfd6f0a028
+        import tempfile
+        import webbrowser
         focus = next(n for n in data["nodes"] if n["id"] == data["focus"])
         dest = Path(tempfile.gettempdir()) / f"inspect-{focus['graph']}-{focus['uid']}.html"
         dest.write_text(page(data), encoding="utf-8")

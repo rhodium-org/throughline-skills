@@ -1,0 +1,35 @@
+uid: REQ-0014
+type: requirement
+status: ratified
+title: A graph that has not changed is not read with tl again
+text: Reading a graph with tl takes seconds and a view joins several. What tl said
+  of a graph, its items and its check result, is kept in the user's cache directory,
+  outside every graph, under the state of the graph's files, of the files of every
+  graph it borrows from by path, and of the tl that read it. A later run uses what
+  was kept for each graph whose state is the same and runs tl only for the others,
+  so a view of graphs that have not changed runs tl not at all and gives the same
+  view. Asked to read afresh, the script ignores what was kept.
+normative: true
+links:
+- target: INT-0001
+  type: derives_from
+attrs:
+  origin: ai
+ratifications:
+- by: Henry Grech-Cini
+  at: '2026-11-14T17:18:00Z'
+  fingerprint: sha256:3f0845166cb09d81de2771de92700b335ff29663115285d090f213b28f3447c5
+  content:
+    type: requirement
+    text: Reading a graph with tl takes seconds and a view joins several. What tl
+      said of a graph, its items and its check result, is kept in the user's cache
+      directory, outside every graph, under the state of the graph's files, of the
+      files of every graph it borrows from by path, and of the tl that read it. A
+      later run uses what was kept for each graph whose state is the same and runs
+      tl only for the others, so a view of graphs that have not changed runs tl not
+      at all and gives the same view. Asked to read afresh, the script ignores what
+      was kept.
+    normative: true
+    derived: false
+    attrs:
+      priority: ''
