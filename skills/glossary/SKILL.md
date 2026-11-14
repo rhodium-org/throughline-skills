@@ -159,13 +159,51 @@ graph as it stood before the set):
 ]}
 ```
 
+<!-- tl: implements tl-glossary/REQ-0014@7502a3bbe58f -->
+In the second set every term already exists. Each operation names its term by
+UID, not by `$label`, and carries the `revision` that `tl dump` gives for that
+term (the item's `revision` field, not its `fingerprint`). Without it `tl apply`
+refuses the whole set. Read the revisions once the first set is applied:
+
+```sh
+tl -C <glossary> dump | python3 -c 'import json, sys
+for i in json.load(sys.stdin)["items"]:
+    if i["type"] == "term": print(i["uid"], i["revision"], i["title"])'
+```
+
+```json
+{"change_set_format": 2, "operations": [
+ {"op": "link", "uid": "TERM-0001", "revision": "sha256:…",
+  "target": "TERM-0002", "type": "distinct_from"},
+ {"op": "link", "uid": "TERM-0001", "revision": "sha256:…",
+  "target": "TERM-0003", "type": "relates"},
+ {"op": "link", "uid": "TERM-0002", "revision": "sha256:…",
+  "target": "TERM-0001", "type": "distinct_from"}
+]}
+```
+
+Every operation on one term carries the same revision, the one that dump gave.
+`tl apply --describe` prints the whole form.
+
 ```sh
 tl -C <glossary> apply terms.json
-tl -C <glossary> apply term-links.json   # distinct_from, relates
+tl -C <glossary> apply term-links.json   # distinct_from, relates, broader
 tl -C <glossary> check
 ```
 
-Everything you write is `origin: ai` and `proposed`. Never edit an item file.
+For a handful of links, skip the second set and make each with `tl link`, which
+needs no revision. Add `--stamp` to a match onto the shared glossary:
+
+```sh
+tl -C <glossary> link TERM-0001 TERM-0002 --type distinct_from
+tl -C <glossary> link TERM-0001 estate:TERM-0007 --type same_as --stamp
+```
+
+Use a change set where there are many: it is applied all or nothing.
+
+Everything you write is `origin: ai` and `proposed`. `tl apply` records the
+origin itself, so a `new` operation takes no `origin` key: the set is refused
+with `unknown key(s) origin` if one is given. Never edit an item file.
 
 **A gloss**, where a term's words don't serve one audience, is a GLOSS item:
 - its text is the definition in that reader's words;

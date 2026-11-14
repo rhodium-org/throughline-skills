@@ -1,0 +1,18 @@
+uid: TEST-0014
+type: test
+status: proposed
+title: The set the instructions show for linking written terms is applied, and refused
+  without its revisions
+text: 'Write three terms into a fresh glossary graph. Take the second change set
+  the skill''s instructions show, give each operation the revision tl dump prints
+  for its term, and apply it: assert every link is made and tl check reports no error.
+  Assert the same set without its revisions is refused with nothing written, that
+  a new operation stating an origin is refused, and that tl link makes a link between
+  two terms.'
+normative: true
+links:
+- target: REQ-0014
+  type: verifies
+attrs:
+  method: automated
+  origin: ai

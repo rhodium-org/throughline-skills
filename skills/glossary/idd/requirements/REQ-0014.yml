@@ -1,0 +1,19 @@
+uid: REQ-0014
+type: requirement
+status: proposed
+title: A change set that links terms already written names each by its UID and carries
+  its revision
+text: Where the skill's instructions have terms linked to each other after they are
+  written, they say that a change set acting on a term that already exists names
+  it by its UID and carries the revision tl dump gives for that term, show such a
+  set, and say how to read the revisions. They say that a new operation states no
+  origin, because tl apply records it. They say that a few links are made one at
+  a time with tl link, stamped where the link leaves the graph, and that a change
+  set is for many.
+normative: true
+links:
+- target: INT-0001
+  type: derives_from
+attrs:
+  priority: must
+  origin: ai
