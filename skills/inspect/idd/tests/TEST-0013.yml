@@ -1,0 +1,14 @@
+uid: TEST-0013
+type: test
+status: proposed
+title: The page carries a line for a viewer that runs no script, and its script removes
+  it
+text: 'The page is read as markup without running it: the line telling the person
+  to open the file in a browser is there, outside the script. The script''s source
+  removes that line before it draws anything.'
+normative: false
+links:
+- target: REQ-0013
+  type: verifies
+attrs:
+  origin: ai

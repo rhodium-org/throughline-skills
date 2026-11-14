@@ -14,10 +14,14 @@ changes a graph. Needs tl from throughline 5.2.0 or later on PATH.
 
 Usage:
   inspect_graph.py [-C GRAPH] [--repo DIR] [--depth N] [--no-check] UID
-                   [--json FILE | --html FILE | --fragment FILE]
+                   [--json FILE | --html FILE | --fragment FILE | --open]
 
 It follows two links each way unless --depth says otherwise (0 follows them
-all) and says how many items lie beyond. With no output option it prints a summary. FILE may be - for standard output.
+all) and says how many items lie beyond. With no output option it prints a
+summary. FILE may be - for standard output. --html and --fragment also print
+the summary on standard error; --fragment adds the fragment's size, and says
+when it is too large to be worth showing inline. --open writes the page to the temporary
+directory and opens it in the person's browser.
 """
 from __future__ import annotations
 
@@ -28,6 +32,8 @@ import re
 import signal
 import subprocess
 import sys
+import tempfile
+import webbrowser
 from collections import defaultdict
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
@@ -42,6 +48,10 @@ SKIP_DIRS = {".git", ".venv", "venv", "node_modules", "__pycache__", ".pytest_ca
 # Layout, in the page's own units: boxes in rows of at most PER_ROW.
 WIDTH, BOX_W, BOX_H, GAP_X, PER_ROW = 680, 150, 56, 16, 4
 ROW_GAP, LAYER_GAP, MARGIN = 14, 44, 20
+
+# A fragment is shown inline by an assistant writing it out again, a few
+# thousand characters a minute. Past this many it is quicker to open the page.
+INLINE_LIMIT = 14000
 
 
 def fail(msg: str) -> None:
@@ -327,13 +337,54 @@ def build(args) -> dict:
     }
 
 
-# tl: implements tl-inspect/REQ-0005@29bb2a9376a5
+STAMPS = {None: 0, "current": 1, "stale": 2, "unstamped": 3}
+ROLES = {"trace": 0, "focus": 1, "blast": 2}
+
+
+# tl: implements tl-inspect/REQ-0011@1ad5cbe2116c
+def pack(data: dict) -> dict:
+    """The view as the page reads it: every word of every item, and nothing said twice.
+
+    An item is a row. A graph is named once and items point at it; a link to an
+    item shown names that item's place in the rows, so no path is repeated and
+    the lines between boxes need no list of their own. What the page does not
+    show (fingerprints, the repository's name) is left out.
+    """
+    place = {n["id"]: i for i, n in enumerate(data["nodes"])}
+    graphs: list[list] = []
+
+    def graph(n: dict) -> int:
+        pair = [n["graph"], n["root"]]
+        if pair not in graphs:
+            graphs.append(pair)
+        return graphs.index(pair)
+
+    rows = [[n["uid"], graph(n), n["type"], n["status"],
+             2 if n["external"] else 1 if n["unsigned"] else 0,
+             n["title"], n["text"], n["rationale"],
+             {k: v for k, v in n["attrs"].items() if v is not None and v != ""},
+             [[r["by"], (r["at"] or "")[:10], r["as"] or ""] for r in n["signed"]],
+             ROLES[n["role"]], n["x"], n["y"],
+             [[l["type"], place[l["to"]] if l["shown"] else l["target"], STAMPS[l["stamp"]]]
+              for l in n["links"]]]
+            for n in data["nodes"]]
+    size = data["size"]
+    return {"f": place[data["focus"]], "d": data["depth"],
+            "b": [data["beyond"]["trace"], data["beyond"]["blast"]],
+            "s": [size["width"], size["height"], size["box_w"], size["box_h"]],
+            "g": graphs, "n": rows,
+            "c": [[c["graph"], c["errors"], c["warnings"]] for c in data["checks"]]}
+
+
+# tl: implements tl-inspect/REQ-0005@29bb2a9376a5, tl-inspect/REQ-0011@1ad5cbe2116c
 def fragment(data: dict) -> str:
     """The page's body with the view in it: one piece of HTML that loads nothing."""
     if not TEMPLATE.is_file():
         fail(f"the page template is missing at {TEMPLATE}")
-    payload = json.dumps(data, ensure_ascii=False).replace("</", "<\\/")
-    return TEMPLATE.read_text(encoding="utf-8").replace("/*VIEW*/null", payload, 1)
+    payload = json.dumps(pack(data), ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
+    template = re.sub(r"<!--.*?-->", "", TEMPLATE.read_text(encoding="utf-8"), flags=re.S)
+    lines = [l.strip() for l in template.splitlines()]
+    return "\n".join(l for l in lines if l).replace("/*VIEW*/null", payload, 1) + "\n"
 
 
 # tl: implements tl-inspect/REQ-0005@29bb2a9376a5
@@ -390,6 +441,7 @@ def main(argv=None) -> int:
     out.add_argument("--json", metavar="FILE", help="write the view as JSON")
     out.add_argument("--html", metavar="FILE", help="write a page that stands alone in one file")
     out.add_argument("--fragment", metavar="FILE", help="write the page's body, to show inline")
+    out.add_argument("--open", action="store_true", help="write the page and open it in the browser")
     args = ap.parse_args(argv)
     if args.depth < 0:
         fail("--depth cannot be negative")
@@ -400,8 +452,23 @@ def main(argv=None) -> int:
         emit(json.dumps(data, ensure_ascii=False, indent=1) + "\n", args.json)
     elif args.html:
         emit(page(data), args.html)
+        print(summary(data), end="", file=sys.stderr)
     elif args.fragment:
-        emit(fragment(data), args.fragment)
+        # tl: implements tl-inspect/REQ-0011@1ad5cbe2116c
+        body = fragment(data)
+        emit(body, args.fragment)
+        print(summary(data) + f"fragment: {len(body)} characters", file=sys.stderr)
+        if len(body) > INLINE_LIMIT:
+            print(f"That is more than the {INLINE_LIMIT} worth writing out inline: "
+                  "open the page instead (--open), or draw fewer items (--depth 1).", file=sys.stderr)
+    elif args.open:
+        # tl: implements tl-inspect/REQ-0012@05cfd6f0a028
+        focus = next(n for n in data["nodes"] if n["id"] == data["focus"])
+        dest = Path(tempfile.gettempdir()) / f"inspect-{focus['graph']}-{focus['uid']}.html"
+        dest.write_text(page(data), encoding="utf-8")
+        sys.stdout.write(summary(data))
+        opened = webbrowser.open(dest.as_uri())
+        print(f"{'opened' if opened else 'wrote; no browser could be opened for'} {dest}")
     else:
         sys.stdout.write(summary(data))
     return 0

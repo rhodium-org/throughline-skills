@@ -353,3 +353,54 @@ def test_a_chain_longer_than_the_depth_is_cut_and_counted(tmp_path):
     assert whole["beyond"] == {"trace": 0, "blast": 0}
     page = inspect(tmp_path, g, "REQ-0001", "--no-check", "--html", "-").stdout
     assert "--depth 0" in page
+
+
+# ── TEST-0011: the inline body is packed, and its size is reported ──────────
+
+# tl: verifies tl-inspect/TEST-0011@07680a6e4380
+def test_the_inline_body_is_packed_and_its_size_is_reported(repo):
+    r = inspect(repo, repo / "spec", "REQ-0001", "--fragment", "-")
+    body = r.stdout
+    assert str(repo) not in body
+    assert body.count('"spec","spec"') == 1 and body.count('"app","app"') == 1
+    wording = "A long wording, kept whole.\nWith a second line, and a mark: <b>bold</b>."
+    assert json.dumps(wording).replace("</", "<\\/")[1:-1] in body
+    assert f"fragment: {len(body)} characters" in r.stderr
+    assert "spec/REQ-0001" in r.stderr and "open the page instead" not in r.stderr
+
+
+# tl: verifies tl-inspect/TEST-0011@07680a6e4380
+def test_a_body_past_the_limit_is_told_to_open_the_page(tmp_path):
+    g = init(tmp_path / "g", "g")
+    new(g, "INT", "The subject", text="A wording that goes on. " * 800)
+    r = inspect(tmp_path, g, "INT-0001", "--no-check", "--fragment", "-")
+    assert "open the page instead (--open)" in r.stderr
+
+
+# ── TEST-0012: the page is opened in one step ───────────────────────────────
+
+# tl: verifies tl-inspect/TEST-0012@2d28d096e78b
+def test_asked_to_open_the_script_hands_the_page_to_the_browser(repo, tmp_path_factory):
+    work = tmp_path_factory.mktemp("open")
+    seen = work / "seen"
+    browser = work / "browser"
+    browser.write_text(f'#!/bin/sh\nprintf "%s" "$1" > "{seen}"\n')
+    browser.chmod(0o755)
+    env = {**os.environ, "BROWSER": f"{browser} %s", "TMPDIR": str(work)}
+    r = run(sys.executable, SCRIPT, "--repo", repo, "-C", repo / "spec", "REQ-0001", "--open", env=env)
+    page = work / "inspect-spec-REQ-0001.html"
+    assert seen.read_text() == page.as_uri()
+    assert page.read_text().lower().startswith("<!doctype html>")
+    assert "spec/REQ-0001" in r.stdout and str(page) in r.stdout
+
+
+# ── TEST-0013: a viewer that runs no script is told so ──────────────────────
+
+# tl: verifies tl-inspect/TEST-0013@10425697b624
+def test_the_page_says_so_where_no_script_runs(tmp_path):
+    g = init(tmp_path / "g", "g")
+    new(g, "INT", "The subject")
+    page = inspect(tmp_path, g, "INT-0001", "--no-check", "--html", "-").stdout
+    markup, script = page.split("<script>", 1)
+    assert 'id="ig-still"' in markup and "Open this file in a web browser" in markup
+    assert script.index('getElementById("ig-still").remove()') < script.index("createElementNS")

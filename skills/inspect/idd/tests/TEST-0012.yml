@@ -1,0 +1,14 @@
+uid: TEST-0012
+type: test
+status: proposed
+title: Asked to open, the script writes the page and hands its address to the browser
+text: The script is run with a stand-in browser that records what it is given. The
+  stand-in receives the address of one file in the temporary directory, named after
+  the item's graph and UID; that file is the whole page; and the script's output
+  holds the summary and the file's name.
+normative: false
+links:
+- target: REQ-0012
+  type: verifies
+attrs:
+  origin: ai

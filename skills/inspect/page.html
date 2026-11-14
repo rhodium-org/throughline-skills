@@ -1,19 +1,14 @@
 <style>
-.ig{--ig-page:var(--surface-0,#f7f6f2);--ig-card:var(--surface-2,#fff);--ig-text:var(--text-primary,#1b1b19);--ig-soft:var(--text-secondary,#5f5e5a);--ig-line:var(--border-strong,#b4b2a9);--ig-warn:#854f0b;--ig-bad:#a32d2d;--ig-ok:#27500a;
---ig-trace-f:#eeedfe;--ig-trace-s:#534ab7;--ig-trace-t:#26215c;--ig-blast-f:#faece7;--ig-blast-s:#993c1d;--ig-blast-t:#4a1b0c;--ig-focus-f:#f1efe8;--ig-focus-s:#5f5e5a;--ig-focus-t:#2c2c2a;
-color:var(--ig-text);font-size:14px;line-height:1.5}
-@media (prefers-color-scheme:dark){:root:not([data-mode="light"]) .ig{--ig-page:var(--surface-0,#1b1b19);--ig-card:var(--surface-2,#2c2c2a);--ig-text:var(--text-primary,#f1efe8);--ig-soft:var(--text-secondary,#b4b2a9);--ig-line:var(--border-strong,#5f5e5a);--ig-warn:#fac775;--ig-bad:#f09595;--ig-ok:#c0dd97;
---ig-trace-f:#3c3489;--ig-trace-s:#afa9ec;--ig-trace-t:#eeedfe;--ig-blast-f:#712b13;--ig-blast-s:#f0997b;--ig-blast-t:#faece7;--ig-focus-f:#444441;--ig-focus-s:#b4b2a9;--ig-focus-t:#f1efe8}}
-[data-mode="dark"] .ig{--ig-page:var(--surface-0,#1b1b19);--ig-card:var(--surface-2,#2c2c2a);--ig-text:var(--text-primary,#f1efe8);--ig-soft:var(--text-secondary,#b4b2a9);--ig-line:var(--border-strong,#5f5e5a);--ig-warn:#fac775;--ig-bad:#f09595;--ig-ok:#c0dd97;
---ig-trace-f:#3c3489;--ig-trace-s:#afa9ec;--ig-trace-t:#eeedfe;--ig-blast-f:#712b13;--ig-blast-s:#f0997b;--ig-blast-t:#faece7;--ig-focus-f:#444441;--ig-focus-s:#b4b2a9;--ig-focus-t:#f1efe8}
+.ig{--ig-card:var(--surface-2,#fff);--ig-text:var(--text-primary,#1b1b19);--ig-soft:var(--text-secondary,#5f5e5a);--ig-line:var(--border-strong,#b4b2a9);--ig-warn:#854f0b;--ig-bad:#a32d2d;--ig-ok:#27500a;--ig-f0:#eeedfe;--ig-s0:#534ab7;--ig-t0:#26215c;--ig-f1:#f1efe8;--ig-s1:#5f5e5a;--ig-t1:#2c2c2a;--ig-f2:#faece7;--ig-s2:#993c1d;--ig-t2:#4a1b0c;color:var(--ig-text);font-size:14px;line-height:1.5}
+.ig.dk{--ig-card:var(--surface-2,#2c2c2a);--ig-text:var(--text-primary,#f1efe8);--ig-soft:var(--text-secondary,#b4b2a9);--ig-line:var(--border-strong,#5f5e5a);--ig-warn:#fac775;--ig-bad:#f09595;--ig-ok:#c0dd97;--ig-f0:#3c3489;--ig-s0:#afa9ec;--ig-t0:#eeedfe;--ig-f1:#444441;--ig-s1:#b4b2a9;--ig-t1:#f1efe8;--ig-f2:#712b13;--ig-s2:#f0997b;--ig-t2:#faece7}
 .ig .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 .ig .bar{display:flex;flex-wrap:wrap;gap:6px 16px;align-items:center;font-size:13px;color:var(--ig-soft);margin:0 0 8px}
 .ig .sw{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px}
 .ig svg text{font-family:inherit}
 .ig .n{cursor:pointer}.ig .n:focus-visible rect.b{stroke-width:2.5}
-.ig .n.trace rect.b{fill:var(--ig-trace-f);stroke:var(--ig-trace-s)}.ig .n.trace text{fill:var(--ig-trace-t)}
-.ig .n.blast rect.b{fill:var(--ig-blast-f);stroke:var(--ig-blast-s)}.ig .n.blast text{fill:var(--ig-blast-t)}
-.ig .n.focus rect.b{fill:var(--ig-focus-f);stroke:var(--ig-focus-s)}.ig .n.focus text{fill:var(--ig-focus-t)}
+.ig .r0 rect.b{fill:var(--ig-f0);stroke:var(--ig-s0)}.ig .r0 text{fill:var(--ig-t0)}
+.ig .r1 rect.b{fill:var(--ig-f1);stroke:var(--ig-s1)}.ig .r1 text{fill:var(--ig-t1)}
+.ig .r2 rect.b{fill:var(--ig-f2);stroke:var(--ig-s2)}.ig .r2 text{fill:var(--ig-t2)}
 .ig .n.done{opacity:.55}
 .ig .e{stroke:var(--ig-line);stroke-width:1;fill:none}.ig .e.bad{stroke:var(--ig-bad);stroke-dasharray:5 3;stroke-width:1.5}
 .ig button{font:inherit;font-size:13px;padding:6px 12px;border-radius:8px;border:1px solid var(--ig-line);background:transparent;color:var(--ig-text);cursor:pointer;min-height:32px}
@@ -27,13 +22,15 @@ color:var(--ig-text);font-size:14px;line-height:1.5}
 <div class="ig" id="ig">
 <h2 class="sr" id="ig-sum"></h2>
 <div class="bar">
-  <span><span class="sw" style="background:var(--ig-trace-s)"></span>What it rests on</span>
-  <span><span class="sw" style="background:var(--ig-blast-s)"></span>What rests on it</span>
+  <span><span class="sw" style="background:var(--ig-s0)"></span>What it rests on</span>
+  <span><span class="sw" style="background:var(--ig-s2)"></span>What rests on it</span>
   <span>Dashed box: another graph</span>
   <span><span class="sw" style="background:var(--ig-warn);border-radius:50%"></span>Not signed</span>
   <span id="ig-badkey" style="color:var(--ig-bad);display:none">Red dashed link: stamp stale or missing</span>
   <span id="ig-count" style="margin-left:auto;color:var(--ig-text)"></span>
 </div>
+<!-- tl: implements tl-inspect/REQ-0013@2ae96277802c -->
+<p class="note" id="ig-still">Nothing is drawn because this viewer runs no script. Open this file in a web browser to see the items.</p>
 <p class="note" id="ig-beyond" style="display:none"></p>
 <div id="ig-wrap" style="position:relative">
   <svg id="ig-svg" width="100%" role="group" aria-labelledby="ig-sum">
@@ -74,72 +71,76 @@ color:var(--ig-text);font-size:14px;line-height:1.5}
 (function(){
 const V=/*VIEW*/null;
 if(!V)return;
-const NS="http://www.w3.org/2000/svg",$=id=>document.getElementById(id),svg=$("ig-svg");
-const S=V.size,by={},ticked=new Set();let cur=null,opener=null;
-V.nodes.forEach(n=>by[n.id]=n);
-const focus=by[V.focus],name=n=>n.graph+"/"+n.uid;
+document.getElementById("ig-still").remove();
+const NS="http://www.w3.org/2000/svg",$=id=>document.getElementById(id),svg=$("ig-svg"),R=$("ig");
+const [W,H,BW,BH]=V.s,STAMP=["","current","stale","unstamped"],ticked=new Set();let cur=null,opener=null;
+const N=V.n.map(([uid,g,type,status,sign,title,text,why,attrs,signed,role,x,y,links],i)=>({i,uid,graph:V.g[g][0],root:V.g[g][1],other:g!==V.n[V.f][1],type,status,unsigned:sign===1,external:sign===2,title,text,why,attrs,signed,role,x,y,links}));
+const focus=N[V.f],name=n=>n.graph+"/"+n.uid;
+const dark=()=>{const m=document.documentElement.dataset.mode;R.classList.toggle("dk",m?m==="dark":matchMedia("(prefers-color-scheme:dark)").matches)};
+dark();matchMedia("(prefers-color-scheme:dark)").addEventListener("change",dark);
+new MutationObserver(dark).observe(document.documentElement,{attributes:true,attributeFilter:["data-mode"]});
 function el(t,a,p){const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);(p||svg).appendChild(e);return e}
 function html(t,text,p){const e=document.createElement(t);e.textContent=text;p.appendChild(e);return e}
-svg.setAttribute("viewBox","0 0 "+S.width+" "+S.height);
-const nt=V.nodes.filter(n=>n.role==="trace").length,nb=V.nodes.filter(n=>n.role==="blast").length;
+svg.setAttribute("viewBox","0 0 "+W+" "+H);
+const nt=N.filter(n=>n.role===0).length,nb=N.filter(n=>n.role===2).length;
 $("ig-sum").textContent="Trace and blast of "+name(focus)+": it rests on "+nt+" item(s) and "+nb+" item(s) rest on it. Each item opens a dialog with its details and has a tick box.";
-const B=V.beyond,parts=[];
-if(B.trace)parts.push(B.trace+" more item(s) it rests on");
-if(B.blast)parts.push(B.blast+" more item(s) that rest on it");
-if(parts.length){$("ig-beyond").style.display="";$("ig-beyond").textContent="Not shown, beyond "+V.depth+" link(s): "+parts.join(" and ")+". Run again with --depth 0 to see every one."}
+const parts=[];
+if(V.b[0])parts.push(V.b[0]+" more item(s) it rests on");
+if(V.b[1])parts.push(V.b[1]+" more item(s) that rest on it");
+if(parts.length){$("ig-beyond").style.display="";$("ig-beyond").textContent="Not shown, beyond "+V.d+" link(s): "+parts.join(" and ")+". Run again with --depth 0 to see every one."}
 let bad=0;
-V.edges.forEach(e=>{const a=by[e.from],b=by[e.to];if(!a||!b)return;
-  const up=b.y<a.y,isBad=e.stamp==="stale"||e.stamp==="unstamped";if(isBad)bad++;
-  const l=el("line",{x1:a.x+S.box_w/2,y1:up?a.y:a.y+S.box_h,x2:b.x+S.box_w/2,y2:up?b.y+S.box_h+2:b.y-2,class:"e"+(isBad?" bad":""),"marker-end":"url(#ig-arrow)"});
-  el("title",{},l).textContent=a.uid+" "+e.type+" "+b.uid+(e.stamp?" ("+e.stamp+")":"")});
+N.forEach(a=>a.links.forEach(([type,to,st])=>{if(typeof to!=="number")return;
+  const b=N[to],up=b.y<a.y,isBad=st>1;if(isBad)bad++;
+  const l=el("line",{x1:a.x+BW/2,y1:up?a.y:a.y+BH,x2:b.x+BW/2,y2:up?b.y+BH+2:b.y-2,class:"e"+(isBad?" bad":""),"marker-end":"url(#ig-arrow)"});
+  el("title",{},l).textContent=a.uid+" "+type+" "+b.uid+(st?" ("+STAMP[st]+")":"")}));
 if(bad)$("ig-badkey").style.display="";
 function fit(s,n){return s.length>n?s.slice(0,n-1)+"…":s}
 function refresh(){
-  $("ig-count").textContent=ticked.size+" of "+V.nodes.length+" ticked";
-  if(cur)$("ig-tick").textContent=ticked.has(cur.id)?"Untick":"Tick as read";
-  const roots={};V.nodes.forEach(n=>{if(ticked.has(n.id)&&n.unsigned&&n.root)(roots[n.root]=roots[n.root]||[]).push(n.uid)});
+  $("ig-count").textContent=ticked.size+" of "+N.length+" ticked";
+  if(cur)$("ig-tick").textContent=ticked.has(cur.i)?"Untick":"Tick as read";
+  const roots={};N.forEach(n=>{if(ticked.has(n.i)&&n.unsigned&&n.root)(roots[n.root]=roots[n.root]||[]).push(n.uid)});
   const lines=Object.keys(roots).sort().map(r=>"tl -C "+r+" ratify "+roots[r].join(" "));
   $("ig-sign").style.display=lines.length?"":"none";$("ig-cmds").textContent=lines.join("\n")}
-function setTick(n,on){on?ticked.add(n.id):ticked.delete(n.id);n.mark.style.display=on?"":"none";n.g.classList.toggle("done",on);n.box.setAttribute("aria-checked",on?"true":"false");refresh()}
+function setTick(n,on){on?ticked.add(n.i):ticked.delete(n.i);n.mark.style.display=on?"":"none";n.g.classList.toggle("done",on);n.box.setAttribute("aria-checked",on?"true":"false");refresh()}
 function open(n){cur=n;opener=n.g;
   $("ig-uid").textContent=name(n)+" · "+n.type;
   const st=$("ig-status");st.textContent=n.status+(n.unsigned?": not signed":"");st.style.color=n.unsigned?"var(--ig-warn)":"var(--ig-ok)";
   $("ig-title").textContent=n.title;$("ig-text").textContent=n.text;
-  $("ig-why").textContent=n.rationale?"Rationale: "+n.rationale:"";$("ig-why").style.display=n.rationale?"":"none";
-  const A=$("ig-attrs");A.textContent="";Object.keys(n.attrs).forEach(k=>{const v=n.attrs[k];if(v!==null&&v!=="")html("li",k+": "+(typeof v==="object"?JSON.stringify(v):v),A)});A.style.display=A.children.length?"":"none";
+  $("ig-why").textContent=n.why?"Rationale: "+n.why:"";$("ig-why").style.display=n.why?"":"none";
+  const A=$("ig-attrs");A.textContent="";Object.keys(n.attrs).forEach(k=>{const v=n.attrs[k];html("li",k+": "+(typeof v==="object"?JSON.stringify(v):v),A)});A.style.display=A.children.length?"":"none";
   const L=$("ig-links");L.textContent="";
-  n.links.forEach(k=>{const li=html("li","",L);html("span",k.type+" → ",li);
-    if(k.shown&&by[k.to]){const b=html("button",k.target,li);b.style.padding="2px 8px";b.style.minHeight="24px";b.onclick=()=>open(by[k.to])}else html("span",k.target,li);
-    if(k.stamp){const s=html("span"," stamp "+k.stamp,li);s.style.color=k.stamp==="current"?"var(--ig-ok)":"var(--ig-bad)"}});
+  n.links.forEach(([type,to,s])=>{const li=html("li","",L);html("span",type+" → ",li);
+    if(typeof to==="number"){const t=N[to],b=html("button",(t.graph!==n.graph?t.graph+"/":"")+t.uid,li);b.style.padding="2px 8px";b.style.minHeight="24px";b.onclick=()=>open(t)}else html("span",to,li);
+    if(s){const m=html("span"," stamp "+STAMP[s],li);m.style.color=s===1?"var(--ig-ok)":"var(--ig-bad)"}});
   if(!n.links.length)html("li","No links out: nothing in the graph sits above it.",L);
-  $("ig-sig").textContent=n.signed.length?"Signed by "+n.signed.map(r=>r.by+(r.as?" as "+r.as:"")+(r.at?", "+r.at.slice(0,10):"")).join("; ")+".":n.external?"Borrowed from a source outside this repository.":"Nobody has signed this item.";
+  $("ig-sig").textContent=n.signed.length?"Signed by "+n.signed.map(([by,at,as])=>by+(as?" as "+as:"")+(at?", "+at:"")).join("; ")+".":n.external?"Borrowed from a source outside this repository.":"Nobody has signed this item.";
   refresh();$("ig-ov").style.display="flex";
   $("ig-wrap").style.minHeight=($("ig-dlg").offsetHeight+32)+"px";$("ig-close").focus()}
 function close(){$("ig-ov").style.display="none";$("ig-wrap").style.minHeight="";cur=null;if(opener)opener.focus()}
-V.nodes.forEach(n=>{
-  const g=el("g",{class:"n "+n.role,tabindex:0,role:"button","aria-label":"Open "+name(n)+", "+n.type+", "+n.status+": "+n.title});
-  const r=el("rect",{class:"b",x:n.x,y:n.y,width:S.box_w,height:S.box_h,rx:8,"stroke-width":n.role==="focus"?2:1},g);
+N.forEach(n=>{
+  const g=el("g",{class:"n r"+n.role,tabindex:0,role:"button","aria-label":"Open "+name(n)+", "+n.type+", "+n.status+": "+n.title});
+  const r=el("rect",{class:"b",x:n.x,y:n.y,width:BW,height:BH,rx:8,"stroke-width":n.role===1?2:1},g);
   if(n.other)r.setAttribute("stroke-dasharray","4 3");
   n.box=el("rect",{x:n.x+10,y:n.y+21,width:14,height:14,rx:3,"stroke-width":1,style:"fill:var(--ig-card);stroke:var(--ig-soft)",role:"checkbox",tabindex:0,"aria-checked":"false","aria-label":"Tick "+name(n)+" as read"},g);
   n.mark=el("path",{d:"M"+(n.x+13)+" "+(n.y+28)+"l3 3l5-6",fill:"none","stroke-width":1.8,"stroke-linecap":"round","stroke-linejoin":"round",style:"stroke:var(--ig-text);display:none;pointer-events:none"},g);
   const t=el("text",{x:n.x+34,y:n.y+19,"dominant-baseline":"central","font-size":14,"font-weight":500},g);t.textContent=fit(n.uid,13);
   const u=el("text",{x:n.x+34,y:n.y+38,"dominant-baseline":"central","font-size":12},g);u.textContent=fit(n.other?n.graph:n.type,17);
-  if(n.unsigned)el("circle",{cx:n.x+S.box_w-10,cy:n.y+10,r:4,style:"fill:var(--ig-warn)"},g);
+  if(n.unsigned)el("circle",{cx:n.x+BW-10,cy:n.y+10,r:4,style:"fill:var(--ig-warn)"},g);
   n.g=g;
-  n.box.addEventListener("click",e=>{e.stopPropagation();setTick(n,!ticked.has(n.id))});
-  n.box.addEventListener("keydown",e=>{if(e.key===" "||e.key==="Enter"){e.preventDefault();e.stopPropagation();setTick(n,!ticked.has(n.id))}});
+  n.box.addEventListener("click",e=>{e.stopPropagation();setTick(n,!ticked.has(n.i))});
+  n.box.addEventListener("keydown",e=>{if(e.key===" "||e.key==="Enter"){e.preventDefault();e.stopPropagation();setTick(n,!ticked.has(n.i))}});
   g.addEventListener("click",()=>open(n));
   g.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();open(n)}})});
 $("ig-close").onclick=close;
-$("ig-tick").onclick=()=>{const n=cur;setTick(n,!ticked.has(n.id));close()};
+$("ig-tick").onclick=()=>{const n=cur;setTick(n,!ticked.has(n.i));close()};
 $("ig-ov").addEventListener("click",e=>{if(e.target===$("ig-ov"))close()});
 $("ig-dlg").addEventListener("keydown",e=>{if(e.key==="Escape"){e.stopPropagation();close()}
   if(e.key==="Tab"){const f=$("ig-dlg").querySelectorAll("button");const a=f[0],z=f[f.length-1];
     if(e.shiftKey&&document.activeElement===a){e.preventDefault();z.focus()}else if(!e.shiftKey&&document.activeElement===z){e.preventDefault();a.focus()}}});
-$("ig-clear").onclick=()=>V.nodes.forEach(n=>setTick(n,false));
-if(typeof sendPrompt==="function"){const b=$("ig-ask");b.style.display="";b.onclick=()=>{const left=V.nodes.filter(n=>!ticked.has(n.id)).map(name);
+$("ig-clear").onclick=()=>N.forEach(n=>setTick(n,false));
+if(typeof sendPrompt==="function"){const b=$("ig-ask");b.style.display="";b.onclick=()=>{const left=N.filter(n=>!ticked.has(n.i)).map(name);
   sendPrompt(left.length?"I have not ticked these around "+name(focus)+"; tell me what to check in each: "+left.join(", "):"I have ticked every item around "+name(focus)+". What is left to do?")}}
-$("ig-checks").textContent=V.checks.length?"tl check: "+V.checks.map(c=>c.graph+" "+c.errors+" error(s), "+c.warnings+" warning(s)").join("; ")+".":"";
+$("ig-checks").textContent=V.c.length?"tl check: "+V.c.map(([g,e,w])=>g+" "+e+" error(s), "+w+" warning(s)").join("; ")+".":"";
 refresh();
 })();
 </script>

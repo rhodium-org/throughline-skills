@@ -1,0 +1,14 @@
+uid: REQ-0013
+type: requirement
+status: proposed
+title: A page shown where no script runs says so
+text: Every box is drawn by the page's script. A viewer that shows the page without
+  running it would show an empty picture; the page instead carries a line saying
+  nothing is drawn and to open the file in a web browser, and the script removes
+  that line when it runs.
+normative: true
+links:
+- target: INT-0001
+  type: derives_from
+attrs:
+  origin: ai

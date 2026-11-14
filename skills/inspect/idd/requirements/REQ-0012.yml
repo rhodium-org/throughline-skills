@@ -1,0 +1,14 @@
+uid: REQ-0012
+type: requirement
+status: proposed
+title: The script can open the page in the person's browser in one step
+text: Asked to open the view, the script writes the page to the temporary directory
+  under the item's graph and UID, hands it to the person's default browser, prints
+  the summary and names the file. Where no browser can be opened it says so and still
+  names the file.
+normative: true
+links:
+- target: INT-0001
+  type: derives_from
+attrs:
+  origin: ai

@@ -1,0 +1,18 @@
+uid: REQ-0011
+type: requirement
+status: proposed
+title: The view reaches the page packed, and the script says how large the inline
+  body is
+text: 'The body shown inline is written out again, character by character, by whoever
+  shows it, so its size is the person''s wait. The page reads the view in a packed
+  form: each graph is named once, an item is a row, a link to an item shown names
+  that item''s place, and nothing the page does not show is carried. Every word of
+  every item is still carried whole. Writing the body, the script prints the summary
+  and the body''s size, and when the size is past the limit it says to open the page
+  or draw fewer items instead.'
+normative: true
+links:
+- target: INT-0001
+  type: derives_from
+attrs:
+  origin: ai
