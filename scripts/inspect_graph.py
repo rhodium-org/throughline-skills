@@ -509,6 +509,23 @@ def page(data: dict) -> str:
             "</head>\n<body>\n" + fragment(data) + "\n</body>\n</html>\n")
 
 
+# tl: implements tl-inspect/REQ-0015@97545fcbfcc6
+def hosted(data: dict) -> str:
+    """The page as a host that wraps it in its own document wants it: a title, the
+    page's ground in both themes under the host's theme switch, and the body."""
+    focus = next(n for n in data["nodes"] if n["id"] == data["focus"])
+    dark = "--ig-ground:#1b1b19;--ig-ink:#f1efe8;color-scheme:dark"
+    return (f"<title>{focus['graph']} {focus['uid']} inspected</title>\n"
+            '<meta name="claude:viewport-fit-sides" content="cover">\n'
+            "<style>:root{--ig-ground:#f7f6f2;--ig-ink:#1b1b19}"
+            "@media (prefers-color-scheme:dark){:root:not([data-theme=\"light\"]){" + dark + "}}"
+            ":root[data-theme=\"dark\"]{" + dark + "}"
+            "body{background:var(--ig-ground);color:var(--ig-ink);font-family:system-ui,sans-serif;"
+            "max-width:720px;margin:0 auto;padding-block:16px;"
+            "padding-left:max(16px,env(safe-area-inset-left,0px));"
+            "padding-right:max(16px,env(safe-area-inset-right,0px))}</style>\n" + fragment(data))
+
+
 def summary(data: dict) -> str:
     by = defaultdict(list)
     for n in data["nodes"]:
@@ -552,6 +569,8 @@ def main(argv=None) -> int:
     out.add_argument("--html", metavar="FILE", help="write a page that stands alone in one file")
     out.add_argument("--fragment", metavar="FILE", help="write the page's body, to show inline")
     out.add_argument("--open", action="store_true", help="write the page and open it in the browser")
+    out.add_argument("--hosted", metavar="FILE",
+                     help="write the page for a host that publishes it inside its own document")
     args = ap.parse_args(argv)
     if args.depth < 0:
         fail("--depth cannot be negative")
@@ -570,6 +589,9 @@ def main(argv=None) -> int:
         if len(body) > INLINE_LIMIT:
             print(f"That is more than the {INLINE_LIMIT} worth writing out inline: "
                   "open the page instead (--open), or draw fewer items (--depth 1).", file=sys.stderr)
+    elif args.hosted:
+        emit(hosted(data), args.hosted)
+        print(summary(data), end="", file=sys.stderr)
     elif args.open:
         # tl: implements tl-inspect/REQ-0012@05cfd6f0a028
         import tempfile

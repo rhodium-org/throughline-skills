@@ -67,6 +67,7 @@
 </div>
 <p class="note" id="ig-checks"></p>
 </div>
+<!-- tl: implements tl-inspect/REQ-0015@97545fcbfcc6 -->
 <script>
 (function(){
 const V=/*VIEW*/null;
@@ -76,9 +77,9 @@ const NS="http://www.w3.org/2000/svg",$=id=>document.getElementById(id),svg=$("i
 const [W,H,BW,BH]=V.s,STAMP=["","current","stale","unstamped"],ticked=new Set();let cur=null,opener=null;
 const N=V.n.map(([uid,g,type,status,sign,title,text,why,attrs,signed,role,x,y,links],i)=>({i,uid,graph:V.g[g][0],root:V.g[g][1],other:g!==V.n[V.f][1],type,status,unsigned:sign===1,external:sign===2,title,text,why,attrs,signed,role,x,y,links}));
 const focus=N[V.f],name=n=>n.graph+"/"+n.uid;
-const dark=()=>{const m=document.documentElement.dataset.mode;R.classList.toggle("dk",m?m==="dark":matchMedia("(prefers-color-scheme:dark)").matches)};
+const dark=()=>{const d=document.documentElement.dataset,m=d.theme||d.mode;R.classList.toggle("dk",m?m==="dark":matchMedia("(prefers-color-scheme:dark)").matches)};
 dark();matchMedia("(prefers-color-scheme:dark)").addEventListener("change",dark);
-new MutationObserver(dark).observe(document.documentElement,{attributes:true,attributeFilter:["data-mode"]});
+new MutationObserver(dark).observe(document.documentElement,{attributes:true,attributeFilter:["data-mode","data-theme"]});
 function el(t,a,p){const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);(p||svg).appendChild(e);return e}
 function html(t,text,p){const e=document.createElement(t);e.textContent=text;p.appendChild(e);return e}
 svg.setAttribute("viewBox","0 0 "+W+" "+H);

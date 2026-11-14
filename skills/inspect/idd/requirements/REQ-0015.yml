@@ -1,0 +1,38 @@
+uid: REQ-0015
+type: requirement
+status: ratified
+title: The script can write the page for a host that publishes it in its own document
+text: 'Asked for a hosted page, the script writes the view without a document around
+  it, for a host that wraps a page in a document of its own and publishes it: a title
+  naming the item''s graph and UID, the ground and ink of the page in light and in
+  dark, side margins that never fall below sixteen pixels, and the same body the
+  inline route gives. The page follows the host''s theme switch when the host sets
+  one and the reader''s own setting when it does not. It loads nothing from any other
+  host. The script prints the summary with it. A published page is drawn by the host
+  from the file, so the person sees the boxes beside the chat without waiting for
+  the body to be written out again.'
+normative: true
+links:
+- target: INT-0001
+  type: derives_from
+attrs:
+  origin: ai
+ratifications:
+- by: Henry Grech-Cini
+  at: '2026-11-14T21:25:05Z'
+  fingerprint: sha256:97545fcbfcc69fceba3545e3c9f49670edbcd8593bd8a6d28347d3088197af21
+  content:
+    type: requirement
+    text: 'Asked for a hosted page, the script writes the view without a document
+      around it, for a host that wraps a page in a document of its own and publishes
+      it: a title naming the item''s graph and UID, the ground and ink of the page
+      in light and in dark, side margins that never fall below sixteen pixels, and
+      the same body the inline route gives. The page follows the host''s theme switch
+      when the host sets one and the reader''s own setting when it does not. It loads
+      nothing from any other host. The script prints the summary with it. A published
+      page is drawn by the host from the file, so the person sees the boxes beside
+      the chat without waiting for the body to be written out again.'
+    normative: true
+    derived: false
+    attrs:
+      priority: ''
