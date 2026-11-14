@@ -1,0 +1,18 @@
+uid: TEST-0014
+type: test
+status: proposed
+title: A second run starts tl no times and gives the same view; a changed graph alone
+  is read again
+text: 'tl is replaced on the path by a stand-in that records each time it is started
+  and then runs the real one. The view of an item is written twice: the second run
+  starts tl no times and its view is identical to the first. One graph''s item is
+  then reworded: the next run starts tl for that graph and for the graph that borrows
+  from it, not for the graph it borrows from, and the view carries the new wording.
+  Run afresh, tl is started for every graph again. The files of every graph are the
+  same before and after.'
+normative: false
+links:
+- target: REQ-0014
+  type: verifies
+attrs:
+  origin: ai

@@ -48,7 +48,13 @@ The script reads `tl dump` for the item's graph and for every graph under the
 repository joined to it by `path` sources, in either direction, so an item in
 a specification shows the items of an implementation graph that rest on it.
 It needs throughline 5.2.0 or later and nothing beyond the standard library,
-and it changes no file of any graph. If the plugin root variable is unset, the
+and it changes no file of any graph.
+
+<!-- tl: implements tl-inspect/REQ-0014@3f0845166cb0 -->
+The first view of a repository takes as long as `tl` takes to read its graphs,
+which can be tens of seconds. What `tl` said of each graph is then kept in the
+user's cache directory, so a later view takes about a second and reads again
+only the graphs that have changed. Pass `--fresh` to read every graph again. If the plugin root variable is unset, the
 script sits at `scripts/inspect_graph.py` beside this file's plugin.
 
 ## How far it follows
