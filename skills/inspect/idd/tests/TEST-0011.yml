@@ -1,6 +1,6 @@
 uid: TEST-0011
 type: test
-status: proposed
+status: ratified
 title: The inline body names no path twice, keeps item text whole, and its size is
   reported against the limit
 text: A view of items in two graphs is written as a body. The body holds no absolute
@@ -13,3 +13,16 @@ links:
   type: verifies
 attrs:
   origin: ai
+ratifications:
+- by: Henry Grech-Cini
+  at: '2026-11-14T16:34:22Z'
+  fingerprint: sha256:07680a6e4380cb6964835614b8717f44bd16a4dae3ada94798c43a4b1eb7dc27
+  content:
+    type: test
+    text: A view of items in two graphs is written as a body. The body holds no absolute
+      path and holds each graph's root once; a long item text is found in it unchanged.
+      The script's report gives the body's size in characters. A view small enough
+      is not told to open the page; one made larger than the limit is.
+    normative: false
+    derived: false
+    attrs: {}

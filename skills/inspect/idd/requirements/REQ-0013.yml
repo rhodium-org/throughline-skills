@@ -1,6 +1,6 @@
 uid: REQ-0013
 type: requirement
-status: proposed
+status: ratified
 title: A page shown where no script runs says so
 text: Every box is drawn by the page's script. A viewer that shows the page without
   running it would show an empty picture; the page instead carries a line saying
@@ -12,3 +12,17 @@ links:
   type: derives_from
 attrs:
   origin: ai
+ratifications:
+- by: Henry Grech-Cini
+  at: '2026-11-14T16:34:21Z'
+  fingerprint: sha256:2ae96277802c36f4be6813c5221da5994f5b59cb3d403427cb730b971951ca1f
+  content:
+    type: requirement
+    text: Every box is drawn by the page's script. A viewer that shows the page without
+      running it would show an empty picture; the page instead carries a line saying
+      nothing is drawn and to open the file in a web browser, and the script removes
+      that line when it runs.
+    normative: true
+    derived: false
+    attrs:
+      priority: ''
