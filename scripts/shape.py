@@ -97,6 +97,10 @@ IN_PROGRESS_RE = re.compile(rf"^{SHAPE}(-[0-9]+)?$")
 DEAD = {"deleted", "rejected"}
 NAME_RE = re.compile(r"^[a-z][a-z0-9-]*$")
 PREFIX_RE = re.compile(r"^[A-Z][A-Z0-9]{1,15}$")
+# tl names a borrowed register by the source's namespace, upper-cased with all
+# but letters and digits dropped, followed by its own prefix, and refuses one
+# longer than a UID prefix may be (max 16 characters).
+MAX_PREFIX = 16
 TYPE_RE = re.compile(r"^[a-z][a-z0-9_]*$")
 
 
@@ -166,6 +170,90 @@ def shaped_name(shape: Path) -> str | None:
     if not name:
         die(f"{names[0]['uid']} is the name decision but carries no dir attribute")
     return name
+
+
+# tl: implements skill/REQ-0013@947a9283a602
+def stem(namespace: str) -> str:
+    """What a namespace contributes to the prefix tl gives a register it borrows."""
+    return re.sub(r"[^A-Z0-9]", "", namespace.upper())
+
+
+# tl: implements skill/REQ-0013@947a9283a602
+def composes(namespace: str, prefix: str) -> bool:
+    """Whether the shape graph can borrow a register with this prefix under this
+    namespace: tl's mangled prefix is a legal UID prefix and is not one of the
+    shape graph's own registers."""
+    mangled = stem(namespace) + prefix
+    return bool(PREFIX_RE.match(mangled)) and mangled not in SHAPING_TYPES
+
+
+# tl: implements skill/REQ-0013@947a9283a602
+def pointer_namespace(name: str, prefixes: list[str]) -> str | None:
+    """The namespace the pointer to the graph `name` is written under: the name,
+    cut to leave room for the longest prefix the graph holds, so every one of its
+    registers composes into the shape graph. None when no cut of the name can."""
+    budget = MAX_PREFIX - max(len(p) for p in prefixes)
+    out, kept = "", 0
+    for ch in name:
+        if kept == budget:
+            break
+        out += ch
+        kept += ch.isalnum()
+    out = out.rstrip("-_")
+    if not out or not all(composes(out, p) for p in prefixes):
+        return None
+    return out
+
+
+# tl: implements skill/REQ-0013@947a9283a602
+def pointers(shape: Path, name: str) -> list[dict]:
+    """The [[sources]] entries of the shape graph that point at the graph `name`,
+    recognised by their path, ../<name>, whatever namespace they were written under."""
+    want = f"../{name}"
+    return [s for s in config(shape).get("sources", [])
+            if s.get("path") and os.path.normpath(s["path"]) == want]
+
+
+# tl: implements skill/REQ-0013@947a9283a602
+def mend_pointer(shape: Path) -> None:
+    """Give the pointer to the graph this shaping produced a namespace it composes
+    under, when the one it was written with does not: a shaping written before the
+    namespace was cut to fit, or a register added to the graph since with a longer
+    prefix. tl cannot read the shape graph until this is done, so it reads only
+    files: the pointer is the source at ../<name> for the <name>-shape it sits in,
+    or the one whose graph names this shaping in its [shaped_by]."""
+    cfg = shape / "throughline.toml"
+    for src in config(shape).get("sources", []):
+        if not src.get("path") or not src.get("namespace"):
+            continue
+        rel = os.path.normpath(src["path"])
+        name = rel[3:] if rel.startswith("../") else ""
+        target = shape.parent / name
+        if not name or "/" in name or not (target / "throughline.toml").exists():
+            continue
+        lineage = config(target).get("shaped_by", {}).get("graph")
+        if shape.name != name + SUFFIX and lineage != f"../{shape.name}":
+            continue
+        prefixes = list(register_types(target))
+        old = src["namespace"]
+        if not prefixes or all(composes(old, p) for p in prefixes):
+            continue
+        new = pointer_namespace(name, prefixes)
+        if new is None:
+            print(f"{shape}: the pointer to {name} cannot compose under any cut of "
+                  f"its name with prefix {max(prefixes, key=len)}; give it a "
+                  f"namespace in {cfg} by hand")
+            continue
+        text = cfg.read_text()
+        blocks = re.split(r"(?m)^(?=\[)", text)
+        for k, block in enumerate(blocks):
+            if block.startswith("[[sources]]") and re.search(
+                    rf'(?m)^path\s*=\s*"{re.escape(src["path"])}"', block):
+                blocks[k] = re.sub(rf'(?m)^(namespace\s*=\s*)"{re.escape(old)}"',
+                                   rf'\g<1>"{new}"', block, count=1)
+        cfg.write_text("".join(blocks))
+        print(f"{shape}: the pointer to {name} was under namespace {old!r}, which "
+              f"tl cannot compose with prefix {max(prefixes, key=len)}; it is now {new!r}")
 
 
 def is_shaping(d: Path) -> bool:
@@ -267,6 +355,8 @@ def migrate(shape: Path) -> None:
         other = shape / src.get("path", "")
         if src.get("path") and (other / "throughline.toml").exists():
             run(other, "migrate", quiet=True, ok=(0, 1))
+    # tl: implements skill/REQ-0013@947a9283a602
+    mend_pointer(shape)
     run(shape, "migrate", quiet=True, ok=(0, 1))
 
 
@@ -347,8 +437,8 @@ def status_data(repo: Path, shape: Path | None) -> dict:
             {"uid": i["uid"], "title": i["title"], "status": i["status"],
              "attrs": i.get("attrs", {})})
     name = shaped_name(shape)
-    pointer = any(s.get("namespace") == name
-                  for s in config(shape).get("sources", []))
+    # tl: implements skill/REQ-0013@947a9283a602
+    pointer = bool(name) and bool(pointers(shape, name))
     return {
         "shape": str(shape),
         "items": by_type,
@@ -427,9 +517,7 @@ def cmd_new(repo: Path, a) -> None:
     print(uid)
 
 
-# tl: implements skill/REQ-0001@7f04bbb468ac, skill/REQ-0002@1da7cc6bf70c, skill/REQ-0003@0f49b897c80f, skill/REQ-0004@a8eb459a52e8
-
-# tl: implements skill/REQ-0011
+# tl: implements skill/REQ-0011@7f71229f70ab
 def record_lineage(repo: Path, shape: Path, target: Path) -> None:
     """Write, into the second graph's throughline.toml, where it was shaped: the
     shape graph (by its path from the second graph) and, for each register, the
@@ -454,6 +542,8 @@ def record_lineage(repo: Path, shape: Path, target: Path) -> None:
             f'graph = "../{shape.name}"\n'
             f"registers = {{ {pairs} }}\n")
 
+
+# tl: implements skill/REQ-0001@7f04bbb468ac, skill/REQ-0002@1da7cc6bf70c, skill/REQ-0003@0f49b897c80f, skill/REQ-0004@a8eb459a52e8
 def cmd_write(repo: Path, a) -> None:
     shape = resolve(repo, a)
     # A shaping laid down by an older tl may be in a format the running tl
@@ -473,7 +563,8 @@ def cmd_write(repo: Path, a) -> None:
             f"hyphens; not {SHAPE!r}, {SHAPE}-<n> or ending {SUFFIX!r}, which "
             "name shape graphs)")
     target = repo / IDD / name
-    pointer = any(s.get("namespace") == name for s in config(shape).get("sources", []))
+    # tl: implements skill/REQ-0013@947a9283a602
+    pointer = bool(pointers(shape, name))
     if (target / "throughline.toml").exists():
         if pointer and shape.name != name + SUFFIX:
             # Written before shape graphs were named after their graph: name it now.
@@ -513,6 +604,14 @@ def cmd_write(repo: Path, a) -> None:
     prefixes = [r[1] for r in regs]
     if len(set(prefixes)) != len(prefixes):
         die("two register decisions claim the same prefix: " + ", ".join(prefixes))
+    # tl: implements skill/REQ-0013@947a9283a602
+    namespace = pointer_namespace(name, prefixes)
+    if namespace is None:
+        longest = max(regs, key=lambda r: len(r[1]))
+        die(f"{longest[0]}: prefix {longest[1]!r} leaves no room for a namespace — "
+            f"tl names a borrowed register by namespace and prefix together, at most "
+            f"{MAX_PREFIX} letters and digits, and no cut of {name!r} composes with it "
+            "into the shape graph; choose a shorter prefix")
     if not any(r[4] == "delivery-root" or r[3] in DEFAULT_DELIVERY_ROOTS for r in regs):
         die("no register decision holds a delivery root (an intent, business "
             "need, risk or constraint, or a type declared grounding=delivery-root) "
@@ -528,16 +627,21 @@ def cmd_write(repo: Path, a) -> None:
         run(target, "register", "new", prefix, d, "--title", title, "--type", item_type)
 
     cfg = shape / "throughline.toml"
-    if not any(s.get("namespace") == name for s in config(shape).get("sources", [])):
+    # tl: implements skill/REQ-0013@947a9283a602
+    if not pointers(shape, name):
         with cfg.open("a") as f:
             f.write(
                 "\n# The graph this shaping produced. Composed so `tl context`\n"
-                "# here shows the whole picture.\n"
+                "# here shows the whole picture; the namespace is its name, cut to\n"
+                "# leave room for its longest register prefix.\n"
                 "[[sources]]\n"
-                f'namespace = "{name}"\n'
+                f'namespace = "{namespace}"\n'
                 f'path = "../{name}"\n')
     final = name_shaping(repo, shape, name)
     record_lineage(repo, final, target)
+    if namespace != name:
+        print(f"the pointer composes {name} under the namespace {namespace!r}, its name cut "
+              f"to leave room for prefix {max(prefixes, key=len)}")
     print(f"wrote {target} with {len(regs)} register(s), recorded the pointer and the "
           f"lineage, and named the shape graph {final}\nnext: run `check`; the new graph reports "
           "empty-registers as a warning until its first layer is authored")
