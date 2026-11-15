@@ -1,6 +1,6 @@
 """Fixture tests for the shape skill's script.
 
-skill TEST-0001 to TEST-0008 and TEST-0010, one per requirement. Each test drives
+skill TEST-0001 to TEST-0008, TEST-0010, TEST-0012 and TEST-0013, at least one per requirement. Each test drives
 scripts/shape.py over a throwaway repository with the real CLI, and where
 the skill text gives shell to run, the shell is read out of SKILL.md so that
 what is tested is what a reader follows. TEST-0009 is in test_tl_floor.py.
@@ -78,6 +78,11 @@ def local_items(graph):
     return [i for i in dump(graph)["items"] if not i.get("source")]
 
 
+def links(item):
+    """An item's links as target and type; tl from 5.8 also stamps each one."""
+    return [{"target": l["target"], "type": l["type"]} for l in item.get("links", [])]
+
+
 def registers(graph):
     return {p.parent.name for p in graph.rglob(".register.yml")}
 
@@ -147,7 +152,7 @@ def test_layout_comes_from_discovery_not_tl_init(written):  # TEST-0001 / REQ-00
     assert src["attrs"]["path"] == "docs/brief.md"
     assert re.fullmatch(r"\d{4}-\d{2}-\d{2}", str(src["attrs"]["read"]))
     dom = next(i for i in local_items(repo / "idd" / "estate-shape") if i["uid"] == uids["dom"])
-    assert {"target": uids["src"], "type": "derives_from"} in dom["links"]
+    assert {"target": uids["src"], "type": "derives_from"} in links(dom)
 
 
 # tl: verifies skill/TEST-0002@1d3d20d45a54
@@ -296,7 +301,7 @@ def test_rejected_register_is_recorded_with_its_rationale(discovered):  # TEST-0
     ng = next(i for i in local_items(repo / "idd" / "shape") if i["uid"] == uids["ng"])
     assert ng["type"] == "non_goal"
     assert ng["rationale"] == "Considered because tl init would have offered one."
-    assert {"target": uids["need"], "type": "derives_from"} in ng["links"]
+    assert {"target": uids["need"], "type": "derives_from"} in links(ng)
     assert (repo / "idd" / "shape" / "non-goals" / f"{ng['uid']}.yml").exists()
     status = shape(repo, "status").stdout
     considered = status[status.index("Registers considered and not created"):]
@@ -367,3 +372,96 @@ def test_commands_act_on_the_shaping_they_are_given(written):  # TEST-0010 / REQ
     assert re.search(r"estate-shape\s+\[written\]\s+shaped graph: estate \(exists\)", r.stdout)
     assert re.search(r"(?m)^  shape\s+\[in progress\]", r.stdout)
     assert re.search(r"(?m)^  shape-2\s+\[in progress\]", r.stdout)
+
+
+def running_format(tmp_path):
+    """The format_version `tl init` writes under the tl on PATH."""
+    probe = tmp_path / "format-probe"
+    assert run("tl", "-C", str(probe), "init", "--bare", "--name", "probe").returncode == 0
+    return dump(probe)["config"]["project"]["format_version"]
+
+
+def register_types(graph):
+    """Register dir -> the `type:` its .register.yml declares, or None."""
+    out = {}
+    for p in graph.rglob(".register.yml"):
+        m = re.search(r"(?m)^type:\s*(\S+)", p.read_text())
+        out[p.parent.name] = m.group(1) if m else None
+    return out
+
+
+# tl: verifies skill/TEST-0012@2a6211c74767
+def test_registers_declare_their_type(written, tmp_path):  # TEST-0012 / REQ-0012
+    repo, _ = written
+    shaped, estate = repo / "idd" / "estate-shape", repo / "idd" / "estate"
+    assert register_types(shaped) == {
+        "sources": "source", "domain": "domain", "needs": "need",
+        "decisions": "decision", "non-goals": "non_goal", "constraints": "constraint"}
+    assert register_types(estate) == {"vision": "intent", "threats": "threat"}
+    for graph, prefix, type_ in ((estate, "INT", "intent"), (estate, "THR", "threat"),
+                                 (shaped, "NG", "non_goal")):
+        r = run("tl", "-C", str(graph), "new", prefix, "--title", "x", "--text", "x.",
+                "--origin", "ai", "--no-interactive")
+        assert r.returncode == 0, r.stdout + r.stderr
+        uid = re.search(rf"{prefix}-\d+", r.stdout).group(0)
+        assert next(i for i in local_items(graph) if i["uid"] == uid)["type"] == type_
+    fmt = running_format(tmp_path)
+    for graph in (shaped, estate):
+        assert dump(graph)["config"]["project"]["format_version"] == fmt
+
+
+# tl: verifies skill/TEST-0013@fab4039c0ceb
+def test_write_reads_a_shaping_in_an_older_format(discovered, tmp_path):  # TEST-0013 / REQ-0012
+    repo, _ = discovered
+    fmt = running_format(tmp_path)
+    cfg = repo / "idd" / "shape" / "throughline.toml"
+    text = cfg.read_text()
+    assert f"format_version = {fmt}\n" in text
+    cfg.write_text(text.replace(f"format_version = {fmt}\n", f"format_version = {fmt - 1}\n", 1))
+    r = shape(repo, "write")
+    assert r.returncode == 0, r.stdout + r.stderr
+    for d in ("estate-shape", "estate"):
+        assert dump(repo / "idd" / d)["config"]["project"]["format_version"] == fmt
+
+
+def strip_register_types(graph):
+    for p in graph.rglob(".register.yml"):
+        p.write_text(re.sub(r"(?m)^type:.*\n", "", p.read_text()))
+
+
+def lower_format(graph, fmt):
+    cfg = graph / "throughline.toml"
+    cfg.write_text(cfg.read_text().replace(f"format_version = {fmt}\n",
+                                           f"format_version = {fmt - 1}\n", 1))
+
+
+# tl: verifies skill/TEST-0014@d612b4e15426
+def test_repair_types_a_shaping_made_before_registers_had_types(written, tmp_path):  # TEST-0014 / REQ-0012
+    repo, _ = written
+    shaped, estate = repo / "idd" / "estate-shape", repo / "idd" / "estate"
+    fmt = running_format(tmp_path)
+    # a register a person added by hand, which the shaping did not make
+    assert run("tl", "-C", str(estate), "register", "new", "ODD", "odd",
+               "--type", "threat").returncode == 0
+    for graph in (shaped, estate):
+        strip_register_types(graph)
+        lower_format(graph, fmt)
+    assert set(register_types(shaped).values()) == {None}
+
+    r = shape(repo, "repair")
+    assert r.returncode == 0, r.stdout + r.stderr
+    assert register_types(shaped) == {
+        "sources": "source", "domain": "domain", "needs": "need",
+        "decisions": "decision", "non-goals": "non_goal", "constraints": "constraint"}
+    assert register_types(estate) == {"vision": "intent", "threats": "threat", "odd": None}
+    assert f"register ODD declares no item type" in r.stdout
+    assert f"tl -C {estate} register type ODD <type>" in r.stdout
+    for graph, prefix in ((shaped, "NG"), (estate, "THR")):
+        n = run("tl", "-C", str(graph), "new", prefix, "--title", "x", "--text", "x.",
+                "--origin", "ai", "--no-interactive")
+        assert n.returncode == 0, n.stdout + n.stderr
+    assert run("tl", "-C", str(shaped), "migrate").returncode == 0
+    assert run("tl", "-C", str(estate), "register", "type", "ODD", "threat").returncode == 0
+    assert run("tl", "-C", str(estate), "migrate").returncode == 0
+    for graph in (shaped, estate):
+        assert dump(graph)["config"]["project"]["format_version"] == fmt

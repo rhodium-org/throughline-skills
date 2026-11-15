@@ -26,8 +26,8 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Install throughline (the glossary script needs 5.2.0 for links declared outside the graph and list attributes)
-        run: pip install 'throughline>=5.2.0'
+      - name: Install throughline (shape's repair needs 5.11.0 for tl register type; the glossary script needs 5.2.0 for links declared outside the graph and list attributes)
+        run: pip install 'throughline>=5.11.0'
 
       - name: Gate every graph
         run: |
@@ -51,7 +51,7 @@ jobs:
 
       # The fixture tests of the multigraph skill (tl-multigraph TEST-0006,
       # 0007, 0012), the assess skill (tl-assess TEST-0001 to 0012), the
-      # shape skill (skill TEST-0001 to 0010), the challenge skill
+      # shape skill (skill TEST-0001 to 0010, 0012, 0013), the challenge skill
       # (tl-challenge TEST-0001, 0007, 0008), the site (throughline-skills
       # TEST-0004, 0005) and the reconcile skill (tl-reconcile
       # TEST-0001 to 0011, 0017) and the inspect skill (tl-inspect TEST-0001

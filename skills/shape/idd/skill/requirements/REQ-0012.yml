@@ -1,0 +1,27 @@
+uid: REQ-0012
+type: requirement
+status: proposed
+title: Every register the script makes declares its item type, and it repairs a shaping
+  made before it did
+text: Every register the script creates, in the shape graph and in the second graph,
+  declares the item type it holds, so tl new <PREFIX> without --type gives an item
+  born there that type. Repair, and write before it reads the shaping, run tl migrate
+  on the shaping and on each graph it composes by path, so a shaping laid down by
+  an older tl is read and both graphs end in the format the running tl writes; then
+  declare with tl register type the type of each register that declares none, from
+  the shaping's own registers and its register decisions, and name each register
+  the shaping did not make that still declares none.
+rationale: 'Found 15 November 2026 shaping rhodium-org/propertyqr under throughline
+  5.10.0: the registers had no type, so tl new INT failed with "register ''INT''
+  declares no item type — pass --type", and tl migrate types only a register already
+  holding items that agree on one, leaving every empty register broken. The same
+  shaping, laid down under 5.9.1, could not be written under 5.10.0 until tl migrate
+  had brought it to format 5.'
+normative: true
+links:
+- target: INT-0001
+  type: derives_from
+  stamp: sha256:30238aeb08bbd0cfccdce30ea072c0c1b525a70b3f678835b5a1c11833d7604b
+attrs:
+  priority: must
+  origin: ai

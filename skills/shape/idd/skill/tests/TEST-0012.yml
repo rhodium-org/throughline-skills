@@ -1,0 +1,18 @@
+uid: TEST-0012
+type: test
+status: proposed
+title: A shaped graph's registers each declare their type, and tl new needs no --type
+text: 'tests/test_shape.py, test_registers_declare_their_type: after init, new and
+  write, asserts every .register.yml in both graphs names its item type (source,
+  domain, need, decision, non_goal and constraint in the shape graph; intent and
+  threat in estate, from their decisions), that tl new INT, THR and NG with no --type
+  each create an item of that type, and that both graphs declare the format_version
+  tl init writes under the running tl.'
+normative: true
+links:
+- target: REQ-0012
+  type: verifies
+  stamp: sha256:837a84fbddbd1038ec769b4fc978ec49d82890cad7b1765603a108dffb207549
+attrs:
+  method: automated
+  origin: ai

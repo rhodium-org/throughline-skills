@@ -1,0 +1,16 @@
+uid: TEST-0013
+type: test
+status: proposed
+title: A shaping in an older format is written in the running tl's format
+text: 'tests/test_shape.py, test_write_reads_a_shaping_in_an_older_format: with the
+  shape graph''s format_version set one below the one tl init writes under the running
+  tl, asserts write exits 0 and leaves the shape graph and the second graph both
+  at the format tl init writes.'
+normative: true
+links:
+- target: REQ-0012
+  type: verifies
+  stamp: sha256:837a84fbddbd1038ec769b4fc978ec49d82890cad7b1765603a108dffb207549
+attrs:
+  method: automated
+  origin: ai

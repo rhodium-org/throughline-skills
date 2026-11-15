@@ -75,8 +75,25 @@ progress, `<name>-shape/` written. When more than one is there, every command
 takes `--shape <dir>` to say which; given none it acts on the one in progress,
 and refuses rather than guess between two.
 
-If a shaping exists for the work in front of you, **do not start again.** Read
-the prior reasoning back — `tl -C idd/<name>-shape context` (or `idd/shape` for
+If a shaping exists for the work in front of you, **do not start again.** First
+bring it, and the graph it wrote, up to what the running `tl` reads:
+
+<!-- tl: implements skill/REQ-0012@a4173c98a2b2 -->
+```sh
+python3 "$S" -C <repo> repair
+```
+
+A shaping made by an older `tl` may be in a format the running one refuses, and
+one made by an older version of this script has registers that declare no item
+type, so `tl new <PREFIX>` there is refused without `--type`. `repair` runs
+`tl migrate` on the shaping and on the graph it wrote, then declares each
+register's type with `tl register type`, from the shape graph's fixed registers
+and the shaping's register decisions; a register the shaping did not make, it
+names with the line to type it. On a current shaping it changes nothing.
+Typing a register needs throughline 5.11.0; the script asks for it only when
+there is one to type.
+
+Then read the prior reasoning back — `tl -C idd/<name>-shape context` (or `idd/shape` for
 one still in progress), then each register's items — and
 put it to the person stage by stage: *"Last time this was read as a
 data-migration project with these three needs; is that still true?"* Amend
@@ -240,15 +257,19 @@ and why, or out and why. Their absence from the set is a decision, not an
 oversight.
 
 ### 5. Write, gate, hand off
-<!-- tl: implements skill/REQ-0005@2733b556d7a4, skill/REQ-0007@14bac9f5d8ac, skill/REQ-0011 -->
+<!-- tl: implements skill/REQ-0005@2733b556d7a4, skill/REQ-0007@14bac9f5d8ac, skill/REQ-0011, skill/REQ-0012@a4173c98a2b2 -->
 
 ```sh
 python3 "$S" -C <repo> write
 ```
 
-This creates `idd/<name>/` from `--bare`, declares each item type, root and
+It first repairs the shaping as `repair` does, so a shaping laid down by an
+older `tl` or an older version of this script is read, and both graphs end in
+the format the running `tl` writes. It then creates `idd/<name>/` from `--bare`, declares each item type, root and
 `origin` attribute the decisions call for (every change carries a `--because`
-naming the decision), creates the registers, and records the pointer: a
+naming the decision), creates the registers, each declaring the item type
+its decision names (as `init` did for the shape graph's own, so `tl new
+<PREFIX>` in either graph needs no `--type`), and records the pointer: a
 `path` source in the shape graph's `throughline.toml` naming the second graph.
 It also records, in the second graph's own `throughline.toml`, where it was
 shaped: a `[shaped_by]` table naming the shape graph by its path and, for each
@@ -332,5 +353,5 @@ dependants that disturbed.
 It does not change `tl init` or any `tl` command. It does not ratify. It does
 not rename or delete the second graph once written; adding a register to an
 existing second graph is a new decision in its shape graph followed by
-`tl register new` there by hand, and the script says so. It has no view on
+`tl register new --type <type>` there by hand, and the script says so. It has no view on
 which model or editor does the second graph's work afterwards.
