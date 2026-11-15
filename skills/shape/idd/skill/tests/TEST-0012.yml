@@ -12,7 +12,7 @@ normative: true
 links:
 - target: REQ-0012
   type: verifies
-  stamp: sha256:837a84fbddbd1038ec769b4fc978ec49d82890cad7b1765603a108dffb207549
+  stamp: sha256:a4173c98a2b2d52bb6c495d4d381f4474ae1df5ae75c7df1874f18087a0c4107
 attrs:
   method: automated
   origin: ai
