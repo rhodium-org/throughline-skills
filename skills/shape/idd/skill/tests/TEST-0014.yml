@@ -1,6 +1,6 @@
 uid: TEST-0014
 type: test
-status: proposed
+status: ratified
 title: Repair types the registers of a shaping made before the script typed them
 text: 'tests/test_shape.py, test_repair_types_a_shaping_made_before_registers_had_types:
   with every register in both graphs stripped of its type and both graphs set one
@@ -16,3 +16,19 @@ links:
 attrs:
   method: automated
   origin: ai
+ratifications:
+- by: Henry Grech-Cini
+  at: '2026-11-15T18:20:08Z'
+  fingerprint: sha256:d612b4e15426604a19e33e11e41675d41618ce2fa607f991ef08c39e81b89c74
+  content:
+    type: test
+    text: 'tests/test_shape.py, test_repair_types_a_shaping_made_before_registers_had_types:
+      with every register in both graphs stripped of its type and both graphs set
+      one format below the one tl init writes, asserts repair exits 0, every register
+      in both graphs then names its item type, tl new NG and THR with no --type each
+      create an item, tl migrate exits 0 on both graphs, and a register a person
+      added by hand with no type is named with the tl register type line and left
+      untyped.'
+    normative: true
+    derived: false
+    attrs: {}
