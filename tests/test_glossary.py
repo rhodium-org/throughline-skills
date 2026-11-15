@@ -274,7 +274,10 @@ def test_a_glossary_written_as_the_skill_writes_it_passes_tl_check(tmp_path):
     assert check.returncode == 0, check.stdout + check.stderr
     item = (g / "terms" / "TERM-0001.yml").read_text()
     assert "aliases:\n  - look\n" in item and "deprecated_names:\n  - skin" in item
-    assert item.count("stamp: sha256:") == 2
+    # every link into the explained graph carries a stamp; since tl 5.11.1 apply
+    # also stamps the links a `new` op is born with, so the count is not fixed
+    for target in ("app:REQ-0001", "app:REQ-0002"):
+        assert re.search(rf"- target: {target}\n  type: \w+\n  stamp: sha256:", item), item
     out = run("review", "-C", g).stdout
     assert "1 term(s): 0 touched, 1 settled" in out
 
