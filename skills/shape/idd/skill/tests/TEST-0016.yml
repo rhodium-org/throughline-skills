@@ -1,0 +1,19 @@
+uid: TEST-0016
+type: test
+status: proposed
+title: The pointer is found by its path and mended only when it cannot compose
+text: 'tests/test_shape.py, test_the_pointer_is_found_by_path_and_mended_when_it_cannot_compose:
+  with the implementation shaping''s pointer set back to the namespace implementation,
+  asserts tl check on the shape graph fails with mangles to, repair exits 0 naming
+  both namespaces, the pointer is then implementati and both graphs check with 0
+  errors; and, on the estate shaping with its pointer renamed est by hand, that repair
+  leaves it est, status reports the pointer recorded, and write exits 1 without adding
+  a second source.'
+normative: true
+links:
+- target: REQ-0013
+  type: verifies
+  stamp: sha256:947a9283a602f3ae589c9a971d89a038967f79275493956a40c0d83ec5f69587
+attrs:
+  method: automated
+  origin: ai

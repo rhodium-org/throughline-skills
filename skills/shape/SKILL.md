@@ -93,6 +93,13 @@ names with the line to type it. On a current shaping it changes nothing.
 Typing a register needs throughline 5.11.0; the script asks for it only when
 there is one to type.
 
+<!-- tl: implements skill/REQ-0013@947a9283a602 -->
+`repair` also mends the pointer to the graph the shaping wrote when `tl` cannot
+compose it: a shaping written before the pointer's namespace was cut to fit
+(below), or one whose graph has since gained a register with a longer prefix.
+It gives the pointer the cut of the name that composes and says so; a pointer
+that composes is left as it was.
+
 Then read the prior reasoning back — `tl -C idd/<name>-shape context` (or `idd/shape` for
 one still in progress), then each register's items — and
 put it to the person stage by stage: *"Last time this was read as a
@@ -257,7 +264,7 @@ and why, or out and why. Their absence from the set is a decision, not an
 oversight.
 
 ### 5. Write, gate, hand off
-<!-- tl: implements skill/REQ-0005@2733b556d7a4, skill/REQ-0007@14bac9f5d8ac, skill/REQ-0011, skill/REQ-0012@a4173c98a2b2 -->
+<!-- tl: implements skill/REQ-0005@2733b556d7a4, skill/REQ-0007@14bac9f5d8ac, skill/REQ-0011@7f71229f70ab, skill/REQ-0012@a4173c98a2b2 -->
 
 ```sh
 python3 "$S" -C <repo> write
@@ -271,6 +278,15 @@ naming the decision), creates the registers, each declaring the item type
 its decision names (as `init` did for the shape graph's own, so `tl new
 <PREFIX>` in either graph needs no `--type`), and records the pointer: a
 `path` source in the shape graph's `throughline.toml` naming the second graph.
+<!-- tl: implements skill/REQ-0013@947a9283a602 -->
+Its namespace is the graph's name, cut to leave room for the longest register
+prefix: `tl` names each register it borrows by the namespace's letters and
+digits followed by the register's prefix, at most 16 characters, so a graph
+named `implementation` with a `GOAL` register is composed as `implementati`
+(`implementati:GOAL-0001`). A name that fits is used whole. `write` refuses,
+before writing anything, a prefix that leaves no cut of the name room to compose.
+Every command finds the pointer by its path, `../<name>`, never by its
+namespace.
 It also records, in the second graph's own `throughline.toml`, where it was
 shaped: a `[shaped_by]` table naming the shape graph by its path and, for each
 register, the decision that made it. `tl` reads past a table it does not know, so

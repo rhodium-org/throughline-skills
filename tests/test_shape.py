@@ -1,6 +1,6 @@
 """Fixture tests for the shape skill's script.
 
-skill TEST-0001 to TEST-0008, TEST-0010, TEST-0012 and TEST-0013, at least one per requirement. Each test drives
+skill TEST-0001 to TEST-0008 and TEST-0010 to TEST-0016, at least one per requirement. Each test drives
 scripts/shape.py over a throwaway repository with the real CLI, and where
 the skill text gives shell to run, the shell is read out of SKILL.md so that
 what is tested is what a reader follows. TEST-0009 is in test_tl_floor.py.
@@ -227,7 +227,7 @@ def test_second_graph_named_in_discovery_never_defaulted(repo):  # TEST-0003 / R
     assert status["name"] == "estate" and status["shaped_exists"] and status["pointer_recorded"]
 
 
-# tl: verifies skill/TEST-0011
+# tl: verifies skill/TEST-0011@4aa7d2dc5d90
 def test_written_graph_records_where_it_was_shaped(repo):  # TEST-0011 / REQ-0011
     """REQ-0011: write records, in the second graph's own throughline.toml, the
     shape graph it came from and the decision behind each register; tl reads
@@ -465,3 +465,92 @@ def test_repair_types_a_shaping_made_before_registers_had_types(written, tmp_pat
     assert run("tl", "-C", str(estate), "migrate").returncode == 0
     for graph in (shaped, estate):
         assert dump(graph)["config"]["project"]["format_version"] == fmt
+
+
+def shaped_implementation(repo):
+    """A shaping that names its graph `implementation`, 14 characters, with two
+    registers whose prefixes are 4 long, written, and one item in each so that
+    tl composes both registers into the shape graph."""
+    assert shape(repo, "init").returncode == 0
+    dom = new(repo, "DOM", "domain", "A build to be implemented")
+    need = new(repo, "NEED", "need", "Every requirement traces to a goal", ground=[dom])
+    new(repo, "DEC", "decision", "Name the graph implementation", ground=[dom],
+        attrs=["kind=name", "dir=implementation"])
+    new(repo, "DEC", "decision", "Goals register", ground=[need],
+        attrs=["kind=register", "prefix=GOAL", "dir=goals", "item_type=intent"])
+    new(repo, "DEC", "decision", "Requirements register", ground=[need],
+        attrs=["kind=register", "prefix=REQT", "dir=requirements", "item_type=requirement"])
+    r = shape(repo, "write")
+    assert r.returncode == 0, r.stdout + r.stderr
+    goal = new(repo, "GOAL", "intent", "Ship the build", graph="implementation")
+    new(repo, "REQT", "requirement", "It builds", ground=[goal], graph="implementation")
+    return repo / "idd" / "implementation-shape", repo / "idd" / "implementation", r
+
+
+def zero_errors(graph):
+    r = run("tl", "-C", str(graph), "check")
+    assert r.returncode == 0 and re.search(r"(?m)^0 error\(s\)", r.stdout + r.stderr), \
+        r.stdout + r.stderr
+
+
+# tl: verifies skill/TEST-0015@f75886999a2e
+def test_a_long_graph_name_composes_under_its_cut_name(repo, tmp_path):  # TEST-0015 / REQ-0013
+    shaped, impl, r = shaped_implementation(repo)
+    assert "'implementati'" in r.stdout
+    sources = dump(shaped)["config"]["sources"]
+    assert [{k: s[k] for k in ("namespace", "path")} for s in sources] == [
+        {"namespace": "implementati", "path": "../implementation"}]
+    for graph in (shaped, impl):
+        zero_errors(graph)
+    assert {i["uid"] for i in dump(shaped)["items"] if i.get("source")} == {
+        "implementati:GOAL-0001", "implementati:REQT-0001"}
+    assert shape(repo, "check").returncode == 0
+    status = json.loads(shape(repo, "status", "--json").stdout)
+    assert status["name"] == "implementation" and status["pointer_recorded"]
+    # a prefix that leaves no room for any namespace is refused before anything is written
+    other = tmp_path / "other"
+    other.mkdir()
+    assert shape(other, "init").returncode == 0
+    dom = new(other, "DOM", "domain", "A build")
+    need = new(other, "NEED", "need", "Traceability", ground=[dom])
+    new(other, "DEC", "decision", "Name it implementation", ground=[dom],
+        attrs=["kind=name", "dir=implementation"])
+    dec = new(other, "DEC", "decision", "A register with a 16-character prefix", ground=[need],
+              attrs=["kind=register", "prefix=ABCDEFGHIJKLMNOP", "dir=goals", "item_type=intent"])
+    r = shape(other, "write")
+    assert r.returncode == 2
+    assert dec in r.stderr and "leaves no room for a namespace" in r.stderr
+    assert {p.name for p in (other / "idd").iterdir()} == {"shape"}
+    assert "sources" not in dump(other / "idd" / "shape")["config"]
+
+
+# tl: verifies skill/TEST-0016@ea503849f216
+def test_the_pointer_is_found_by_path_and_mended_when_it_cannot_compose(written, tmp_path):  # TEST-0016 / REQ-0013
+    # A shaping written as the script once wrote it: the pointer under the whole
+    # name, which tl cannot compose once a 4-letter register holds an item.
+    long = tmp_path / "long"
+    long.mkdir()
+    shaped, impl, _ = shaped_implementation(long)
+    cfg = shaped / "throughline.toml"
+    cfg.write_text(cfg.read_text().replace('namespace = "implementati"',
+                                           'namespace = "implementation"'))
+    broken = run("tl", "-C", str(shaped), "check")
+    assert broken.returncode != 0 and "mangles to" in broken.stderr
+    r = shape(long, "repair")
+    assert r.returncode == 0, r.stdout + r.stderr
+    assert "'implementation'" in r.stdout and "'implementati'" in r.stdout
+    assert [s["namespace"] for s in dump(shaped)["config"]["sources"]] == ["implementati"]
+    for graph in (shaped, impl):
+        zero_errors(graph)
+    # A pointer that composes is left as written, and found by its path
+    # whatever its namespace: status sees it and write adds no second one.
+    estate_repo, _ = written
+    estate_shape = estate_repo / "idd" / "estate-shape"
+    cfg = estate_shape / "throughline.toml"
+    cfg.write_text(cfg.read_text().replace('namespace = "estate"', 'namespace = "est"'))
+    assert shape(estate_repo, "repair").returncode == 0
+    status = json.loads(shape(estate_repo, "status", "--json").stdout)
+    assert status["pointer_recorded"]
+    r = shape(estate_repo, "write")
+    assert r.returncode == 1 and "already exists" in r.stderr
+    assert [s["namespace"] for s in dump(estate_shape)["config"]["sources"]] == ["est"]

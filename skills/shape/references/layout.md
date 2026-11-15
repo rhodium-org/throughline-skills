@@ -45,9 +45,27 @@ The name of the second directory is recorded twice, on purpose:
 
    ```toml
    [[sources]]
-   namespace = "<name>"
+   namespace = "<name, cut to fit>"
    path = "../<name>"
    ```
+
+   The pointer is recognised by its `path`; its `namespace` is only what `tl`
+   composes the second graph under. `tl` names each borrowed register by the
+   namespace upper-cased with everything but letters and digits dropped,
+   followed by the register's own prefix, and refuses a result over 16
+   characters ("namespace 'implementation' + prefix 'INT' mangles to
+   'IMPLEMENTATIONINT', which is not a legal UID prefix"), which leaves the whole
+   shape graph unreadable — found shaping rhodium-org/propertyqr on
+   2026-11-15 under `tl 5.11.0`. So `write` uses the name whole when it fits
+   and otherwise cuts it to leave room for the longest prefix the register
+   decisions declare (`implementation` with `GOAL` becomes `implementati`). It
+   refuses, before writing anything, a prefix so long that no cut fits, or a
+   cut whose mangled prefix would be one of the shape graph's own (`SRC`,
+   `DOM`, `NEED`, `DEC`, `NG`, `CON`). A register added to the second graph
+   later with a longer prefix breaks the fit again; `repair` re-cuts the
+   namespace to the second graph's registers as they are. Composition mangles
+   only registers holding items, so a pointer that does not fit goes unnoticed
+   until the second graph's first item.
 
    `tl` already understands this, so no new config format is needed:
    `tl -C idd/<name>-shape context` shows the whole picture, and a source

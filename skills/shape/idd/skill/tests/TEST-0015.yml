@@ -1,0 +1,20 @@
+uid: TEST-0015
+type: test
+status: proposed
+title: A graph named implementation with 4-letter prefixes writes and checks clean
+text: 'tests/test_shape.py, test_a_long_graph_name_composes_under_its_cut_name: shapes
+  and writes a graph named implementation with registers GOAL and REQT and one item
+  in each; asserts the pointer is namespace implementati at path ../implementation,
+  both graphs pass tl check with 0 errors and the shape graph borrows the items as
+  implementati:GOAL-0001 and implementati:REQT-0001, check exits 0 and status reports
+  the pointer recorded; and that write exits 2 naming the decision when a register
+  prefix is 16 characters long, leaving only the shaping under idd/ and no source
+  in it.'
+normative: true
+links:
+- target: REQ-0013
+  type: verifies
+  stamp: sha256:947a9283a602f3ae589c9a971d89a038967f79275493956a40c0d83ec5f69587
+attrs:
+  method: automated
+  origin: ai
