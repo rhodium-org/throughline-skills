@@ -229,8 +229,9 @@ def challenged(tmp_path):
     # unstamped (challenger REQ-0010) and uncovered (challenger REQ-0011): a link into the
     # source without a stamp is listed, a stamped one is not; a source clause nothing
     # implements is listed, an implemented one is not
-    u["impl"] = item(app, "REQ", "Implements the first clause", "It implements it, or fails.",
-                     ground="spec:REQ-0001", ground_type="implements")
+    # tl from 5.8 stamps a link made with its item, so the bare one is made after it
+    u["impl"] = item(app, "REQ", "Implements the first clause", "It implements it, or fails.")
+    run("tl", "-C", str(app), "link", u["impl"], "spec:REQ-0001", "--type", "implements")
     u["stamped"] = item(app, "REQ", "Stamped against the specification",
                         "It derives from it, or fails.", ground="spec:INT-0001")
     run("tl", "-C", str(app), "link", u["stamped"], "spec:INT-0001", "--type", "derives_from",

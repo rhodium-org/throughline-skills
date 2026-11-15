@@ -444,7 +444,9 @@ def test_a_schema_taken_from_a_source_is_the_one_the_fingerprint_reads(repo, tmp
     root = repo / "g"
     root.mkdir()
     (root / "throughline.toml").write_text(
-        '[project]\nname = "app"\nformat_version = 4\n\n'
+        # A project's filters are in one language (tl SR-0337), and the standard
+        # `tl init` lays down from 5.9 writes them in GQL, which format 5 declares.
+        '[project]\nname = "app"\nformat_version = 5\nfilter_language = "gql"\n\n'
         f'[[sources]]\nnamespace = "std"\npath = "{std.root}"\nschema = true\n')
     def tl(*args):
         return ok(TL, "-C", str(root), *args)

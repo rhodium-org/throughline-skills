@@ -540,7 +540,9 @@ def summary(data: dict) -> str:
             mark = "  (unsigned)" if n["unsigned"] else ""
             lines.append(f"  {n['graph']}/{n['uid']}  [{n['type']}/{n['status']}]  {n['title']}{mark}")
     bad = [e for e in data["edges"] if e["stamp"] in ("stale", "unstamped")]
-    lines.append(f"links leaving a graph that are stale or unstamped: {len(bad)}")
+    # Inside one graph too: tl from 5.8 stamps a link made with its item, so one
+    # there goes stale when its target is reworded, as one leaving a graph does.
+    lines.append(f"links that are stale or unstamped: {len(bad)}")
     for e in bad:
         lines.append(f"  {e['from'].split('#')[1]} -{e['type']}-> {e['to'].split('#')[1]}  {e['stamp']}")
     for c in data["checks"]:

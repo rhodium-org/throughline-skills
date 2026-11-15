@@ -177,19 +177,25 @@ def stamps(data):
 # tl: verifies tl-inspect/TEST-0003@6193726a7c3e
 def test_a_stamp_reads_current_then_stale_and_a_bare_link_out_reads_unstamped(repo):
     spec = repo / "spec"
+    # a bare link inside one graph: `tl link` without --stamp
+    run("tl", "-C", spec, "link", "TEST-0001", "REQ-0001", "--type", "relates")
     before = stamps(view(repo, spec, "REQ-0001"))
     assert before[("REQ-0001", "implements")] == "current"
     assert before[("REQ-0002", "satisfies")] == "unstamped"
-    assert before[("TEST-0001", "verifies")] is None          # inside one graph
+    assert before[("TEST-0001", "verifies")] == "current"     # tl stamps it at birth
+    assert before[("TEST-0001", "relates")] is None           # bare, inside one graph
 
     run("tl", "-C", spec, "amend", "REQ-0001", "--text", "Reworded since the stamp was written.")
     after = stamps(view(repo, spec, "REQ-0001"))
     assert after[("REQ-0001", "implements")] == "stale"
+    assert after[("TEST-0001", "verifies")] == "stale"
+    assert after[("TEST-0001", "relates")] is None
 
     said = inspect(repo, spec, "REQ-0001").stdout
-    assert "stale or unstamped: 2" in said
+    assert "links that are stale or unstamped: 3" in said
     assert re.search(r"REQ-0001 -implements-> REQ-0001\s+stale", said)
     assert re.search(r"REQ-0002 -satisfies-> REQ-0001\s+unstamped", said)
+    assert re.search(r"TEST-0001 -verifies-> REQ-0001\s+stale", said)
 
 
 # ── TEST-0004: the layout ───────────────────────────────────────────────────
