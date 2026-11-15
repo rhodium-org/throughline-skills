@@ -30,9 +30,10 @@ authoritative over this file.
 The register set is the guess this skill replaces. `--bare` carries none of it
 and only writes the schema (statuses, roles, transitions, grounding, the
 coverage rule), so the script uses `--bare` for both graphs rather than keeping
-a drifting copy of that schema. Registers come from `tl register new PREFIX DIR`
-and item types, attributes and roots from `tl schema ...`, every one of which
-records a `--because` comment in the config.
+a drifting copy of that schema. Registers come from `tl register new PREFIX DIR
+--type TYPE`, each declaring the item type it holds so `tl new PREFIX` needs no
+`--type`, and item types, attributes and roots from `tl schema ...`, every one
+of which records a `--because` comment in the config.
 
 ## The pointer from the shape graph to the named graph
 

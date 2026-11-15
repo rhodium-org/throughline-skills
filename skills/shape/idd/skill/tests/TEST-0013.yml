@@ -1,0 +1,29 @@
+uid: TEST-0013
+type: test
+status: ratified
+title: A shaping in an older format is written in the running tl's format
+text: 'tests/test_shape.py, test_write_reads_a_shaping_in_an_older_format: with the
+  shape graph''s format_version set one below the one tl init writes under the running
+  tl, asserts write exits 0 and leaves the shape graph and the second graph both
+  at the format tl init writes.'
+normative: true
+links:
+- target: REQ-0012
+  type: verifies
+  stamp: sha256:a4173c98a2b2d52bb6c495d4d381f4474ae1df5ae75c7df1874f18087a0c4107
+attrs:
+  method: automated
+  origin: ai
+ratifications:
+- by: Henry Grech-Cini
+  at: '2026-11-15T18:20:08Z'
+  fingerprint: sha256:fab4039c0ceb3b1c37a4361c22af93a044038db31181e267e674906b58c59e68
+  content:
+    type: test
+    text: 'tests/test_shape.py, test_write_reads_a_shaping_in_an_older_format: with
+      the shape graph''s format_version set one below the one tl init writes under
+      the running tl, asserts write exits 0 and leaves the shape graph and the second
+      graph both at the format tl init writes.'
+    normative: true
+    derived: false
+    attrs: {}

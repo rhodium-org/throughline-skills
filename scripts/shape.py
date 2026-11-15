@@ -34,6 +34,8 @@ Usage:
                        [--attr k=v]... [--graph <name>]
   shape.py [-C REPO] [--shape DIR] write  create idd/<name>/ from the decisions
                                           and rename the shaping <name>-shape
+  shape.py [-C REPO] [--shape DIR] repair bring a shaping and its graph made by an
+                                          older tl or script to what tl reads now
   shape.py [-C REPO] [--shape DIR] check [--strict]
                                           gate both graphs
 
@@ -84,6 +86,12 @@ SHAPING_ATTRS = {
     ],
 }
 DEFAULT_DELIVERY_ROOTS = {"intent", "business_need", "risk", "constraint"}
+# The item type each register of the shape graph holds, by prefix.
+SHAPING_TYPES = {prefix: item_type for item_type, prefix, _d, _t in SHAPING_REGISTERS}
+# `tl register type`, which declares the type of a register that exists, is new
+# in this release; only a shaping that needs it repaired asks for it.
+REGISTER_TYPE_TL = ((5, 11, 0),
+                    "the first release that declares the type of a register that exists")
 SUFFIX = "-" + SHAPE
 IN_PROGRESS_RE = re.compile(rf"^{SHAPE}(-[0-9]+)?$")
 DEAD = {"deleted", "rejected"}
@@ -98,10 +106,11 @@ def die(msg: str, code: int = 2) -> None:
 
 
 # tl: implements skill/REQ-0009@e43dcbfe112b
-def run(graph: Path, *args: str, quiet: bool = False) -> subprocess.CompletedProcess:
+def run(graph: Path, *args: str, quiet: bool = False,
+        ok: tuple[int, ...] = (0,)) -> subprocess.CompletedProcess:
     cmd = [require_tl(), "-C", str(graph), *args]
     proc = subprocess.run(cmd, capture_output=True, text=True)
-    if proc.returncode != 0:
+    if proc.returncode not in ok:
         sys.stderr.write(proc.stdout)
         sys.stderr.write(proc.stderr)
         die(f"`{' '.join(cmd)}` exited {proc.returncode}")
@@ -229,6 +238,67 @@ def name_shaping(repo: Path, shape: Path, name: str) -> Path:
     return final
 
 
+def register_types(graph: Path) -> dict[str, str | None]:
+    """The item type each of the graph's own registers declares, None where none."""
+    out = json.loads(run(graph, "dump", quiet=True).stdout)
+    return {r["prefix"]: r.get("type") for r in out.get("registers", [])
+            if ":" not in r["prefix"]}
+
+
+def decided_types(shape: Path) -> dict[str, str]:
+    """The item type each live register decision in the shaping gives its prefix."""
+    out = {}
+    for i in local_items(shape):
+        at = i.get("attrs", {})
+        if i["type"] == "decision" and at.get("kind") == "register" \
+                and at.get("prefix") and at.get("item_type"):
+            out[at["prefix"]] = at["item_type"]
+    return out
+
+
+# tl: implements skill/REQ-0012@a4173c98a2b2
+def migrate(shape: Path) -> None:
+    """`tl migrate` the shaping and every graph it composes by path, the second
+    graph among them, so that each is in the format the running tl reads: tl
+    reads the shaping only with its sources, so they go first. Migration may end
+    with findings only because a register still declares no type, which
+    `repair` then declares."""
+    for src in config(shape).get("sources", []):
+        other = shape / src.get("path", "")
+        if src.get("path") and (other / "throughline.toml").exists():
+            run(other, "migrate", quiet=True, ok=(0, 1))
+    run(shape, "migrate", quiet=True, ok=(0, 1))
+
+
+# tl: implements skill/REQ-0012@a4173c98a2b2
+def repair(graph: Path, wanted: dict[str, str]) -> tuple[list[str], list[str]]:
+    """Declare, with `tl register type`, the item type of each register of a
+    migrated graph that declares none and whose type the shaping records — a
+    register laid down by an older version of this script, which passed no
+    --type. Returns the registers typed, as `PREFIX = type`, and the prefixes
+    still untyped because the shaping did not make them."""
+    typed, left = [], []
+    for prefix, item_type in register_types(graph).items():
+        if item_type:
+            continue
+        if prefix not in wanted:
+            left.append(prefix)
+            continue
+        require_tl(*REGISTER_TYPE_TL)
+        run(graph, "register", "type", prefix, wanted[prefix], quiet=True)
+        typed.append(f"{prefix} = {wanted[prefix]}")
+    return typed, left
+
+
+def report_repair(graph: Path, typed: list[str], left: list[str]) -> None:
+    if typed:
+        print(f"{graph}: declared the item type of {len(typed)} register(s): "
+              + ", ".join(typed))
+    for prefix in left:
+        print(f"{graph}: register {prefix} declares no item type and this shaping did "
+              f"not make it — `tl -C {graph} register type {prefix} <type>`")
+
+
 # ---------------------------------------------------------------- commands
 
 # tl: implements skill/REQ-0001@7f04bbb468ac, skill/REQ-0002@1da7cc6bf70c, skill/REQ-0008@f949d8dcb4c7
@@ -251,7 +321,8 @@ def cmd_init(repo: Path, a) -> None:
         if item_type in SHAPING_ROOTS:
             declare_root(shape, item_type, SHAPING_ROOTS[item_type],
                          f"a {item_type} is a premise of the shaping")
-        run(shape, "register", "new", prefix, d, "--title", title)
+        # tl: implements skill/REQ-0012@a4173c98a2b2
+        run(shape, "register", "new", prefix, d, "--title", title, "--type", item_type)
     print(f"shape graph laid down at {shape}; every item you author "
           "enters as origin ai, status proposed")
 
@@ -385,6 +456,13 @@ def record_lineage(repo: Path, shape: Path, target: Path) -> None:
 
 def cmd_write(repo: Path, a) -> None:
     shape = resolve(repo, a)
+    # A shaping laid down by an older tl may be in a format the running tl
+    # refuses to read, or by an older version of this script with registers that
+    # declare no type; repair brings it to what the running tl reads, the format
+    # the second graph is laid down in below. A no-op on a current shaping.
+    # tl: implements skill/REQ-0012@a4173c98a2b2
+    migrate(shape)
+    report_repair(shape, *repair(shape, SHAPING_TYPES))
     name = shaped_name(shape)
     if not name:
         die(f"no live name decision in {shape.name} — record one (a decision with "
@@ -405,7 +483,7 @@ def cmd_write(repo: Path, a) -> None:
                   " and recorded its lineage")
             return
         die(f"{target} already exists — the second graph has been written; add "
-            "registers to it with `tl register new` by hand if a new decision "
+            "registers to it with `tl register new --type` by hand if a new decision "
             "calls for one", 1)
     if (repo / IDD / (name + SUFFIX)).exists():
         die(f"{repo / IDD / (name + SUFFIX)} already exists — another shaping "
@@ -446,7 +524,8 @@ def cmd_write(repo: Path, a) -> None:
         declare_type(target, item_type, f"{uid} — {title}")
         if grounding in ("root", "delivery-root"):
             declare_root(target, item_type, grounding, f"{uid} — {title}")
-        run(target, "register", "new", prefix, d, "--title", title)
+        # tl: implements skill/REQ-0012@a4173c98a2b2
+        run(target, "register", "new", prefix, d, "--title", title, "--type", item_type)
 
     cfg = shape / "throughline.toml"
     if not any(s.get("namespace") == name for s in config(shape).get("sources", [])):
@@ -462,6 +541,20 @@ def cmd_write(repo: Path, a) -> None:
     print(f"wrote {target} with {len(regs)} register(s), recorded the pointer and the "
           f"lineage, and named the shape graph {final}\nnext: run `check`; the new graph reports "
           "empty-registers as a warning until its first layer is authored")
+
+
+# tl: implements skill/REQ-0012@a4173c98a2b2
+def cmd_repair(repo: Path, a) -> None:
+    shape = resolve(repo, a)
+    migrate(shape)
+    report_repair(shape, *repair(shape, SHAPING_TYPES))
+    name = shaped_name(shape)
+    target = repo / IDD / name if name else None
+    if target is not None and (target / "throughline.toml").exists():
+        report_repair(target, *repair(target, decided_types(shape)))
+    print(f"repaired {shape.name}" + (f" and {name}" if target is not None
+                                     and target.exists() else "")
+          + " — `tl new <PREFIX>` needs no --type where the shaping made the register")
 
 
 # tl: implements skill/REQ-0007@14bac9f5d8ac
@@ -504,12 +597,13 @@ def main(argv: list[str] | None = None) -> None:
     n.add_argument("--ground-type")
     n.add_argument("--attr", action="append")
     sub.add_parser("write")
+    sub.add_parser("repair")
     c = sub.add_parser("check")
     c.add_argument("--strict", action="store_true")
     a = p.parse_args(argv)
     repo = Path(a.repo).resolve()
     {"init": cmd_init, "status": cmd_status, "new": cmd_new,
-     "write": cmd_write, "check": cmd_check}[a.command](repo, a)
+     "write": cmd_write, "repair": cmd_repair, "check": cmd_check}[a.command](repo, a)
 
 
 if __name__ == "__main__":
