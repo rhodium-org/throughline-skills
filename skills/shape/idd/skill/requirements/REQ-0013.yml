@@ -1,6 +1,6 @@
 uid: REQ-0013
 type: requirement
-status: proposed
+status: ratified
 title: The pointer to the second graph composes whatever the graph is called, and
   is found by its path
 text: 'The pointer from the shape graph to the second graph is the source whose path
@@ -26,3 +26,24 @@ links:
 attrs:
   priority: must
   origin: ai
+ratifications:
+- by: Henry Grech-Cini
+  at: '2026-11-15T20:49:02Z'
+  fingerprint: sha256:947a9283a602f3ae589c9a971d89a038967f79275493956a40c0d83ec5f69587
+  content:
+    type: requirement
+    text: 'The pointer from the shape graph to the second graph is the source whose
+      path is ../<name>, and every command recognises it by that path whatever namespace
+      it carries. Write gives it a namespace tl can compose with every register the
+      register decisions declare: the name, cut to leave room for the longest prefix,
+      because tl joins a namespace''s letters and digits to each borrowed prefix
+      and refuses a result longer than 16 characters or equal to one of the shape
+      graph''s own prefixes. Write refuses, before it writes anything, a shaping
+      for which no cut of the name composes. Repair, and write before it reads the
+      shaping, renames a pointer whose namespace no longer composes with the second
+      graph''s registers to the cut that does, and leaves a pointer that composes
+      as it was.'
+    normative: true
+    derived: false
+    attrs:
+      priority: must
